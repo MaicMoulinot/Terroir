@@ -1,5 +1,6 @@
 package com.jomm.terroir.web;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -59,8 +60,8 @@ public class UserListJsf {
 		if (userJsf != null) {
 			userService.persistUser(userJsf.convertIntoEntity());
 			ResourceBundle resource = ResourceBundle.getBundle("i18n.label", Locale.getDefault());
-			FacesMessage msg = new FacesMessage(resource.getString("updateok"), 
-					resource.getString("updateuser") + userJsf.getUserName());
+			String detail = MessageFormat.format(resource.getString("updateuser"), userJsf.getUserName());
+			FacesMessage msg = new FacesMessage(resource.getString("updateok"), detail);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
