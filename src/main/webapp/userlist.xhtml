@@ -20,13 +20,16 @@
 
 			<p:dataTable id="users" var="currentUser"
 				value="#{userListJsf.allUsers}" editable="true"
-				rendered="#{not empty userListJsf.allUsers}">
+				rendered="#{not empty userListJsf.allUsers}" 
+				rows="5" paginator="true" paginatorPosition="top" paginatorAlwaysVisible="false">
 
 				<p:ajax event="rowEdit" listener="#{userListJsf.onRowEdit}"
 					update=":form:growl" />
 				<p:ajax event="rowEditCancel" listener="#{userListJsf.onRowCancel}"
 					update=":form:growl" />
 
+				<f:facet name="header">#{label.userlist}</f:facet>
+				
 				<p:column headerText="#{label.id}">
 					<p:cellEditor>
 						<f:facet name="output">
@@ -38,7 +41,7 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.username}">
+				<p:column headerText="#{label.username}" sortBy="#{currentUser.userName}">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{currentUser.userName}" />

@@ -1,7 +1,7 @@
 package com.jomm.terroir.web;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -23,7 +23,7 @@ import com.jomm.terroir.business.UserEntityServiceInterface;
 public class UserListJsf {
 
 	// Attributes
-	private ArrayList<UserJsf> allUsers;
+	private LinkedList<UserJsf> allUsers;
 	private UserJsf currentUser;
 
 	@Inject
@@ -37,7 +37,7 @@ public class UserListJsf {
 	 */
 	@PostConstruct 
 	public void init() {
-		allUsers = new ArrayList<>();
+		allUsers = new LinkedList<UserJsf>();
 		for (UserEntity userEntity : userService.getAllUsers()) {
 			UserJsf userJsf = new UserJsf();
 			userJsf.setAge(userEntity.getAge());
@@ -104,14 +104,14 @@ public class UserListJsf {
 	/**
 	 * @return the allUsers
 	 */
-	public ArrayList<UserJsf> getAllUsers() {
+	public LinkedList<UserJsf> getAllUsers() {
 		return allUsers;	// Return the already-prepared model.
 	}
 
 	/**
 	 * @param allUsers the allUsers to set
 	 */
-	public void setAllUsers(ArrayList<UserJsf> allUsers) {
+	public void setAllUsers(LinkedList<UserJsf> allUsers) {
 		this.allUsers = allUsers;
 	}
 
