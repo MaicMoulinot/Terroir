@@ -16,7 +16,7 @@ public class UserEntityService implements UserEntityServiceInterface {
 
 	@Override
 	public void persistUser(UserEntity user) {
-		// Call Service to save
+		// Call Service to persist
 		userDao.persist(user);
 	}
 
@@ -32,7 +32,7 @@ public class UserEntityService implements UserEntityServiceInterface {
 	
 	@Override
 	public void deleteUser(UserEntity user) {
-		// Call Service to save
+		// Call Service to remove
 		userDao.remove(user);
 	}
 

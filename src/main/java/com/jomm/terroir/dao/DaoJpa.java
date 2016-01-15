@@ -23,7 +23,7 @@ public abstract class DaoJpa<K, E> implements Dao<K, E> {
 	
 	@Override
 	public void persist(E entity) {
-		entityManager.persist(entity);
+		entityManager.persist(entityManager.contains(entity) ? entity : entityManager.merge(entity));
 	}
 
 	@Override
