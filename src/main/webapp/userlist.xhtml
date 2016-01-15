@@ -27,18 +27,13 @@
 				<p:ajax event="rowEditCancel" listener="#{userListJsf.onRowCancel}"
 					update=":form:growl" />
 
-				<p:column>
-					<p:rowEditor />
-				</p:column>
-
 				<p:column headerText="#{label.id}">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{currentUser.id}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentUser.id}"
-								label="#{label.id}" />
+							<p:inputText value="#{currentUser.id}" label="#{label.id}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -101,67 +96,27 @@
 					</p:cellEditor>
 				</p:column>
 
+				<p:column headerText="#{label.actions}">
+					<p:rowEditor />
+					<p:commandLink styleClass="ui-icon ui-icon-trash"
+						update=":form:deleteConfirmDialog"
+						oncomplete="PF('deleteConfirmation').show();"
+						action="#{userListJsf.setCurrentUser(currentUser)}">
+					</p:commandLink>
+				</p:column>
+
 			</p:dataTable>
 
-			<h:dataTable value="#{userListJsf.allUsers}" id="listusers"
-				var="currentUser" binding="#{userListJsf.dataTable}"
-				rendered="#{not empty userListJsf.allUsers}">
-				<h:column>
-					<f:facet name="header">#{label.id}</f:facet>
-					<h:outputText value="#{currentUser.id}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">#{label.username}</f:facet>
-					<h:outputText value="#{currentUser.userName}"
-						rendered="#{not currentUser.editable}" />
-					<h:inputText value="#{currentUser.userName}"
-						rendered="#{currentUser.editable}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">#{label.firstname}</f:facet>
-					<h:outputText value="#{currentUser.firstName}"
-						rendered="#{not currentUser.editable}" />
-					<h:inputText value="#{currentUser.firstName}"
-						rendered="#{currentUser.editable}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">#{label.lastname}</f:facet>
-					<h:outputText value="#{currentUser.lastName}"
-						rendered="#{not currentUser.editable}" />
-					<h:inputText value="#{currentUser.lastName}"
-						rendered="#{currentUser.editable}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">#{label.email}</f:facet>
-					<h:outputText value="#{currentUser.editable}"
-						rendered="#{not currentUser.editable}" />
-					<h:inputText value="#{currentUser.editable}"
-						rendered="#{currentUser.editable}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">#{label.age}</f:facet>
-					<h:outputText value="#{currentUser.age}"
-						rendered="#{not currentUser.editable}" />
-					<h:inputText value="#{currentUser.age}"
-						rendered="#{currentUser.editable}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">#{label.actions}</f:facet>
-					<h:commandLink id="edit" value="#{label.edit}"
-						action="#{userListJsf.edit(currentUser)}"
-						rendered="#{not currentUser.editable}" />
-					<h:commandLink id="validedit" value="#{label.valid}"
-						action="#{userListJsf.validEdit(currentUser)}"
-						rendered="#{currentUser.editable}" />
-						&nbsp;&nbsp;
-					<h:commandLink id="delete" value="#{label.delete}"
-						action="#{userListJsf.delete(currentUser)}"
-						rendered="#{not currentUser.editable}" />
-					<h:commandLink id="canceledit" value="#{label.cancel}"
-						action="#{userListJsf.cancelEdit(currentUser)}"
-						rendered="#{currentUser.editable}" />
-				</h:column>
-			</h:dataTable>
+			<p:confirmDialog id="deleteConfirmDialog" header="#{label.confirmation}"
+				severity="alert" widgetVar="deleteConfirmation"
+				message="#{label.confirmdelete} #{userListJsf.currentUser.userName} ?" closeOnEscape="true">
+				<p:commandButton id="confirm" value="#{label.valid}"
+					oncomplete="PF('deleteConfirmation').hide();"
+					update=":form:growl"
+					action="#{userListJsf.delete()}" process="@this" />
+				<p:commandButton id="decline" value="#{label.cancel}"
+					oncomplete="PF('deleteConfirmation').hide();" />
+			</p:confirmDialog>
 
 			<!-- Buttons -->
 			<br />

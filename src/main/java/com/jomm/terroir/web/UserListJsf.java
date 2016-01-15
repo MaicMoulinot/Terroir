@@ -1,8 +1,10 @@
 package com.jomm.terroir.web;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-import javax.enterprise.inject.Model;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -10,7 +12,6 @@ import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.UserEntity;
@@ -21,100 +22,21 @@ import com.jomm.terroir.business.UserEntityServiceInterface;
 public class UserListJsf {
 
 	// Attributes
+	private ArrayList<UserJsf> allUsers;
+	private UserJsf currentUser;
+
 	@Inject
 	private UserEntityServiceInterface userService;
 
 	// Managed Backing Bean
 	private HtmlDataTable dataTable;
 
-	
-	//TODO tests...
-    public void onRowEdit(RowEditEvent event) {
-        //FacesMessage msg = new FacesMessage("User Edited", String.valueOf(((UserJsf) event.getObject()).getUserName()));
-        FacesMessage msg = new FacesMessage("User Edited", ((UserJsf) event.getObject()).getUserName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-     
-    public void onRowCancel(RowEditEvent event) {
-        //FacesMessage msg = new FacesMessage("Edit Cancelled", String.valueOf(((UserJsf) event.getObject()).getId()));
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((UserJsf) event.getObject()).getUserName());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-    
-   public void onCellEdit(CellEditEvent event) {
-       Object oldValue = event.getOldValue();
-       Object newValue = event.getNewValue();
-       
-       if(newValue != null && !newValue.equals(oldValue)) {
-           FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
-           FacesContext.getCurrentInstance().addMessage(null, msg);
-       }
-       
-       // TODO
-//		if (userJsf != null) {
-//			userService.persistUser(userJsf.convertIntoEntity());
-//			userJsf.setEditable(false);//TODO util?
-//		}
-   }
-	
-	
-	
 	/**
-	 * Set a user as editable.
-	 * @param userJsf UserJsf
-	 * @return null (navigation).
+	 * Initialize the list of all users.
 	 */
-	public String edit(UserJsf userJsf) {
-		userJsf.setEditable(true);
-		return null;	// Navigation purpose.
-		//TODO ne doit pas charger en base
-	}
-	
-	
-	
-	/**
-	 * Set a user as non-editable.
-	 * @param userJsf UserJsf
-	 * @return null (navigation).
-	 */
-	public String cancelEdit(UserJsf userJsf) {
-		userJsf.setEditable(false);
-		return null;	// Navigation purpose.
-	}
-	
-	/**
-	 * Update an existing user.
-	 * @param userJsf UserJsf the user to be updated.
-	 * @return "userlist" (navigation).
-	 */
-	public String validEdit(UserJsf userJsf) {
-		if (userJsf != null) {
-			userService.persistUser(userJsf.convertIntoEntity());
-			userJsf.setEditable(false);//TODO util?
-		}
-		return "userlist" + "?faces-redirect=true";	// Navigation case.
-	}
-
-	/**
-	 * Delete an user.
-	 * @param userJsf UserJsf the user to be deleted.
-	 * @return "userlist" (navigation).
-	 */
-	public String delete(UserJsf userJsf) {
-		if (userJsf != null) {
-			UserEntity userEntity = userJsf.convertIntoEntity();
-			// Call Service to delete.
-			userService.deleteUser(userEntity);
-		}
-		return "userlist" + "?faces-redirect=true";	// Navigation case.
-	}
-
-	/**
-	 * Fetch all users.
-	 * @return a list of all users.
-	 */
-	public ArrayList<UserJsf> getAllUsers() {
-		ArrayList<UserJsf> allUsers = new ArrayList<>();
+	@PostConstruct 
+	public void init() {
+		allUsers = new ArrayList<>();
 		for (UserEntity userEntity : userService.getAllUsers()) {
 			UserJsf userJsf = new UserJsf();
 			userJsf.setAge(userEntity.getAge());
@@ -125,7 +47,43 @@ public class UserListJsf {
 			userJsf.setId(userEntity.getUserId());
 			allUsers.add(userJsf);
 		}
-		return allUsers;
+
+	}
+
+	/**
+	 * Is called when a row is edited.
+	 * @param event RowEditEvent the AJAX event.
+	 */
+	public void onRowEdit(RowEditEvent event) {
+		UserJsf userJsf = (UserJsf) event.getObject();
+		if (userJsf != null) {
+			userService.persistUser(userJsf.convertIntoEntity());
+			ResourceBundle resource = ResourceBundle.getBundle("i18n.label", Locale.getDefault());
+			FacesMessage msg = new FacesMessage(resource.getString("updateok"), 
+					resource.getString("updateuser") + userJsf.getUserName());
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
+	}
+
+	/**
+	 * Is called when a edited row is back to normal state.
+	 * @param event RowEditEvent the AJAX event.
+	 */
+	public void onRowCancel(RowEditEvent event) {
+		// Do nothing.
+	}
+
+	/**
+	 * Delete an user.
+	 * @return "userlist" (navigation).
+	 */
+	public String delete() {
+		if (currentUser != null) {
+			UserEntity userEntity = currentUser.convertIntoEntity();
+			// Call Service to delete.
+			userService.deleteUser(userEntity);
+		}
+		return "userlist" + "?faces-redirect=true";	// Navigation case.
 	}
 
 	/**
@@ -141,5 +99,34 @@ public class UserListJsf {
 	public void setDataTable(HtmlDataTable dataTable) {
 		this.dataTable = dataTable;
 	}
+
+	/**
+	 * @return the allUsers
+	 */
+	public ArrayList<UserJsf> getAllUsers() {
+		return allUsers;	// Return the already-prepared model.
+	}
+
+	/**
+	 * @param allUsers the allUsers to set
+	 */
+	public void setAllUsers(ArrayList<UserJsf> allUsers) {
+		this.allUsers = allUsers;
+	}
+
+	/**
+	 * @return the currentUser
+	 */
+	public UserJsf getCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * @param currentUser the currentUser to set
+	 */
+	public void setCurrentUser(UserJsf currentUser) {
+		this.currentUser = currentUser;
+	}
+
 
 }
