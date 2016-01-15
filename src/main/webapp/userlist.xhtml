@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h2>#{label.userlist}</h2>
+		<br />
+		<br />
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" />
+
+			<h:outputLabel value="#{error.userempty}"
+				rendered="#{empty userListJsf.allUsers}" styleClass="messages" />
+
+			<p:dataTable id="users" var="currentUser"
+				value="#{userListJsf.allUsers}" editable="true"
+				rendered="#{not empty userListJsf.allUsers}">
+
+				<p:ajax event="rowEdit" listener="#{userListJsf.onRowEdit}"
+					update=":form:growl" />
+				<p:ajax event="rowEditCancel" listener="#{userListJsf.onRowCancel}"
+					update=":form:growl" />
+
+				<p:column>
+					<p:rowEditor />
+				</p:column>
+
+				<p:column headerText="#{label.id}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentUser.id}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentUser.id}"
+								label="#{label.id}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.username}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentUser.userName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentUser.userName}"
+								label="#{label.username}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.firstname}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentUser.firstName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentUser.firstName}"
+								label="#{label.firstname}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.lastname}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentUser.lastName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentUser.lastName}"
+								label="#{label.lastname}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.email}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentUser.email}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentUser.email}" label="#{label.email}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.age}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentUser.age}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentUser.age}" label="#{label.age}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+			</p:dataTable>
+
+			<h:dataTable value="#{userListJsf.allUsers}" id="listusers"
+				var="currentUser" binding="#{userListJsf.dataTable}"
+				rendered="#{not empty userListJsf.allUsers}">
+				<h:column>
+					<f:facet name="header">#{label.id}</f:facet>
+					<h:outputText value="#{currentUser.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{label.username}</f:facet>
+					<h:outputText value="#{currentUser.userName}"
+						rendered="#{not currentUser.editable}" />
+					<h:inputText value="#{currentUser.userName}"
+						rendered="#{currentUser.editable}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{label.firstname}</f:facet>
+					<h:outputText value="#{currentUser.firstName}"
+						rendered="#{not currentUser.editable}" />
+					<h:inputText value="#{currentUser.firstName}"
+						rendered="#{currentUser.editable}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{label.lastname}</f:facet>
+					<h:outputText value="#{currentUser.lastName}"
+						rendered="#{not currentUser.editable}" />
+					<h:inputText value="#{currentUser.lastName}"
+						rendered="#{currentUser.editable}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{label.email}</f:facet>
+					<h:outputText value="#{currentUser.editable}"
+						rendered="#{not currentUser.editable}" />
+					<h:inputText value="#{currentUser.editable}"
+						rendered="#{currentUser.editable}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{label.age}</f:facet>
+					<h:outputText value="#{currentUser.age}"
+						rendered="#{not currentUser.editable}" />
+					<h:inputText value="#{currentUser.age}"
+						rendered="#{currentUser.editable}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">#{label.actions}</f:facet>
+					<h:commandLink id="edit" value="#{label.edit}"
+						action="#{userListJsf.edit(currentUser)}"
+						rendered="#{not currentUser.editable}" />
+					<h:commandLink id="validedit" value="#{label.valid}"
+						action="#{userListJsf.validEdit(currentUser)}"
+						rendered="#{currentUser.editable}" />
+						&nbsp;&nbsp;
+					<h:commandLink id="delete" value="#{label.delete}"
+						action="#{userListJsf.delete(currentUser)}"
+						rendered="#{not currentUser.editable}" />
+					<h:commandLink id="canceledit" value="#{label.cancel}"
+						action="#{userListJsf.cancelEdit(currentUser)}"
+						rendered="#{currentUser.editable}" />
+				</h:column>
+			</h:dataTable>
+
+			<!-- Buttons -->
+			<br />
+			<br />
+			<h:panelGrid columns="2">
+				<h:outputLabel for="create">
+					<h:outputText id="createLabel" value="#{label.newuser}" />
+				</h:outputLabel>
+				<h:commandButton id="create" value="#{label.ok}"
+					action="usernew?faces-redirect=true" />
+			</h:panelGrid>
+			<br />
+			<br />
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

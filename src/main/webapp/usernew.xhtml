@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h2>#{label.newuser}</h2>
+		<br />
+		<br />
+		<h:form>
+			<h:outputLabel value="#{error.errors}"
+				rendered="#{not empty facesContext.messageList}"
+				styleClass="messages" />
+			<h:messages rendered="#{not empty facesContext.messageList}" />
+			<h:panelGrid columns="3">
+				<h:outputLabel for="firstname">
+					<h:outputText id="firstnameLabel" value="#{label.firstname}" />
+				</h:outputLabel>
+				<h:inputText id="firstname" value="#{userJsf.firstName}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.lenght2}">
+					<f:validateLength minimum="2" />
+				</h:inputText>
+				<h:message style="color: red" for="firstname" />
+
+				<h:outputLabel for="lastname">
+					<h:outputText id="lastnameLabel" value="#{label.lastname}" />
+				</h:outputLabel>
+				<h:inputText id="lastname" value="#{userJsf.lastName}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.lenght2}">
+					<f:validateLength minimum="2" />
+				</h:inputText>
+				<h:message style="color: red" for="lastname" />
+
+				<h:outputLabel for="username">
+					<h:outputText id="usernameLabel" value="#{label.username}" />
+				</h:outputLabel>
+				<h:inputText id="username" value="#{userJsf.userName}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.lenght6}">
+					<f:validateLength minimum="6" />
+				</h:inputText>
+				<h:message style="color: red" for="username" />
+
+				<h:outputLabel for="email">
+					<h:outputText id="emailLabel" value="#{label.email}" />
+				</h:outputLabel>
+				<h:inputText id="email" value="#{userJsf.email}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.lenght6}">
+					<f:validateLength minimum="6" />
+				</h:inputText>
+				<h:message style="color: red" for="email" />
+				
+				<h:outputLabel for="age">
+					<h:outputText id="ageLabel" value="#{label.age}" />
+				</h:outputLabel>
+				<h:inputText id="age" value="#{userJsf.age}" required="true"
+					requiredMessage="#{error.mandatory}"
+					converterMessage="#{error.integer}"
+					validatorMessage="#{error.agemin}">
+					<f:convertNumber />
+					<f:validateLongRange minimum="18" />
+				</h:inputText>
+				<h:message style="color: red" for="age" />
+
+			</h:panelGrid>
+
+			<!-- Button -->
+			<br />
+			<br />
+			<h:outputLabel for="create">
+				<h:outputText id="createLabel" value="#{msg.donotpressthe}" />
+			</h:outputLabel>
+			<h:commandButton id="create" value="#{msg.redbutton}"
+				action="#{userJsf.create}" />
+			<br />
+			<br />
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

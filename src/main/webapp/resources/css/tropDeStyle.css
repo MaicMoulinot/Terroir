@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+
+html, body {
+	margin: 100;
+	padding: 100;
+}
+
+body {
+	background-color: #3CB371;
+	margin: 100px 100px 100px 100px;
+	font-family: Candara, Comic sans MS;
+	font-size: 100%;
+}
+
+h1 {
+	background-color: #FF7F50;
+	font-size: 200%;
+	color: black;
+	text-align: center;
+}
+
+h2 {
+	background-color: #ADFF2F;
+	font-size: 150%;
+	color: black;
+	padding-left: 15px;
+}
+
+h6 {
+	font-size: 70%;
+	color: black;
+	font-style: italic;
+	padding-left: 15px;
+}
+
+p, ul, li, td {
+	color: black;
+}
+
+a:link {
+	color: green;
+	text-decoration: underline;
+}
+
+a:visited {
+	color: gray;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: red;
+	text-decoration: underline;
+}
+
+a:active, a:focus {
+	color: red;
+	text-decoration: underline;
+}
+
+.messages {
+	color: red;
+}

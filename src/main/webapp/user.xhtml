@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h2>#{userJsf.userName}</h2>
+		<br />
+		<br />
+		<h:form>
+			<h:panelGrid columns="2">
+
+				<h:outputLabel for="firstname">
+					<h:outputText id="firstnameLabel" value="#{label.firstname}" />
+				</h:outputLabel>
+				<h:outputText id="firstname" value="#{userJsf.firstName}" />
+
+				<h:outputLabel for="lastname">
+					<h:outputText id="lastnameLabel" value="#{label.lastname}" />
+				</h:outputLabel>
+				<h:outputText id="lastname" value="#{userJsf.lastName}" />
+
+				<h:outputLabel for="username">
+					<h:outputText id="usernameLabel" value="#{label.username}" />
+				</h:outputLabel>
+				<h:outputText id="username" value="#{userJsf.userName}" />
+
+				<h:outputLabel for="email">
+					<h:outputText id="emailLabel" value="#{label.email}" />
+				</h:outputLabel>
+				<h:outputText id="email" value="#{userJsf.email}" />
+				
+				<h:outputLabel for="age">
+					<h:outputText id="ageLabel" value="#{label.age}" />
+				</h:outputLabel>
+				<h:outputText id="age" value="#{userJsf.age}" />
+
+			</h:panelGrid>
+
+			<!-- Buttons -->
+			<br />
+			<br />
+			<h:panelGrid columns="2">
+				<h:outputLabel for="userlist">
+					<h:outputText id="userlistLabel" value="#{label.userlist}" />
+				</h:outputLabel>
+				<h:commandButton id="userlist" value="#{label.ok}"
+					action="userlist" />
+					
+				<h:outputLabel for="edit">
+					<h:outputText id="editLabel" value="#{label.edit}: " />
+				</h:outputLabel>
+				<h:commandButton id="edit" value="#{label.ok}"
+					action="#{userJsf.edit}" />
+			</h:panelGrid>
+			<br />
+			<br />
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
