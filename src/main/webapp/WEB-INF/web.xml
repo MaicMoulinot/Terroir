@@ -5,17 +5,10 @@
 	version="3.1">
 	<display-name>terroirWA</display-name>
 	<welcome-file-list>
-	<welcome-file>userlist.xhtml</welcome-file>
+		<welcome-file>userlist.xhtml</welcome-file>
 	</welcome-file-list>
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>TerroirFacesServlet</servlet-name> -->
-<!-- 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class> -->
-<!-- 		<load-on-startup>1</load-on-startup> -->
-<!-- 	</servlet> -->
-<!-- 	Mapping : association requests with file extension .xhtml, .html, .jsf to TerroirFacesServlet -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>TerroirFacesServlet</servlet-name> -->
-<!-- 		<url-pattern>*.xhtml</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>eggplant</param-value>
+	</context-param>
 </web-app>
