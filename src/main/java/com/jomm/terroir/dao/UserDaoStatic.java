@@ -39,4 +39,28 @@ public class UserDaoStatic extends DaoStatic <Long, UserEntity> implements UserD
 	public void persist(UserEntity entity) {
 		listUsers.put(entity.getUserId(), entity);
 	}
+
+	@Override
+	public boolean isExistingEmail(String email) {
+		boolean result = false;
+		for (UserEntity user : findAll()) {
+			if(user.getEmail().matches(email)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public boolean isExistingUserName(String userName) {
+		boolean result = false;
+		for (UserEntity user : findAll()) {
+			if(user.getUserName().matches(userName)) {
+				result = true;
+				break;
+			}
+		}
+		return result;
+	}
 }
