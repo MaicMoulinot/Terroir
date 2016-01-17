@@ -1,10 +1,13 @@
 package com.jomm.terroir.web;
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.UserEntity;
@@ -17,46 +20,65 @@ public class UserJsf {
 	private UserEntityServiceInterface userService;
 
 	//	Attributes
+	private long id;
 	private String firstName;
 	private String lastName;
 	private String userName;
 	private String email;
-	private int age;
-	private long id;
-	private boolean editable;
-
+	private String password;
+	private Date birthDate;
+	private boolean admin;
+	private Date signUpDate;
+	
+	// Ressource bundle.
+	private static final String USER_REGISTRED = "usersaved";
+	private static final ResourceBundle RESOURCE_LABEL = ResourceBundle.getBundle("i18n.label", Locale.getDefault());
+	
 	/**
 	 * Create and save a new User.
 	 * @return "userlist" (navigation).
 	 */
-	public String create() {
+    public String create() {
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		setSignUpDate(now);
 		userService.persistUser(convertIntoEntity());
+        FacesMessage message = 
+        		new FacesMessage(FacesMessage.SEVERITY_INFO, RESOURCE_LABEL.getString(USER_REGISTRED), null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
+    }
+	
+	/**
+	 * Transform an {@link UserJsf} into {@link UserEntity}.
+	 * @return UserEntity.
+	 */
+	public UserEntity convertIntoEntity() {
+		UserEntity userEntity = new UserEntity();
+		userEntity.setUserId(getId());
+		userEntity.setFirstName(getFirstName());
+		userEntity.setLastName(getLastName());
+		userEntity.setUserName(getUserName());
+		userEntity.setEmail(getEmail());
+		userEntity.setUserPassword(getPassword());
+		userEntity.setBirthDate(getBirthDate());
+		userEntity.setSignUpDate(getSignUpDate());
+		userEntity.setAdmin(isAdmin());
+		return userEntity;
 	}
 
 	/**
-	 * @param context a FacesContext.
-	 * @param component a UIComponent.
-	 * @param value an Object the birthPlace to validate.
-	 * @throws ValidatorException
+	 * @return the id
 	 */
-	public void validateBirthPlace(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		String birthPlace = (String) value;
-		String errorMessage = null;
-		if (birthPlace.length() < 4) {
-			errorMessage = "The birth place must be at least 4 characters long.";
-		}
-		if (errorMessage == null && !birthPlace.startsWith("ZOO_") && !birthPlace.matches("WILD")) {
-			errorMessage = "The birth place must be on format 'WILD' or 'ZOO_something'.";
-		}
-		if (errorMessage != null) {
-			FacesMessage facesMessage = new FacesMessage(errorMessage);
-			facesMessage.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(facesMessage);
-		}
-		//TODO usefull??
+	public long getId() {
+		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the firstName
@@ -115,60 +137,58 @@ public class UserJsf {
 	}
 
 	/**
-	 * @return the age
+	 * @return the password
 	 */
-	public int getAge() {
-		return age;
+	public String getPassword() {
+		return password;
 	}
 
 	/**
-	 * @param age the age to set
+	 * @param password the password to set
 	 */
-	public void setAge(int age) {
-		this.age = age;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	/**
-	 * @return the id
+	 * @return the birthDate
 	 */
-	public long getId() {
-		return id;
+	public Date getBirthDate() {
+		return birthDate;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param birthDate the birthDate to set
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	/**
-	 * @return the editable
+	 * @return the admin
 	 */
-	public boolean isEditable() {
-		return editable;
+	public boolean isAdmin() {
+		return admin;
 	}
 
 	/**
-	 * @param editable the editable to set
+	 * @param admin the admin to set
 	 */
-	public void setEditable(boolean editable) {
-		this.editable = editable;
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
-	
 	/**
-	 * Transform an {@link UserJsf} into {@link UserEntity}.
-	 * @return UserEntity.
+	 * @return the signUpDate
 	 */
-	public UserEntity convertIntoEntity() {
-		UserEntity userEntity = new UserEntity();
-		userEntity.setUserId(getId());
-		userEntity.setAge(getAge());
-		userEntity.setEmail(getEmail());
-		userEntity.setFirstName(getFirstName());
-		userEntity.setLastName(getLastName());
-		userEntity.setUserName(getUserName());
-		return userEntity;
+	public Date getSignUpDate() {
+		return signUpDate;
+	}
+
+	/**
+	 * @param signUpDate the signUpDate to set
+	 */
+	public void setSignUpDate(Date signUpDate) {
+		this.signUpDate = signUpDate;
 	}
 }

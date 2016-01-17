@@ -31,6 +31,11 @@ public class UserListJsf {
 
 	// Managed Backing Bean
 	private HtmlDataTable dataTable;
+	
+	// Static constants
+	private static final String UPDATE_USER = "updateuser";
+	private static final String UPDATE_OK = "updateok";
+	private static final ResourceBundle RESOURCE_LABEL = ResourceBundle.getBundle("i18n.label", Locale.getDefault());
 
 	/**
 	 * Initialize the list of all users.
@@ -40,12 +45,15 @@ public class UserListJsf {
 		allUsers = new LinkedList<UserJsf>();
 		for (UserEntity userEntity : userService.getAllUsers()) {
 			UserJsf userJsf = new UserJsf();
-			userJsf.setAge(userEntity.getAge());
-			userJsf.setEmail(userEntity.getEmail());
+			userJsf.setId(userEntity.getUserId());
 			userJsf.setFirstName(userEntity.getFirstName());
 			userJsf.setLastName(userEntity.getLastName());
 			userJsf.setUserName(userEntity.getUserName());
-			userJsf.setId(userEntity.getUserId());
+			userJsf.setEmail(userEntity.getEmail());
+			userJsf.setPassword(userEntity.getUserPassword());
+			userJsf.setBirthDate(userEntity.getBirthDate());
+			userJsf.setAdmin(userEntity.isAdmin());
+			userJsf.setSignUpDate(userEntity.getSignUpDate());
 			allUsers.add(userJsf);
 		}
 
@@ -59,9 +67,8 @@ public class UserListJsf {
 		UserJsf userJsf = (UserJsf) event.getObject();
 		if (userJsf != null) {
 			userService.persistUser(userJsf.convertIntoEntity());
-			ResourceBundle resource = ResourceBundle.getBundle("i18n.label", Locale.getDefault());
-			String detail = MessageFormat.format(resource.getString("updateuser"), userJsf.getUserName());
-			FacesMessage msg = new FacesMessage(resource.getString("updateok"), detail);
+			String detail = MessageFormat.format(RESOURCE_LABEL.getString(UPDATE_USER), userJsf.getUserName());
+			FacesMessage msg = new FacesMessage(RESOURCE_LABEL.getString(UPDATE_OK), detail);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}
@@ -72,6 +79,7 @@ public class UserListJsf {
 	 */
 	public void onRowCancel(RowEditEvent event) {
 		// Do nothing.
+		//TODO put ancient values
 	}
 
 	/**
