@@ -1,10 +1,16 @@
 package com.jomm.terroir.business;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -19,20 +25,47 @@ public class UserEntity {
 	// Attributes
 	@Id
 	@GeneratedValue
+	@Column(name = "user_id")
 	@XmlAttribute(required = true)
 	private long userId;
+	
+	@Column(name = "first_name")
 	@XmlAttribute
 	private String firstName;
+	
 	@XmlAttribute
+	@Column(name = "last_name")
 	private String lastName;
-	@Column(unique=true)
+	
+	@Column(unique = true, name = "user_name")
+	@NotNull
 	@XmlAttribute(required = true)
 	private String userName;
+	
 	@Column(unique=true)
+	@NotNull
 	@XmlAttribute(required = true)
 	private String email;
+	
+	@Column(name = "user_password")
+	@NotNull
+	@XmlAttribute(required = true)
+	private String userPassword;
+	
+	@Temporal(TemporalType.DATE)
+	@Past(message = "date doit etre passée")
+	@Column(name = "birth_date")
 	@XmlAttribute
-	private int age;
+	private Date birthDate;
+	
+	@Column(name = "is_admin")
+	@XmlAttribute
+	private boolean isAdmin;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "signup_date")
+	@XmlAttribute
+	private Date signUpDate;
 	
 	// Getters and Setters
 	/**
@@ -96,15 +129,51 @@ public class UserEntity {
 		this.email = email;
 	}
 	/**
-	 * @return the age
+	 * @return the password
 	 */
-	public int getAge() {
-		return age;
+	public String getUserPassword() {
+		return userPassword;
 	}
 	/**
-	 * @param age the age to set
+	 * @param userPassword the password to set
 	 */
-	public void setAge(int age) {
-		this.age = age;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+	/**
+	 * @return the birthDate
+	 */
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	/**
+	 * @param birthDate the birthDate to set
+	 */
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
+	/**
+	 * @return the isAdmin
+	 */
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+	/**
+	 * @param isAdmin the isAdmin to set
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+	/**
+	 * @return the signUpDate
+	 */
+	public Date getSignUpDate() {
+		return signUpDate;
+	}
+	/**
+	 * @param signUpDate the signUpDate to set
+	 */
+	public void setSignUpDate(Date signUpDate) {
+		this.signUpDate = signUpDate;
 	}
 }
