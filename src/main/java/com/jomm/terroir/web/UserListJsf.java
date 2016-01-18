@@ -35,7 +35,7 @@ public class UserListJsf {
 	// Static constants
 	private static final String UPDATE_USER = "updateuser";
 	private static final String UPDATE_OK = "updateok";
-	private static final ResourceBundle RESOURCE_LABEL = ResourceBundle.getBundle("i18n.label", Locale.getDefault());
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n.message", Locale.getDefault());
 
 	/**
 	 * Initialize the list of all users.
@@ -67,8 +67,9 @@ public class UserListJsf {
 		UserJsf userJsf = (UserJsf) event.getObject();
 		if (userJsf != null) {
 			userService.persistUser(userJsf.convertIntoEntity());
-			String detail = MessageFormat.format(RESOURCE_LABEL.getString(UPDATE_USER), userJsf.getUserName());
-			FacesMessage msg = new FacesMessage(RESOURCE_LABEL.getString(UPDATE_OK), detail);
+			Object[] argument = {userJsf.getUserName()};
+			String detail = MessageFormat.format(RESOURCE_BUNDLE.getString(UPDATE_USER), argument);
+			FacesMessage msg = new FacesMessage(RESOURCE_BUNDLE.getString(UPDATE_OK), detail);
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 		}
 	}

@@ -5,8 +5,8 @@
 	<application>
 		<resource-bundle>
 			<display-name>Messages</display-name>
-			<base-name>i18n.i18n</base-name>
-			<var>msg</var>
+			<base-name>i18n.message</base-name>
+			<var>message</var>
 		</resource-bundle>
 		<resource-bundle>
 			<display-name>Labels</display-name>

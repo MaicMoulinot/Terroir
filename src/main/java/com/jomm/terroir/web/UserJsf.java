@@ -32,7 +32,7 @@ public class UserJsf {
 	
 	// Ressource bundle.
 	private static final String USER_REGISTRED = "usersaved";
-	private static final ResourceBundle RESOURCE_LABEL = ResourceBundle.getBundle("i18n.label", Locale.getDefault());
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n.message", Locale.getDefault());
 	
 	/**
 	 * Create and save a new User.
@@ -43,7 +43,7 @@ public class UserJsf {
 		setSignUpDate(now);
 		userService.persistUser(convertIntoEntity());
         FacesMessage message = 
-        		new FacesMessage(FacesMessage.SEVERITY_INFO, RESOURCE_LABEL.getString(USER_REGISTRED), null);
+        		new FacesMessage(FacesMessage.SEVERITY_INFO, RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
         FacesContext.getCurrentInstance().addMessage(null, message);
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
     }
