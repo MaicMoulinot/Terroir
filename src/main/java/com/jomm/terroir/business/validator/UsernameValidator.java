@@ -40,7 +40,8 @@ public class UsernameValidator implements Validator {
 								resource.getString(LENGHT_AT_LEAST_6_CHARACTERS), null));
 			}
 			if (userDao.isExistingUserName(userName)) {
-				String detail = MessageFormat.format(resource.getString(EXISTING_USER_NAME), userName);
+				Object[] argument = {userName};
+				String detail = MessageFormat.format(resource.getString(EXISTING_USER_NAME), argument);
 				throw new ValidatorException(
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
 			}
