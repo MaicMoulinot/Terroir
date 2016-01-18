@@ -13,10 +13,6 @@
 		<br />
 		<br />
 		<h:form id="form">
-
-			<p:messages id="messages" autoUpdate="true" showIcon="true" />
-			<p:separator />
-
 			<h:panelGrid columns="3">
 				<p:outputLabel for="firstname" id="firstnameLabel"
 					value="#{label.firstname}" />
@@ -24,7 +20,7 @@
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.lenght2}">
 					<f:validateLength minimum="2" />
-					<f:ajax event="blur" render="firstnameMessage" />
+					<p:ajax event="blur" update="firstnameMessage" />
 				</p:inputText>
 				<p:message id="firstnameMessage" for="firstname" display="text" />
 
@@ -34,7 +30,7 @@
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.lenght2}">
 					<f:validateLength minimum="2" />
-					<f:ajax event="blur" render="lastnameMessage" />
+					<p:ajax event="blur" update="lastnameMessage" />
 				</p:inputText>
 				<p:message id="lastnameMessage" for="lastname" display="text" />
 
@@ -43,7 +39,7 @@
 				<p:inputText id="username" value="#{userJsf.userName}"
 					required="true" requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{usernameValidator}" />
-					<f:ajax event="blur" render="usernameMessage" />
+					<p:ajax event="blur" update="usernameMessage" />
 				</p:inputText>
 				<p:message id="usernameMessage" for="username" display="text" />
 
@@ -51,7 +47,7 @@
 				<p:inputText id="email" value="#{userJsf.email}" required="true"
 					requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{emailValidator}" />
-					<f:ajax event="blur" render="emailMessage" />
+					<p:ajax event="blur" execute="email" update="emailMessage" />
 				</p:inputText>
 				<p:message id="emailMessage" for="email" display="text" />
 
@@ -60,8 +56,8 @@
 				<p:password id="password" value="#{userJsf.password}"
 					feedback="true" binding="#{password1}" required="true"
 					requiredMessage="#{error.mandatory}">
-					<f:ajax event="blur" execute="password password2"
-						render="passwordMessage password2Message" />
+					<p:ajax event="blur" update="passwordMessage password2Message"
+						execute="password password2" />
 				</p:password>
 				<p:message id="passwordMessage" for="password" display="text" />
 
@@ -70,8 +66,8 @@
 				<p:password id="password2" value="#{userJsf.password}"
 					feedback="true" required="true"
 					requiredMessage="#{error.mandatory}">
-					<f:ajax event="blur" execute="password password2"
-						render="passwordMessage password2Message" />
+					<p:ajax event="blur" update="passwordMessage password2Message"
+						execute="password password2" />
 					<f:attribute name="password1" value="#{password1}" />
 					<f:validator binding="#{passwordValidator}" />
 				</p:password>
@@ -81,27 +77,25 @@
 					value="#{label.birthdate}" />
 				<p:calendar id="birthdate" value="#{userJsf.birthDate}"
 					navigator="true" pattern="dd/MM/yyyy">
-					<f:ajax event="blur" render="birthdateMessage" />
+					<p:ajax event="blur" update="birthdateMessage" />
 				</p:calendar>
 				<p:message id="birthdateMessage" for="birthdate" display="text" />
 
 			</h:panelGrid>
-
-			<!-- Button -->
 			<br />
 			<br />
+			<p:messages id="messages" closable="true" />
 			<h:outputLabel for="create">
 				<h:outputText id="createLabel" value="#{msg.donotpressthe}" />
 			</h:outputLabel>
-			<p:commandButton id="create" value="#{msg.redbutton}"
-				action="#{userJsf.create}" styleClass="ui-priority-primary" />
-			<p:commandButton value="#{label.reset}" update="form" process="@this">
+			<p:commandButton id="create" value="#{msg.redbutton}" update="form"
+				action="#{userJsf.create}" styleClass="ui-icon-check" />
+			<p:commandButton value="#{label.reset}" update="form" process="@this"  styleClass="ui-icon-refresh">
 				<p:resetInput target="form" />
 			</p:commandButton>
 			<br />
 			<br />
 		</h:form>
-
 	</ui:define>
 </ui:composition>
 </html>
