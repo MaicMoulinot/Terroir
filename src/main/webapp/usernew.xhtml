@@ -83,12 +83,9 @@
 
 			</h:panelGrid>
 			<br />
-			<br />
 			<p:messages id="messages" closable="true" />
-			<h:outputLabel for="create">
-				<h:outputText id="createLabel" value="#{msg.donotpressthe}" />
-			</h:outputLabel>
-			<p:commandButton id="create" value="#{msg.redbutton}" update="form"
+			<br />
+			<p:commandButton id="create" value="#{label.save}" update="form"
 				action="#{userJsf.create}" styleClass="ui-icon-check" />
 			<p:commandButton value="#{label.reset}" update="form" process="@this"  styleClass="ui-icon-refresh">
 				<p:resetInput target="form" />
