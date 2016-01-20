@@ -27,7 +27,7 @@
 				<p:ajax event="rowEdit" listener="#{userListJsf.onRowEdit}"
 					update=":form:growl" />
 				<p:ajax event="rowEditCancel" listener="#{userListJsf.onRowCancel}"
-					update=":form:growl" />
+					update=":form:growl" resetValues="true" />
 
 				<f:facet name="header">#{label.userlist}</f:facet>
 
@@ -169,7 +169,7 @@
 					<h:outputText id="createLabel" value="#{label.newuser}" />
 				</h:outputLabel>
 				<h:commandButton id="create" value="#{label.ok}"
-					action="usernew?faces-redirect=true" />
+					action="usersignup?faces-redirect=true" />
 			</h:panelGrid>
 			<br />
 			<br />

@@ -76,7 +76,7 @@
 					value="#{label.birthdate}" />
 				<p:calendar id="birthdate" value="#{userJsf.birthDate}"
 					navigator="true" pattern="dd/MM/yyyy"
-					yearRange="#{userJsf.generateYearRange()}" effect="slide" required="true"
+					yearRange="#{userJsf.yearRange()}" effect="slide" required="true"
 					requiredMessage="#{error.mandatory}">
 					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
