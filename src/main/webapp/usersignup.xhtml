@@ -56,8 +56,11 @@
 					value="#{label.password}" />
 				<p:password id="password1" value="#{userJsf.password}"
 					feedback="true" binding="#{passwordParam}" required="true"
-					requiredMessage="#{error.mandatory}">
-					<p:ajax event="blur" execute="password1 password2" update="password1Message password2Message" />
+					requiredMessage="#{error.mandatory}"
+					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
+					goodLabel="#{label.good}" strongLabel="#{label.strong}">
+					<p:ajax event="blur" execute="password1 password2"
+						update="password1Message password2Message" />
 				</p:password>
 				<p:message id="password1Message" for="password1" display="text" />
 
@@ -65,10 +68,13 @@
 					value="#{label.password2}" />
 				<p:password id="password2" value="#{userJsf.password}"
 					feedback="true" required="true"
-					requiredMessage="#{error.mandatory}">
+					requiredMessage="#{error.mandatory}"
+					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
+					goodLabel="#{label.good}" strongLabel="#{label.strong}">
 					<f:attribute name="passwordParam" value="#{passwordParam}" />
 					<f:validator binding="#{passwordValidator}" />
-					<p:ajax event="blur" execute="password1 password2" update="password1Message password2Message" />
+					<p:ajax event="blur" execute="password1 password2"
+						update="password1Message password2Message" />
 				</p:password>
 				<p:message id="password2Message" for="password2" display="text" />
 
@@ -76,8 +82,8 @@
 					value="#{label.birthdate}" />
 				<p:calendar id="birthdate" value="#{userJsf.birthDate}"
 					navigator="true" pattern="dd/MM/yyyy"
-					yearRange="#{userJsf.generateYearRange()}" effect="slide" required="true"
-					requiredMessage="#{error.mandatory}">
+					yearRange="#{userJsf.generateYearRange()}" effect="slide"
+					required="true" requiredMessage="#{error.mandatory}">
 					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
 				</p:calendar>
@@ -89,7 +95,8 @@
 			<p:commandButton id="create" value="#{label.save}" update="form"
 				action="#{userJsf.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
-			<p:commandButton id="reset" value="#{label.reset}" icon="ui-icon-refresh">
+			<p:commandButton id="reset" value="#{label.reset}"
+				icon="ui-icon-refresh">
 				<p:ajax update="form" resetValues="true" />
 			</p:commandButton>
 			<br />
