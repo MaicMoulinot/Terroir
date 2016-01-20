@@ -5,15 +5,17 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import javax.enterprise.inject.Model;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.UserEntity;
 import com.jomm.terroir.business.UserEntityServiceInterface;
 
-@Model
+@ManagedBean
+@ViewScoped
 public class UserJsf {
 
 	@Inject

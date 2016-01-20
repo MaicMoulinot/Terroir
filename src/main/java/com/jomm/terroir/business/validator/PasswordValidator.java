@@ -20,14 +20,14 @@ import javax.inject.Named;
 public class PasswordValidator implements Validator {
 
 	// Static constants
-	private static final String PASSWORD_1 = "password1";
+	private static final String PASSWORD_PARAMETER = "passwordParam";
 	private static final String I18N_ERROR = "i18n.error";
-    private static final String PASSWORDS_DONT_MATCH = "passwordsdifferent";
-    private static final String FIELD_MANDATORY = "mandatory";
-    private static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
-    private static final String PASSWORD_RULES = "passwordrules";
-    
-    // Pattern for password
+	private static final String PASSWORDS_DONT_MATCH = "passwordsdifferent";
+	private static final String FIELD_MANDATORY = "mandatory";
+	private static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
+	private static final String PASSWORD_RULES = "passwordrules";
+
+	// Pattern for password
 	private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
 	// (?=.*\d)		#   must contain one digit from 0-9
 	// (?=.*[a-z])	#   must contain one lowercase character
@@ -39,7 +39,7 @@ public class PasswordValidator implements Validator {
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		try {
-			String password1 = (String) ((UIInput) component.getAttributes().get(PASSWORD_1)).getValue();
+			String password1 = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER)).getValue();
 			String password2 = (String) value;
 			ResourceBundle resource = ResourceBundle.getBundle(I18N_ERROR, Locale.getDefault());
 			if (password1 == null || password2 == null) {

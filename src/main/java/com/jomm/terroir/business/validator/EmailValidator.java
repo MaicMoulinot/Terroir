@@ -25,7 +25,6 @@ public class EmailValidator implements Validator {
 	// Static constants
 	private static final String I18N_ERROR = "i18n.error";
 	private static final String EXISTING_EMAIL = "emaildoublon";
-	private static final String LENGHT_AT_LEAST_6_CHARACTERS = "lenght6";
     private static final String FIELD_MANDATORY = "mandatory";
     private static final String EMAIL_UNVALID = "emailnonvalid";
 	
@@ -45,11 +44,6 @@ public class EmailValidator implements Validator {
 				// Email address is lacking
 				throw new ValidatorException(
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(FIELD_MANDATORY), null));
-			} else if (email.length() < 6) {
-				// Email address is less then 6 characters
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-								resource.getString(LENGHT_AT_LEAST_6_CHARACTERS), null));
 			} else if (!EMAIL_PATTERN.matcher(email).matches()) {
 				// Email address is unvalid
 				throw new ValidatorException(
