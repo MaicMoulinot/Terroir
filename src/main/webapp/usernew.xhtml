@@ -12,6 +12,7 @@
 		<h2>#{label.newuser}</h2>
 		<br />
 		<br />
+		<p:messages id="messages" closable="true" />
 		<h:form id="form">
 			<h:panelGrid columns="3">
 				<p:outputLabel for="firstname" id="firstnameLabel"
@@ -51,44 +52,45 @@
 				</p:inputText>
 				<p:message id="emailMessage" for="email" display="text" />
 
-				<p:outputLabel for="password" id="passwordLabel"
+				<p:outputLabel for="password1" id="password1Label"
 					value="#{label.password}" />
-				<p:password id="password" value="#{userJsf.password}"
-					feedback="true" binding="#{password1}" required="true"
+				<p:password id="password1" value="#{userJsf.password}"
+					feedback="true" binding="#{passwordParam}" required="true"
 					requiredMessage="#{error.mandatory}">
-					<p:ajax event="blur" update="passwordMessage password2Message"
-						execute="password password2" />
+					<p:ajax event="blur" execute="password1 password2" update="password1Message password2Message" />
 				</p:password>
-				<p:message id="passwordMessage" for="password" display="text" />
+				<p:message id="password1Message" for="password1" display="text" />
 
 				<p:outputLabel for="password2" id="password2Label"
 					value="#{label.password2}" />
 				<p:password id="password2" value="#{userJsf.password}"
 					feedback="true" required="true"
 					requiredMessage="#{error.mandatory}">
-					<p:ajax event="blur" update="passwordMessage password2Message"
-						execute="password password2" />
-					<f:attribute name="password1" value="#{password1}" />
+					<f:attribute name="passwordParam" value="#{passwordParam}" />
 					<f:validator binding="#{passwordValidator}" />
+					<p:ajax event="blur" execute="password1 password2" update="password1Message password2Message" />
 				</p:password>
 				<p:message id="password2Message" for="password2" display="text" />
 
 				<p:outputLabel for="birthdate" id="birthdateLabel"
 					value="#{label.birthdate}" />
 				<p:calendar id="birthdate" value="#{userJsf.birthDate}"
-					navigator="true" pattern="dd/MM/yyyy">
+					navigator="true" pattern="dd/MM/yyyy"
+					yearRange="1925:2005" effect="slide" required="true"
+					requiredMessage="#{error.mandatory}">
+					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
 				</p:calendar>
 				<p:message id="birthdateMessage" for="birthdate" display="text" />
 
 			</h:panelGrid>
 			<br />
-			<p:messages id="messages" closable="true" />
 			<br />
 			<p:commandButton id="create" value="#{label.save}" update="form"
-				action="#{userJsf.create}" styleClass="ui-icon-check" />
-			<p:commandButton value="#{label.reset}" update="form" process="@this"  styleClass="ui-icon-refresh">
-				<p:resetInput target="form" />
+				action="#{userJsf.create}" icon="ui-icon-check" />
+			<p:spacer width="20" />
+			<p:commandButton id="reset" value="#{label.reset}" icon="ui-icon-refresh">
+				<p:ajax update="form" resetValues="true" />
 			</p:commandButton>
 			<br />
 			<br />
