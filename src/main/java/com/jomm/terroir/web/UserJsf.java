@@ -1,6 +1,7 @@
 package com.jomm.terroir.web;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -48,6 +49,18 @@ public class UserJsf {
         		new FacesMessage(FacesMessage.SEVERITY_INFO, RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
         FacesContext.getCurrentInstance().addMessage(null, message);
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
+    }
+    
+    /**
+     * Generate the year's range for birthdate calendar.
+     * @return "minYear:maxYear"
+     */
+    public String generateYearRange() {
+    	Calendar calendar = Calendar.getInstance();
+    	int actualYear = calendar.get(Calendar.YEAR);
+    	int minYear = actualYear - 97;
+    	int maxYear = actualYear - 17;
+    	return minYear + ":" + maxYear;
     }
 	
 	/**
