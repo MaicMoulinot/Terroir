@@ -10,10 +10,10 @@
 <ui:composition template="template/template.xhtml">
 	<ui:define name="content">
 		<h2>#{label.newuser}</h2>
-		<br />
-		<br />
+		<p:spacer height="50" />
 		<p:messages id="messages" closable="true" />
 		<h:form id="form">
+			<p:growl id="growl" for="growl" showDetail="true" escape="true" sticky="true" />
 			<h:panelGrid columns="3">
 				<p:outputLabel for="firstname" id="firstnameLabel"
 					value="#{label.firstname}" />
@@ -90,8 +90,8 @@
 				<p:message id="birthdateMessage" for="birthdate" display="text" />
 
 			</h:panelGrid>
-			<br />
-			<br />
+			
+			<p:spacer height="100" />
 			<p:commandButton id="create" value="#{label.save}" update="form"
 				action="#{userJsf.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
@@ -99,8 +99,10 @@
 				icon="ui-icon-refresh">
 				<p:ajax update="form" resetValues="true" />
 			</p:commandButton>
-			<br />
-			<br />
+			<p:commandButton id="help" title="help" icon="ui-icon-help" process="@this"
+				actionListener="#{userJsf.buttonAction}" update="growl" />
+			<p:spacer height="50" />
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -1,6 +1,5 @@
 package com.jomm.terroir.web;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -10,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.UserEntity;
@@ -42,25 +42,26 @@ public class UserJsf {
 	 * @return "userlist" (navigation).
 	 */
     public String create() {
-		Timestamp now = new Timestamp(System.currentTimeMillis());
-		setSignUpDate(now);
+		setSignUpDate(new Date());
 		userService.persistUser(convertIntoEntity());
-        FacesMessage message = 
-        		new FacesMessage(FacesMessage.SEVERITY_INFO, RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
+        FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
         FacesContext.getCurrentInstance().addMessage(null, message);
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
     }
     
     /**
-     * Generate the year's range for birthdate calendar.
+     * Generate the year's range for birth date calendar.
      * @return "minYear:maxYear"
      */
     public String generateYearRange() {
-    	Calendar calendar = Calendar.getInstance();
-    	int actualYear = calendar.get(Calendar.YEAR);
-    	int minYear = actualYear - 97;
-    	int maxYear = actualYear - 17;
+    	int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    	int minYear = currentYear - 97;
+    	int maxYear = currentYear - 17;
     	return minYear + ":" + maxYear;
+    }
+    
+    public void buttonAction(ActionEvent actionEvent) {
+        FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("Tooltip", "Additional Message Detail"));
     }
 	
 	/**
