@@ -13,8 +13,8 @@
 		<p:spacer height="50" />
 		<p:messages id="messages" closable="true" />
 		<h:form id="form">
-			<p:growl id="growl" for="growl" showDetail="true" escape="true" sticky="true" />
-			<h:panelGrid columns="3">
+			<p:growl id="growl" for="growl" showDetail="true" escape="false" life="6000" />
+			<h:panelGrid columns="4">
 				<p:outputLabel for="firstname" id="firstnameLabel"
 					value="#{label.firstname}" />
 				<p:inputText id="firstname" value="#{userJsf.firstName}"
@@ -23,6 +23,7 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="firstnameMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="firstnameMessage" for="firstname" display="text" />
 
 				<p:outputLabel for="lastname" id="lastnameLabel"
@@ -33,6 +34,7 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="lastnameMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="lastnameMessage" for="lastname" display="text" />
 
 				<p:outputLabel for="username" id="usernameLabel"
@@ -42,6 +44,7 @@
 					<f:validator binding="#{usernameValidator}" />
 					<p:ajax event="blur" update="usernameMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="usernameMessage" for="username" display="text" />
 
 				<p:outputLabel for="email" id="emailLabel" value="#{label.email}" />
@@ -50,6 +53,7 @@
 					<f:validator binding="#{emailValidator}" />
 					<p:ajax event="blur" execute="email" update="emailMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="emailMessage" for="email" display="text" />
 
 				<p:outputLabel for="password1" id="password1Label"
@@ -62,6 +66,9 @@
 					<p:ajax event="blur" execute="password1 password2"
 						update="password1Message password2Message" />
 				</p:password>
+				<p:commandButton id="help" title="help" icon="ui-icon-help"
+					process="@this" actionListener="#{userJsf.passwordTooltip}"
+					update="growl" />
 				<p:message id="password1Message" for="password1" display="text" />
 
 				<p:outputLabel for="password2" id="password2Label"
@@ -76,6 +83,9 @@
 					<p:ajax event="blur" execute="password1 password2"
 						update="password1Message password2Message" />
 				</p:password>
+				<p:commandButton id="help2" title="help" icon="ui-icon-help"
+					process="@this" actionListener="#{userJsf.passwordTooltip}"
+					update="growl" />
 				<p:message id="password2Message" for="password2" display="text" />
 
 				<p:outputLabel for="birthdate" id="birthdateLabel"
@@ -87,10 +97,11 @@
 					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
 				</p:calendar>
+				<p:spacer />
 				<p:message id="birthdateMessage" for="birthdate" display="text" />
 
 			</h:panelGrid>
-			
+
 			<p:spacer height="100" />
 			<p:commandButton id="create" value="#{label.save}" update="form"
 				action="#{userJsf.create}" icon="ui-icon-check" />
@@ -99,11 +110,9 @@
 				icon="ui-icon-refresh">
 				<p:ajax update="form" resetValues="true" />
 			</p:commandButton>
-			<p:commandButton id="help" title="help" icon="ui-icon-help" process="@this"
-				actionListener="#{userJsf.buttonAction}" update="growl" />
-			<p:spacer height="50" />
-			
+
 		</h:form>
+			<p:spacer height="50" />
 	</ui:define>
 </ui:composition>
 </html>

@@ -32,38 +32,42 @@ public class UserJsf {
 	private Date birthDate;
 	private boolean admin;
 	private Date signUpDate;
-	
+
 	// Ressource bundle.
 	private static final String USER_REGISTRED = "usersaved";
+	private static final String PASSWORD_TITLE = "passwordtitle";
+	private static final String PASSWORD_RULES = "passwordrules";
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n.message", Locale.getDefault());
-	
+
 	/**
 	 * Create and save a new User.
 	 * @return "userlist" (navigation).
 	 */
-    public String create() {
+	public String create() {
 		setSignUpDate(new Date());
 		userService.persistUser(convertIntoEntity());
-        FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+		FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
+		FacesContext.getCurrentInstance().addMessage(null, message);
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
-    }
-    
-    /**
-     * Generate the year's range for birth date calendar.
-     * @return "minYear:maxYear"
-     */
-    public String generateYearRange() {
-    	int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-    	int minYear = currentYear - 97;
-    	int maxYear = currentYear - 17;
-    	return minYear + ":" + maxYear;
-    }
-    
-    public void buttonAction(ActionEvent actionEvent) {
-        FacesContext.getCurrentInstance().addMessage("growl", new FacesMessage("Tooltip", "Additional Message Detail"));
-    }
-	
+	}
+
+	/**
+	 * Generate the year's range for birth date calendar.
+	 * @return "minYear:maxYear"
+	 */
+	public String generateYearRange() {
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		int minYear = currentYear - 97;
+		int maxYear = currentYear - 17;
+		return minYear + ":" + maxYear;
+	}
+
+	public void passwordTooltip(ActionEvent actionEvent) {
+		FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(PASSWORD_TITLE), 
+				RESOURCE_BUNDLE.getString(PASSWORD_RULES));
+		FacesContext.getCurrentInstance().addMessage("growl", message);
+	}
+
 	/**
 	 * Transform an {@link UserJsf} into {@link UserEntity}.
 	 * @return UserEntity.
