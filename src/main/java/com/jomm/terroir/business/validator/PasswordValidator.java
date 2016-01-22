@@ -1,6 +1,5 @@
 package com.jomm.terroir.business.validator;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -10,7 +9,10 @@ import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import javax.inject.Inject;
 import javax.inject.Named;
+
+import com.jomm.terroir.util.Error;
 
 /**
  * @author Maic
@@ -21,11 +23,14 @@ public class PasswordValidator implements Validator {
 
 	// Static constants
 	private static final String PASSWORD_PARAMETER = "passwordParam";
-	private static final String I18N_ERROR = "i18n.error";
 	private static final String PASSWORDS_DONT_MATCH = "passwordsdifferent";
 	private static final String FIELD_MANDATORY = "mandatory";
 	private static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
 	private static final String PASSWORD_RULES = "passwordrules";
+	
+	@Inject
+	@Error
+    private ResourceBundle resource;
 
 	// Pattern for password
 	private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
@@ -41,7 +46,6 @@ public class PasswordValidator implements Validator {
 		try {
 			String password1 = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER)).getValue();
 			String password2 = (String) value;
-			ResourceBundle resource = ResourceBundle.getBundle(I18N_ERROR, Locale.getDefault());
 			if (password1 == null || password2 == null) {
 				// One password at least is lacking
 				throw new ValidatorException(

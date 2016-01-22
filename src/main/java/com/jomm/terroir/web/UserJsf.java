@@ -2,7 +2,6 @@ package com.jomm.terroir.web;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.UserEntity;
 import com.jomm.terroir.business.UserEntityServiceInterface;
+import com.jomm.terroir.util.Message;
 
 @ManagedBean
 @ViewScoped
@@ -24,6 +24,10 @@ public class UserJsf {
 	
 	@Inject
 	private FacesContext facesContext;
+	
+	@Inject
+	@Message
+	private ResourceBundle resource;
 
 	//	Attributes
 	private long id;
@@ -40,7 +44,6 @@ public class UserJsf {
 	private static final String USER_REGISTRED = "usersaved";
 	private static final String PASSWORD_TITLE = "passwordtitle";
 	private static final String PASSWORD_RULES = "passwordrules";
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n.message", Locale.getDefault());
 
 	/**
 	 * Create and save a new User.
@@ -49,7 +52,7 @@ public class UserJsf {
 	public String create() {
 		setSignUpDate(new Date());
 		userService.persistUser(convertIntoEntity());
-		FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
+		FacesMessage message = new FacesMessage(resource.getString(USER_REGISTRED), null);
 		facesContext.addMessage(null, message);
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
 	}
@@ -70,8 +73,7 @@ public class UserJsf {
 	 * @param actionEvent the ActionEvent invoking the tips.
 	 */
 	public void passwordTooltip(ActionEvent actionEvent) {
-		FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(PASSWORD_TITLE), 
-				RESOURCE_BUNDLE.getString(PASSWORD_RULES));
+		FacesMessage message = new FacesMessage(resource.getString(PASSWORD_TITLE), resource.getString(PASSWORD_RULES));
 		facesContext.addMessage("growl", message);
 	}
 

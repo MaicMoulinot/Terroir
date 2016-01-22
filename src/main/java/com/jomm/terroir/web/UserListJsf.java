@@ -2,7 +2,6 @@ package com.jomm.terroir.web;
 
 import java.text.MessageFormat;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +16,7 @@ import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.UserEntity;
 import com.jomm.terroir.business.UserEntityServiceInterface;
+import com.jomm.terroir.util.Message;
 
 @ManagedBean
 @ViewScoped
@@ -31,6 +31,10 @@ public class UserListJsf {
 	
 	@Inject
 	private FacesContext facesContext;
+	
+	@Inject
+	@Message
+	private ResourceBundle resource;
 
 	// Managed Backing Bean
 	private HtmlDataTable dataTable;
@@ -38,7 +42,6 @@ public class UserListJsf {
 	// Static constants
 	private static final String UPDATE_USER = "updateuser";
 	private static final String UPDATE_OK = "updateok";
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("i18n.message", Locale.getDefault());
 
 	/**
 	 * Initialize the list of all users.
@@ -71,8 +74,8 @@ public class UserListJsf {
 		if (userJsf != null) {
 			userService.persistUser(userJsf.convertIntoEntity());
 			Object[] argument = {userJsf.getUserName()};
-			String detail = MessageFormat.format(RESOURCE_BUNDLE.getString(UPDATE_USER), argument);
-			FacesMessage msg = new FacesMessage(RESOURCE_BUNDLE.getString(UPDATE_OK), detail);
+			String detail = MessageFormat.format(resource.getString(UPDATE_USER), argument);
+			FacesMessage msg = new FacesMessage(resource.getString(UPDATE_OK), detail);
 			facesContext.addMessage(null, msg);
 		}
 	}

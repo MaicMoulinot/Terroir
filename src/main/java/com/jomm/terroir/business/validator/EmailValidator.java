@@ -1,7 +1,6 @@
 package com.jomm.terroir.business.validator;
 
 import java.text.MessageFormat;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.dao.UserDaoInterface;
+import com.jomm.terroir.util.Error;
 
 /**
  * @author Maic
@@ -23,7 +23,6 @@ import com.jomm.terroir.dao.UserDaoInterface;
 public class EmailValidator implements Validator {
 	
 	// Static constants
-	private static final String I18N_ERROR = "i18n.error";
 	private static final String EXISTING_EMAIL = "emaildoublon";
     private static final String FIELD_MANDATORY = "mandatory";
     private static final String EMAIL_UNVALID = "emailnonvalid";
@@ -34,12 +33,15 @@ public class EmailValidator implements Validator {
     
     @Inject
     private UserDaoInterface userDao;
+    
+    @Inject
+    @Error
+    private ResourceBundle resource;
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		try {
 			String email = (String) value;
-			ResourceBundle resource = ResourceBundle.getBundle(I18N_ERROR, Locale.getDefault());
 			if (email == null) {
 				// Email address is lacking
 				throw new ValidatorException(
