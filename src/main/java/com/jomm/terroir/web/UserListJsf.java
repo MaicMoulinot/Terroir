@@ -28,6 +28,9 @@ public class UserListJsf {
 
 	@Inject
 	private UserEntityServiceInterface userService;
+	
+	@Inject
+	private FacesContext facesContext;
 
 	// Managed Backing Bean
 	private HtmlDataTable dataTable;
@@ -70,7 +73,7 @@ public class UserListJsf {
 			Object[] argument = {userJsf.getUserName()};
 			String detail = MessageFormat.format(RESOURCE_BUNDLE.getString(UPDATE_USER), argument);
 			FacesMessage msg = new FacesMessage(RESOURCE_BUNDLE.getString(UPDATE_OK), detail);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+			facesContext.addMessage(null, msg);
 		}
 	}
 

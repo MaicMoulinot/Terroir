@@ -46,9 +46,8 @@ public class UsernameValidator implements Validator {
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
 			}
 		} catch (Exception exception) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null);
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			facesContext.addMessage(component.getClientId(facesContext), message);
+			throw new ValidatorException(
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null));
 		}
 	}
 }

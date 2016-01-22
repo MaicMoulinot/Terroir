@@ -21,6 +21,9 @@ public class UserJsf {
 
 	@Inject
 	private UserEntityServiceInterface userService;
+	
+	@Inject
+	private FacesContext facesContext;
 
 	//	Attributes
 	private long id;
@@ -47,7 +50,7 @@ public class UserJsf {
 		setSignUpDate(new Date());
 		userService.persistUser(convertIntoEntity());
 		FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(USER_REGISTRED), null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+		facesContext.addMessage(null, message);
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
 	}
 
@@ -62,10 +65,14 @@ public class UserJsf {
 		return minYear + ":" + maxYear;
 	}
 
+	/**
+	 * Get tips to create a secured enough password and send them into growl.
+	 * @param actionEvent the ActionEvent invoking the tips.
+	 */
 	public void passwordTooltip(ActionEvent actionEvent) {
 		FacesMessage message = new FacesMessage(RESOURCE_BUNDLE.getString(PASSWORD_TITLE), 
 				RESOURCE_BUNDLE.getString(PASSWORD_RULES));
-		FacesContext.getCurrentInstance().addMessage("growl", message);
+		facesContext.addMessage("growl", message);
 	}
 
 	/**
