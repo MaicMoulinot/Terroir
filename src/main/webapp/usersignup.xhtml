@@ -13,7 +13,8 @@
 		<p:spacer height="50" />
 		<p:messages id="messages" closable="true" />
 		<h:form id="form">
-			<p:growl id="growl" for="growl" showDetail="true" escape="false" life="6000" />
+			<p:growl id="growl" for="growl" showDetail="true" escape="false"
+				life="6000" />
 			<h:panelGrid columns="4">
 				<p:outputLabel for="firstname" id="firstnameLabel"
 					value="#{label.firstname}" />
@@ -39,7 +40,8 @@
 
 				<p:outputLabel for="username" id="usernameLabel"
 					value="#{label.username}" />
-				<p:tooltip id="usertooltip" for="username" value="#{label.usernametooltip}" />
+				<p:tooltip id="usertooltip" for="username"
+					value="#{label.usernametooltip}" />
 				<p:inputText id="username" value="#{userJsf.userName}"
 					required="true" requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{usernameValidator}" />
@@ -58,9 +60,11 @@
 
 				<p:outputLabel for="password1" id="password1Label"
 					value="#{label.password}" />
-				<p:commandButton id="help" title="help" icon="ui-icon-help"
+				<p:commandLink id="help" title="#{message.passwordtitle}"
 					process="@this" actionListener="#{userJsf.passwordTooltip}"
-					update="growl" />
+					update="growl">
+					<i class="fa fa-info-circle"></i>
+				</p:commandLink>
 				<p:password id="password1" value="#{userJsf.password}"
 					feedback="true" binding="#{passwordParam}" required="true"
 					requiredMessage="#{error.mandatory}"
@@ -73,9 +77,11 @@
 
 				<p:outputLabel for="password2" id="password2Label"
 					value="#{label.password2}" />
-				<p:commandButton id="help2" title="help" icon="ui-icon-help"
+				<p:commandLink id="help2" title="#{message.passwordtitle}"
 					process="@this" actionListener="#{userJsf.passwordTooltip}"
-					update="growl" />
+					update="growl">
+					<i class="fa fa-info-circle"></i>
+				</p:commandLink>
 				<p:password id="password2" value="#{userJsf.password}"
 					feedback="true" required="true"
 					requiredMessage="#{error.mandatory}"
@@ -112,7 +118,7 @@
 			</p:commandButton>
 
 		</h:form>
-			<p:spacer height="50" />
+		<p:spacer height="50" />
 	</ui:define>
 </ui:composition>
 </html>
