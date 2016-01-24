@@ -21,6 +21,7 @@
 			<p:dataTable id="users" var="currentUser"
 				value="#{userListJsf.allUsers}" editable="true"
 				rendered="#{not empty userListJsf.allUsers}" rows="5"
+				scrollable="true" scrollRows="2" stickyHeader="true"
 				paginator="true" paginatorPosition="top"
 				paginatorAlwaysVisible="false">
 
@@ -105,7 +106,9 @@
 				<p:column headerText="#{label.birthdate}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{user.date}" />
+							<p:outputLabel value="#{currentUser.birthDate}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+							</p:outputLabel>
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{currentUser.birthDate}">
@@ -129,11 +132,14 @@
 				<p:column headerText="#{label.signupdate}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentUser.signUpDate}" />
+							<p:outputLabel value="#{currentUser.signUpDate}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" />
+							</p:outputLabel>
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentUser.signUpDate}"
-								label="#{label.signupdate}" />
+							<p:inputText value="#{currentUser.signUpDate}">
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy HH:mm:ss" />
+							</p:inputText>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
