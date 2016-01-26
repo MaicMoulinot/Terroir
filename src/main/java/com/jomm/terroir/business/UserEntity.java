@@ -3,6 +3,7 @@ package com.jomm.terroir.business;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -66,6 +67,9 @@ public class UserEntity {
 	@Column(name = "signup_date")
 	@XmlAttribute
 	private Date signUpDate;
+	
+	@Embedded
+	private AddressEmbeddable address;
 	
 	// Getters and Setters
 	/**
@@ -175,5 +179,17 @@ public class UserEntity {
 	 */
 	public void setSignUpDate(Date signUpDate) {
 		this.signUpDate = signUpDate;
+	}
+	/**
+	 * @return the address
+	 */
+	public AddressEmbeddable getAddress() {
+		return address;
+	}
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(AddressEmbeddable address) {
+		this.address = address;
 	}
 }
