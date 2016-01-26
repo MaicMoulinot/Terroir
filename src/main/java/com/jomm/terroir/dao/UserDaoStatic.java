@@ -37,7 +37,7 @@ public class UserDaoStatic extends DaoStatic <Long, UserEntity> implements UserD
 
 	@Override
 	public void persist(UserEntity entity) {
-		listUsers.put(entity.getUserId(), entity);
+		listUsers.put(entity.getId(), entity);
 	}
 
 	@Override

@@ -51,7 +51,7 @@ public class UserListJsf {
 		allUsers = new LinkedList<UserJsf>();
 		for (UserEntity userEntity : userService.getAllUsers()) {
 			UserJsf userJsf = new UserJsf();
-			userJsf.setId(userEntity.getUserId());
+			userJsf.setId(userEntity.getId());
 			userJsf.setFirstName(userEntity.getFirstName());
 			userJsf.setLastName(userEntity.getLastName());
 			userJsf.setUserName(userEntity.getUserName());

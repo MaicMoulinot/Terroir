@@ -27,7 +27,7 @@ public class UserEntity {
 	@GeneratedValue
 	@Column(name = "user_id")
 	@XmlAttribute(required = true)
-	private long userId;
+	private long id;
 	
 	@Column(name = "first_name")
 	@XmlAttribute
@@ -69,16 +69,16 @@ public class UserEntity {
 	
 	// Getters and Setters
 	/**
-	 * @return the userId
+	 * @return the id
 	 */
-	public long getUserId() {
-		return userId;
+	public long getId() {
+		return id;
 	}
 	/**
-	 * @param userId the userId to set
+	 * @param id the id to set
 	 */
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setId(long id) {
+		this.id = id;
 	}
 	/**
 	 * @return the firstName

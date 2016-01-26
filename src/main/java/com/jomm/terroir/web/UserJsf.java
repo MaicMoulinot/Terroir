@@ -83,7 +83,7 @@ public class UserJsf {
 	 */
 	public UserEntity convertIntoEntity() {
 		UserEntity userEntity = new UserEntity();
-		userEntity.setUserId(getId());
+		userEntity.setId(getId());
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());
 		userEntity.setUserName(getUserName());
