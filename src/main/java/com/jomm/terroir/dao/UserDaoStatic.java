@@ -14,6 +14,7 @@ public class UserDaoStatic extends DaoStatic <Long, UserEntity> implements UserD
 
 	private static HashMap<Long, UserEntity> listUsers;
 
+	/** Constructor with no parameter. */
 	public UserDaoStatic() {
 		if (listUsers == null) {
 			listUsers = new HashMap<Long, UserEntity>();
