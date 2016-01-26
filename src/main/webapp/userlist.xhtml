@@ -10,8 +10,7 @@
 <ui:composition template="template/template.xhtml">
 	<ui:define name="content">
 		<h2>#{label.userlist}</h2>
-		<br />
-		<br />
+		<p:spacer height="50" />
 		<h:form id="form">
 			<p:growl id="growl" showDetail="true" />
 
@@ -168,8 +167,7 @@
 			</p:confirmDialog>
 
 			<!-- Buttons -->
-			<br />
-			<br />
+			<p:spacer height="50" />
 			<h:panelGrid columns="2">
 				<h:outputLabel for="create">
 					<h:outputText id="createLabel" value="#{label.newuser}" />
@@ -177,8 +175,7 @@
 				<h:commandButton id="create" value="#{label.ok}"
 					action="usersignup?faces-redirect=true" />
 			</h:panelGrid>
-			<br />
-			<br />
+			<p:spacer height="50" />
 		</h:form>
 
 	</ui:define>
