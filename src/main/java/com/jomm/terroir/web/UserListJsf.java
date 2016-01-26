@@ -143,6 +143,4 @@ public class UserListJsf {
 	public void setCurrentUser(UserJsf currentUser) {
 		this.currentUser = currentUser;
 	}
-
-
 }

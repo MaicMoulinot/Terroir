@@ -69,7 +69,7 @@ public class UserJsf {
 	}
 
 	/**
-	 * Get tips to create a secured enough password and send them into growl.
+	 * Generate tips to create a secured enough password into growl.
 	 * @param actionEvent the ActionEvent invoking the tips.
 	 */
 	public void passwordTooltip(ActionEvent actionEvent) {
