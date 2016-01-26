@@ -1,11 +1,13 @@
 package com.jomm.terroir.business;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -66,6 +68,9 @@ public class UserEntity {
 	@Column(name = "signup_date")
 	@XmlAttribute
 	private Date signUpDate;
+	
+	@ManyToMany
+	private List<EstablishmentEntity> establishementList;
 	
 	// Getters and Setters
 	/**
@@ -175,5 +180,19 @@ public class UserEntity {
 	 */
 	public void setSignUpDate(Date signUpDate) {
 		this.signUpDate = signUpDate;
+	}
+	
+	/**
+	 * @return the establishementList
+	 */
+	public List<EstablishmentEntity> getEstablishementList() {
+		return establishementList;
+	}
+	
+	/**
+	 * @param establishementList the establishementList to set
+	 */
+	public void setEstablishementList(List<EstablishmentEntity> establishementList) {
+		this.establishementList = establishementList;
 	}
 }
