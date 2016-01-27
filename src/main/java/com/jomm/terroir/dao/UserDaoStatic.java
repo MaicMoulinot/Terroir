@@ -12,33 +12,33 @@ import com.jomm.terroir.business.UserEntity;
 @Alternative
 public class UserDaoStatic extends DaoStatic <Long, UserEntity> implements UserDaoInterface {
 
-	private static HashMap<Long, UserEntity> listUsers;
+	private static HashMap<Long, UserEntity> mapUsers;
 
 	/** Constructor with no parameter. */
 	public UserDaoStatic() {
-		if (listUsers == null) {
-			listUsers = new HashMap<Long, UserEntity>();
+		if (mapUsers == null) {
+			mapUsers = new HashMap<Long, UserEntity>();
 		}
 	}
 
 	@Override
 	public void remove(UserEntity entity) {
-		listUsers.remove(entity);
+		mapUsers.remove(entity);
 	}
 
 	@Override
 	public UserEntity findById(Long id) {
-		return listUsers.get(id);
+		return mapUsers.get(id);
 	}
 
 	@Override
 	public Collection<UserEntity> findAll() {
-		return listUsers.values();
+		return mapUsers.values();
 	}
 
 	@Override
 	public void persist(UserEntity entity) {
-		listUsers.put(entity.getId(), entity);
+		mapUsers.put(entity.getId(), entity);
 	}
 
 	@Override

@@ -13,32 +13,32 @@ import com.jomm.terroir.business.ProductEntity;
 @Alternative
 public class ProductDaoStatic extends DaoStatic <Long, ProductEntity> implements ProductDaoInterface {
 
-	private static Map<Long, ProductEntity> listProducts;
+	private static Map<Long, ProductEntity> mapProducts;
 
 	/** Constructor with no parameter. */
 	public ProductDaoStatic() {
-		if (listProducts == null) {
-			listProducts = new HashMap<Long, ProductEntity>();
+		if (mapProducts == null) {
+			mapProducts = new HashMap<Long, ProductEntity>();
 		}
 	}
 
 	@Override
 	public void persist(ProductEntity entity) {
-		listProducts.put(entity.getId(), entity);
+		mapProducts.put(entity.getId(), entity);
 	}
 
 	@Override
 	public void remove(ProductEntity entity) {
-		listProducts.remove(entity);
+		mapProducts.remove(entity);
 	}
 
 	@Override
 	public ProductEntity findById(Long id) {
-		return listProducts.get(id);
+		return mapProducts.get(id);
 	}
 
 	@Override
 	public Collection<ProductEntity> findAll() {
-		return listProducts.values();
+		return mapProducts.values();
 	}
 }
