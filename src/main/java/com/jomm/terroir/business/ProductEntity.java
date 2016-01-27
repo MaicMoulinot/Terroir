@@ -39,7 +39,7 @@ public class ProductEntity {
 	
 	@NotNull
 	@ManyToOne
-	private SiteEntity establishment;
+	private SiteEntity site;
 	
 	// Getters and Setters
 	/**
@@ -113,17 +113,17 @@ public class ProductEntity {
 	}
 
 	/**
-	 * @return the establishment
+	 * @return the site
 	 */
-	public SiteEntity getEstablishment() {
-		return establishment;
+	public SiteEntity getSite() {
+		return site;
 	}
 
 	/**
-	 * @param establishment the establishment to set
+	 * @param site the site to set
 	 */
-	public void setEstablishment(SiteEntity establishment) {
-		this.establishment = establishment;
+	public void setSite(SiteEntity site) {
+		this.site = site;
 	}
 	
 }
