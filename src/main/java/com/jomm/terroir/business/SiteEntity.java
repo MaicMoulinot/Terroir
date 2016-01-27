@@ -1,6 +1,7 @@
 package com.jomm.terroir.business;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,6 +25,9 @@ public class SiteEntity {
 	
 	@Column(name = "legal_identification")
 	private String legalIdentification;
+	
+	@Embedded
+	private Address address;
 	
 	@NotNull
 	@ManyToOne
@@ -70,6 +74,20 @@ public class SiteEntity {
 	 */
 	public void setLegalIdentification(String legalIdentification) {
 		this.legalIdentification = legalIdentification;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	/**

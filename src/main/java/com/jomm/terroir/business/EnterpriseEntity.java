@@ -3,6 +3,7 @@ package com.jomm.terroir.business;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -32,6 +33,9 @@ public class EnterpriseEntity {
 	@Column(name = "legal_identification")
 	@NotNull
 	private String legalIdentification;
+	
+	@Embedded
+	private Address address;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "creation_date")
@@ -99,6 +103,20 @@ public class EnterpriseEntity {
 	 */
 	public void setLegalIdentification(String legalIdentification) {
 		this.legalIdentification = legalIdentification;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	/**
