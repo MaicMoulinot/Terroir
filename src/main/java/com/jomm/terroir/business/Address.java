@@ -4,8 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Define a mailing address.
+ * @author Maic
+ */
 @Embeddable
-public class AddressEmbeddable {
+public class Address {
 	
 	// Attributes	
 	@Column(name = "address_street")
