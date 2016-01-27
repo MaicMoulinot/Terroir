@@ -8,14 +8,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="establishment")
-@NamedQuery(name="EstablishmentEntity.findAll", query="SELECT e FROM establishment e")
-public class EstablishmentEntity {
+@Entity(name="tr_site")
+@NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM tr_site s")
+public class SiteEntity {
 	
 	// Attributes
 	@Id
 	@GeneratedValue
-	@Column(name = "establishment_id")
+	@Column(name = "site_id")
 	private long id;
 	
 	@Column(name = "name")

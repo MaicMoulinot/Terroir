@@ -12,8 +12,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="product")
-@NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM product p")
+@Entity(name="tr_product")
+@NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM tr_product p")
 public class ProductEntity {
 	
 	// Attributes
@@ -39,7 +39,7 @@ public class ProductEntity {
 	
 	@NotNull
 	@ManyToOne
-	private EstablishmentEntity establishment;
+	private SiteEntity establishment;
 	
 	// Getters and Setters
 	/**
@@ -115,14 +115,14 @@ public class ProductEntity {
 	/**
 	 * @return the establishment
 	 */
-	public EstablishmentEntity getEstablishment() {
+	public SiteEntity getEstablishment() {
 		return establishment;
 	}
 
 	/**
 	 * @param establishment the establishment to set
 	 */
-	public void setEstablishment(EstablishmentEntity establishment) {
+	public void setEstablishment(SiteEntity establishment) {
 		this.establishment = establishment;
 	}
 	

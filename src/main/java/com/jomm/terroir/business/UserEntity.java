@@ -19,8 +19,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@Entity(name="users")
-@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM users u")
+@Entity(name="tr_user")
+@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM tr_user u")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class UserEntity {

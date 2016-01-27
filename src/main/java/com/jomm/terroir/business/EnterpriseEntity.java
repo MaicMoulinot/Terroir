@@ -11,8 +11,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="enterprise")
-@NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM enterprise e")
+@Entity(name="tr_enterprise")
+@NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM tr_enterprise e")
 public class EnterpriseEntity {
 	
 	// Attributes
