@@ -22,55 +22,51 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
 public class UserEntity {
-	
+
 	// Attributes
 	@Id
 	@GeneratedValue
 	@Column(name = "user_id")
 	@XmlAttribute(required = true)
 	private long userId;
-	
+
 	@Column(name = "first_name")
 	@XmlAttribute
 	private String firstName;
-	
+
 	@XmlAttribute
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@Column(unique = true, name = "user_name")
 	@NotNull
 	@XmlAttribute(required = true)
 	private String userName;
-	
+
 	@Column(unique=true)
 	@NotNull
 	@XmlAttribute(required = true)
 	private String email;
-	
+
 	@Column(name = "user_password")
 	@NotNull
 	@XmlAttribute(required = true)
 	private String userPassword;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Past(message = "date doit etre passée")
 	@Column(name = "birth_date")
 	@XmlAttribute
 	private Date birthDate;
-	
-	@Column(name = "is_admin")
-	@XmlAttribute
-	private boolean isAdmin;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "signup_date")
 	@XmlAttribute
 	private Date signUpDate;
-	
+
 	@Embedded
-	private AddressEmbeddable address;
-	
+	private Address address;
+
 	// Getters and Setters
 	/**
 	 * @return the userId
@@ -157,18 +153,6 @@ public class UserEntity {
 		this.birthDate = birthDate;
 	}
 	/**
-	 * @return the isAdmin
-	 */
-	public boolean isAdmin() {
-		return isAdmin;
-	}
-	/**
-	 * @param isAdmin the isAdmin to set
-	 */
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-	/**
 	 * @return the signUpDate
 	 */
 	public Date getSignUpDate() {
@@ -183,13 +167,13 @@ public class UserEntity {
 	/**
 	 * @return the address
 	 */
-	public AddressEmbeddable getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 	/**
 	 * @param address the address to set
 	 */
-	public void setAddress(AddressEmbeddable address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 }
