@@ -91,7 +91,6 @@ public class UserJsf {
 		userEntity.setUserPassword(getPassword());
 		userEntity.setBirthDate(getBirthDate());
 		userEntity.setSignUpDate(getSignUpDate());
-		userEntity.setAdmin(isAdmin());
 		return userEntity;
 	}
 
