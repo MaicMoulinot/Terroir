@@ -57,8 +57,9 @@ public class UserListJsf {
 			userJsf.setUserName(userEntity.getUserName());
 			userJsf.setEmail(userEntity.getEmail());
 			userJsf.setPassword(userEntity.getUserPassword());
-			userJsf.setBirthDate(userEntity.getBirthDate());
-			userJsf.setSignUpDate(userEntity.getSignUpDate());
+			//TODO !!
+//			userJsf.setBirthDate(userEntity.getBirthDate());
+//			userJsf.setSignUpDate(userEntity.getSignUpDate());
 			allUsers.add(userJsf);
 		}
 
