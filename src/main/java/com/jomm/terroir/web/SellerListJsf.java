@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.SellerEntity;
-import com.jomm.terroir.business.UserEntityServiceInterface;
+import com.jomm.terroir.business.UserServiceInterface;
 import com.jomm.terroir.util.Message;
 
 @ManagedBean
@@ -24,7 +24,7 @@ public class SellerListJsf {
 
 	// Injected fields
 	@Inject
-	private UserEntityServiceInterface userService;	
+	private UserServiceInterface userService;	
 	@Inject
 	private FacesContext facesContext;	
 	@Inject
