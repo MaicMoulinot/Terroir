@@ -21,6 +21,33 @@ public class UserEntityService implements UserEntityServiceInterface {
 	}
 
 	@Override
+	public ArrayList<AdminEntity> getAllAdmins() {
+		ArrayList<AdminEntity> result = new ArrayList<>();
+		for (AdminEntity adminEntity : userDao.findAll()) {
+			result.add(adminEntity);
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<CustomerEntity> getAllCustomers() {
+		ArrayList<CustomerEntity> result = new ArrayList<>();
+		for (CustomerEntity customerEntity : userDao.findAll()) {
+			result.add(customerEntity);
+		}
+		return result;
+	}
+
+	@Override
+	public ArrayList<SellerEntity> getAllSellers() {
+		ArrayList<SellerEntity> result = new ArrayList<>();
+		for (SellerEntity sellerEntity : userDao.findAll()) {
+			result.add(sellerEntity);
+		}
+		return result;
+	}
+
+	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public ArrayList<UserEntity> getAllUsers() {
 		ArrayList<UserEntity> result = new ArrayList<>();
