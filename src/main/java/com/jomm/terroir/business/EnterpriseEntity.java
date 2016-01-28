@@ -10,6 +10,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,6 +19,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="tr_enterprise")
+@NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM EnterpriseEntity e")
 public class EnterpriseEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */

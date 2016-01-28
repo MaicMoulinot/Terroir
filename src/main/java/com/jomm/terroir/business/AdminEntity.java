@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tr_admin")
+@NamedQuery(name="AdminEntity.findAll", query="SELECT a FROM AdminEntity a")
 public class AdminEntity extends UserEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */

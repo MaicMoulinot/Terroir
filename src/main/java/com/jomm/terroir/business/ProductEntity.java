@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="tr_product")
+@NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM ProductEntity p")
 public class ProductEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */

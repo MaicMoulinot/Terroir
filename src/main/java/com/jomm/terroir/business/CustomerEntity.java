@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Past;
 
 @Entity
 @Table(name="tr_customer")
+@NamedQuery(name="CustomerEntity.findAll", query="SELECT c FROM CustomerEntity c")
 public class CustomerEntity extends UserEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */

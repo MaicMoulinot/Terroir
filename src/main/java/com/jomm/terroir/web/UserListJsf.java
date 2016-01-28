@@ -49,19 +49,19 @@ public class UserListJsf {
 	 */
 	@PostConstruct 
 	public void init() {
-		allUsers = new LinkedList<UserJsf>();
-		for (CustomerEntity userEntity : userService.getAllCustomers()) {
-			UserJsf userJsf = new UserJsf();
-			userJsf.setId(userEntity.getId());
-			userJsf.setFirstName(userEntity.getFirstName());
-			userJsf.setLastName(userEntity.getLastName());
-			userJsf.setUserName(userEntity.getUserName());
-			userJsf.setEmail(userEntity.getEmail());
-			userJsf.setPassword(userEntity.getUserPassword());
-			userJsf.setBirthDate(userEntity.getBirthDate());
-			userJsf.setSignUpDate(userEntity.getSignUpDate());
-			allUsers.add(userJsf);
-		}
+//		allUsers = new LinkedList<UserJsf>();
+//		for (CustomerEntity userEntity : userService.getAllCustomers()) {
+//			UserJsf userJsf = new UserJsf();
+//			userJsf.setId(userEntity.getId());
+//			userJsf.setFirstName(userEntity.getFirstName());
+//			userJsf.setLastName(userEntity.getLastName());
+//			userJsf.setUserName(userEntity.getUserName());
+//			userJsf.setEmail(userEntity.getEmail());
+//			userJsf.setPassword(userEntity.getUserPassword());
+//			userJsf.setBirthDate(userEntity.getBirthDate());
+//			userJsf.setSignUpDate(userEntity.getSignUpDate());
+//			allUsers.add(userJsf);
+//		}
 
 	}
 
@@ -72,7 +72,7 @@ public class UserListJsf {
 	public void onRowEdit(RowEditEvent event) {
 		UserJsf userJsf = (UserJsf) event.getObject();
 		if (userJsf != null) {
-			userService.persistUser(userJsf.convertIntoEntity());
+//			userService.persistUser(userJsf.convertIntoEntity());
 			Object[] argument = {userJsf.getUserName()};
 			String detail = MessageFormat.format(resource.getString(UPDATE_USER), argument);
 			FacesMessage msg = new FacesMessage(resource.getString(UPDATE_OK), detail);
@@ -95,9 +95,9 @@ public class UserListJsf {
 	 */
 	public String delete() {
 		if (currentUser != null) {
-			UserEntity userEntity = currentUser.convertIntoEntity();
+//			UserEntity userEntity = currentUser.convertIntoEntity();
 			// Call Service to delete.
-			userService.deleteUser(userEntity);
+//			userService.deleteUser(userEntity);
 		}
 		return "userlist" + "?faces-redirect=true";	// Navigation case.
 	}
