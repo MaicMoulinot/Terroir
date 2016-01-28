@@ -10,12 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="tr_site")
+@NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM SiteEntity s")
 public class SiteEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */

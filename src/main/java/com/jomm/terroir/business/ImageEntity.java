@@ -7,10 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tr_image")
+@NamedQuery(name="ImageEntity.findAll", query="SELECT i FROM ImageEntity i")
 public class ImageEntity {
 	
 	// Attributes
