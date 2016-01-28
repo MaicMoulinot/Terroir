@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="tr_seller")
 public class SellerEntity extends UserEntity implements Serializable {
 	
-	/** Generated serial version ID. */
+	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 20497943860676595L;
 	
 	// Attributes

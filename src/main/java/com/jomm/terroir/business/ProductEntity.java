@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM tr_product p")
 public class ProductEntity implements Serializable {
 	
-	/** Generated serial version ID. */
+	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 1864985598416003134L;
 
 	// Attributes

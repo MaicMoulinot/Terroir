@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM tr_enterprise e")
 public class EnterpriseEntity implements Serializable {
 	
-	/** Generated serial version ID. */
+	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 3818285976250730794L;
 
 	// Attributes

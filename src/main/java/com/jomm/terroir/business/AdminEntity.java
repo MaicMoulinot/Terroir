@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Table(name="tr_admin")
 public class AdminEntity extends UserEntity implements Serializable {
 	
-	/** Generated serial version ID. */
+	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = -5225752296197017138L;
 
 	// Attributes

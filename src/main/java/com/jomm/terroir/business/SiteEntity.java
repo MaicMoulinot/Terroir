@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM tr_site s")
 public class SiteEntity implements Serializable {
 	
-	/** Generated serial version ID. */
+	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = -8527072429035590099L;
 
 	// Attributes
