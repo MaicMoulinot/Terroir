@@ -58,6 +58,9 @@ public class EnterpriseEntity implements Serializable {
 	@OneToMany(targetEntity = SellerEntity.class, mappedBy = "tr_enterprise", cascade = CascadeType.ALL)
 	private List<SellerEntity> listSellers;
 	
+	@OneToMany(targetEntity = SiteEntity.class, mappedBy = "tr_enterprise", cascade = CascadeType.ALL)
+	private List<SiteEntity> listSites;
+	
 	// Getters and Setters
 	/**
 	 * @return the id
@@ -169,6 +172,34 @@ public class EnterpriseEntity implements Serializable {
 	 */
 	public void setSignUpDate(Date signUpDate) {
 		this.signUpDate = signUpDate;
+	}
+
+	/**
+	 * @return the listSellers
+	 */
+	public List<SellerEntity> getListSellers() {
+		return listSellers;
+	}
+
+	/**
+	 * @param listSellers the listSellers to set
+	 */
+	public void setListSellers(List<SellerEntity> listSellers) {
+		this.listSellers = listSellers;
+	}
+
+	/**
+	 * @return the listSites
+	 */
+	public List<SiteEntity> getListSites() {
+		return listSites;
+	}
+
+	/**
+	 * @param listSites the listSites to set
+	 */
+	public void setListSites(List<SiteEntity> listSites) {
+		this.listSites = listSites;
 	}
 
 }

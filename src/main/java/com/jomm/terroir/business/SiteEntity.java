@@ -1,7 +1,9 @@
 package com.jomm.terroir.business;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity(name="tr_site")
@@ -37,6 +40,9 @@ public class SiteEntity implements Serializable {
 	@NotNull
 	@ManyToOne
 	private EnterpriseEntity enterprise;
+	
+	@OneToMany(targetEntity = ProductEntity.class, mappedBy = "tr_site", cascade = CascadeType.ALL)
+	private List<ProductEntity> listProducts;
 
 	// Getters and Setters
 	/**
@@ -107,6 +113,20 @@ public class SiteEntity implements Serializable {
 	 */
 	public void setEnterprise(EnterpriseEntity enterprise) {
 		this.enterprise = enterprise;
+	}
+
+	/**
+	 * @return the listProducts
+	 */
+	public List<ProductEntity> getListProducts() {
+		return listProducts;
+	}
+
+	/**
+	 * @param listProducts the listProducts to set
+	 */
+	public void setListProducts(List<ProductEntity> listProducts) {
+		this.listProducts = listProducts;
 	}
 	
 }
