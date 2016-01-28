@@ -1,27 +1,35 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="tr_site")
-@NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM tr_site s")
-public class SiteEntity {
+@Entity
+@Table(name="tr_site")
+public class SiteEntity implements Serializable {
 	
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = -8527072429035590099L;
+
 	// Attributes
 	@Id
 	@GeneratedValue
 	@Column(name = "site_id")
 	private long id;
 	
-	@Column(name = "name")
+	@Column(name = "site_name")
 	@NotNull
-	private String name;
+	private String siteName;
 	
 	@Column(name = "legal_identification")
 	private String legalIdentification;
@@ -33,6 +41,9 @@ public class SiteEntity {
 	@ManyToOne
 	private EnterpriseEntity enterprise;
 	
+	@OneToMany(targetEntity = ProductEntity.class, mappedBy = "site", cascade = CascadeType.ALL)
+	private List<ProductEntity> listProducts;
+
 	// Getters and Setters
 	/**
 	 * @return the id
@@ -49,17 +60,17 @@ public class SiteEntity {
 	}
 
 	/**
-	 * @return the name
+	 * @return the siteName
 	 */
-	public String getName() {
-		return name;
+	public String getSiteName() {
+		return siteName;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param siteName the siteName to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setSiteName(String siteName) {
+		this.siteName = siteName;
 	}
 
 	/**
@@ -102,6 +113,20 @@ public class SiteEntity {
 	 */
 	public void setEnterprise(EnterpriseEntity enterprise) {
 		this.enterprise = enterprise;
+	}
+
+	/**
+	 * @return the listProducts
+	 */
+	public List<ProductEntity> getListProducts() {
+		return listProducts;
+	}
+
+	/**
+	 * @param listProducts the listProducts to set
+	 */
+	public void setListProducts(List<ProductEntity> listProducts) {
+		this.listProducts = listProducts;
 	}
 	
 }

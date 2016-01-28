@@ -1,13 +1,18 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
-@Entity(name="admin")
-@PrimaryKeyJoinColumn(name="ID", referencedColumnName="ID")
-public class AdminEntity extends UserEntity {
+@Entity
+@Table(name="tr_admin")
+public class AdminEntity extends UserEntity implements Serializable {
 	
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = -5225752296197017138L;
+
 	// Attributes
 	@Column(name = "can_edit")
 	private boolean canEditData;
@@ -17,6 +22,16 @@ public class AdminEntity extends UserEntity {
 	
 	@Column(name = "can_delete")
 	private boolean canDeleteData;
+
+	/**
+	 * No-arg constructor.
+	 */
+	protected AdminEntity() {
+		super();
+		canEditData = false;
+		canUpdateData = false;
+		canDeleteData = false;
+	}
 
 	// Getters and Setters
 	/**

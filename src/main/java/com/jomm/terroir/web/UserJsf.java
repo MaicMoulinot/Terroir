@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
+import com.jomm.terroir.business.CustomerEntity;
 import com.jomm.terroir.business.UserEntity;
 import com.jomm.terroir.business.UserEntityServiceInterface;
 import com.jomm.terroir.util.Message;
@@ -82,7 +83,8 @@ public class UserJsf {
 	 * @return UserEntity.
 	 */
 	public UserEntity convertIntoEntity() {
-		UserEntity userEntity = new UserEntity();
+		//TODO !!
+		CustomerEntity userEntity = new CustomerEntity();
 		userEntity.setId(getId());
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());

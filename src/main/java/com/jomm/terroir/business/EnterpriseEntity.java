@@ -1,21 +1,28 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="tr_enterprise")
-@NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM tr_enterprise e")
-public class EnterpriseEntity {
+@Entity
+@Table(name="tr_enterprise")
+public class EnterpriseEntity implements Serializable {
 	
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = 3818285976250730794L;
+
 	// Attributes
 	@Id
 	@GeneratedValue
@@ -47,6 +54,12 @@ public class EnterpriseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "signup_date")
 	private Date signUpDate;
+	
+	@OneToMany(targetEntity = SellerEntity.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
+	private List<SellerEntity> listSellers;
+	
+	@OneToMany(targetEntity = SiteEntity.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
+	private List<SiteEntity> listSites;
 	
 	// Getters and Setters
 	/**
@@ -159,6 +172,34 @@ public class EnterpriseEntity {
 	 */
 	public void setSignUpDate(Date signUpDate) {
 		this.signUpDate = signUpDate;
+	}
+
+	/**
+	 * @return the listSellers
+	 */
+	public List<SellerEntity> getListSellers() {
+		return listSellers;
+	}
+
+	/**
+	 * @param listSellers the listSellers to set
+	 */
+	public void setListSellers(List<SellerEntity> listSellers) {
+		this.listSellers = listSellers;
+	}
+
+	/**
+	 * @return the listSites
+	 */
+	public List<SiteEntity> getListSites() {
+		return listSites;
+	}
+
+	/**
+	 * @param listSites the listSites to set
+	 */
+	public void setListSites(List<SiteEntity> listSites) {
+		this.listSites = listSites;
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
 
+import com.jomm.terroir.business.CustomerEntity;
 import com.jomm.terroir.business.UserEntity;
 import com.jomm.terroir.business.UserEntityServiceInterface;
 import com.jomm.terroir.util.Message;
@@ -49,7 +50,7 @@ public class UserListJsf {
 	@PostConstruct 
 	public void init() {
 		allUsers = new LinkedList<UserJsf>();
-		for (UserEntity userEntity : userService.getAllUsers()) {
+		for (CustomerEntity userEntity : userService.getAllCustomers()) {
 			UserJsf userJsf = new UserJsf();
 			userJsf.setId(userEntity.getId());
 			userJsf.setFirstName(userEntity.getFirstName());
