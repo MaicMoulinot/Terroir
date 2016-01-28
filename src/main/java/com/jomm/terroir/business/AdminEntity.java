@@ -23,6 +23,16 @@ public class AdminEntity extends UserEntity implements Serializable {
 	@Column(name = "can_delete")
 	private boolean canDeleteData;
 
+	/**
+	 * No-arg constructor.
+	 */
+	protected AdminEntity() {
+		super();
+		canEditData = false;
+		canUpdateData = false;
+		canDeleteData = false;
+	}
+
 	// Getters and Setters
 	/**
 	 * @return the canEditData
