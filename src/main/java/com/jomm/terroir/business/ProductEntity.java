@@ -8,13 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="tr_product")
-@NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM tr_product p")
+@Entity
+@Table(name="tr_product")
 public class ProductEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
@@ -26,9 +26,9 @@ public class ProductEntity implements Serializable {
 	@Column(name = "product_id")
 	private long id;
 	
-	@Column(name = "name")
+	@Column(name = "title")
 	@NotNull
-	private String name;
+	private String title;
 	
 	@Column(name = "description")
 	@NotNull
@@ -61,17 +61,17 @@ public class ProductEntity implements Serializable {
 	}
 
 	/**
-	 * @return the name
+	 * @return the title
 	 */
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param title the title to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	/**

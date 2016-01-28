@@ -10,14 +10,14 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="tr_enterprise")
-@NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM tr_enterprise e")
+@Entity
+@Table(name="tr_enterprise")
 public class EnterpriseEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
@@ -55,10 +55,10 @@ public class EnterpriseEntity implements Serializable {
 	@Column(name = "signup_date")
 	private Date signUpDate;
 	
-	@OneToMany(targetEntity = SellerEntity.class, mappedBy = "tr_enterprise", cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = SellerEntity.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
 	private List<SellerEntity> listSellers;
 	
-	@OneToMany(targetEntity = SiteEntity.class, mappedBy = "tr_enterprise", cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = SiteEntity.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
 	private List<SiteEntity> listSites;
 	
 	// Getters and Setters

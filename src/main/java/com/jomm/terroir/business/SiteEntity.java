@@ -10,12 +10,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Entity(name="tr_site")
-@NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM tr_site s")
+@Entity
+@Table(name="tr_site")
 public class SiteEntity implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
@@ -27,9 +27,9 @@ public class SiteEntity implements Serializable {
 	@Column(name = "site_id")
 	private long id;
 	
-	@Column(name = "name")
+	@Column(name = "site_name")
 	@NotNull
-	private String name;
+	private String siteName;
 	
 	@Column(name = "legal_identification")
 	private String legalIdentification;
@@ -41,7 +41,7 @@ public class SiteEntity implements Serializable {
 	@ManyToOne
 	private EnterpriseEntity enterprise;
 	
-	@OneToMany(targetEntity = ProductEntity.class, mappedBy = "tr_site", cascade = CascadeType.ALL)
+	@OneToMany(targetEntity = ProductEntity.class, mappedBy = "site", cascade = CascadeType.ALL)
 	private List<ProductEntity> listProducts;
 
 	// Getters and Setters
@@ -60,17 +60,17 @@ public class SiteEntity implements Serializable {
 	}
 
 	/**
-	 * @return the name
+	 * @return the siteName
 	 */
-	public String getName() {
-		return name;
+	public String getSiteName() {
+		return siteName;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param siteName the siteName to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setSiteName(String siteName) {
+		this.siteName = siteName;
 	}
 
 	/**
