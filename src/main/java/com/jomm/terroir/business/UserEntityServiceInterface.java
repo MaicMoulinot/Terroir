@@ -34,13 +34,6 @@ public interface UserEntityServiceInterface {
 	public ArrayList<SellerEntity> getAllSellers();
 	
 	/**
-	 * Fetch the list of all users.
-	 * @return a list of all users.
-	 * @see com.jomm.terroir.business.UserEntity
-	 */
-	public ArrayList<UserEntity> getAllUsers();
-	
-	/**
 	 * Delete an User.
 	 * @param user UserEntity.
 	 * @see com.jomm.terroir.business.UserEntity

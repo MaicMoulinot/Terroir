@@ -18,9 +18,9 @@ public class UserRestRessource {
 	private UserEntityServiceInterface userService;
 	
 	// This method is called if XML or JSON is requested MediaType.APPLICATION_JSON, 
-	@GET
-	@Produces({MediaType.APPLICATION_XML})
-	public List<UserEntity> getListUsers() {
-		return userService.getAllUsers();
-	}
+//	@GET
+//	@Produces({MediaType.APPLICATION_XML})
+//	public List<UserEntity> getListUsers() {
+//		return userService.getAllUsers();
+//	}
 }

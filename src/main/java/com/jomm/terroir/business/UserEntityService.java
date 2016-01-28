@@ -6,6 +6,9 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
+import com.jomm.terroir.dao.AdminDaoInterface;
+import com.jomm.terroir.dao.CustomerDaoInterface;
+import com.jomm.terroir.dao.SellerDaoInterface;
 import com.jomm.terroir.dao.UserDaoInterface;
 
 @Stateless
@@ -13,54 +16,54 @@ public class UserEntityService implements UserEntityServiceInterface {
 	
 	@Inject
 	private UserDaoInterface userDao;
+	
+	@Inject
+	private AdminDaoInterface adminDao;
+	
+	@Inject
+	private CustomerDaoInterface customerDao;
+	
+	@Inject
+	private SellerDaoInterface sellerDao;
 
 	@Override
 	public void persistUser(UserEntity user) {
-		// Call Service to persist
 		userDao.persist(user);
 	}
-
+	
 	@Override
+	public void deleteUser(UserEntity user) {
+		userDao.remove(user);
+	}
+	
+	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public ArrayList<AdminEntity> getAllAdmins() {
 		ArrayList<AdminEntity> result = new ArrayList<>();
-		for (AdminEntity adminEntity : userDao.findAll()) {
+		for (AdminEntity adminEntity : adminDao.findAll()) {
 			result.add(adminEntity);
 		}
 		return result;
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public ArrayList<CustomerEntity> getAllCustomers() {
 		ArrayList<CustomerEntity> result = new ArrayList<>();
-		for (CustomerEntity customerEntity : userDao.findAll()) {
+		for (CustomerEntity customerEntity : customerDao.findAll()) {
 			result.add(customerEntity);
 		}
 		return result;
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public ArrayList<SellerEntity> getAllSellers() {
 		ArrayList<SellerEntity> result = new ArrayList<>();
-		for (SellerEntity sellerEntity : userDao.findAll()) {
+		for (SellerEntity sellerEntity : sellerDao.findAll()) {
 			result.add(sellerEntity);
 		}
 		return result;
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<UserEntity> getAllUsers() {
-		ArrayList<UserEntity> result = new ArrayList<>();
-		for (UserEntity userEntity : userDao.findAll()) {
-			result.add(userEntity);
-		}
-		return result;
-	}
-	
-	@Override
-	public void deleteUser(UserEntity user) {
-		// Call Service to remove
-		userDao.remove(user);
 	}
 
 	/**
