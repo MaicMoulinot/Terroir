@@ -1,5 +1,6 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,8 +15,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name="tr_product")
 @NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM tr_product p")
-public class ProductEntity {
+public class ProductEntity implements Serializable {
 	
+	/** Generated serial version ID. */
+	private static final long serialVersionUID = 1864985598416003134L;
+
 	// Attributes
 	@Id
 	@GeneratedValue

@@ -1,5 +1,7 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -11,8 +13,11 @@ import javax.validation.constraints.NotNull;
 
 @Entity(name="tr_site")
 @NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM tr_site s")
-public class SiteEntity {
+public class SiteEntity implements Serializable {
 	
+	/** Generated serial version ID. */
+	private static final long serialVersionUID = -8527072429035590099L;
+
 	// Attributes
 	@Id
 	@GeneratedValue
@@ -32,7 +37,7 @@ public class SiteEntity {
 	@NotNull
 	@ManyToOne
 	private EnterpriseEntity enterprise;
-	
+
 	// Getters and Setters
 	/**
 	 * @return the id

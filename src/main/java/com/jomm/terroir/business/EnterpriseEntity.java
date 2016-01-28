@@ -1,21 +1,28 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity(name="tr_enterprise")
 @NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM tr_enterprise e")
-public class EnterpriseEntity {
+public class EnterpriseEntity implements Serializable {
 	
+	/** Generated serial version ID. */
+	private static final long serialVersionUID = 3818285976250730794L;
+
 	// Attributes
 	@Id
 	@GeneratedValue
@@ -47,6 +54,9 @@ public class EnterpriseEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "signup_date")
 	private Date signUpDate;
+	
+	@OneToMany(targetEntity = SellerEntity.class, mappedBy = "tr_enterprise", cascade = CascadeType.ALL)
+	private List<SellerEntity> listSellers;
 	
 	// Getters and Setters
 	/**
