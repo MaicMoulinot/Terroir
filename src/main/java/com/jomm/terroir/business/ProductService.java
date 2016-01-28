@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import com.jomm.terroir.dao.ProductDaoInterface;
 
 @Stateless
-public class ProductEntityService implements ProductEntityServiceInterface {
+public class ProductService implements ProductServiceInterface {
 	
 	@Inject
 	private ProductDaoInterface productDao;

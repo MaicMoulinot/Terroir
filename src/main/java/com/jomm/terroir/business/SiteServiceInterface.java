@@ -3,7 +3,7 @@ package com.jomm.terroir.business;
 import java.util.ArrayList;
 
 
-public interface SiteEntityServiceInterface {
+public interface SiteServiceInterface {
 	
 	/**
 	 * Save a site.

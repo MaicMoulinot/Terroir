@@ -3,7 +3,7 @@ package com.jomm.terroir.business;
 import java.util.ArrayList;
 
 
-public interface EnterpriseEntityServiceInterface {
+public interface EnterpriseServiceInterface {
 	
 	/**
 	 * Save an enterprise.

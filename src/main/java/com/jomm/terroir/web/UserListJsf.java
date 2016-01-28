@@ -16,7 +16,7 @@ import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.CustomerEntity;
 import com.jomm.terroir.business.UserEntity;
-import com.jomm.terroir.business.UserEntityServiceInterface;
+import com.jomm.terroir.business.UserServiceInterface;
 import com.jomm.terroir.util.Message;
 
 @ManagedBean
@@ -28,7 +28,7 @@ public class UserListJsf {
 	private UserJsf currentUser;
 
 	@Inject
-	private UserEntityServiceInterface userService;
+	private UserServiceInterface userService;
 	
 	@Inject
 	private FacesContext facesContext;

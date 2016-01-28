@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import com.jomm.terroir.dao.SiteDaoInterface;
 
 @Stateless
-public class SiteEntityService implements SiteEntityServiceInterface {
+public class SiteService implements SiteServiceInterface {
 	
 	@Inject
 	private SiteDaoInterface siteDao;

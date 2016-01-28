@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import com.jomm.terroir.dao.EnterpriseDaoInterface;
 
 @Stateless
-public class EnterpriseEntityService implements EnterpriseEntityServiceInterface {
+public class EnterpriseService implements EnterpriseServiceInterface {
 	
 	@Inject
 	private EnterpriseDaoInterface enterpriseDao;

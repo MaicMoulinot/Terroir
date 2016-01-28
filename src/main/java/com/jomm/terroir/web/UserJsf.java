@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.CustomerEntity;
 import com.jomm.terroir.business.UserEntity;
-import com.jomm.terroir.business.UserEntityServiceInterface;
+import com.jomm.terroir.business.UserServiceInterface;
 import com.jomm.terroir.util.Message;
 
 @ManagedBean
@@ -21,7 +21,7 @@ import com.jomm.terroir.util.Message;
 public class UserJsf {
 
 	@Inject
-	private UserEntityServiceInterface userService;
+	private UserServiceInterface userService;
 	
 	@Inject
 	private FacesContext facesContext;

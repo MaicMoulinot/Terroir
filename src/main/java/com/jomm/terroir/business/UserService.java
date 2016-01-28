@@ -12,7 +12,7 @@ import com.jomm.terroir.dao.SellerDaoInterface;
 import com.jomm.terroir.dao.UserDaoInterface;
 
 @Stateless
-public class UserEntityService implements UserEntityServiceInterface {
+public class UserService implements UserServiceInterface {
 	
 	@Inject
 	private UserDaoInterface userDao;

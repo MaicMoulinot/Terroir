@@ -9,13 +9,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.jomm.terroir.business.UserEntity;
-import com.jomm.terroir.business.UserEntityServiceInterface;
+import com.jomm.terroir.business.UserServiceInterface;
 
 @Path("/animal")
 public class UserRestRessource {
 	
 	@Inject
-	private UserEntityServiceInterface userService;
+	private UserServiceInterface userService;
 	
 	// This method is called if XML or JSON is requested MediaType.APPLICATION_JSON, 
 //	@GET
