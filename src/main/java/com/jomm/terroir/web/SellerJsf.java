@@ -10,7 +10,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.EnterpriseEntity;
 import com.jomm.terroir.business.SellerEntity;
-import com.jomm.terroir.business.UserServiceInterface;
+import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.util.Message;
 
 /**
@@ -18,7 +18,7 @@ import com.jomm.terroir.util.Message;
  * It extends {@link UserJsf} and defines an additional attribute {@link EnterpriseEntity}.
  * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
  * to {@link FacesContext} to throw them to the view, 
- * and to {@link UserServiceInterface} to save the {@link SellerEntity}.
+ * and to {@link UserService} to save the {@link SellerEntity}.
  * It is annotated {@link ManagedBean} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
@@ -29,7 +29,7 @@ public class SellerJsf extends UserJsf {
 	
 	// Injected fields
 	@Inject
-	private UserServiceInterface userService;
+	private UserService userService;
 	@Inject
 	private FacesContext facesContext;
 	@Inject
@@ -44,7 +44,7 @@ public class SellerJsf extends UserJsf {
 
 	@Override
 	public String create() {
-		userService.persistUser(convertIntoEntity());
+		userService.create(convertIntoEntity());
 		FacesMessage message = new FacesMessage(resource.getString(USER_REGISTRED), null);
 		facesContext.addMessage(null, message);
 		return "sellerlist" + "?faces-redirect=true";	// Navigation case.

@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.CustomerEntity;
-import com.jomm.terroir.business.UserServiceInterface;
+import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.util.Message;
 
 /**
@@ -19,7 +19,7 @@ import com.jomm.terroir.util.Message;
  * It extends {@link UserJsf} and defines customer specific attributes.
  * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
  * to {@link FacesContext} to throw them to the view, 
- * and to {@link UserServiceInterface} to save the {@link CustomerEntity}.
+ * and to {@link UserService} to save the {@link CustomerEntity}.
  * It is annotated {@link ManagedBean} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
@@ -30,7 +30,7 @@ public class CustomerJsf extends UserJsf {
 
 	// Injected fields
 	@Inject
-	private UserServiceInterface userService;	
+	private UserService userService;	
 	@Inject
 	private FacesContext facesContext;	
 	@Inject
@@ -47,7 +47,7 @@ public class CustomerJsf extends UserJsf {
 	@Override
 	public String create() {
 		setSignUpDate(new Date());
-		userService.persistUser(convertIntoEntity());
+		userService.create(convertIntoEntity());
 		FacesMessage message = new FacesMessage(resource.getString(USER_REGISTRED), null);
 		facesContext.addMessage(null, message);
 		return "customerlist" + "?faces-redirect=true";	// Navigation case.

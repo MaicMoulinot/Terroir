@@ -15,14 +15,14 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.SellerEntity;
-import com.jomm.terroir.business.UserServiceInterface;
+import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.util.Message;
 
 /**
  * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link SellerJsf}.
  * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
  * to {@link FacesContext} to throw them to the view, 
- * and to {@link UserServiceInterface} to update or delete the {@link SellerEntity}.
+ * and to {@link UserService} to update or delete the {@link SellerEntity}.
  * It is annotated {@link ManagedBean} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
@@ -33,7 +33,7 @@ public class SellerListJsf {
 
 	// Injected fields
 	@Inject
-	private UserServiceInterface userService;	
+	private UserService userService;	
 	@Inject
 	private FacesContext facesContext;	
 	@Inject
@@ -76,7 +76,7 @@ public class SellerListJsf {
 	public void onRowEdit(RowEditEvent event) {
 		SellerJsf sellerJsf = (SellerJsf) event.getObject();
 		if (sellerJsf != null) {
-			userService.persistUser(sellerJsf.convertIntoEntity());
+			userService.update(sellerJsf.convertIntoEntity());
 			Object[] argument = {sellerJsf.getUserName()};
 			String detail = MessageFormat.format(resource.getString(UPDATE_USER), argument);
 			FacesMessage msg = new FacesMessage(resource.getString(UPDATE_OK), detail);
@@ -99,7 +99,7 @@ public class SellerListJsf {
 	public String delete() {
 		if (currentSeller != null) {
 			SellerEntity sellerEntity = currentSeller.convertIntoEntity();
-			userService.deleteUser(sellerEntity);
+			userService.delete(sellerEntity);
 		}
 		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
 	}
