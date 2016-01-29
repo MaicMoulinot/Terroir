@@ -1,5 +1,6 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
 import java.sql.Blob;
 
 import javax.persistence.Column;
@@ -10,11 +11,22 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * This Class is an Entity representing an image.
+ * It uses {@link ImageService} for all its logic operations.
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It includes a {@link Blob}.
+ * Its properties are persisted in table "tr_image".
+ * @author Maic
+ */
 @Entity
 @Table(name="tr_image")
 @NamedQuery(name="ImageEntity.findAll", query="SELECT i FROM ImageEntity i")
-public class ImageEntity {
+public class ImageEntity implements Serializable {
 	
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = 1551346199307522787L;
+
 	// Attributes
 	@Id
 	@GeneratedValue

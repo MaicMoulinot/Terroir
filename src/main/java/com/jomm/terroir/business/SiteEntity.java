@@ -15,6 +15,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This Class is an Entity representing a site.
+ * It uses {@link SiteService} for all its logic operations.
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It includes a {@link EnterpriseEntity}, and an {@link Address} among other specific attributes.
+ * Its properties are persisted in table "tr_site".
+ * @author Maic
+ */
 @Entity
 @Table(name="tr_site")
 @NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM SiteEntity s")

@@ -12,6 +12,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Past;
 
+/**
+ * This Class is an Entity representing a customer.
+ * It is a child of {@link UserEntity}, so it uses {@link UserService} for all its logic operations.
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It includes an {@link Address} and other specific attributes.
+ * Its properties and those from its parent {@link UserEntity} are persisted in table "tr_customer".
+ * @author Maic
+ */
 @Entity
 @Table(name="tr_customer")
 @NamedQuery(name="CustomerEntity.findAll", query="SELECT c FROM CustomerEntity c")

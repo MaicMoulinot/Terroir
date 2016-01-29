@@ -14,6 +14,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This Class is an Entity representing a product.
+ * It uses {@link ProductService} for all its logic operations.
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It includes a {@link SiteEntity} among other specific attributes.
+ * Its properties are persisted in table "tr_product".
+ * @author Maic
+ */
 @Entity
 @Table(name="tr_product")
 @NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM ProductEntity p")
@@ -131,5 +139,4 @@ public class ProductEntity implements Serializable {
 	public void setSite(SiteEntity site) {
 		this.site = site;
 	}
-	
 }

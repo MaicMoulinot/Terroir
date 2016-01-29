@@ -10,6 +10,13 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This Class is an abstract Entity representing an user.
+ * It uses {@link UserService} for all its logic operations.
+ * It includes all common attributes shared among its child classes.
+ * As the {@link Inheritance} strategy is TABLE_PER_CLASS, its properties are persisted in each concrete child's table.
+ * @author Maic
+ */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u")

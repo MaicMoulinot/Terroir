@@ -9,6 +9,12 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.dao.ProductDaoInterface;
 
+/**
+ * This Class is the Service relating to {@link ProductEntity}.
+ * It implements {@link ProductServiceInterface} and defines all its business methods.
+ * It relates to {@link ProductDaoInterface} for all persistence operations.
+ * @author Maic
+ */
 @Stateless
 public class ProductService implements ProductServiceInterface {
 	

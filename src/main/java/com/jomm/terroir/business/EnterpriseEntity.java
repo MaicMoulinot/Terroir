@@ -17,6 +17,14 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+/**
+ * This Class is an Entity representing an enterprise.
+ * It uses {@link EnterpriseService} for all its logic operations.
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It includes an {@link Address} among diverse specific attributes.
+ * Its properties are persisted in table "tr_enterprise".
+ * @author Maic
+ */
 @Entity
 @Table(name="tr_enterprise")
 @NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM EnterpriseEntity e")
@@ -203,5 +211,4 @@ public class EnterpriseEntity implements Serializable {
 	public void setListSites(List<SiteEntity> listSites) {
 		this.listSites = listSites;
 	}
-
 }

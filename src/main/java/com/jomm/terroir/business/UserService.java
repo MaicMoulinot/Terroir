@@ -1,6 +1,7 @@
 package com.jomm.terroir.business;
 
 import java.util.ArrayList;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -11,6 +12,16 @@ import com.jomm.terroir.dao.CustomerDaoInterface;
 import com.jomm.terroir.dao.SellerDaoInterface;
 import com.jomm.terroir.dao.UserDaoInterface;
 
+/**
+ * This Class is the Service relating to {@link UserEntity} and its children {@link AdminEntity}, 
+ * {@link CustomerEntity} and {@link SellerEntity}.
+ * It implements {@link UserServiceInterface} and defines all its business methods.
+ * It relates to {@link UserDaoInterface} for general persistence operation on {@link UserEntity},
+ * to {@link AdminDaoInterface} for persistence operation on {@link AdminEntity},
+ * to {@link CustomerDaoInterface} for persistence operation on {@link CustomerEntity},
+ * and to {@link SellerDaoInterface} for persistence operation on {@link SellerEntity}.
+ * @author Maic
+ */
 @Stateless
 public class UserService implements UserServiceInterface {
 	

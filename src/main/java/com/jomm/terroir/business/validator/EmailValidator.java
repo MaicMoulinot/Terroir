@@ -12,12 +12,19 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.jomm.terroir.business.UserServiceInterface;
 import com.jomm.terroir.dao.UserDaoInterface;
 import com.jomm.terroir.util.Error;
 
 /**
+ * This Class is the Validator relating to an email.
+ * It implements {@link Validator} and defines its method validate(),
+ * that throws an {@link ValidatorException} if validation fails.
+ * It relates to {@link ResourceBundle} to get proper {@link Error} messages,
+ * to {@link Pattern} to define a correct email pattern,
+ * and to {@link UserServiceInterface} to check if the email is already in use.
+ * It is annotated {@link Named} for proper access from/to the view pages.
  * @author Maic
- *
  */
 @Named
 public class EmailValidator implements Validator {

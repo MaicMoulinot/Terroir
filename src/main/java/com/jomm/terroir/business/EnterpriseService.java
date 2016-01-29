@@ -1,6 +1,7 @@
 package com.jomm.terroir.business;
 
 import java.util.ArrayList;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -8,6 +9,12 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.dao.EnterpriseDaoInterface;
 
+/**
+ * This Class is the Service relating to {@link EnterpriseEntity}.
+ * It implements {@link EnterpriseServiceInterface} and defines all its business methods.
+ * It relates to {@link EnterpriseDaoInterface} for all persistence operations.
+ * @author Maic
+ */
 @Stateless
 public class EnterpriseService implements EnterpriseServiceInterface {
 	

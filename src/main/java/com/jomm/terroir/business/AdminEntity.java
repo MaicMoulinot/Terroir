@@ -7,6 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ * This Class is an Entity representing an administrator of the system.
+ * It is a child of {@link UserEntity}, so it uses {@link UserService} for all its logic operations.
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It includes administrative abilities that are invalid by default.
+ * Its properties and those from its parent {@link UserEntity} are persisted in table "tr_admin".
+ * @author Maic
+ */
 @Entity
 @Table(name="tr_admin")
 @NamedQuery(name="AdminEntity.findAll", query="SELECT a FROM AdminEntity a")
@@ -27,6 +35,7 @@ public class AdminEntity extends UserEntity implements Serializable {
 
 	/**
 	 * No-arg constructor.
+	 * Default is no special power.
 	 */
 	protected AdminEntity() {
 		super();

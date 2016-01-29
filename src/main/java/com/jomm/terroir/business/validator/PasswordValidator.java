@@ -15,8 +15,13 @@ import javax.inject.Named;
 import com.jomm.terroir.util.Error;
 
 /**
+ * This Class is the Validator relating to a password.
+ * It implements {@link Validator} and defines its method validate(),
+ * that throws an {@link ValidatorException} if validation fails.
+ * It relates to {@link ResourceBundle} to get proper {@link Error} messages,
+ * and to {@link Pattern} to define a correct password pattern.
+ * It is annotated {@link Named} for proper access from/to the view pages.
  * @author Maic
- *
  */
 @Named
 public class PasswordValidator implements Validator {
@@ -33,7 +38,7 @@ public class PasswordValidator implements Validator {
     private ResourceBundle resource;
 
 	// Pattern for password
-	private static final String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})";
+	public static final Pattern PASSWORD_PATTERN = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
 	// (?=.*\d)		#   must contain one digit from 0-9
 	// (?=.*[a-z])	#   must contain one lowercase character
 	// (?=.*[A-Z])	#   must contain one uppercase character
@@ -56,8 +61,7 @@ public class PasswordValidator implements Validator {
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORDS_DONT_MATCH), null));
 			} else {
 				// Password doesn't match pattern
-				Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
-				if (!pattern.matcher(password1).matches()) {
+				if (!PASSWORD_PATTERN.matcher(password1).matches()) {
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORD_TOO_SIMPLE), 
 									resource.getString(PASSWORD_RULES)));

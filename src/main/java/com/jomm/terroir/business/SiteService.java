@@ -9,6 +9,12 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.dao.SiteDaoInterface;
 
+/**
+ * This Class is the Service relating to {@link SiteEntity}.
+ * It implements {@link SiteServiceInterface} and defines all its business methods.
+ * It relates to {@link SiteDaoInterface} for all persistence operations.
+ * @author Maic
+ */
 @Stateless
 public class SiteService implements SiteServiceInterface {
 	

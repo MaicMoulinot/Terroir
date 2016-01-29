@@ -1,17 +1,24 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 
 /**
- * Define a mailing address.
+ * This Class is an {@link Embeddable} representing a mailing address.
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * Its properties are never persisted by themselves but only as part of an Entity.
  * @author Maic
  */
 @Embeddable
-public class Address {
+public class Address implements Serializable {
 	
-	// Attributes	
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = -5588567172905081796L;
+
+	// Attributes
 	@Column(name = "address_street")
 	private String street;
 	

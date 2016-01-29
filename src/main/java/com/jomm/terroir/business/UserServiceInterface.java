@@ -2,7 +2,10 @@ package com.jomm.terroir.business;
 
 import java.util.ArrayList;
 
-
+/**
+ * This Interface describes all logic operations for {@link UserEntity} and its children.
+ * @author Maic
+ */
 public interface UserServiceInterface {
 	
 	/**

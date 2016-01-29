@@ -11,6 +11,11 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+/**
+ * This Class is the specific Tool for exposing resources using the resource producer pattern.
+ * It relies on {@link Produces}.
+ * @author Maic
+ */
 public class Resources {
 	
 	// Constants
