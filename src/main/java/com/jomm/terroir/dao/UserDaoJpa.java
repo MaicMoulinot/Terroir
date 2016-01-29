@@ -5,7 +5,7 @@ import javax.ejb.Stateless;
 import com.jomm.terroir.business.UserEntity;
 
 @Stateless
-public class UserDaoJpa extends DaoJpa<Long, UserEntity> implements UserDaoInterface {
+public class UserDaoJpa extends GenericDao<UserEntity> implements UserDao {
 
 	@Override
 	public boolean isExistingEmail(String email) {

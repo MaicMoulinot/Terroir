@@ -5,6 +5,6 @@ import javax.ejb.Stateless;
 import com.jomm.terroir.business.AdminEntity;
 
 @Stateless
-public class AdminDaoJpa extends DaoJpa<Long, AdminEntity> implements AdminDaoInterface {
+public class AdminDaoJpa extends GenericDao<AdminEntity> implements AdminDao {
 	
 }

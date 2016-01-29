@@ -5,6 +5,6 @@ import javax.ejb.Stateless;
 import com.jomm.terroir.business.CustomerEntity;
 
 @Stateless
-public class CustomerDaoJpa extends DaoJpa<Long, CustomerEntity> implements CustomerDaoInterface {
+public class CustomerDaoJpa extends GenericDao<CustomerEntity> implements CustomerDao {
 	
 }

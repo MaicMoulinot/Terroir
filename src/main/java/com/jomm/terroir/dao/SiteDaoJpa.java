@@ -5,6 +5,6 @@ import javax.ejb.Stateless;
 import com.jomm.terroir.business.SiteEntity;
 
 @Stateless
-public class SiteDaoJpa extends DaoJpa<Long, SiteEntity> implements SiteDaoInterface {
+public class SiteDaoJpa extends GenericDao<SiteEntity> implements SiteDao {
 	
 }
