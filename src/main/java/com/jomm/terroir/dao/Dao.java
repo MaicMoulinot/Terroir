@@ -2,10 +2,15 @@ package com.jomm.terroir.dao;
 
 import java.util.Collection;
 
+import javax.persistence.Entity;
+
 /**
-* K is the Key's type (usually Long or String).
-* E is the Entity's type (managed by this DAO).
-*/
+ * This Interface describes all persisting operations for an {@link Entity}.
+ * @author Maic
+ *
+ * @param <K> {@link Long} is the Key's type.
+ * @param <E> {@link Entity} is the Entity's type.
+ */
 public interface Dao<K, E> {
 	
 	/**
