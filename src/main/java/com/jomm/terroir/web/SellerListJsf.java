@@ -18,6 +18,15 @@ import com.jomm.terroir.business.SellerEntity;
 import com.jomm.terroir.business.UserServiceInterface;
 import com.jomm.terroir.util.Message;
 
+/**
+ * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link SellerJsf}.
+ * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
+ * to {@link FacesContext} to throw them to the view, 
+ * and to {@link UserServiceInterface} to update or delete the {@link SellerEntity}.
+ * It is annotated {@link ManagedBean} for proper access from/to the view page,
+ * and {@link ViewScoped} because of multiple AJAX requests.
+ * @author Maic
+ */
 @ManagedBean
 @ViewScoped
 public class SellerListJsf {
