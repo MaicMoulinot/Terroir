@@ -2,52 +2,33 @@ package com.jomm.terroir.business;
 
 import java.util.ArrayList;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
-
-import com.jomm.terroir.dao.SiteDaoInterface;
-
 /**
- * This Class is the Service relating to {@link SiteEntity}.
- * It implements {@link SiteServiceInterface} and defines all its business methods.
- * It relates to {@link SiteDaoInterface} for all persistence operations.
+ * This Interface describes all logic operations for {@link Site}.
  * @author Maic
  */
-@Stateless
-public class SiteService implements SiteServiceInterface {
+public interface SiteService {
 	
-	@Inject
-	private SiteDaoInterface siteDao;
-
-	@Override
-	public void persistSite(SiteEntity site) {
-		// Call Service to persist
-		siteDao.persist(site);
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<SiteEntity> getAllSites() {
-		ArrayList<SiteEntity> result = new ArrayList<>();
-		for (SiteEntity site : siteDao.findAll()) {
-			result.add(site);
-		}
-		return result;
-	}
-	
-	@Override
-	public void deleteSite(SiteEntity site) {
-		// Call Service to remove
-		siteDao.remove(site);
-	}
-
 	/**
-	 * This method is used for Junit testing only.
-	 * @param siteDao the siteDao to set
+	 * Create a site.
+	 * @param site the {@link Site} to create.
 	 */
-	void setSiteDao(SiteDaoInterface siteDao) {
-		this.siteDao = siteDao;
-	}
+	public void create(Site site);
+	
+	/**
+	 * Update a site.
+	 * @param site the {@link Site} to update.
+	 */
+	public void update(Site site);
+	
+	/**
+	 * Fetch the list of all sites.
+	 * @return a list of all {@link Site}.
+	 */
+	public ArrayList<Site> getAllSites();
+	
+	/**
+	 * Delete a site.
+	 * @param site the {@link Site} to delete.
+	 */
+	public void delete(Site site);
 }

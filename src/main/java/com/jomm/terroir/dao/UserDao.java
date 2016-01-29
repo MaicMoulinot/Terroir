@@ -1,8 +1,12 @@
 package com.jomm.terroir.dao;
 
-import com.jomm.terroir.business.UserEntity;
+import com.jomm.terroir.business.AbstractUser;
 
-public interface UserDaoInterface extends Dao<Long, UserEntity> {
+/**
+ * This Interface is a DAO and manages CRUD operations involving a {@link AbstractUser}.
+ * @author Maic
+ */
+public interface UserDao extends Dao<AbstractUser> {
 	
 	/**
 	 * Check if the email already exists.

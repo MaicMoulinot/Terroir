@@ -9,17 +9,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * This Class is an Entity representing a seller.
- * It is a child of {@link UserEntity}, so it uses {@link UserService} for all its logic operations.
+ * This Class is an {@link Entity} representing a seller.
+ * It is a child of {@link AbstractUser}, so it uses {@link UserService} for all its logic operations.
  * It implements {@link Serializable} and has a generated serial version ID.
- * It includes an {@link EnterpriseEntity}.
- * Its properties and those from its parent {@link UserEntity} are persisted in table "tr_seller".
+ * It includes an {@link Enterprise}.
+ * Its properties and those from its parent {@link AbstractUser} are persisted in table "tr_seller".
  * @author Maic
  */
 @Entity
 @Table(name="tr_seller")
-@NamedQuery(name="SellerEntity.findAll", query="SELECT s FROM SellerEntity s")
-public class SellerEntity extends UserEntity implements Serializable {
+@NamedQuery(name="Seller.findAll", query="SELECT s FROM Seller s")
+public class Seller extends AbstractUser implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 20497943860676595L;
@@ -27,20 +27,20 @@ public class SellerEntity extends UserEntity implements Serializable {
 	// Attributes
 	@NotNull
 	@ManyToOne
-	private EnterpriseEntity enterprise;
+	private Enterprise enterprise;
 
 	// Getters and Setters
 	/**
 	 * @return the enterprise
 	 */
-	public EnterpriseEntity getEnterprise() {
+	public Enterprise getEnterprise() {
 		return enterprise;
 	}
 
 	/**
 	 * @param enterprise the enterprise to set
 	 */
-	public void setEnterprise(EnterpriseEntity enterprise) {
+	public void setEnterprise(Enterprise enterprise) {
 		this.enterprise = enterprise;
 	}
 }

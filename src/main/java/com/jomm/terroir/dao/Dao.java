@@ -1,40 +1,53 @@
 package com.jomm.terroir.dao;
 
-import java.util.Collection;
+import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 
 /**
- * This Interface describes all persisting operations for an {@link Entity}.
+ * This Interface describes all CRUD operations involving a {@link Entity}.
  * @author Maic
  *
- * @param <K> {@link Long} is the Key's type.
- * @param <E> {@link Entity} is the Entity's type.
+ * @param <E> {@link Entity} is the Entity's type, which extends {@link Serializable}.
  */
-public interface Dao<K, E> {
+public interface Dao<E extends Serializable> {
 	
 	/**
-	 * Persist an entity.
-	 * @param entity E the entity to persist.
+	 * Fetch an {@link Entity}.
+	 * @param id {@link Long} the entity's id.
+	 * @return E the {@link Entity}.
 	 */
-	void persist(E entity);
-	
+	public E find(Long id);
+
 	/**
-	 * Remove an entity.
-	 * @param entity E the entity to delete.
+	 * Fetch all {@link Entity}.
+	 * @return a list of {@link Entity}.
 	 */
-	void remove(E entity);
-	
+	public List<E> findAll();
+
 	/**
-	 * Fetch an entity
-	 * @param id K the index of the entity.
-	 * @return E an entity.
+	 * Create and persist a new {@link Entity}.
+	 * @param entity the {@link Entity}.
 	 */
-	E findById(K id);
-	
+	public void create(E entity);
+
 	/**
-	 * Fetch all entities.
-	 * @return a collection of entities.
+	 * Update a previously persisted {@link Entity}.
+	 * @param entity the {@link Entity}.
+	 * @return the updated {@link Entity}.
 	 */
-	Collection<E> findAll();
+	public E update(E entity);
+
+	/**
+	 * Delete an {@link Entity}.
+	 * @param entity the {@link Entity}.
+	 */
+	public void delete(E entity);
+
+	/**
+	 * Delete an {@link Entity} using its id.
+	 * @param entityId {@link Long} the entity's id.
+	 */
+	public void deleteById(Long entityId);
 }

@@ -13,17 +13,17 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Past;
 
 /**
- * This Class is an Entity representing a customer.
- * It is a child of {@link UserEntity}, so it uses {@link UserService} for all its logic operations.
+ * This Class is an {@link Entity} representing a customer.
+ * It is a child of {@link AbstractUser}, so it uses {@link UserService} for all its logic operations.
  * It implements {@link Serializable} and has a generated serial version ID.
  * It includes an {@link Address} and other specific attributes.
- * Its properties and those from its parent {@link UserEntity} are persisted in table "tr_customer".
+ * Its properties and those from its parent {@link AbstractUser} are persisted in table "tr_customer".
  * @author Maic
  */
 @Entity
 @Table(name="tr_customer")
-@NamedQuery(name="CustomerEntity.findAll", query="SELECT c FROM CustomerEntity c")
-public class CustomerEntity extends UserEntity implements Serializable {
+@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
+public class Customer extends AbstractUser implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 5245050836890561932L;

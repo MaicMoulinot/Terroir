@@ -1,5 +1,7 @@
 package com.jomm.terroir.business;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,16 +13,20 @@ import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
- * This Class is an abstract Entity representing an user.
+ * This Class is an abstract {@link Entity} representing an user.
  * It uses {@link UserService} for all its logic operations.
+ * It implements {@link Serializable} and has a generated serial version ID.
  * It includes all common attributes shared among its child classes.
  * As the {@link Inheritance} strategy is TABLE_PER_CLASS, its properties are persisted in each concrete child's table.
  * @author Maic
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@NamedQuery(name="UserEntity.findAll", query="SELECT u FROM UserEntity u")
-public abstract class UserEntity {
+@NamedQuery(name="AbstractUser.findAll", query="SELECT u FROM AbstractUser u")
+public abstract class AbstractUser implements Serializable {
+
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = -7643819675779152993L;
 
 	// Attributes
 	@Id

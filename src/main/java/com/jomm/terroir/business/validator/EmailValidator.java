@@ -12,7 +12,7 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.jomm.terroir.business.UserServiceInterface;
+import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.util.Error;
 
 /**
@@ -21,7 +21,7 @@ import com.jomm.terroir.util.Error;
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link Error} messages,
  * to {@link Pattern} to define a correct email pattern,
- * and to {@link UserServiceInterface} to check if the email is already in use.
+ * and to {@link UserService} to check if the email is already in use.
  * It is annotated {@link Named} for proper access from/to the view pages.
  * @author Maic
  */
@@ -38,7 +38,7 @@ public class EmailValidator implements Validator {
 			Pattern.CASE_INSENSITIVE);
     
     @Inject
-    private UserServiceInterface userService;
+    private UserService userService;
     
     @Inject
     @Error

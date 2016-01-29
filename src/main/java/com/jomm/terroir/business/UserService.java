@@ -2,16 +2,6 @@ package com.jomm.terroir.business;
 
 import java.util.ArrayList;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
-
-import com.jomm.terroir.dao.AdminDaoInterface;
-import com.jomm.terroir.dao.CustomerDaoInterface;
-import com.jomm.terroir.dao.SellerDaoInterface;
-import com.jomm.terroir.dao.UserDaoInterface;
-
 /**
  * This Class is the Service relating to {@link UserEntity} and its children {@link AdminEntity}, 
  * {@link CustomerEntity} and {@link SellerEntity}.
@@ -22,76 +12,55 @@ import com.jomm.terroir.dao.UserDaoInterface;
  * and to {@link SellerDaoInterface} for persistence operation on {@link SellerEntity}.
  * @author Maic
  */
-@Stateless
-public class UserService implements UserServiceInterface {
+public interface UserService {
 	
-	@Inject
-	private UserDaoInterface userDao;
+	/**
+	 * Create an user.
+	 * @param user the {@link AbstractUser} to create.
+	 */
+	public void create(AbstractUser user);
 	
-	@Inject
-	private AdminDaoInterface adminDao;
+	/**
+	 * Update an user.
+	 * @param user the {@link AbstractUser} to update.
+	 */
+	public void update(AbstractUser user);
 	
-	@Inject
-	private CustomerDaoInterface customerDao;
+	/**
+	 * Fetch the list of all admins.
+	 * @return a list of {@link Admin}.
+	 */
+	public ArrayList<Admin> getAllAdmins();
 	
-	@Inject
-	private SellerDaoInterface sellerDao;
-
-	@Override
-	public void persistUser(UserEntity user) {
-		userDao.persist(user);
-	}
+	/**
+	 * Fetch the list of all customers.
+	 * @return a list of {@link Customer}.
+	 */
+	public ArrayList<Customer> getAllCustomers();
 	
-	@Override
-	public void deleteUser(UserEntity user) {
-		userDao.remove(user);
-	}
-	
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<AdminEntity> getAllAdmins() {
-		ArrayList<AdminEntity> result = new ArrayList<>();
-		for (AdminEntity adminEntity : adminDao.findAll()) {
-			result.add(adminEntity);
-		}
-		return result;
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<CustomerEntity> getAllCustomers() {
-		ArrayList<CustomerEntity> result = new ArrayList<>();
-		for (CustomerEntity customerEntity : customerDao.findAll()) {
-			result.add(customerEntity);
-		}
-		return result;
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<SellerEntity> getAllSellers() {
-		ArrayList<SellerEntity> result = new ArrayList<>();
-		for (SellerEntity sellerEntity : sellerDao.findAll()) {
-			result.add(sellerEntity);
-		}
-		return result;
-	}
-	
-	@Override
-	public boolean isExistingUserName(String userName) {
-		return userDao.isExistingUserName(userName);
-	}
-	
-	@Override
-	public boolean isExistingEmail(String email) {
-		return userDao.isExistingEmail(email);
-	}
+	/**
+	 * Fetch the list of all sellers.
+	 * @return a list of {@link Seller}.
+	 */
+	public ArrayList<Seller> getAllSellers();
 
 	/**
-	 * This method is used for Junit testing only.
-	 * @param userDao the userDao to set
+	 * Delete an user.
+	 * @param user the {@link AbstractUser} to delete.
 	 */
-	void setUserDao(UserDaoInterface userDao) {
-		this.userDao = userDao;
-	}
+	public void delete(AbstractUser user);
+	
+	/**
+	 * Check if the user name already exists.
+	 * @param userName String the user name to check.
+	 * @return true if the user name is already in use, false otherwise.
+	 */
+	public boolean isExistingUserName(String userName);
+	
+	/**
+	 * Check if the email already exists.
+	 * @param email String the email to test.
+	 * @return true if email was found, false otherwise.
+	 */
+	public boolean isExistingEmail(String email);
 }

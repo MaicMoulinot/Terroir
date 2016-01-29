@@ -15,17 +15,17 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
- * This Class is an Entity representing a product.
+ * This Class is an {@link Entity} representing a product.
  * It uses {@link ProductService} for all its logic operations.
  * It implements {@link Serializable} and has a generated serial version ID.
- * It includes a {@link SiteEntity} among other specific attributes.
+ * It includes a {@link Site} among other specific attributes.
  * Its properties are persisted in table "tr_product".
  * @author Maic
  */
 @Entity
 @Table(name="tr_product")
-@NamedQuery(name="ProductEntity.findAll", query="SELECT p FROM ProductEntity p")
-public class ProductEntity implements Serializable {
+@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
+public class Product implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 1864985598416003134L;
@@ -53,7 +53,7 @@ public class ProductEntity implements Serializable {
 	
 	@NotNull
 	@ManyToOne
-	private SiteEntity site;
+	private Site site;
 	
 	// Getters and Setters
 	/**
@@ -129,14 +129,14 @@ public class ProductEntity implements Serializable {
 	/**
 	 * @return the site
 	 */
-	public SiteEntity getSite() {
+	public Site getSite() {
 		return site;
 	}
 
 	/**
 	 * @param site the site to set
 	 */
-	public void setSite(SiteEntity site) {
+	public void setSite(Site site) {
 		this.site = site;
 	}
 }
