@@ -2,6 +2,10 @@ package com.jomm.terroir.dao;
 
 import com.jomm.terroir.business.AbstractUser;
 
+/**
+ * This Interface is a DAO and manages CRUD operations involving a {@link AbstractUser}.
+ * @author Maic
+ */
 public interface UserDao extends Dao<AbstractUser> {
 	
 	/**

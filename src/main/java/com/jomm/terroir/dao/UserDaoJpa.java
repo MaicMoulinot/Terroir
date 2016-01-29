@@ -4,6 +4,11 @@ import javax.ejb.Stateless;
 
 import com.jomm.terroir.business.AbstractUser;
 
+/**
+ * This Class defines all CRUD operations involving a {@link AbstractUser}.
+ * It implements {@link UserDao}, and it extends {@link GenericDao} using a {@link AbstractUser} parameter.
+ * @author Maic
+ */
 @Stateless
 public class UserDaoJpa extends GenericDao<AbstractUser> implements UserDao {
 

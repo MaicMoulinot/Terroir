@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 
 /**
- * This Interface describes all CRUD operations for any {@link Entity}.
+ * This Interface describes all CRUD operations involving a {@link Entity}.
  * @author Maic
  *
  * @param <E> {@link Entity} is the Entity's type, which extends {@link Serializable}.

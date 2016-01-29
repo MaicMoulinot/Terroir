@@ -12,11 +12,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 
 /**
- * This abstract Class describes all persisting operations for any {@link Entity}.
- * It implements {@link Dao} and defines all its CRUD operations using JPA.
- * It requires each {@link Entity} to declare a {@link NamedQuery} "entityName.findAll", 
- * and each entity's id must be a {@link Long}.
+ * This abstract Class defines all CRUD operations involving a {@link Entity}.
+ * It implements {@link Dao} and defines all its methods using JPA.
  * The no-arg constructor sets the attribute entityClass with the appropriate {@link Class}.
+ * <br />It requires 3 conditions from any {@link Entity} :
+ * <ul><li>the entity must declare a {@link NamedQuery} named "entityName.findAll",</li>
+ * <li>the entity's id must be a {@link Long},</li>
+ * <li>and the entity should implement {@link Serializable}.</li></ul>
  * @author Maic
  *
  * @param <E> {@link Entity} is the Entity's type, which extends {@link Serializable}.
@@ -77,14 +79,14 @@ public abstract class GenericDao<E extends Serializable> implements Dao<E> {
 	/**
 	 * @return the entityClass
 	 */
-	public Class<E> getEntityClass() {
+	protected Class<E> getEntityClass() {
 		return entityClass;
 	}
 
 	/**
 	 * @param entityClass the entityClass to set
 	 */
-	public void setEntityClass(Class<E> entityClass) {
+	protected void setEntityClass(Class<E> entityClass) {
 		this.entityClass = entityClass;
 	}
 }
