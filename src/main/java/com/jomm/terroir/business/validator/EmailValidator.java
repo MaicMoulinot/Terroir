@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.UserServiceInterface;
-import com.jomm.terroir.dao.UserDaoInterface;
+import com.jomm.terroir.dao.UserDao;
 import com.jomm.terroir.util.Error;
 
 /**
@@ -39,7 +39,7 @@ public class EmailValidator implements Validator {
 			Pattern.CASE_INSENSITIVE);
     
     @Inject
-    private UserDaoInterface userDao;
+    private UserDao userDao;
     
     @Inject
     @Error

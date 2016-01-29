@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.UserServiceInterface;
-import com.jomm.terroir.dao.UserDaoInterface;
+import com.jomm.terroir.dao.UserDao;
 import com.jomm.terroir.util.Error;
 
 /**
@@ -32,7 +32,7 @@ public class UsernameValidator implements Validator {
 	private static final String LENGHT_AT_LEAST_6_CHARACTERS = "lenght6";
 
 	@Inject
-	private UserDaoInterface userDao;
+	private UserDao userDao;
 	
 	@Inject
 	@Error
