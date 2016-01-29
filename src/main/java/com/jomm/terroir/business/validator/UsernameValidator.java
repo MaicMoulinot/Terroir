@@ -11,7 +11,7 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.jomm.terroir.business.UserServiceInterface;
+import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.dao.UserDao;
 import com.jomm.terroir.util.Error;
 
@@ -20,7 +20,7 @@ import com.jomm.terroir.util.Error;
  * It implements {@link Validator} and defines its method validate(),
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link Error} messages,
- * and to {@link UserServiceInterface} to check if the user name is already in use.
+ * and to {@link UserService} to check if the user name is already in use.
  * It is annotated {@link Named} for proper access from/to the view pages.
  * @author Maic
  */

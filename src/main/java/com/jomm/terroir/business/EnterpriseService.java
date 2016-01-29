@@ -2,52 +2,33 @@ package com.jomm.terroir.business;
 
 import java.util.ArrayList;
 
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
-
-import com.jomm.terroir.dao.EnterpriseDaoInterface;
-
 /**
- * This Class is the Service relating to {@link EnterpriseEntity}.
- * It implements {@link EnterpriseServiceInterface} and defines all its business methods.
- * It relates to {@link EnterpriseDaoInterface} for all persistence operations.
+ * This Interface describes all logic operations for {@link EnterpriseEntity}.
  * @author Maic
  */
-@Stateless
-public class EnterpriseService implements EnterpriseServiceInterface {
+public interface EnterpriseService {
 	
-	@Inject
-	private EnterpriseDaoInterface enterpriseDao;
-
-	@Override
-	public void persistEnterprise(EnterpriseEntity enterprise) {
-		// Call Service to persist
-		enterpriseDao.persist(enterprise);
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<EnterpriseEntity> getAllEnterprises() {
-		ArrayList<EnterpriseEntity> result = new ArrayList<>();
-		for (EnterpriseEntity enterprise : enterpriseDao.findAll()) {
-			result.add(enterprise);
-		}
-		return result;
-	}
-	
-	@Override
-	public void deleteEnterprise(EnterpriseEntity enterprise) {
-		// Call Service to remove
-		enterpriseDao.remove(enterprise);
-	}
-
 	/**
-	 * This method is used for Junit testing only.
-	 * @param enterpriseDao the enterpriseDao to set
+	 * Create an enterprise.
+	 * @param enterprise the {@link EnterpriseEntity} to create.
 	 */
-	void setEnterpriseDao(EnterpriseDaoInterface enterpriseDao) {
-		this.enterpriseDao = enterpriseDao;
-	}
+	public void create(EnterpriseEntity enterprise);
+	
+	/**
+	 * Update an enterprise.
+	 * @param enterprise the {@link EnterpriseEntity} to update.
+	 */
+	public void update(EnterpriseEntity enterprise);
+	
+	/**
+	 * Fetch the list of all enterprises.
+	 * @return a list of all {@link EnterpriseEntity}.
+	 */
+	public ArrayList<EnterpriseEntity> getAllEnterprises();
+	
+	/**
+	 * Delete an enterprise.
+	 * @param enterprise the {@link EnterpriseEntity} to delete.
+	 */
+	public void delete(EnterpriseEntity enterprise);
 }
