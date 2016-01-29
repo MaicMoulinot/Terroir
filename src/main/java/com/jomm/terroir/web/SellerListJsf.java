@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
 
-import com.jomm.terroir.business.SellerEntity;
+import com.jomm.terroir.business.Seller;
 import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.util.Message;
 
@@ -22,7 +22,7 @@ import com.jomm.terroir.util.Message;
  * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link SellerJsf}.
  * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
  * to {@link FacesContext} to throw them to the view, 
- * and to {@link UserService} to update or delete the {@link SellerEntity}.
+ * and to {@link UserService} to update or delete the {@link Seller}.
  * It is annotated {@link ManagedBean} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
@@ -55,15 +55,15 @@ public class SellerListJsf {
 	@PostConstruct 
 	public void init() {
 		listSellers = new LinkedList<SellerJsf>();
-		for (SellerEntity sellerEntity : userService.getAllSellers()) {
+		for (Seller seller : userService.getAllSellers()) {
 			SellerJsf sellerJsf = new SellerJsf();
-			sellerJsf.setId(sellerEntity.getId());
-			sellerJsf.setFirstName(sellerEntity.getFirstName());
-			sellerJsf.setLastName(sellerEntity.getLastName());
-			sellerJsf.setUserName(sellerEntity.getUserName());
-			sellerJsf.setEmail(sellerEntity.getEmail());
-			sellerJsf.setPassword(sellerEntity.getUserPassword());
-			sellerJsf.setEnterprise(sellerEntity.getEnterprise());
+			sellerJsf.setId(seller.getId());
+			sellerJsf.setFirstName(seller.getFirstName());
+			sellerJsf.setLastName(seller.getLastName());
+			sellerJsf.setUserName(seller.getUserName());
+			sellerJsf.setEmail(seller.getEmail());
+			sellerJsf.setPassword(seller.getUserPassword());
+			sellerJsf.setEnterprise(seller.getEnterprise());
 			listSellers.add(sellerJsf);
 		}
 
@@ -98,8 +98,8 @@ public class SellerListJsf {
 	 */
 	public String delete() {
 		if (currentSeller != null) {
-			SellerEntity sellerEntity = currentSeller.convertIntoEntity();
-			userService.delete(sellerEntity);
+			Seller seller = currentSeller.convertIntoEntity();
+			userService.delete(seller);
 		}
 		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
 	}

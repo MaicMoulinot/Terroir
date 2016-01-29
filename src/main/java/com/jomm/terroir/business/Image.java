@@ -12,7 +12,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- * This Class is an Entity representing an image.
+ * This Class is an {@link Entity} representing an image.
  * It uses {@link ImageService} for all its logic operations.
  * It implements {@link Serializable} and has a generated serial version ID.
  * It includes a {@link Blob}.
@@ -21,8 +21,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="tr_image")
-@NamedQuery(name="ImageEntity.findAll", query="SELECT i FROM ImageEntity i")
-public class ImageEntity implements Serializable {
+@NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
+public class Image implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 1551346199307522787L;

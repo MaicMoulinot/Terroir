@@ -1,7 +1,7 @@
 package com.jomm.terroir.dao;
 
-import com.jomm.terroir.business.SellerEntity;
+import com.jomm.terroir.business.Seller;
 
-public interface SellerDao extends Dao<SellerEntity> {
+public interface SellerDao extends Dao<Seller> {
 
 }

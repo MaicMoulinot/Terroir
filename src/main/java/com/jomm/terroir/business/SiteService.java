@@ -3,32 +3,32 @@ package com.jomm.terroir.business;
 import java.util.ArrayList;
 
 /**
- * This Interface describes all logic operations for {@link SiteEntity}.
+ * This Interface describes all logic operations for {@link Site}.
  * @author Maic
  */
 public interface SiteService {
 	
 	/**
 	 * Create a site.
-	 * @param site the {@link SiteEntity} to create.
+	 * @param site the {@link Site} to create.
 	 */
-	public void create(SiteEntity site);
+	public void create(Site site);
 	
 	/**
 	 * Update a site.
-	 * @param site the {@link SiteEntity} to update.
+	 * @param site the {@link Site} to update.
 	 */
-	public void update(SiteEntity site);
+	public void update(Site site);
 	
 	/**
 	 * Fetch the list of all sites.
-	 * @return a list of all {@link SiteEntity}.
+	 * @return a list of all {@link Site}.
 	 */
-	public ArrayList<SiteEntity> getAllSites();
+	public ArrayList<Site> getAllSites();
 	
 	/**
 	 * Delete a site.
-	 * @param site the {@link SiteEntity} to delete.
+	 * @param site the {@link Site} to delete.
 	 */
-	public void delete(SiteEntity site);
+	public void delete(Site site);
 }

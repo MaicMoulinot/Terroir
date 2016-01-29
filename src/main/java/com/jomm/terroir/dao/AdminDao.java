@@ -1,7 +1,7 @@
 package com.jomm.terroir.dao;
 
-import com.jomm.terroir.business.AdminEntity;
+import com.jomm.terroir.business.Admin;
 
-public interface AdminDao extends Dao<AdminEntity> {
+public interface AdminDao extends Dao<Admin> {
 
 }

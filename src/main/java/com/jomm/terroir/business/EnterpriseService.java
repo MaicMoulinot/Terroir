@@ -3,32 +3,32 @@ package com.jomm.terroir.business;
 import java.util.ArrayList;
 
 /**
- * This Interface describes all logic operations for {@link EnterpriseEntity}.
+ * This Interface describes all logic operations for {@link Enterprise}.
  * @author Maic
  */
 public interface EnterpriseService {
 	
 	/**
 	 * Create an enterprise.
-	 * @param enterprise the {@link EnterpriseEntity} to create.
+	 * @param enterprise the {@link Enterprise} to create.
 	 */
-	public void create(EnterpriseEntity enterprise);
+	public void create(Enterprise enterprise);
 	
 	/**
 	 * Update an enterprise.
-	 * @param enterprise the {@link EnterpriseEntity} to update.
+	 * @param enterprise the {@link Enterprise} to update.
 	 */
-	public void update(EnterpriseEntity enterprise);
+	public void update(Enterprise enterprise);
 	
 	/**
 	 * Fetch the list of all enterprises.
-	 * @return a list of all {@link EnterpriseEntity}.
+	 * @return a list of all {@link Enterprise}.
 	 */
-	public ArrayList<EnterpriseEntity> getAllEnterprises();
+	public ArrayList<Enterprise> getAllEnterprises();
 	
 	/**
 	 * Delete an enterprise.
-	 * @param enterprise the {@link EnterpriseEntity} to delete.
+	 * @param enterprise the {@link Enterprise} to delete.
 	 */
-	public void delete(EnterpriseEntity enterprise);
+	public void delete(Enterprise enterprise);
 }

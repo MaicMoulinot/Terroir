@@ -1,7 +1,7 @@
 package com.jomm.terroir.dao;
 
-import com.jomm.terroir.business.SiteEntity;
+import com.jomm.terroir.business.Site;
 
-public interface SiteDao extends Dao<SiteEntity> {
+public interface SiteDao extends Dao<Site> {
 
 }

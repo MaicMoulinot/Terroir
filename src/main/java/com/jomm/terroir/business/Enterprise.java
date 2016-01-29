@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
- * This Class is an Entity representing an enterprise.
+ * This Class is an {@link Entity} representing an enterprise.
  * It uses {@link EnterpriseService} for all its logic operations.
  * It implements {@link Serializable} and has a generated serial version ID.
  * It includes an {@link Address} among diverse specific attributes.
@@ -27,8 +27,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name="tr_enterprise")
-@NamedQuery(name="EnterpriseEntity.findAll", query="SELECT e FROM EnterpriseEntity e")
-public class EnterpriseEntity implements Serializable {
+@NamedQuery(name="Enterprise.findAll", query="SELECT e FROM Enterprise e")
+public class Enterprise implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 3818285976250730794L;
@@ -65,11 +65,11 @@ public class EnterpriseEntity implements Serializable {
 	@Column(name = "signup_date")
 	private Date signUpDate;
 	
-	@OneToMany(targetEntity = SellerEntity.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
-	private List<SellerEntity> listSellers;
+	@OneToMany(targetEntity = Seller.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
+	private List<Seller> listSellers;
 	
-	@OneToMany(targetEntity = SiteEntity.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
-	private List<SiteEntity> listSites;
+	@OneToMany(targetEntity = Site.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
+	private List<Site> listSites;
 	
 	// Getters and Setters
 	/**
@@ -187,28 +187,28 @@ public class EnterpriseEntity implements Serializable {
 	/**
 	 * @return the listSellers
 	 */
-	public List<SellerEntity> getListSellers() {
+	public List<Seller> getListSellers() {
 		return listSellers;
 	}
 
 	/**
 	 * @param listSellers the listSellers to set
 	 */
-	public void setListSellers(List<SellerEntity> listSellers) {
+	public void setListSellers(List<Seller> listSellers) {
 		this.listSellers = listSellers;
 	}
 
 	/**
 	 * @return the listSites
 	 */
-	public List<SiteEntity> getListSites() {
+	public List<Site> getListSites() {
 		return listSites;
 	}
 
 	/**
 	 * @param listSites the listSites to set
 	 */
-	public void setListSites(List<SiteEntity> listSites) {
+	public void setListSites(List<Site> listSites) {
 		this.listSites = listSites;
 	}
 }

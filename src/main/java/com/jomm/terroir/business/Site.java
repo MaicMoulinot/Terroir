@@ -16,17 +16,17 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * This Class is an Entity representing a site.
+ * This Class is an {@link Entity} representing a site.
  * It uses {@link SiteService} for all its logic operations.
  * It implements {@link Serializable} and has a generated serial version ID.
- * It includes a {@link EnterpriseEntity}, and an {@link Address} among other specific attributes.
+ * It includes a {@link Enterprise}, and an {@link Address} among other specific attributes.
  * Its properties are persisted in table "tr_site".
  * @author Maic
  */
 @Entity
 @Table(name="tr_site")
-@NamedQuery(name="SiteEntity.findAll", query="SELECT s FROM SiteEntity s")
-public class SiteEntity implements Serializable {
+@NamedQuery(name="Site.findAll", query="SELECT s FROM Site s")
+public class Site implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = -8527072429035590099L;
@@ -49,10 +49,10 @@ public class SiteEntity implements Serializable {
 	
 	@NotNull
 	@ManyToOne
-	private EnterpriseEntity enterprise;
+	private Enterprise enterprise;
 	
-	@OneToMany(targetEntity = ProductEntity.class, mappedBy = "site", cascade = CascadeType.ALL)
-	private List<ProductEntity> listProducts;
+	@OneToMany(targetEntity = Product.class, mappedBy = "site", cascade = CascadeType.ALL)
+	private List<Product> listProducts;
 
 	// Getters and Setters
 	/**
@@ -114,28 +114,28 @@ public class SiteEntity implements Serializable {
 	/**
 	 * @return the enterprise
 	 */
-	public EnterpriseEntity getEnterprise() {
+	public Enterprise getEnterprise() {
 		return enterprise;
 	}
 
 	/**
 	 * @param enterprise the enterprise to set
 	 */
-	public void setEnterprise(EnterpriseEntity enterprise) {
+	public void setEnterprise(Enterprise enterprise) {
 		this.enterprise = enterprise;
 	}
 
 	/**
 	 * @return the listProducts
 	 */
-	public List<ProductEntity> getListProducts() {
+	public List<Product> getListProducts() {
 		return listProducts;
 	}
 
 	/**
 	 * @param listProducts the listProducts to set
 	 */
-	public void setListProducts(List<ProductEntity> listProducts) {
+	public void setListProducts(List<Product> listProducts) {
 		this.listProducts = listProducts;
 	}
 	

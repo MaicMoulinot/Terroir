@@ -1,8 +1,8 @@
 package com.jomm.terroir.dao;
 
-import com.jomm.terroir.business.UserEntity;
+import com.jomm.terroir.business.AbstractUser;
 
-public interface UserDao extends Dao<UserEntity> {
+public interface UserDao extends Dao<AbstractUser> {
 	
 	/**
 	 * Check if the email already exists.

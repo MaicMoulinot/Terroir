@@ -9,11 +9,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
-import com.jomm.terroir.business.UserEntity;
+import com.jomm.terroir.business.AbstractUser;
 import com.jomm.terroir.util.Message;
 
 /**
- * This abstract Class is the View that creates a new {@link UserEntity}.
+ * This abstract Class is the View that creates a new {@link AbstractUser}.
  * It defines common attributes shared among its children.
  * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
  * and to {@link FacesContext} to throw them to the view.

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import com.jomm.terroir.dao.SiteDao;
 
 /**
- * This Class is the Service relating to {@link SiteEntity}.
+ * This Class is the Service relating to {@link Site}.
  * It implements {@link SiteService} and defines all its business methods.
  * It relates to {@link SiteDao} for all persistence operations.
  * @author Maic
@@ -22,27 +22,27 @@ public class SiteServiceImpl implements SiteService {
 	private SiteDao siteDao;
 
 	@Override
-	public void create(SiteEntity site) {
+	public void create(Site site) {
 		siteDao.create(site);
 	}
 	
 	@Override
-	public void update(SiteEntity site) {
+	public void update(Site site) {
 		siteDao.update(site);
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<SiteEntity> getAllSites() {
-		ArrayList<SiteEntity> result = new ArrayList<>();
-		for (SiteEntity site : siteDao.findAll()) {
+	public ArrayList<Site> getAllSites() {
+		ArrayList<Site> result = new ArrayList<>();
+		for (Site site : siteDao.findAll()) {
 			result.add(site);
 		}
 		return result;
 	}
 	
 	@Override
-	public void delete(SiteEntity site) {
+	public void delete(Site site) {
 		siteDao.delete(site);
 	}
 

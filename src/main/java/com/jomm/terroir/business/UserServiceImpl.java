@@ -13,13 +13,13 @@ import com.jomm.terroir.dao.SellerDao;
 import com.jomm.terroir.dao.UserDao;
 
 /**
- * This Class is the Service relating to {@link UserEntity} and its children {@link AdminEntity}, 
- * {@link CustomerEntity} and {@link SellerEntity}.
+ * This Class is the Service relating to {@link AbstractUser} and its children {@link Admin}, 
+ * {@link Customer} and {@link Seller}.
  * It implements {@link UserService} and defines all its business methods.
- * It relates to {@link UserDao} for general persistence operation on {@link UserEntity},
- * to {@link AdminDao} for persistence operation on {@link AdminEntity},
- * to {@link CustomerDao} for persistence operation on {@link CustomerEntity},
- * and to {@link SellerDao} for persistence operation on {@link SellerEntity}.
+ * It relates to {@link UserDao} for general persistence operation on {@link AbstractUser},
+ * to {@link AdminDao} for persistence operation on {@link Admin},
+ * to {@link CustomerDao} for persistence operation on {@link Customer},
+ * and to {@link SellerDao} for persistence operation on {@link Seller}.
  * @author Maic
  */
 @Stateless
@@ -38,46 +38,46 @@ public class UserServiceImpl implements UserService {
 	private SellerDao sellerDao;
 
 	@Override
-	public void create(UserEntity user) {
+	public void create(AbstractUser user) {
 		userDao.create(user);
 	}
 	
 	@Override
-	public void update(UserEntity user) {
+	public void update(AbstractUser user) {
 		userDao.update(user);
 	}
 	
 	@Override
-	public void delete(UserEntity user) {
+	public void delete(AbstractUser user) {
 		userDao.delete(user);
 	}
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<AdminEntity> getAllAdmins() {
-		ArrayList<AdminEntity> result = new ArrayList<>();
-		for (AdminEntity adminEntity : adminDao.findAll()) {
-			result.add(adminEntity);
+	public ArrayList<Admin> getAllAdmins() {
+		ArrayList<Admin> result = new ArrayList<>();
+		for (Admin admin : adminDao.findAll()) {
+			result.add(admin);
 		}
 		return result;
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<CustomerEntity> getAllCustomers() {
-		ArrayList<CustomerEntity> result = new ArrayList<>();
-		for (CustomerEntity customerEntity : customerDao.findAll()) {
-			result.add(customerEntity);
+	public ArrayList<Customer> getAllCustomers() {
+		ArrayList<Customer> result = new ArrayList<>();
+		for (Customer customer : customerDao.findAll()) {
+			result.add(customer);
 		}
 		return result;
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<SellerEntity> getAllSellers() {
-		ArrayList<SellerEntity> result = new ArrayList<>();
-		for (SellerEntity sellerEntity : sellerDao.findAll()) {
-			result.add(sellerEntity);
+	public ArrayList<Seller> getAllSellers() {
+		ArrayList<Seller> result = new ArrayList<>();
+		for (Seller seller : sellerDao.findAll()) {
+			result.add(seller);
 		}
 		return result;
 	}

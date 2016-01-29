@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import com.jomm.terroir.dao.EnterpriseDao;
 
 /**
- * This Class is the Service relating to {@link EnterpriseEntity}.
+ * This Class is the Service relating to {@link Enterprise}.
  * It implements {@link EnterpriseService} and defines all its business methods.
  * It relates to {@link EnterpriseDao} for all persistence operations.
  * @author Maic
@@ -22,27 +22,27 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 	private EnterpriseDao enterpriseDao;
 
 	@Override
-	public void create(EnterpriseEntity enterprise) {
+	public void create(Enterprise enterprise) {
 		enterpriseDao.create(enterprise);
 	}
 	
 	@Override
-	public void update(EnterpriseEntity enterprise) {
+	public void update(Enterprise enterprise) {
 		enterpriseDao.update(enterprise);
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<EnterpriseEntity> getAllEnterprises() {
-		ArrayList<EnterpriseEntity> result = new ArrayList<>();
-		for (EnterpriseEntity enterprise : enterpriseDao.findAll()) {
+	public ArrayList<Enterprise> getAllEnterprises() {
+		ArrayList<Enterprise> result = new ArrayList<>();
+		for (Enterprise enterprise : enterpriseDao.findAll()) {
 			result.add(enterprise);
 		}
 		return result;
 	}
 	
 	@Override
-	public void delete(EnterpriseEntity enterprise) {
+	public void delete(Enterprise enterprise) {
 		enterpriseDao.delete(enterprise);
 	}
 

@@ -10,16 +10,16 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import com.jomm.terroir.business.CustomerEntity;
+import com.jomm.terroir.business.Customer;
 import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.util.Message;
 
 /**
- * This Class is the View linked to customersignup.xhtml, that creates a new {@link CustomerEntity}.
+ * This Class is the View linked to customersignup.xhtml, that creates a new {@link Customer}.
  * It extends {@link UserJsf} and defines customer specific attributes.
  * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
  * to {@link FacesContext} to throw them to the view, 
- * and to {@link UserService} to save the {@link CustomerEntity}.
+ * and to {@link UserService} to save the {@link Customer}.
  * It is annotated {@link ManagedBean} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
@@ -65,11 +65,11 @@ public class CustomerJsf extends UserJsf {
 	}
 
 	/**
-	 * Transform an {@link CustomerJsf} into {@link CustomerEntity}.
-	 * @return CustomerEntity.
+	 * Transform an {@link CustomerJsf} into {@link Customer}.
+	 * @return Customer.
 	 */
-	public CustomerEntity convertIntoEntity() {
-		CustomerEntity userEntity = new CustomerEntity();
+	public Customer convertIntoEntity() {
+		Customer userEntity = new Customer();
 		userEntity.setId(getId());
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());

@@ -8,17 +8,17 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
-import com.jomm.terroir.business.EnterpriseEntity;
-import com.jomm.terroir.business.SellerEntity;
+import com.jomm.terroir.business.Enterprise;
+import com.jomm.terroir.business.Seller;
 import com.jomm.terroir.business.UserService;
 import com.jomm.terroir.util.Message;
 
 /**
- * This Class is the View linked to sellersignup.xhtml, that creates a new {@link SellerEntity}.
- * It extends {@link UserJsf} and defines an additional attribute {@link EnterpriseEntity}.
+ * This Class is the View linked to sellersignup.xhtml, that creates a new {@link Seller}.
+ * It extends {@link UserJsf} and defines an additional attribute {@link Enterprise}.
  * It relates to {@link ResourceBundle} to generate proper {@link Message} messages,
  * to {@link FacesContext} to throw them to the view, 
- * and to {@link UserService} to save the {@link SellerEntity}.
+ * and to {@link UserService} to save the {@link Seller}.
  * It is annotated {@link ManagedBean} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
@@ -40,7 +40,7 @@ public class SellerJsf extends UserJsf {
 	private static final String USER_REGISTRED = "usersaved";
 
 	//	Attributes
-	private EnterpriseEntity enterprise;
+	private Enterprise enterprise;
 
 	@Override
 	public String create() {
@@ -51,11 +51,11 @@ public class SellerJsf extends UserJsf {
 	}
 
 	/**
-	 * Transform an {@link SellerJsf} into {@link SellerEntity}.
-	 * @return SellerEntity.
+	 * Transform an {@link SellerJsf} into {@link Seller}.
+	 * @return Seller.
 	 */
-	public SellerEntity convertIntoEntity() {
-		SellerEntity userEntity = new SellerEntity();
+	public Seller convertIntoEntity() {
+		Seller userEntity = new Seller();
 		userEntity.setId(getId());
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());
@@ -69,14 +69,14 @@ public class SellerJsf extends UserJsf {
 	/**
 	 * @return the enterprise
 	 */
-	public EnterpriseEntity getEnterprise() {
+	public Enterprise getEnterprise() {
 		return enterprise;
 	}
 
 	/**
 	 * @param enterprise the enterprise to set
 	 */
-	public void setEnterprise(EnterpriseEntity enterprise) {
+	public void setEnterprise(Enterprise enterprise) {
 		this.enterprise = enterprise;
 	}
 }

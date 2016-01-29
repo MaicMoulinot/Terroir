@@ -1,7 +1,7 @@
 package com.jomm.terroir.dao;
 
-import com.jomm.terroir.business.EnterpriseEntity;
+import com.jomm.terroir.business.Enterprise;
 
-public interface EnterpriseDao extends Dao<EnterpriseEntity> {
+public interface EnterpriseDao extends Dao<Enterprise> {
 
 }
