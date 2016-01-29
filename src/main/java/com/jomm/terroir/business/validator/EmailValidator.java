@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.UserServiceInterface;
-import com.jomm.terroir.dao.UserDaoInterface;
 import com.jomm.terroir.util.Error;
 
 /**
@@ -39,7 +38,7 @@ public class EmailValidator implements Validator {
 			Pattern.CASE_INSENSITIVE);
     
     @Inject
-    private UserDaoInterface userDao;
+    private UserServiceInterface userService;
     
     @Inject
     @Error
@@ -57,7 +56,7 @@ public class EmailValidator implements Validator {
 				// Email address is unvalid
 				throw new ValidatorException(
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(EMAIL_UNVALID), null));
-			} else if (userDao.isExistingEmail(email)) {
+			} else if (userService.isExistingUserName(email)) {
 				Object[] argument = {email};
     			String detail = MessageFormat.format(resource.getString(EXISTING_EMAIL), argument);
                 throw new ValidatorException(

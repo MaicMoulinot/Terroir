@@ -76,6 +76,16 @@ public class UserService implements UserServiceInterface {
 		}
 		return result;
 	}
+	
+	@Override
+	public boolean isExistingUserName(String userName) {
+		return userDao.isExistingUserName(userName);
+	}
+	
+	@Override
+	public boolean isExistingEmail(String email) {
+		return userDao.isExistingEmail(email);
+	}
 
 	/**
 	 * This method is used for Junit testing only.

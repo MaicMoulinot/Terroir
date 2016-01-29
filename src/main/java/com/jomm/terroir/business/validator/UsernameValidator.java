@@ -12,7 +12,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.UserServiceInterface;
-import com.jomm.terroir.dao.UserDaoInterface;
 import com.jomm.terroir.util.Error;
 
 /**
@@ -32,7 +31,7 @@ public class UsernameValidator implements Validator {
 	private static final String LENGHT_AT_LEAST_6_CHARACTERS = "lenght6";
 
 	@Inject
-	private UserDaoInterface userDao;
+	private UserServiceInterface userService;
 	
 	@Inject
 	@Error
@@ -47,7 +46,7 @@ public class UsernameValidator implements Validator {
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 								resource.getString(LENGHT_AT_LEAST_6_CHARACTERS), null));
 			}
-			if (userDao.isExistingUserName(userName)) {
+			if (userService.isExistingUserName(userName)) {
 				Object[] argument = {userName};
 				String detail = MessageFormat.format(resource.getString(EXISTING_USER_NAME), argument);
 				throw new ValidatorException(
