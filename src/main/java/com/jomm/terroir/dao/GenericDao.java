@@ -38,7 +38,7 @@ public abstract class GenericDao<E extends Serializable> implements Dao<E> {
 	@SuppressWarnings("unchecked")
 	public GenericDao() {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-		setEntityClass((Class<E>) genericSuperclass.getActualTypeArguments()[1]);
+		setEntityClass((Class<E>) genericSuperclass.getActualTypeArguments()[0]);
 	}
 	
 	@Override
