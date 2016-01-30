@@ -112,11 +112,11 @@
 			<p:commandButton id="create" value="#{label.save}" update="form"
 				action="#{customerJsf.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
-			<p:commandButton id="reset" value="#{label.reset}"
-				icon="ui-icon-refresh">
-				<p:ajax update="form" resetValues="true" />
+			<p:commandButton id="reset" value="#{label.reset}" update="form"
+				 process="@this" icon="ui-icon-refresh">
+				<p:resetInput target="@form" />
 			</p:commandButton>
-
+			
 		</h:form>
 		<p:spacer height="50" />
 	</ui:define>
