@@ -83,7 +83,7 @@ public class CustomerJsf extends UserJsf {
 	}
 	
 	/**
-	 * Transform an {@link Customer} into {@link CustomerJsf}.
+	 * Transform a {@link Customer} into a {@link CustomerJsf}.
 	 * @param customer a {@link Customer}.
 	 * @return {@link CustomerJsf}.
 	 */

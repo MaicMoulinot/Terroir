@@ -67,8 +67,8 @@ public class SellerJsf extends UserJsf {
 	}
 	
 	/**
-	 * Transform an {@link Seller} into {@link SellerJsf}.
-	 * @param customer a {@link Seller}.
+	 * Transform a {@link Seller} into a {@link SellerJsf}.
+	 * @param seller a {@link Seller}.
 	 * @return {@link SellerJsf}.
 	 */
 	public static SellerJsf convertIntoView(Seller seller) {
