@@ -56,16 +56,7 @@ public class CustomerListJsf {
 	public void init() {
 		listCustomers = new LinkedList<CustomerJsf>();
 		for (Customer customer : userService.getAllCustomers()) {
-			CustomerJsf customerJsf = new CustomerJsf();
-			customerJsf.setId(customer.getId());
-			customerJsf.setFirstName(customer.getFirstName());
-			customerJsf.setLastName(customer.getLastName());
-			customerJsf.setUserName(customer.getUserName());
-			customerJsf.setEmail(customer.getEmail());
-			customerJsf.setPassword(customer.getUserPassword());
-			customerJsf.setBirthDate(customer.getBirthDate());
-			customerJsf.setSignUpDate(customer.getSignUpDate());
-			listCustomers.add(customerJsf);
+			listCustomers.add(CustomerJsf.convertIntoView(customer));
 		}
 	}
 

@@ -67,7 +67,7 @@ public class CustomerJsf extends UserJsf {
 
 	/**
 	 * Transform an {@link CustomerJsf} into {@link Customer}.
-	 * @return Customer.
+	 * @return {@link Customer}.
 	 */
 	public Customer convertIntoEntity() {
 		Customer userEntity = new Customer();
@@ -80,6 +80,24 @@ public class CustomerJsf extends UserJsf {
 		userEntity.setBirthDate(getBirthDate());
 		userEntity.setSignUpDate(getSignUpDate());
 		return userEntity;
+	}
+	
+	/**
+	 * Transform an {@link Customer} into {@link CustomerJsf}.
+	 * @param customer a {@link Customer}.
+	 * @return {@link CustomerJsf}.
+	 */
+	public static CustomerJsf convertIntoView(Customer customer) {
+		CustomerJsf customerJsf = new CustomerJsf();
+		customerJsf.setId(customer.getId());
+		customerJsf.setFirstName(customer.getFirstName());
+		customerJsf.setLastName(customer.getLastName());
+		customerJsf.setUserName(customer.getUserName());
+		customerJsf.setEmail(customer.getEmail());
+		customerJsf.setPassword(customer.getUserPassword());
+		customerJsf.setBirthDate(customer.getBirthDate());
+		customerJsf.setSignUpDate(customer.getSignUpDate());
+		return customerJsf;
 	}
 
 	/**

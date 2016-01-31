@@ -56,15 +56,7 @@ public class SellerListJsf {
 	public void init() {
 		listSellers = new LinkedList<SellerJsf>();
 		for (Seller seller : userService.getAllSellers()) {
-			SellerJsf sellerJsf = new SellerJsf();
-			sellerJsf.setId(seller.getId());
-			sellerJsf.setFirstName(seller.getFirstName());
-			sellerJsf.setLastName(seller.getLastName());
-			sellerJsf.setUserName(seller.getUserName());
-			sellerJsf.setEmail(seller.getEmail());
-			sellerJsf.setPassword(seller.getUserPassword());
-			sellerJsf.setEnterprise(seller.getEnterprise());
-			listSellers.add(sellerJsf);
+			listSellers.add(SellerJsf.convertIntoView(seller));
 		}
 
 	}

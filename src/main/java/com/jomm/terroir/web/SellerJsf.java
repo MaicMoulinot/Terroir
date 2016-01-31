@@ -65,6 +65,23 @@ public class SellerJsf extends UserJsf {
 		userEntity.setEnterprise(getEnterprise());
 		return userEntity;
 	}
+	
+	/**
+	 * Transform an {@link Seller} into {@link SellerJsf}.
+	 * @param customer a {@link Seller}.
+	 * @return {@link SellerJsf}.
+	 */
+	public static SellerJsf convertIntoView(Seller seller) {
+		SellerJsf sellerJsf = new SellerJsf();
+		sellerJsf.setId(seller.getId());
+		sellerJsf.setFirstName(seller.getFirstName());
+		sellerJsf.setLastName(seller.getLastName());
+		sellerJsf.setUserName(seller.getUserName());
+		sellerJsf.setEmail(seller.getEmail());
+		sellerJsf.setPassword(seller.getUserPassword());
+		sellerJsf.setEnterprise(seller.getEnterprise());
+		return sellerJsf;
+	}
 
 	/**
 	 * @return the enterprise
