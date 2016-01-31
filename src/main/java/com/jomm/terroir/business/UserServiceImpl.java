@@ -1,6 +1,6 @@
 package com.jomm.terroir.business;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -54,32 +54,20 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<Admin> getAllAdmins() {
-		ArrayList<Admin> result = new ArrayList<>();
-		for (Admin admin : adminDao.findAll()) {
-			result.add(admin);
-		}
-		return result;
+	public List<Admin> getAllAdmins() {
+		return adminDao.findAll();
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<Customer> getAllCustomers() {
-		ArrayList<Customer> result = new ArrayList<>();
-		for (Customer customer : customerDao.findAll()) {
-			result.add(customer);
-		}
-		return result;
+	public List<Customer> getAllCustomers() {
+		return customerDao.findAll();
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<Seller> getAllSellers() {
-		ArrayList<Seller> result = new ArrayList<>();
-		for (Seller seller : sellerDao.findAll()) {
-			result.add(seller);
-		}
-		return result;
+	public List<Seller> getAllSellers() {
+		return sellerDao.findAll();
 	}
 	
 	@Override

@@ -2,7 +2,7 @@ package com.jomm.terroir.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -69,7 +69,7 @@ public abstract class GenericDao<E extends Serializable> implements Dao<E> {
 	
 	@Override
 	public List<E> findAll() {
-	    List<E> castedList = new ArrayList<E>();
+	    List<E> castedList = new LinkedList<E>();
 	    for(Object obj : entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll").getResultList()) {
 	    	castedList.add(getEntityClass().cast(obj));
 	    }

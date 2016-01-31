@@ -1,6 +1,6 @@
 package com.jomm.terroir.business;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This Class is the Service relating to {@link UserEntity} and its children {@link AdminEntity}, 
@@ -30,19 +30,19 @@ public interface UserService {
 	 * Fetch the list of all admins.
 	 * @return a list of {@link Admin}.
 	 */
-	public ArrayList<Admin> getAllAdmins();
+	public List<Admin> getAllAdmins();
 	
 	/**
 	 * Fetch the list of all customers.
 	 * @return a list of {@link Customer}.
 	 */
-	public ArrayList<Customer> getAllCustomers();
+	public List<Customer> getAllCustomers();
 	
 	/**
 	 * Fetch the list of all sellers.
 	 * @return a list of {@link Seller}.
 	 */
-	public ArrayList<Seller> getAllSellers();
+	public List<Seller> getAllSellers();
 
 	/**
 	 * Delete an user.
