@@ -1,7 +1,8 @@
 package com.jomm.terroir.web;
 
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -41,12 +42,12 @@ public class CustomerJsf extends UserJsf {
 	private static final String USER_REGISTRED = "usersaved";
 
 	//	Attributes
-	private Date birthDate;
-	private Date signUpDate;
+	private LocalDate birthDate;
+	private ZonedDateTime signUpDate;
 
 	@Override
 	public String create() {
-		setSignUpDate(new Date());
+		setSignUpDate(ZonedDateTime.now());
 		userService.create(convertIntoEntity());
 		FacesMessage message = new FacesMessage(resource.getString(USER_REGISTRED), null);
 		facesContext.addMessage(null, message);
@@ -84,28 +85,28 @@ public class CustomerJsf extends UserJsf {
 	/**
 	 * @return the birthDate
 	 */
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
 	/**
 	 * @param birthDate the birthDate to set
 	 */
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 
 	/**
 	 * @return the signUpDate
 	 */
-	public Date getSignUpDate() {
+	public ZonedDateTime getSignUpDate() {
 		return signUpDate;
 	}
 
 	/**
 	 * @param signUpDate the signUpDate to set
 	 */
-	public void setSignUpDate(Date signUpDate) {
+	public void setSignUpDate(ZonedDateTime signUpDate) {
 		this.signUpDate = signUpDate;
 	}
 }
