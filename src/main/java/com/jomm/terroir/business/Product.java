@@ -1,7 +1,7 @@
 package com.jomm.terroir.business;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -47,9 +45,8 @@ public class Product implements Serializable {
 	@Column(name = "quantity")
 	private int quantity;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "registration_date")
-	private Date registrationDate;
+	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
+	private ZonedDateTime registrationDate;
 	
 	@NotNull
 	@ManyToOne
@@ -115,14 +112,14 @@ public class Product implements Serializable {
 	/**
 	 * @return the registrationDate
 	 */
-	public Date getRegistrationDate() {
+	public ZonedDateTime getRegistrationDate() {
 		return registrationDate;
 	}
 
 	/**
 	 * @param registrationDate the registrationDate to set
 	 */
-	public void setRegistrationDate(Date registrationDate) {
+	public void setRegistrationDate(ZonedDateTime registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 

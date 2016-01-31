@@ -1,7 +1,8 @@
 package com.jomm.terroir.business;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -54,16 +53,14 @@ public class Enterprise implements Serializable {
 	@Embedded
 	private Address address;
 	
-	@Temporal(TemporalType.DATE)
-	@Column(name = "creation_date")
-	private Date creationDate;
+	@Column(name = "date_creation", columnDefinition = "date")
+	private LocalDate creationDate;
 	
 	@Column(name = "number_employees")
 	private int nbEmployees;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "signup_date")
-	private Date signUpDate;
+	@Column(name = "date_signup", columnDefinition = "timestamp with time zone")
+	private ZonedDateTime signUpDate;
 	
 	@OneToMany(targetEntity = Seller.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
 	private List<Seller> listSellers;
@@ -145,14 +142,14 @@ public class Enterprise implements Serializable {
 	/**
 	 * @return the creationDate
 	 */
-	public Date getCreationDate() {
+	public LocalDate getCreationDate() {
 		return creationDate;
 	}
 
 	/**
 	 * @param creationDate the creationDate to set
 	 */
-	public void setCreationDate(Date creationDate) {
+	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
 	}
 
@@ -173,14 +170,14 @@ public class Enterprise implements Serializable {
 	/**
 	 * @return the signUpDate
 	 */
-	public Date getSignUpDate() {
+	public ZonedDateTime getSignUpDate() {
 		return signUpDate;
 	}
 
 	/**
 	 * @param signUpDate the signUpDate to set
 	 */
-	public void setSignUpDate(Date signUpDate) {
+	public void setSignUpDate(ZonedDateTime signUpDate) {
 		this.signUpDate = signUpDate;
 	}
 
