@@ -16,7 +16,7 @@ import com.jomm.terroir.util.Error;
 
 /**
  * This Class is the Validator relating to a password.
- * It implements {@link Validator} and defines its method validate(),
+ * It implements {@link Validator} and defines its method <code>validate()</code>,
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link Error} messages,
  * and to {@link Pattern} to define a correct password pattern.

@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 /**
  * This Class is an {@link Embeddable} representing a mailing address.
  * It implements {@link Serializable} and has a generated serial version ID.
- * Its properties are never persisted by themselves but only as part of an Entity.
+ * Its properties are never persisted by themselves but only as part of an {@link javax.persistence.Entity}.
  * @author Maic
  */
 @Embeddable

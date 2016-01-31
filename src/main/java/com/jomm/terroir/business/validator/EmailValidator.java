@@ -17,7 +17,7 @@ import com.jomm.terroir.util.Error;
 
 /**
  * This Class is the Validator relating to an email.
- * It implements {@link Validator} and defines its method validate(),
+ * It implements {@link Validator} and defines its method <code>validate()</code>,
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link Error} messages,
  * to {@link Pattern} to define a correct email pattern,

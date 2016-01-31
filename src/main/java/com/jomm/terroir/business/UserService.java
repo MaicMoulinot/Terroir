@@ -3,13 +3,7 @@ package com.jomm.terroir.business;
 import java.util.List;
 
 /**
- * This Class is the Service relating to {@link UserEntity} and its children {@link AdminEntity}, 
- * {@link CustomerEntity} and {@link SellerEntity}.
- * It implements {@link UserServiceInterface} and defines all its business methods.
- * It relates to {@link UserDaoInterface} for general persistence operation on {@link UserEntity},
- * to {@link AdminDaoInterface} for persistence operation on {@link AdminEntity},
- * to {@link CustomerDaoInterface} for persistence operation on {@link CustomerEntity},
- * and to {@link SellerDaoInterface} for persistence operation on {@link SellerEntity}.
+ * This Interface describes all logic operations for {@link AbstractUser}.
  * @author Maic
  */
 public interface UserService {

@@ -16,9 +16,9 @@ public interface UserDao extends Dao<AbstractUser> {
 	public boolean isExistingEmail(String email);
 	
 	/**
-	 * Check if the username already exists.
+	 * Check if the user name already exists.
 	 * @param userName String the userName to test.
-	 * @return true if username was found, false otherwise.
+	 * @return true if user name was found, false otherwise.
 	 */
 	public boolean isExistingUserName(String userName);
 

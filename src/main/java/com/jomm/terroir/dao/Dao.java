@@ -3,50 +3,48 @@ package com.jomm.terroir.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
-
 /**
- * This Interface describes all CRUD operations involving a {@link Entity}.
+ * This Interface describes all CRUD operations involving a {@link javax.persistence.Entity}.
  * @author Maic
  *
- * @param <E> {@link Entity} is the Entity's type, which extends {@link Serializable}.
+ * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.
  */
 public interface Dao<E extends Serializable> {
 	
 	/**
-	 * Fetch an {@link Entity}.
+	 * Fetch an {@link javax.persistence.Entity}.
 	 * @param id {@link Long} the entity's id.
-	 * @return E the {@link Entity}.
+	 * @return E the {@link javax.persistence.Entity}.
 	 */
 	public E find(Long id);
 
 	/**
-	 * Fetch all {@link Entity}.
-	 * @return a list of {@link Entity}.
+	 * Fetch all {@link javax.persistence.Entity}.
+	 * @return a list of {@link javax.persistence.Entity}.
 	 */
 	public List<E> findAll();
 
 	/**
-	 * Create and persist a new {@link Entity}.
-	 * @param entity the {@link Entity}.
+	 * Create and persist a new {@link javax.persistence.Entity}.
+	 * @param entity the {@link javax.persistence.Entity}.
 	 */
 	public void create(E entity);
 
 	/**
-	 * Update a previously persisted {@link Entity}.
-	 * @param entity the {@link Entity}.
-	 * @return the updated {@link Entity}.
+	 * Update a previously persisted {@link javax.persistence.Entity}.
+	 * @param entity the {@link javax.persistence.Entity}.
+	 * @return the updated {@link javax.persistence.Entity}.
 	 */
 	public E update(E entity);
 
 	/**
-	 * Delete an {@link Entity}.
-	 * @param entity the {@link Entity}.
+	 * Delete an {@link javax.persistence.Entity}.
+	 * @param entity the {@link javax.persistence.Entity}.
 	 */
 	public void delete(E entity);
 
 	/**
-	 * Delete an {@link Entity} using its id.
+	 * Delete an {@link javax.persistence.Entity} using its id.
 	 * @param entityId {@link Long} the entity's id.
 	 */
 	public void deleteById(Long entityId);

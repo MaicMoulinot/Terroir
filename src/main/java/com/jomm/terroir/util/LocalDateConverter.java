@@ -11,7 +11,7 @@ import javax.faces.convert.FacesConverter;
 /**
  * This Class is a Converter.
  * <br />The JSF2.2 API does not work with the Java 8 Date/Time API by default since it was built to work with 
- * java.util.Date, and other old Java Date/Time APIs.
+ * {@link java.util.Date}, and other old Java Date/Time APIs.
  * <br />This Class implements {@link Converter}, and converts a {@link String} to/from a {@link LocalDate}, 
  * using the methods <code>getAsObject()</code> and <code>getAsString()</code>.
  * <br />It is annotated {@link FacesConverter} to be registered as a FacesConverter, with its parameter 

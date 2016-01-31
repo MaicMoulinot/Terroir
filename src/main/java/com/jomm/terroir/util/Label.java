@@ -10,12 +10,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.ResourceBundle;
 
 import javax.inject.Qualifier;
 
 /**
- * This @interface qualifies a {@link ResourceBundle} for all labels.
+ * This @interface qualifies a {@link java.util.ResourceBundle} for all labels.
  * @author Maic
  */
 @Target({TYPE, METHOD, PARAMETER, FIELD})
