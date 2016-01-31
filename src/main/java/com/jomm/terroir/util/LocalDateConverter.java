@@ -20,15 +20,17 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value = "localDateConverter")
 public class LocalDateConverter implements Converter {
+	
+	private static final String LOCAL_DATE_PATTERN = "dd/MM/yyyy";
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		return LocalDate.parse(value, DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+		return LocalDate.parse(value, DateTimeFormatter.ofPattern(LOCAL_DATE_PATTERN));
 	}
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		LocalDate dateValue = (LocalDate) value;
-		return dateValue.format(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
+		return dateValue.format(DateTimeFormatter.ofPattern(LOCAL_DATE_PATTERN));
 	}
 }
