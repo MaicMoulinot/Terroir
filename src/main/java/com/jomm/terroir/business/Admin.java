@@ -24,8 +24,8 @@ public class Admin extends AbstractUser implements Serializable {
 	private static final long serialVersionUID = -5225752296197017138L;
 
 	// Attributes
-	@Column(name = "can_edit")
-	private boolean canEditData;
+	@Column(name = "can_read")
+	private boolean canReadData;
 	
 	@Column(name = "can_update")
 	private boolean canUpdateData;
@@ -39,30 +39,30 @@ public class Admin extends AbstractUser implements Serializable {
 	 */
 	protected Admin() {
 		super();
-		canEditData = false;
+		canReadData = false;
 		canUpdateData = false;
 		canDeleteData = false;
 	}
 
 	// Getters and Setters
 	/**
-	 * @return the canEditData
+	 * @return the canReadData
 	 */
-	public boolean isCanEditData() {
-		return canEditData;
+	public boolean canReadData() {
+		return canReadData;
 	}
 
 	/**
-	 * @param canEditData the canEditData to set
+	 * @param canReadData the canReadData to set
 	 */
-	public void setCanEditData(boolean canEditData) {
-		this.canEditData = canEditData;
+	public void setCanReadData(boolean canReadData) {
+		this.canReadData = canReadData;
 	}
 
 	/**
 	 * @return the canUpdateData
 	 */
-	public boolean isCanUpdateData() {
+	public boolean canUpdateData() {
 		return canUpdateData;
 	}
 
@@ -76,7 +76,7 @@ public class Admin extends AbstractUser implements Serializable {
 	/**
 	 * @return the canDeleteData
 	 */
-	public boolean isCanDeleteData() {
+	public boolean canDeleteData() {
 		return canDeleteData;
 	}
 
