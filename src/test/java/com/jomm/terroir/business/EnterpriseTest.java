@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jomm.terroir.business;
 
 import static org.junit.Assert.assertEquals;
@@ -10,7 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -27,7 +23,7 @@ public class EnterpriseTest {
 	public final void testGetterSetter() {
 		Enterprise enterprise = new Enterprise();
 		String test = "test";
-		int nb = 0;
+		long nb = 0;
 		
 		// Id
 		enterprise.setId(nb);
@@ -59,8 +55,9 @@ public class EnterpriseTest {
 		assertEquals("CreationDate should be " + localDate, localDate, enterprise.getCreationDate());
 		
 		// NbEmployees
-		enterprise.setNbEmployees(nb);
-		assertEquals("NbEmployees should be " + nb, nb, enterprise.getNbEmployees());
+		int employees = 10;
+		enterprise.setNbEmployees(employees);
+		assertEquals("NbEmployees should be " + employees, employees, enterprise.getNbEmployees());
 		
 		// SignUpDate
 		ZonedDateTime zonedDate = ZonedDateTime.now();
@@ -68,9 +65,9 @@ public class EnterpriseTest {
 		assertEquals("SignUpDate should be " + zonedDate, zonedDate, enterprise.getSignUpDate());
 		
 		// ListSellers
-		List<Seller> listSellers = new ArrayList<Seller>();
+		ArrayList<Seller> listSellers = new ArrayList<Seller>();
 		Seller seller = new Seller();
-		listSellers.set(0, seller);
+		listSellers.add(seller);
 		enterprise.setListSellers(listSellers);
 		assertNotNull("ListSellers should not be null", enterprise.getListSellers());
 		assertFalse("ListSellers should not be empty", enterprise.getListSellers().isEmpty());
@@ -79,9 +76,9 @@ public class EnterpriseTest {
 		listSellers = null; // Available for Garbage Collector
 		
 		// ListSites
-		List<Site> listSites = new ArrayList<Site>();
+		ArrayList<Site> listSites = new ArrayList<Site>();
 		Site site = new Site();
-		listSites.set(0, site);
+		listSites.add(site);
 		enterprise.setListSites(listSites);
 		assertNotNull("ListSites should not be null", enterprise.getListSites());
 		assertFalse("ListSites should not be empty", enterprise.getListSites().isEmpty());
