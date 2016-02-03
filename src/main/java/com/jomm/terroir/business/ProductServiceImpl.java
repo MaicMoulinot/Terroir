@@ -50,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
 	 * This method is used for Junit testing only.
 	 * @param productDao the productDao to set
 	 */
-	void setUserDao(ProductDao productDao) {
+	void setProductDao(ProductDao productDao) {
 		this.productDao = productDao;
 	}
 }
