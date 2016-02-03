@@ -44,16 +44,17 @@ public class ProductServiceTest {
 	}
 	
 	/**
-	 * Test all contract methods for {@link ProductService}.
+	 * Test contract for {@link ProductService#create(Product)}, {@link ProductService#update(Product)},
+	 * {@link ProductService#delete(Product)}, and {@link ProductService#getAllProducts()}.
 	 */
 	@Test
-	public void testContract() {
-		String message = "service.getEnterprises()";
+	public final void testContract() {
+		String message = "service.getAllProducts()";
 		mockedList = new ArrayList<Product>();
 		when(service.getAllProducts()).thenReturn(mockedList); // MOCK: service.getAllProducts() with mockedList
 		
 		// Before any persistence, the list is not null and is empty
-		assertNotNull(message + " should not be null", mockedList);
+		assertNotNull(message + " should not be null", service.getAllProducts());
 		assertTrue(message + " should be empty", service.getAllProducts().isEmpty());
 
 		// Create

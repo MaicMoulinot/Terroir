@@ -87,4 +87,28 @@ public class UserServiceImpl implements UserService {
 	void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}
+	
+	/**
+	 * This method is used for Junit testing only.
+	 * @param adminDao the adminDao to set
+	 */
+	void setAdminDao(AdminDao adminDao) {
+		this.adminDao = adminDao;
+	}
+	
+	/**
+	 * This method is used for Junit testing only.
+	 * @param customerDao the customerDao to set
+	 */
+	void setCustomerDao(CustomerDao customerDao) {
+		this.customerDao = customerDao;
+	}
+	
+	/**
+	 * This method is used for Junit testing only.
+	 * @param sellerDao the sellerDao to set
+	 */
+	void setSellerDao(SellerDao sellerDao) {
+		this.sellerDao = sellerDao;
+	}
 }

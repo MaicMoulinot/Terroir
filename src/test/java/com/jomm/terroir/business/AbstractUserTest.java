@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -29,15 +28,6 @@ public class AbstractUserTest {
     public AbstractUserTest(AbstractUser user) {
         this.user = user;
     }
-    
-	/**
-	 * Reset <code>user=null</code>.
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		user = null;
-	}
 	
 	/**
 	 *  Test method for all {@link AbstractUser}'s getters and setters.

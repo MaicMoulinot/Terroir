@@ -1,0 +1,348 @@
+package com.jomm.terroir.business;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.when;
+
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+import org.mockito.Mockito;
+
+import com.jomm.terroir.dao.AdminDao;
+import com.jomm.terroir.dao.CustomerDao;
+import com.jomm.terroir.dao.SellerDao;
+import com.jomm.terroir.dao.UserDao;
+
+/**
+ * This class is a Junit test case testing the contract of {@link UserService}.
+ * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
+ * Here, the parameters are each implementation of {@link UserService}.
+ * @author Maic
+ */
+@RunWith(Parameterized.class)
+public class UserServiceTest {
+	
+	/** A mocked list to simulate calls to <code>getAllAdmins()</code>. */
+	private ArrayList<Admin> mockedAdminList;
+	/** A mocked list to simulate calls to <code>getAllCustomers()</code>. */
+	private ArrayList<Customer> mockedCustomerList;
+	/** A mocked list to simulate calls to <code>getAllSellers()</code>. */
+	private ArrayList<Seller> mockedSellerList;
+	/** An implementation of {@link UserService}. */
+	private UserService service;
+	
+	/**
+	 * Constructor.
+	 * As this class is running with <code>Parameterized.class</code>, the constructor will be initialized with
+	 * all values contained in the list returned from <code>implementationToTest()</code>.
+	 * @param service an implementation of {@link UserService}.
+	 */
+	public UserServiceTest(UserService service) {
+		this.service = service;
+	}
+
+	/**
+	 * Test contract for {@link UserService#isExistingEmail(String)}
+	 * and {@link UserService#isExistingUserName(String)}.
+	 */
+	@Test
+	public final void testExistingUserNameAndEmail() {
+		String email = "Email";
+		String username = "UserName";
+		mockedAdminList = new ArrayList<Admin>();
+		
+		// Before persistence, email and username are not existing (free to use)
+		when(service.isExistingEmail(email)).thenReturn(isExistingEmail(email));
+		assertFalse(service.isExistingEmail(email));
+		when(service.isExistingUserName(username)).thenReturn(isExistingUsername(username));
+		assertFalse(service.isExistingUserName(username));
+		
+		// Create User
+		Admin admin = generateAdmin();
+		service.create(admin);
+		mockedAdminList.add(admin); // MOCK: simulate create into mockedAdminList
+		
+		// After persistence, email and username are existing (not free to use)
+		when(service.isExistingEmail(email)).thenReturn(isExistingEmail(email));
+		assertTrue(service.isExistingEmail(email));
+		when(service.isExistingUserName(username)).thenReturn(isExistingUsername(username));
+		assertTrue(service.isExistingUserName(username));
+		
+		// Delete User
+		service.delete(admin);
+		mockedAdminList.remove(0); // MOCK: simulate delete into mockedAdminList
+		
+		// After delete, email and username are not existing (free to use)
+		when(service.isExistingEmail(email)).thenReturn(isExistingEmail(email));
+		assertFalse(service.isExistingEmail(email));
+		when(service.isExistingUserName(username)).thenReturn(isExistingUsername(username));
+		assertFalse(service.isExistingUserName(username));
+	}
+	
+	/**
+	 * Test contract for {@link UserService#create(AbstractUser)}, {@link UserService#update(AbstractUser)},
+	 * {@link UserService#delete(AbstractUser)}, {@link UserService#getAllAdmins()},
+	 * {@link UserService#getAllCustomers()} and {@link UserService#getAllSellers()}.
+	 */
+	@Test
+	public final void testContract() {
+		// MOCK: service.getAllAdmins() with mockedAdminList
+		String messageAdmin = "service.getAllAdmins()";
+		mockedAdminList = new ArrayList<Admin>();
+		when(service.getAllAdmins()).thenReturn(mockedAdminList);
+		
+		// MOCK: service.getAllCustomers() with mockedCustomerList
+		String messageCustomer = "service.getAllCustomers()";
+		mockedCustomerList = new ArrayList<Customer>();
+		when(service.getAllCustomers()).thenReturn(mockedCustomerList);
+		
+		// MOCK: service.getAllSellers() with mockedSellerList
+		String messageSeller = "service.getAllSellers()";
+		mockedSellerList = new ArrayList<Seller>();
+		when(service.getAllSellers()).thenReturn(mockedSellerList);
+		
+		// Before any persistence, all lists are not null and are empty
+		assertNotNull(messageAdmin + " should not be null", service.getAllAdmins());
+		assertTrue(messageAdmin + " should be empty", service.getAllAdmins().isEmpty());
+		assertNotNull(messageCustomer + " should not be null", service.getAllCustomers());
+		assertTrue(messageCustomer + " should be empty", service.getAllCustomers().isEmpty());
+		assertNotNull(messageSeller + " should not be null", service.getAllSellers());
+		assertTrue(messageSeller + " should be empty", service.getAllSellers().isEmpty());
+		
+		testOnAdmin(messageAdmin);
+		testOnCustomer(messageCustomer);
+		testOnSeller(messageSeller);
+	}
+	
+	/**
+	 * Test create, update and delete on {@link Admin}.
+	 * @param message String to clarify errors on test.
+	 */
+	private void testOnAdmin(String message) {
+		// Create Admin
+		Admin admin = generateAdmin();
+		service.create(admin);
+		mockedAdminList.add(admin); // MOCK: simulate create into mockedAdminList
+
+		int nbCustomers = service.getAllCustomers().size();
+		int nbSellers = service.getAllSellers().size();
+		// After persistence, the admin list is not empty and its size is now 1
+		assertFalse(message + " should not be empty", service.getAllAdmins().isEmpty());
+		assertEquals(message + " ' size should be 1", service.getAllAdmins().size(), 1);
+		// After persistence, the other lists are unchanged
+		assertEquals(nbCustomers, service.getAllCustomers().size());
+		assertEquals(nbSellers, service.getAllSellers().size());
+
+		// Update
+		admin = mockedAdminList.get(0);
+		String initialUserName = admin.getUserName();
+		admin.setUserName("updatedUserName");
+		service.update(admin);
+		mockedAdminList.set(0, admin); // MOCK: simulate update into mockedAdminList
+		String updatedUserName = service.getAllAdmins().get(0).getUserName();
+		assertNotEquals("UserNames should not match", initialUserName, updatedUserName);
+
+		// Delete
+		service.delete(admin);
+		mockedAdminList.remove(admin); // MOCK: simulate delete into mockedAdminList
+		
+		// After delete, the admin list is back to empty
+		assertTrue(message + " should be empty", service.getAllAdmins().isEmpty());
+		// After delete, the other lists are unchanged
+		assertEquals(nbCustomers, service.getAllCustomers().size());
+		assertEquals(nbSellers, service.getAllSellers().size());
+	}
+	
+	/**
+	 * Test create, update and delete on {@link Customer}.
+	 * @param message String to clarify errors on test.
+	 */
+	private void testOnCustomer(String message) {
+		// Create Customer
+		Customer customer = generateCustomer();
+		service.create(customer);
+		mockedCustomerList.add(customer); // MOCK: simulate create into mockedCustomerList
+
+		int nbAdmins = service.getAllAdmins().size();
+		int nbSellers = service.getAllSellers().size();
+		// After persistence, the Customer list is not empty and its size is now 1
+		assertFalse(message + " should not be empty", service.getAllCustomers().isEmpty());
+		assertEquals(message + " ' size should be 1", service.getAllCustomers().size(), 1);
+		// After persistence, the other lists are unchanged
+		assertEquals(nbAdmins, service.getAllAdmins().size());
+		assertEquals(nbSellers, service.getAllSellers().size());
+
+		// Update
+		customer = mockedCustomerList.get(0);
+		String initialUserName = customer.getUserName();
+		customer.setUserName("updatedUserName");
+		service.update(customer);
+		mockedCustomerList.set(0, customer); // MOCK: simulate update into mockedCustomerList
+		String updatedUserName = service.getAllCustomers().get(0).getUserName();
+		assertNotEquals("UserNames should not match", initialUserName, updatedUserName);
+
+		// Delete
+		service.delete(customer);
+		mockedCustomerList.remove(customer); // MOCK: simulate delete into mockedCustomerList
+		
+		// After delete, the Customer list is back to empty
+		assertTrue(message + " should be empty", service.getAllCustomers().isEmpty());
+		// After delete, the other lists are unchanged
+		assertEquals(nbAdmins, service.getAllAdmins().size());
+		assertEquals(nbSellers, service.getAllSellers().size());
+	}
+	
+	/**
+	 * Test create, update and delete on {@link Seller}.
+	 * @param message String to clarify errors on test.
+	 */
+	private void testOnSeller(String message) {
+		// Create Seller
+		Seller seller = generateSeller();
+		service.create(seller);
+		mockedSellerList.add(seller); // MOCK: simulate create into mockedSellerList
+
+		int nbCustomers = service.getAllCustomers().size();
+		int nbAdmins = service.getAllAdmins().size();
+		// After persistence, the Seller list is not empty and its size is now 1
+		assertFalse(message + " should not be empty", service.getAllSellers().isEmpty());
+		assertEquals(message + " ' size should be 1", service.getAllSellers().size(), 1);
+		// After persistence, the other lists are unchanged
+		assertEquals(nbCustomers, service.getAllCustomers().size());
+		assertEquals(nbAdmins, service.getAllAdmins().size());
+
+		// Update
+		seller = mockedSellerList.get(0);
+		String initialUserName = seller.getUserName();
+		seller.setUserName("updatedUserName");
+		service.update(seller);
+		mockedSellerList.set(0, seller); // MOCK: simulate update into mockedSellerList
+		String updatedUserName = service.getAllSellers().get(0).getUserName();
+		assertNotEquals("UserNames should not match", initialUserName, updatedUserName);
+
+		// Delete
+		service.delete(seller);
+		mockedSellerList.remove(seller); // MOCK: simulate delete into mockedSellerList
+		
+		// After delete, the Seller list is back to empty
+		assertTrue(message + " should be empty", service.getAllSellers().isEmpty());
+		// After delete, the other lists are unchanged
+		assertEquals(nbCustomers, service.getAllCustomers().size());
+		assertEquals(nbAdmins, service.getAllAdmins().size());
+	}
+	
+	/**
+	 * Reference a list of all {@link UserService}'s implementation to be used as parameter on constructor.
+	 * Each implementation will be tested with <code>testContract()</code>.
+	 * @return <code>Iterable < Object[] > </code>.
+	 */
+	@Parameters(name= "{index}: {0}")
+	public static Iterable<Object[]> implementationToTest() {
+		return Arrays.asList(new Object[][] {
+			{generateMockedUserServiceImpl()}
+			}
+		);
+	}
+	
+	/**
+	 * Construct a {@link UserServiceImpl} with a mocked DAO.
+	 * @return the {@link UserServiceImpl}
+	 */
+	private static UserServiceImpl generateMockedUserServiceImpl() {
+		UserServiceImpl impl = new UserServiceImpl();
+		impl.setUserDao(Mockito.mock(UserDao.class));
+		impl.setAdminDao(Mockito.mock(AdminDao.class));
+		impl.setCustomerDao(Mockito.mock(CustomerDao.class));
+		impl.setSellerDao(Mockito.mock(SellerDao.class));
+		return impl;
+	}
+	
+	/**
+	 * Generate a simple {@link Admin} usable for tests.
+	 * @return a {@link Admin}.
+	 */
+	private Admin generateAdmin() {
+		Admin admin = new Admin();
+		admin = (Admin) setUserProperties(admin);
+		admin.setCanDeleteData(false);
+		admin.setCanReadData(false);
+		admin.setCanUpdateData(false);
+		return admin;
+	}
+	
+	/**
+	 * Generate a simple {@link Customer} usable for tests.
+	 * @return a {@link Customer}.
+	 */
+	private Customer generateCustomer() {
+		Customer customer = new Customer();
+		customer = (Customer) setUserProperties(customer);
+		customer.setAddress(new Address());
+		customer.setBirthDate(LocalDate.now());
+		customer.setSignUpDate(ZonedDateTime.now());
+		return customer;
+	}
+	
+	/**
+	 * Generate a simple {@link Seller} usable for tests.
+	 * @return a {@link Seller}.
+	 */
+	private Seller generateSeller() {
+		Seller seller = new Seller();
+		seller = (Seller) setUserProperties(seller);
+		seller.setEnterprise(new Enterprise());
+		return seller;
+	}
+	
+	/**
+	 * Set common properties from {@link AbstractUser} usable for tests.
+	 * @param user the {@link AbstractUser} to be set.
+	 * @return {@link AbstractUser} properly set.
+	 */
+	private AbstractUser setUserProperties(AbstractUser user) {
+		user.setId((long) 0);
+		user.setEmail("Email");
+		user.setFirstName("FirstName");
+		user.setLastName("LastName");
+		user.setUserName("UserName");
+		user.setUserPassword("UserPassword");
+		return user;
+	}
+	
+	/**
+	 * Determine if the email is existing. Uses the admin mocked list.
+	 * @param email String to test.
+	 * @return true if the email was found, false otherwise.
+	 */
+	private boolean isExistingEmail(String email) {
+		boolean existingEmail = false;
+		if (!mockedAdminList.isEmpty() && mockedAdminList.get(0) != null) {
+			existingEmail = Objects.equals(email, mockedAdminList.get(0).getEmail());
+		}
+		return existingEmail;
+	}
+	
+	/**
+	 * Determine if the user name is existing. Uses the admin mocked list.
+	 * @param username String to test.
+	 * @return true if the user name was found, false otherwise.
+	 */
+	private boolean isExistingUsername(String username) {
+		boolean existingUsername = false;
+		if (!mockedAdminList.isEmpty() && mockedAdminList.get(0) != null) {
+			existingUsername = Objects.equals(username, mockedAdminList.get(0).getUserName());
+		}
+		return existingUsername;
+	}
+}

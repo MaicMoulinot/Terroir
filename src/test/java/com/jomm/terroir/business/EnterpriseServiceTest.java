@@ -45,16 +45,17 @@ public class EnterpriseServiceTest {
 	}
 	
 	/**
-	 * Test all contract methods for {@link EnterpriseService}.
+	 * Test contract for {@link EnterpriseService#create(Enterprise)}, {@link EnterpriseService#update(Enterprise)},
+	 * {@link EnterpriseService#delete(Enterprise)}, and {@link EnterpriseService#getAllEnterprises()}.
 	 */
 	@Test
-	public void testContract() {
-		String message = "service.getEnterprises()";
+	public final void testContract() {
+		String message = "service.getAllEnterprises()";
 		mockedList = new ArrayList<Enterprise>();
 		when(service.getAllEnterprises()).thenReturn(mockedList); // MOCK: service.getAllEnterprises() with mockedList
 		
 		// Before any persistence, the list is not null and is empty
-		assertNotNull(message + " should not be null", mockedList);
+		assertNotNull(message + " should not be null", service.getAllEnterprises());
 		assertTrue(message + "  should be empty", service.getAllEnterprises().isEmpty());
 
 		// Create
@@ -73,7 +74,7 @@ public class EnterpriseServiceTest {
 		service.update(enterprise);
 		mockedList.set(0, enterprise); // MOCK: simulate update into mockedList
 		String updatedLegalName = service.getAllEnterprises().get(0).getLegalName();
-		assertNotEquals("Titles should not match", initialLegalName, updatedLegalName);
+		assertNotEquals("LegalNames should not match", initialLegalName, updatedLegalName);
 
 		// Delete
 		service.delete(enterprise);
