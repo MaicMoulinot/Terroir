@@ -29,9 +29,9 @@ import com.jomm.terroir.util.Error;
 public class EmailValidator implements Validator {
 	
 	// Static constants
-	private static final String EXISTING_EMAIL = "emaildoublon";
-    private static final String FIELD_MANDATORY = "mandatory";
-    private static final String EMAIL_UNVALID = "emailnonvalid";
+	public static final String EXISTING_EMAIL = "emaildoublon";
+    public static final String FIELD_MANDATORY = "mandatory";
+    public static final String EMAIL_UNVALID = "emailnonvalid";
 	
     // Pattern for password
 	public static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", 
@@ -56,7 +56,7 @@ public class EmailValidator implements Validator {
 				// Email address is unvalid
 				throw new ValidatorException(
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(EMAIL_UNVALID), null));
-			} else if (userService.isExistingUserName(email)) {
+			} else if (userService.isExistingEmail(email)) {
 				Object[] argument = {email};
     			String detail = MessageFormat.format(resource.getString(EXISTING_EMAIL), argument);
                 throw new ValidatorException(
@@ -66,5 +66,9 @@ public class EmailValidator implements Validator {
 			throw new ValidatorException(
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null));
 		}
+    }
+    
+    public void setResourceBundle(ResourceBundle resource) {
+    	this.resource = resource;
     }
 }
