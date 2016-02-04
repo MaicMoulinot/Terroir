@@ -41,6 +41,16 @@ public class UsernameValidatorTest {
 		// Set proper ResourceBundle for the validator
 		ResourceBundle resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
 		validator.setResourceBundle(resource);
+
+		// Test with Username null and empty
+		try {
+			validator.validate(null, null, null);
+			assertTrue(true); // Assert no ValidatorException was thrown
+			validator.validate(null, null, "");
+			assertTrue(true); // Assert no ValidatorException was thrown
+		} catch (ValidatorException expectedException) {
+			fail("ValidatorException was thrown and should not have with username null or empty");
+		}
 		
 		// Test with Username's length < 6
 		try {

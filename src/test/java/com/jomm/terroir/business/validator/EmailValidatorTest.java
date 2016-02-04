@@ -1,6 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -42,6 +43,16 @@ public class EmailValidatorTest {
 		// Set proper ResourceBundle for the validator
 		ResourceBundle resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
 		validator.setResourceBundle(resource);
+		
+		// Test with Email null and empty
+		try {
+			validator.validate(null, null, null);
+			assertTrue(true); // Assert no ValidatorException was thrown
+			validator.validate(null, null, "");
+			assertTrue(true); // Assert no ValidatorException was thrown
+		} catch (ValidatorException expectedException) {
+			fail("ValidatorException was thrown and should not have with Email null or empty");
+		}
 		
 		// Test with Email not matching pattern ("Email")
 		try {

@@ -40,14 +40,25 @@ public class PasswordValidatorTest {
 			}
 		};
 		UIInput uiInput = new UIInput();
+		component.getAttributes().put(PasswordValidator.PASSWORD_PARAMETER, uiInput);
 		
 		// Test with Password1 is null
 		try {
 			uiInput.setValue(null);
-			component.getAttributes().put(PasswordValidator.PASSWORD_PARAMETER, uiInput);
 			validator.validate(null, component, "Password2");
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 null");
+		} catch (ValidatorException expectedException) {
+			assertEquals(resource.getString(PasswordValidator.FIELD_MANDATORY), 
+					expectedException.getFacesMessage().getSummary());
+		}
+		
+		// Test with Password1 is empty
+		try {
+			uiInput.setValue("");
+			validator.validate(null, component, "Password2");
+			// Should throw a ValidatorException. If not fail the test
+			fail("ValidatorException was not thrown and should have with password1 empty");
 		} catch (ValidatorException expectedException) {
 			assertEquals(resource.getString(PasswordValidator.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
@@ -59,6 +70,17 @@ public class PasswordValidatorTest {
 			validator.validate(null, component, null);
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 null");
+		} catch (ValidatorException expectedException) {
+			assertEquals(resource.getString(PasswordValidator.FIELD_MANDATORY), 
+					expectedException.getFacesMessage().getSummary());
+		}
+		
+		// Test with Password2 is empty
+		try {
+			uiInput.setValue("Password1");
+			validator.validate(null, component, "");
+			// Should throw a ValidatorException. If not fail the test
+			fail("ValidatorException was not thrown and should have with password2 empty");
 		} catch (ValidatorException expectedException) {
 			assertEquals(resource.getString(PasswordValidator.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
@@ -92,7 +114,7 @@ public class PasswordValidatorTest {
 			String password = "Za3@hGm450@";
 			uiInput.setValue(password);
 			validator.validate(null, component, password);
-			assertTrue(true); // Just validate no ValidatorException was thrown
+			assertTrue(true); // Assert no ValidatorException was thrown
 		} catch (ValidatorException expectedException) {
 			fail("ValidatorException was thrown and should have with password matching the pattern");
 		}
