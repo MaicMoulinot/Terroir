@@ -19,9 +19,9 @@ import javax.persistence.PersistenceContext;
 public class Resources {
 	
 	// Constants
-	private static final String BUNDLE_MESSAGE = "i18n.message";
-	private static final String BUNDLE_ERROR = "i18n.error";
-	private static final String BUNDLE_LABEL = "i18n.label";
+	public static final String BUNDLE_MESSAGE = "i18n.message";
+	public static final String BUNDLE_ERROR = "i18n.error";
+	public static final String BUNDLE_LABEL = "i18n.label";
 
 	/**
 	 * Expose an entity manager using the resource producer pattern
