@@ -20,12 +20,16 @@ import com.jomm.terroir.business.SiteServiceTest;
 import com.jomm.terroir.business.SiteTest;
 import com.jomm.terroir.business.UserServiceImplTest;
 import com.jomm.terroir.business.UserServiceTest;
+import com.jomm.terroir.business.validator.EmailValidatorTest;
+import com.jomm.terroir.business.validator.PasswordValidatorTest;
+import com.jomm.terroir.business.validator.UsernameValidatorTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({AbstractUserTest.class, AddressTest.class, AdminTest.class, CustomerTest.class, 
 	EnterpriseTest.class, EnterpriseServiceTest.class, EnterpriseServiceImplTest.class, ImageTest.class, 
 	ProductTest.class, ProductServiceTest.class, ProductServiceImplTest.class, SellerTest.class, 
-	SiteTest.class, SiteServiceTest.class, SiteServiceImplTest.class, UserServiceTest.class, UserServiceImplTest.class
+	SiteTest.class, SiteServiceTest.class, SiteServiceImplTest.class, UserServiceTest.class, UserServiceImplTest.class,
+	EmailValidatorTest.class, PasswordValidatorTest.class, UsernameValidatorTest.class
 	})
 public class AllTests {
 
