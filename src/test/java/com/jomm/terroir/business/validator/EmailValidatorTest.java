@@ -43,17 +43,7 @@ public class EmailValidatorTest {
 		ResourceBundle resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
 		validator.setResourceBundle(resource);
 		
-		// Email is null
-		try {
-			validator.validate(null, null, null);
-			// Should throw a ValidatorException. If not fail the test
-			fail("ValidatorException was not thrown and should have with email null");
-		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(EmailValidator.FIELD_MANDATORY), 
-					expectedException.getFacesMessage().getSummary());
-		}
-		
-		// Email is not valid ("Email")
+		// Test with Email not matching pattern ("Email")
 		try {
 			validator.validate(null, null, "Email");
 			// Should throw a ValidatorException. If not fail the test
@@ -63,7 +53,7 @@ public class EmailValidatorTest {
 					expectedException.getFacesMessage().getSummary());
 		}
 		
-		// Email is valid ("email@email.com")
+		// Test with Email matching pattern ("email@email.com")
 		try {
 			validator.validate(null, null, "email@email.com");
 			verify(service).isExistingEmail(anyString()); // validate that service.isExistingEmail() was called
