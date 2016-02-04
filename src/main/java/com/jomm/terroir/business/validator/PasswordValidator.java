@@ -27,11 +27,11 @@ import com.jomm.terroir.util.Error;
 public class PasswordValidator implements Validator {
 
 	// Static constants
-	private static final String PASSWORD_PARAMETER = "passwordParam";
-	private static final String PASSWORDS_DONT_MATCH = "passwordsdifferent";
-	private static final String FIELD_MANDATORY = "mandatory";
-	private static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
-	private static final String PASSWORD_RULES = "passwordrules";
+	public static final String PASSWORD_PARAMETER = "passwordParam";
+	public static final String PASSWORDS_DONT_MATCH = "passwordsdifferent";
+	public static final String FIELD_MANDATORY = "mandatory";
+	public static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
+	public static final String PASSWORD_RULES = "passwordrules";
 	
 	@Inject
 	@Error
@@ -51,7 +51,7 @@ public class PasswordValidator implements Validator {
 		try {
 			String password1 = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER)).getValue();
 			String password2 = (String) value;
-			if (password1 == null || password2 == null) {
+			if (password1 == null || password1.isEmpty() || password2 == null || password2.isEmpty()) {
 				// One password at least is lacking
 				throw new ValidatorException(
 						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(FIELD_MANDATORY), null));
@@ -72,4 +72,12 @@ public class PasswordValidator implements Validator {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null));
 		}
 	}
+	
+    /**
+     * This method is used for Junit testing only.
+     * @param resource {@link ResourceBundle} the resource to set.
+     */
+    public void setResourceBundle(ResourceBundle resource) {
+    	this.resource = resource;
+    }
 }

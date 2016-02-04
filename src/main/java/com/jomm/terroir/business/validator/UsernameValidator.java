@@ -27,8 +27,8 @@ import com.jomm.terroir.util.Error;
 public class UsernameValidator implements Validator {
 
 	// Static constants
-	private static final String EXISTING_USER_NAME = "existingusername";
-	private static final String LENGHT_AT_LEAST_6_CHARACTERS = "lenght6";
+	public static final String EXISTING_USER_NAME = "existingusername";
+	public static final String LENGTH_AT_LEAST_6_CHARACTERS = "length6";
 
 	@Inject
 	private UserService userService;
@@ -41,20 +41,32 @@ public class UsernameValidator implements Validator {
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		try {
 			String userName = (String) value;
-			if (userName.length() < 6) {
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-								resource.getString(LENGHT_AT_LEAST_6_CHARACTERS), null));
-			}
-			if (userService.isExistingUserName(userName)) {
-				Object[] argument = {userName};
-				String detail = MessageFormat.format(resource.getString(EXISTING_USER_NAME), argument);
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
+			if (userName != null && !userName.isEmpty()) {
+				// Minimum length = 6
+				if (userName.length() < 6) {
+					throw new ValidatorException(
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+									resource.getString(LENGTH_AT_LEAST_6_CHARACTERS), null));
+				}
+				// Existing in database
+				if (userService.isExistingUserName(userName)) {
+					Object[] argument = {userName};
+					String detail = MessageFormat.format(resource.getString(EXISTING_USER_NAME), argument);
+					throw new ValidatorException(
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
+				}
 			}
 		} catch (Exception exception) {
 			throw new ValidatorException(
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null));
 		}
 	}
+    
+    /**
+     * This method is used for Junit testing only.
+     * @param resource {@link ResourceBundle} the resource to set.
+     */
+    public void setResourceBundle(ResourceBundle resource) {
+    	this.resource = resource;
+    }
 }

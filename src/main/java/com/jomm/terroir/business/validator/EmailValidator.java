@@ -30,7 +30,6 @@ public class EmailValidator implements Validator {
 	
 	// Static constants
 	public static final String EXISTING_EMAIL = "emaildoublon";
-    public static final String FIELD_MANDATORY = "mandatory";
     public static final String EMAIL_UNVALID = "emailnonvalid";
 	
     // Pattern for password
@@ -48,26 +47,28 @@ public class EmailValidator implements Validator {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		try {
 			String email = (String) value;
-			if (email == null) {
-				// Email address is lacking
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(FIELD_MANDATORY), null));
-			} else if (!EMAIL_PATTERN.matcher(email).matches()) {
-				// Email address is unvalid
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(EMAIL_UNVALID), null));
-			} else if (userService.isExistingEmail(email)) {
-				Object[] argument = {email};
-    			String detail = MessageFormat.format(resource.getString(EXISTING_EMAIL), argument);
-                throw new ValidatorException(
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
-            }
+			if (email != null && !email.isEmpty()) {
+				if (!EMAIL_PATTERN.matcher(email).matches()) {
+					// Email address is unvalid
+					throw new ValidatorException(
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(EMAIL_UNVALID), null));
+				} else if (userService.isExistingEmail(email)) {
+					Object[] argument = {email};
+					String detail = MessageFormat.format(resource.getString(EXISTING_EMAIL), argument);
+					throw new ValidatorException(
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
+				}
+			}
 		} catch(Exception exception) {
 			throw new ValidatorException(
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null));
 		}
     }
     
+    /**
+     * This method is used for Junit testing only.
+     * @param resource {@link ResourceBundle} the resource to set.
+     */
     public void setResourceBundle(ResourceBundle resource) {
     	this.resource = resource;
     }
