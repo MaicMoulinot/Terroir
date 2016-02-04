@@ -21,7 +21,7 @@
 				<p:spacer />
 				<p:inputText id="firstname" value="#{userJsf.firstName}"
 					required="true" requiredMessage="#{error.mandatory}"
-					validatorMessage="#{error.lenght2}">
+					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="firstnameMessage" />
 				</p:inputText>
@@ -32,7 +32,7 @@
 				<p:spacer />
 				<p:inputText id="lastname" value="#{userJsf.lastName}"
 					required="true" requiredMessage="#{error.mandatory}"
-					validatorMessage="#{error.lenght2}">
+					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="lastnameMessage" />
 				</p:inputText>
