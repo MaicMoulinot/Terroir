@@ -16,7 +16,7 @@ public class AdminTest {
 	 * Test method for the {@link Admin}'s constructor with no arg.
 	 */
 	@Test
-	public final void testAdmin() {
+	public final void testConstructor() {
 		Admin admin = new Admin();
 		assertNotNull(admin);
 		assertFalse("CanReadData should be false", admin.canReadData());
