@@ -25,7 +25,6 @@ import com.jomm.terroir.business.validator.PasswordValidatorTest;
 import com.jomm.terroir.business.validator.UsernameValidatorTest;
 import com.jomm.terroir.dao.AdminDaoJpaTest;
 import com.jomm.terroir.dao.AdminDaoTest;
-import com.jomm.terroir.dao.GenericDaoTest;
 import com.jomm.terroir.dao.ProductDaoJpaTest;
 import com.jomm.terroir.dao.ProductDaoTest;
 
@@ -35,8 +34,7 @@ import com.jomm.terroir.dao.ProductDaoTest;
 	ProductTest.class, ProductServiceTest.class, ProductServiceImplTest.class, SellerTest.class, 
 	SiteTest.class, SiteServiceTest.class, SiteServiceImplTest.class, UserServiceTest.class, UserServiceImplTest.class,
 	EmailValidatorTest.class, PasswordValidatorTest.class, UsernameValidatorTest.class, 
-	AdminDaoJpaTest.class, AdminDaoTest.class, GenericDaoTest.class, 
-	ProductDaoJpaTest.class, ProductDaoTest.class
+	AdminDaoJpaTest.class, AdminDaoTest.class, ProductDaoJpaTest.class, ProductDaoTest.class
 	})
 public class AllTests {
 	// Do nothing.
