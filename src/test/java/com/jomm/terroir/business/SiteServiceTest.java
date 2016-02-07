@@ -57,7 +57,7 @@ public class SiteServiceTest {
 		assertTrue(message + " should be empty", service.getAllSites().isEmpty());
 
 		// Create
-		Site site = generateSite();
+		Site site = SiteTest.generateSite();
 		service.create(site);
 		mockedList.add(site); // MOCK: simulate create into mockedList
 
@@ -103,20 +103,5 @@ public class SiteServiceTest {
 		SiteServiceImpl impl = new SiteServiceImpl();
 		impl.setSiteDao(Mockito.mock(SiteDao.class));
 		return impl;
-	}
-	
-	/**
-	 * Generate a simple {@link Site} usable for tests.
-	 * @return a {@link Site}.
-	 */
-	private Site generateSite() {
-		Site site = new Site();
-		site.setId((long) 0);
-		site.setAddress(new Address());
-		site.setEnterprise(new Enterprise());
-		site.setLegalIdentification("LegalIdentification");
-		site.setListProducts(new ArrayList<Product>());
-		site.setSiteName("SiteName");
-		return site;
 	}
 }

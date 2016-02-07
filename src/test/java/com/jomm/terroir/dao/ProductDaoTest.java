@@ -3,7 +3,6 @@ package com.jomm.terroir.dao;
 import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import org.junit.Before;
@@ -11,7 +10,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.jomm.terroir.business.Product;
-import com.jomm.terroir.business.Site;
+import com.jomm.terroir.business.ProductTest;
 
 /**
  * This Class is a Junit test case testing the contract of {@link ProductDao}.
@@ -26,7 +25,7 @@ public class ProductDaoTest extends DaoTest<Product> {
 	@Before
 	public void setUp() throws Exception {
 		dao = Mockito.mock(ProductDao.class);
-		entity = generateProduct();
+		entity = ProductTest.generateProduct();
 	}
 	
 	@Override
@@ -54,20 +53,5 @@ public class ProductDaoTest extends DaoTest<Product> {
 		
 		String updatedValue = dao.findAll().get(0).getDescription();
 		assertNotEquals("Values should not match", initialValue, updatedValue);
-	}
-	
-	/**
-	 * Generate a simple {@link Product} usable for tests.
-	 * @return a {@link Product}.
-	 */
-	private Product generateProduct() {
-		Product product = new Product();
-		product.setId((long) 0);
-		product.setDescription("Description");
-		product.setQuantity(10);
-		product.setSite(new Site());
-		product.setTitle("Title");
-		product.setRegistrationDate(ZonedDateTime.now());
-		return product;
 	}
 }

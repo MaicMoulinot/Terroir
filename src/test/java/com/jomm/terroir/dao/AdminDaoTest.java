@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.jomm.terroir.business.Admin;
+import com.jomm.terroir.business.AdminTest;
 
 /**
  * This Class is a Junit test case testing the contract of {@link AdminDao}.
@@ -24,7 +25,7 @@ public class AdminDaoTest extends DaoTest<Admin> {
 	@Before
 	public void setUp() throws Exception {
 		dao = Mockito.mock(AdminDao.class);
-		entity = generateAdmin();
+		entity = AdminTest.generateAdmin();
 	}
 	
 	@Override
@@ -52,20 +53,5 @@ public class AdminDaoTest extends DaoTest<Admin> {
 		
 		String updatedValue = dao.findAll().get(0).getFirstName();
 		assertNotEquals("Values should not match", initialValue, updatedValue);
-	}
-	
-	/**
-	 * Generate a simple {@link Admin} usable for tests.
-	 * @return a {@link Admin}.
-	 */
-	private Admin generateAdmin() {
-		Admin admin = new Admin();
-		admin.setId((long) 0);
-		admin.setEmail("Email");
-		admin.setFirstName("FirstName");
-		admin.setLastName("LastName");
-		admin.setUserName("UserName");
-		admin.setUserPassword("UserPassword");
-		return admin;
 	}
 }

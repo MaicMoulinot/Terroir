@@ -43,7 +43,7 @@ public class UserServiceImplTest {
 	 */
 	@Test
 	public final void testCreate() {
-		service.create(generateAbstractUser());
+		service.create(AbstractUserTest.generateAbstractUser());
 		verify(dao).create(any(AbstractUser.class)); // validate that dao.create() was called
 	}
 
@@ -52,7 +52,7 @@ public class UserServiceImplTest {
 	 */
 	@Test
 	public final void testUpdate() {
-		service.update(generateAbstractUser());
+		service.update(AbstractUserTest.generateAbstractUser());
 		verify(dao).update(any(AbstractUser.class)); // validate that dao.update() was called
 	}
 
@@ -61,7 +61,7 @@ public class UserServiceImplTest {
 	 */
 	@Test
 	public final void testDelete() {
-		service.delete(generateAbstractUser());
+		service.delete(AbstractUserTest.generateAbstractUser());
 		verify(dao).delete(any(AbstractUser.class)); // validate that dao.delete() was called
 	}
 
@@ -108,20 +108,5 @@ public class UserServiceImplTest {
 	public final void testIsExistingEmail() {
 		service.isExistingEmail("Email");
 		verify(dao).isExistingEmail(any(String.class)); // validate that dao.isExistingEmail() was called
-	}
-
-	/**
-	 * Generate a simple {@link AbstractUser} usable for tests.
-	 * @return a {@link AbstractUser}.
-	 */
-	private AbstractUser generateAbstractUser() {
-		AbstractUser user = new Admin(); // AbstractUser is abstract so need to instantiate a child
-		user.setId((long) 0);
-		user.setEmail("Email");
-		user.setFirstName("FirstName");
-		user.setLastName("LastName");
-		user.setUserName("UserName");
-		user.setUserPassword("UserPassword");
-		return user;
 	}
 }

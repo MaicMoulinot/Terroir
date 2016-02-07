@@ -7,8 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,7 +57,7 @@ public class EnterpriseServiceTest {
 		assertTrue(message + "  should be empty", service.getAllEnterprises().isEmpty());
 
 		// Create
-		Enterprise enterprise = generateEnterprise();
+		Enterprise enterprise = EnterpriseTest.generateEnterprise();
 		service.create(enterprise);
 		mockedList.add(enterprise); // MOCK: simulate create into mockedList
 
@@ -105,24 +103,5 @@ public class EnterpriseServiceTest {
 		EnterpriseServiceImpl impl = new EnterpriseServiceImpl();
 		impl.setEnterpriseDao(Mockito.mock(EnterpriseDao.class));
 		return impl;
-	}
-	
-	/**
-	 * Generate a simple {@link Enterprise} usable for tests.
-	 * @return a {@link Enterprise}.
-	 */
-	private Enterprise generateEnterprise() {
-		Enterprise enterprise = new Enterprise();
-		enterprise.setId((long) 0);
-		enterprise.setAddress(new Address());
-		enterprise.setCreationDate(LocalDate.now());
-		enterprise.setLegalIdentification("LegalIdentification");
-		enterprise.setLegalName("LegalName");
-		enterprise.setListSellers(new ArrayList<Seller>());
-		enterprise.setListSites(new ArrayList<Site>());
-		enterprise.setNbEmployees(10);
-		enterprise.setSignUpDate(ZonedDateTime.now());
-		enterprise.setTradeName("TradeName");
-		return enterprise;
 	}
 }

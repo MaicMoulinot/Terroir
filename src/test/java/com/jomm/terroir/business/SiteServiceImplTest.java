@@ -6,8 +6,6 @@ package com.jomm.terroir.business;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -36,7 +34,7 @@ public class SiteServiceImplTest {
 	 */
 	@Test
 	public final void testCreate() {
-		service.create(generateSite());
+		service.create(SiteTest.generateSite());
 		verify(dao).create(any(Site.class)); // validate that dao.create() was called
 	}
 
@@ -45,7 +43,7 @@ public class SiteServiceImplTest {
 	 */
 	@Test
 	public final void testUpdate() {
-		service.update(generateSite());
+		service.update(SiteTest.generateSite());
 		verify(dao).update(any(Site.class)); // validate that dao.update() was called
 	}
 
@@ -63,22 +61,7 @@ public class SiteServiceImplTest {
 	 */
 	@Test
 	public final void testDelete() {
-		service.delete(generateSite());
+		service.delete(SiteTest.generateSite());
 		verify(dao).delete(any(Site.class)); // validate that dao.delete() was called
-	}
-	
-	/**
-	 * Generate a simple {@link Site} usable for tests.
-	 * @return a {@link Site}.
-	 */
-	private Site generateSite() {
-		Site site = new Site();
-		site.setId((long) 0);
-		site.setAddress(new Address());
-		site.setEnterprise(new Enterprise());
-		site.setLegalIdentification("LegalIdentification");
-		site.setListProducts(new ArrayList<Product>());
-		site.setSiteName("SiteName");
-		return site;
 	}
 }

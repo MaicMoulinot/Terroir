@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -58,7 +57,7 @@ public class ProductServiceTest {
 		assertTrue(message + " should be empty", service.getAllProducts().isEmpty());
 
 		// Create
-		Product product = generateProduct();
+		Product product = ProductTest.generateProduct();
 		service.create(product);
 		mockedList.add(product); // MOCK: simulate create into mockedList
 
@@ -104,20 +103,5 @@ public class ProductServiceTest {
 		ProductServiceImpl impl = new ProductServiceImpl();
 		impl.setProductDao(Mockito.mock(ProductDao.class));
 		return impl;
-	}
-	
-	/**
-	 * Generate a simple {@link Product} usable for tests.
-	 * @return a {@link Product}.
-	 */
-	private Product generateProduct() {
-		Product product = new Product();
-		product.setId((long) 0);
-		product.setDescription("Description");
-		product.setQuantity(10);
-		product.setSite(new Site());
-		product.setTitle("Title");
-		product.setRegistrationDate(ZonedDateTime.now());
-		return product;
 	}
 }

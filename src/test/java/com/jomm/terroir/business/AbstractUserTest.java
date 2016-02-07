@@ -63,6 +63,21 @@ public class AbstractUserTest {
 	}
 	
 	/**
+	 * Generate a simple {@link AbstractUser} usable for tests.
+	 * @return a {@link AbstractUser}.
+	 */
+	public static AbstractUser generateAbstractUser() {
+		AbstractUser user = new Admin(); // AbstractUser is abstract so need to instantiate a child
+		user.setId((long) 0);
+		user.setEmail("Email");
+		user.setFirstName("FirstName");
+		user.setLastName("LastName");
+		user.setUserName("UserName");
+		user.setUserPassword("UserPassword");
+		return user;
+	}
+	
+	/**
 	 * Reference a list of all {@link AbstractUser}'s concrete children to be used as parameter on constructor.
 	 * @return <code>Iterable < Object[] > </code>.
 	 */

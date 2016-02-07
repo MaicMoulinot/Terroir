@@ -48,4 +48,19 @@ public class AdminTest {
 		
 		admin = null; // Available for Garbage Collector
 	}
+	
+	/**
+	 * Generate a simple {@link Admin} usable for tests.
+	 * @return a {@link Admin}.
+	 */
+	public static Admin generateAdmin() {
+		Admin admin = new Admin();
+		admin.setId((long) 0);
+		admin.setEmail("Email");
+		admin.setFirstName("FirstName");
+		admin.setLastName("LastName");
+		admin.setUserName("UserName");
+		admin.setUserPassword("UserPassword");
+		return admin;
+	}
 }

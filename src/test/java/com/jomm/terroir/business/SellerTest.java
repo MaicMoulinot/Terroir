@@ -29,4 +29,20 @@ public class SellerTest {
 		
 		seller = null; // Available for Garbage Collector
 	}
+	
+	/**
+	 * Generate a simple {@link Seller} usable for tests.
+	 * @return a {@link Seller}.
+	 */
+	public static Seller generateSeller() {
+		Seller seller = new Seller();
+		seller.setId((long) 0);
+		seller.setEmail("Email");
+		seller.setFirstName("FirstName");
+		seller.setLastName("LastName");
+		seller.setUserName("UserName");
+		seller.setUserPassword("UserPassword");
+		seller.setEnterprise(new Enterprise());
+		return seller;
+	}
 }

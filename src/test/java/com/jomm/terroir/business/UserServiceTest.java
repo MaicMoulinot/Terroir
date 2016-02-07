@@ -7,8 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -69,7 +67,7 @@ public class UserServiceTest {
 		assertFalse(service.isExistingUserName(username));
 		
 		// Create User
-		Admin admin = generateAdmin();
+		Admin admin = AdminTest.generateAdmin();
 		service.create(admin);
 		mockedAdminList.add(admin); // MOCK: simulate create into mockedAdminList
 		
@@ -131,7 +129,7 @@ public class UserServiceTest {
 	 */
 	private void testOnAdmin(String message) {
 		// Create Admin
-		Admin admin = generateAdmin();
+		Admin admin = AdminTest.generateAdmin();
 		service.create(admin);
 		mockedAdminList.add(admin); // MOCK: simulate create into mockedAdminList
 
@@ -170,7 +168,7 @@ public class UserServiceTest {
 	 */
 	private void testOnCustomer(String message) {
 		// Create Customer
-		Customer customer = generateCustomer();
+		Customer customer = CustomerTest.generateCustomer();
 		service.create(customer);
 		mockedCustomerList.add(customer); // MOCK: simulate create into mockedCustomerList
 
@@ -209,7 +207,7 @@ public class UserServiceTest {
 	 */
 	private void testOnSeller(String message) {
 		// Create Seller
-		Seller seller = generateSeller();
+		Seller seller = SellerTest.generateSeller();
 		service.create(seller);
 		mockedSellerList.add(seller); // MOCK: simulate create into mockedSellerList
 
@@ -266,58 +264,6 @@ public class UserServiceTest {
 		impl.setCustomerDao(Mockito.mock(CustomerDao.class));
 		impl.setSellerDao(Mockito.mock(SellerDao.class));
 		return impl;
-	}
-	
-	/**
-	 * Generate a simple {@link Admin} usable for tests.
-	 * @return a {@link Admin}.
-	 */
-	private Admin generateAdmin() {
-		Admin admin = new Admin();
-		admin = (Admin) setUserProperties(admin);
-		admin.setCanDeleteData(false);
-		admin.setCanReadData(false);
-		admin.setCanUpdateData(false);
-		return admin;
-	}
-	
-	/**
-	 * Generate a simple {@link Customer} usable for tests.
-	 * @return a {@link Customer}.
-	 */
-	private Customer generateCustomer() {
-		Customer customer = new Customer();
-		customer = (Customer) setUserProperties(customer);
-		customer.setAddress(new Address());
-		customer.setBirthDate(LocalDate.now());
-		customer.setSignUpDate(ZonedDateTime.now());
-		return customer;
-	}
-	
-	/**
-	 * Generate a simple {@link Seller} usable for tests.
-	 * @return a {@link Seller}.
-	 */
-	private Seller generateSeller() {
-		Seller seller = new Seller();
-		seller = (Seller) setUserProperties(seller);
-		seller.setEnterprise(new Enterprise());
-		return seller;
-	}
-	
-	/**
-	 * Set common properties from {@link AbstractUser} usable for tests.
-	 * @param user the {@link AbstractUser} to be set.
-	 * @return {@link AbstractUser} properly set.
-	 */
-	private AbstractUser setUserProperties(AbstractUser user) {
-		user.setId((long) 0);
-		user.setEmail("Email");
-		user.setFirstName("FirstName");
-		user.setLastName("LastName");
-		user.setUserName("UserName");
-		user.setUserPassword("UserPassword");
-		return user;
 	}
 	
 	/**

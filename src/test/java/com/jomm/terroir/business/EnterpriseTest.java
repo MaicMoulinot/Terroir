@@ -88,4 +88,24 @@ public class EnterpriseTest {
 		
 		enterprise = null; // Available for Garbage Collector
 	}
+	
+	
+	/**
+	 * Generate a simple {@link Enterprise} usable for tests.
+	 * @return a {@link Enterprise}.
+	 */
+	public static Enterprise generateEnterprise() {
+		Enterprise enterprise = new Enterprise();
+		enterprise.setId((long) 0);
+		enterprise.setAddress(new Address());
+		enterprise.setCreationDate(LocalDate.now());
+		enterprise.setLegalIdentification("LegalIdentification");
+		enterprise.setLegalName("LegalName");
+		enterprise.setListSellers(new ArrayList<Seller>());
+		enterprise.setListSites(new ArrayList<Site>());
+		enterprise.setNbEmployees(10);
+		enterprise.setSignUpDate(ZonedDateTime.now());
+		enterprise.setTradeName("TradeName");		
+		return enterprise;
+	}
 }

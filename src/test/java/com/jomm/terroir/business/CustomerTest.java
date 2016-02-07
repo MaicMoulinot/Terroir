@@ -42,4 +42,22 @@ public class CustomerTest {
 		
 		customer = null; // Available for Garbage Collector
 	}
+	
+	/**
+	 * Generate a simple {@link Customer} usable for tests.
+	 * @return a {@link Customer}.
+	 */
+	public static Customer generateCustomer() {
+		Customer customer = new Customer();
+		customer.setId((long) 0);
+		customer.setEmail("Email");
+		customer.setFirstName("FirstName");
+		customer.setLastName("LastName");
+		customer.setUserName("UserName");
+		customer.setUserPassword("UserPassword");
+		customer.setAddress(new Address());
+		customer.setBirthDate(LocalDate.now());
+		customer.setSignUpDate(ZonedDateTime.now());
+		return customer;
+	}
 }
