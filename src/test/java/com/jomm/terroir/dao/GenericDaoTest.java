@@ -22,7 +22,10 @@ public abstract class GenericDaoTest<E extends Serializable> {
 	protected E entity;
 	
 	/**
-	 * Test all methods for {@link GenericDao}.
+	 * Test contract of DAO checking all methods {@link GenericDao#GenericDao()},
+	 * {@link GenericDao#create(Serializable)}, {@link GenericDao#update(Serializable)}, 
+	 * {@link GenericDao#delete(Serializable)}, {@link GenericDao#deleteById(Long)}, 
+	 * {@link GenericDao#find(Long)}, and {@link GenericDao#findAll()}.
 	 */
 	public void testContract() {
 		testConstructor();

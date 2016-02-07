@@ -34,8 +34,9 @@ public abstract class DaoTest<E extends Serializable> {
 	public abstract void testUpdate();
 	
 	/**
-	 * Test contract for {@link Dao#create(Serializable)}, {@link Dao#find(Long)}, {@link Dao#findAll()},
-	 * {@link Dao#delete(Serializable)}, and {@link Dao#deleteById(Long)}.
+	 * Test contract of DAO checking all methods: {@link Dao#create(Serializable)}, 
+	 * {@link Dao#delete(Serializable)}, {@link Dao#deleteById(Long)}, 
+	 * {@link Dao#find(Long)}, and {@link Dao#findAll()}.
 	 */
 	public void testContract() {
 		String message = "dao.findAll()";
