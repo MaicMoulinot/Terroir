@@ -40,19 +40,18 @@ public class AdminDaoTest extends DaoTest<Admin> {
 		when(dao.findAll()).thenReturn(mockedList); // MOCK: dao.findAll() with mockedList
 
 		// Create
-		entity = generateAdmin();
 		dao.create(entity);
 		mockedList.add(entity); // MOCK: simulate create into mockedList
 		
 		// Update
 		entity = mockedList.get(0);
-		String initialFirstName = entity.getFirstName();
+		String initialValue = entity.getFirstName();
 		entity.setFirstName("UpdatedFirstName");
 		dao.update(entity);
 		mockedList.set(0, entity); // MOCK: simulate update into mockedList
 		
-		String updatedFirstName = dao.findAll().get(0).getFirstName();
-		assertNotEquals("FirstNames should not match", initialFirstName, updatedFirstName);
+		String updatedValue = dao.findAll().get(0).getFirstName();
+		assertNotEquals("Values should not match", initialValue, updatedValue);
 	}
 	
 	/**
