@@ -37,7 +37,7 @@ public class Admin extends AbstractUser implements Serializable {
 	 * No-arg constructor.
 	 * Default is no special power.
 	 */
-	protected Admin() {
+	public Admin() {
 		super();
 		canReadData = false;
 		canUpdateData = false;
