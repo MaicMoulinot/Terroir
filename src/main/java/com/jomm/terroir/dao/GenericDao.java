@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  * This abstract Class defines all CRUD operations involving a {@link Entity}.
@@ -70,8 +71,11 @@ public abstract class GenericDao<E extends Serializable> implements Dao<E> {
 	@Override
 	public List<E> findAll() {
 	    List<E> castedList = new LinkedList<E>();
-	    for(Object obj : entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll").getResultList()) {
-	    	castedList.add(getEntityClass().cast(obj));
+	    Query query = entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll");
+	    if (query != null) {
+	    	for(Object obj : query.getResultList()) {
+	    		castedList.add(getEntityClass().cast(obj));
+	    	}
 	    }
 		return castedList;
 	}
@@ -88,5 +92,19 @@ public abstract class GenericDao<E extends Serializable> implements Dao<E> {
 	 */
 	protected void setEntityClass(Class<E> entityClass) {
 		this.entityClass = entityClass;
+	}
+
+	/**
+	 * @return the entityManager
+	 */
+	protected EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	/**
+	 * @param entityManager the entityManager to set
+	 */
+	protected void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
 	}
 }
