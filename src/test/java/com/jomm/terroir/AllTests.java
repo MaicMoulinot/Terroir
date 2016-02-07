@@ -35,7 +35,8 @@ import com.jomm.terroir.dao.ProductDaoTest;
 	ProductTest.class, ProductServiceTest.class, ProductServiceImplTest.class, SellerTest.class, 
 	SiteTest.class, SiteServiceTest.class, SiteServiceImplTest.class, UserServiceTest.class, UserServiceImplTest.class,
 	EmailValidatorTest.class, PasswordValidatorTest.class, UsernameValidatorTest.class, 
-	GenericDaoTest.class, ProductDaoJpaTest.class, ProductDaoTest.class, AdminDaoTest.class, AdminDaoJpaTest.class
+	AdminDaoJpaTest.class, AdminDaoTest.class, GenericDaoTest.class, 
+	ProductDaoJpaTest.class, ProductDaoTest.class
 	})
 public class AllTests {
 	// Do nothing.

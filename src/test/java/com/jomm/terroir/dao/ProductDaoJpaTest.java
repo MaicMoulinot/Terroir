@@ -1,74 +1,24 @@
 package com.jomm.terroir.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.jomm.terroir.business.Product;
+
+/**
+ * This Class is a Junit test case testing {@link ProductDaoJpa}.
+ * It verifies that the <code>entityClass</code> is an {@link Product}.
+ * @author Maic
+ */
 public class ProductDaoJpaTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
+	/**
+	 * Test method for {@link AdminDaoJpa}.
+	 */
 	@Test
-	public final void testGenericDao() {
-		fail("Not yet implemented"); // TODO
+	public final void testMatch() {
+		ProductDaoJpa dao = new ProductDaoJpa();
+		assertEquals(dao.getEntityClass(), Product.class);
 	}
-
-	@Test
-	public final void testCreate() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testUpdate() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testDelete() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testDeleteById() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testFind() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testFindAll() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testGetEntityClass() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	@Test
-	public final void testSetEntityClass() {
-		fail("Not yet implemented"); // TODO
-	}
-
 }
