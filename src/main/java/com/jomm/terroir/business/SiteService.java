@@ -11,14 +11,16 @@ public interface SiteService {
 	/**
 	 * Create a site.
 	 * @param site the {@link Site} to create.
+	 * @return the persisted site.
 	 */
-	public void create(Site site);
+	public Site create(Site site);
 	
 	/**
 	 * Update a site.
 	 * @param site the {@link Site} to update.
+	 * @return the updated site.
 	 */
-	public void update(Site site);
+	public Site update(Site site);
 	
 	/**
 	 * Fetch the list of all sites.

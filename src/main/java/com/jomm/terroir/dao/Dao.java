@@ -27,8 +27,9 @@ public interface Dao<E extends Serializable> {
 	/**
 	 * Create and persist a new {@link javax.persistence.Entity}.
 	 * @param entity the {@link javax.persistence.Entity}.
+	 * @return the persisted {@link javax.persistence.Entity}.
 	 */
-	public void create(E entity);
+	public E create(E entity);
 
 	/**
 	 * Update a previously persisted {@link javax.persistence.Entity}.

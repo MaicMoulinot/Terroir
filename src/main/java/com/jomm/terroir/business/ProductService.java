@@ -11,14 +11,16 @@ public interface ProductService {
 	/**
 	 * Create a product.
 	 * @param product the {@link Product} to create.
+	 * @return the persisted product.
 	 */
-	public void create(Product product);
+	public Product create(Product product);
 	
 	/**
 	 * Update a product.
 	 * @param product the {@link Product} to update.
+	 * @return the updated product.
 	 */
-	public void update(Product product);
+	public Product update(Product product);
 	
 	/**
 	 * Fetch the list of all products.

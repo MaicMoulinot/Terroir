@@ -11,14 +11,16 @@ public interface EnterpriseService {
 	/**
 	 * Create an enterprise.
 	 * @param enterprise the {@link Enterprise} to create.
+	 * @return the persisted enterprise.
 	 */
-	public void create(Enterprise enterprise);
+	public Enterprise create(Enterprise enterprise);
 	
 	/**
 	 * Update an enterprise.
 	 * @param enterprise the {@link Enterprise} to update.
+	 * @return the updated enterprise.
 	 */
-	public void update(Enterprise enterprise);
+	public Enterprise update(Enterprise enterprise);
 	
 	/**
 	 * Fetch the list of all enterprises.

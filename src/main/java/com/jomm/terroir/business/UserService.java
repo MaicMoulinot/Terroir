@@ -11,14 +11,16 @@ public interface UserService {
 	/**
 	 * Create an user.
 	 * @param user the {@link AbstractUser} to create.
+	 * @return the persisted AbstractUser.
 	 */
-	public void create(AbstractUser user);
+	public AbstractUser create(AbstractUser user);
 	
 	/**
 	 * Update an user.
 	 * @param user the {@link AbstractUser} to update.
+	 * @return the updated AbstractUser.
 	 */
-	public void update(AbstractUser user);
+	public AbstractUser update(AbstractUser user);
 	
 	/**
 	 * Fetch the list of all admins.

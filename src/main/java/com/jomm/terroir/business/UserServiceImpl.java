@@ -38,13 +38,15 @@ public class UserServiceImpl implements UserService {
 	private SellerDao sellerDao;
 
 	@Override
-	public void create(AbstractUser user) {
+	public AbstractUser create(AbstractUser user) {
 		userDao.create(user);
+		return user;
 	}
 	
 	@Override
-	public void update(AbstractUser user) {
+	public AbstractUser update(AbstractUser user) {
 		userDao.update(user);
+		return user;
 	}
 	
 	@Override

@@ -22,13 +22,15 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 	private EnterpriseDao enterpriseDao;
 
 	@Override
-	public void create(Enterprise enterprise) {
+	public Enterprise create(Enterprise enterprise) {
 		enterpriseDao.create(enterprise);
+		return enterprise;
 	}
 	
 	@Override
-	public void update(Enterprise enterprise) {
+	public Enterprise update(Enterprise enterprise) {
 		enterpriseDao.update(enterprise);
+		return enterprise;
 	}
 
 	@Override

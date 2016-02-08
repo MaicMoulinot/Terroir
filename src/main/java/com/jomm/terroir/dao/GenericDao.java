@@ -43,8 +43,9 @@ public abstract class GenericDao<E extends Serializable> implements Dao<E> {
 	}
 	
 	@Override
-	public void create(E entity) {
+	public E create(E entity) {
 		entityManager.persist(entity);
+		return entity;
 	}
 	
 	@Override

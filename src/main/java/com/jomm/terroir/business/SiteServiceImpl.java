@@ -22,13 +22,15 @@ public class SiteServiceImpl implements SiteService {
 	private SiteDao siteDao;
 
 	@Override
-	public void create(Site site) {
+	public Site create(Site site) {
 		siteDao.create(site);
+		return site;
 	}
 	
 	@Override
-	public void update(Site site) {
+	public Site update(Site site) {
 		siteDao.update(site);
+		return site;
 	}
 
 	@Override
