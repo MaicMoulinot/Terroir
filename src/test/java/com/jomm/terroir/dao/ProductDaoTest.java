@@ -1,57 +1,50 @@
 package com.jomm.terroir.dao;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.when;
+import java.util.Arrays;
 
-import java.util.ArrayList;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.Product;
 import com.jomm.terroir.business.ProductTest;
 
 /**
  * This Class is a Junit test case testing the contract of {@link ProductDao}.
- * It extends {@link DaoTest} with the parameter {@link Product}.
+ * It extends {@link DaoTest} with the parameter {@link Product}, and implements <code>testEntityClass()</code>.
+ * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
+ * Here, the parameters are each implementation of {@link ProductDao}.
  * @author Maic
  */
+@RunWith(Parameterized.class)
 public class ProductDaoTest extends DaoTest<Product> {
 	
 	/**
-	 * @throws java.lang.Exception
+	 * Constructor.
+	 * Its parameter comes from all values from {@link ProductDaooTest#implementationToTest()}.
+	 * @param dao the implementation of {@link ProductDao}.
 	 */
-	@Before
-	public void setUp() throws Exception {
-		dao = Mockito.mock(ProductDao.class);
-		entity = ProductTest.generateProduct();
-	}
-	
+    public ProductDaoTest(ProductDao dao) {
+        this.dao = dao;
+        this.entity = ProductTest.generateProduct();
+    }
+    
 	@Override
 	@Test
-	public final void testContract() {
-		super.testContract();
+	public final void testEntityClass() {
+		super.testEntityClass();
 	}
-	
-	@Override
-	@Test
-	public final void testUpdate() {
-		mockedList = new ArrayList<Product>();
-		when(dao.findAll()).thenReturn(mockedList); // MOCK: dao.findAll() with mockedList
-
-		// Create
-		dao.create(entity);
-		mockedList.add(entity); // MOCK: simulate create into mockedList
-		
-		// Update
-		entity = mockedList.get(0);
-		String initialValue = entity.getDescription();
-		entity.setDescription("UpdatedDescription");
-		dao.update(entity);
-		mockedList.set(0, entity); // MOCK: simulate update into mockedList
-		
-		String updatedValue = dao.findAll().get(0).getDescription();
-		assertNotEquals("Values should not match", initialValue, updatedValue);
+    
+	/**
+	 * Reference a list of all {@link ProductDao}'s concrete children to be used as parameter on constructor.
+	 * @return <code>Iterable < Object[] > </code>.
+	 */
+	@Parameters(name= "{index}: {0}")
+	public static Iterable<Object[]> implementationToTest() {
+		return Arrays.asList(new Object[][] {
+			{new ProductDaoJpa()}
+			}
+		);
 	}
 }

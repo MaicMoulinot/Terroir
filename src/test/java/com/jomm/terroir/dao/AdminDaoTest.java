@@ -1,57 +1,50 @@
 package com.jomm.terroir.dao;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.when;
+import java.util.Arrays;
 
-import java.util.ArrayList;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.Admin;
 import com.jomm.terroir.business.AdminTest;
 
 /**
  * This Class is a Junit test case testing the contract of {@link AdminDao}.
- * It extends {@link DaoTest} with the parameter {@link Admin}.
+ * It extends {@link DaoTest} with the parameter {@link Admin}, and implements <code>testEntityClass()</code>.
+ * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
+ * Here, the parameters are each implementation of {@link AdminDao}.
  * @author Maic
  */
+@RunWith(Parameterized.class)
 public class AdminDaoTest extends DaoTest<Admin> {
-
+	
 	/**
-	 * @throws java.lang.Exception
+	 * Constructor.
+	 * Its parameter comes from all values from {@link AdminDaoTest#implementationToTest()}.
+	 * @param dao the implementation of {@link AdminDao}.
 	 */
-	@Before
-	public void setUp() throws Exception {
-		dao = Mockito.mock(AdminDao.class);
-		entity = AdminTest.generateAdmin();
-	}
-	
+    public AdminDaoTest(AdminDao dao) {
+        this.dao = dao;
+        this.entity = AdminTest.generateAdmin();
+    }
+    
 	@Override
 	@Test
-	public final void testContract() {
-		super.testContract();
+	public final void testEntityClass() {
+		super.testEntityClass();
 	}
-	
-	@Override
-	@Test
-	public final void testUpdate() {
-		mockedList = new ArrayList<Admin>();
-		when(dao.findAll()).thenReturn(mockedList); // MOCK: dao.findAll() with mockedList
-
-		// Create
-		dao.create(entity);
-		mockedList.add(entity); // MOCK: simulate create into mockedList
-		
-		// Update
-		entity = mockedList.get(0);
-		String initialValue = entity.getFirstName();
-		entity.setFirstName("UpdatedFirstName");
-		dao.update(entity);
-		mockedList.set(0, entity); // MOCK: simulate update into mockedList
-		
-		String updatedValue = dao.findAll().get(0).getFirstName();
-		assertNotEquals("Values should not match", initialValue, updatedValue);
+    
+	/**
+	 * Reference a list of all {@link AdminDao}'s concrete children to be used as parameter on constructor.
+	 * @return <code>Iterable < Object[] > </code>.
+	 */
+	@Parameters(name= "{index}: {0}")
+	public static Iterable<Object[]> implementationToTest() {
+		return Arrays.asList(new Object[][] {
+			{new AdminDaoJpa()}
+			}
+		);
 	}
 }
