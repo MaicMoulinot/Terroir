@@ -17,7 +17,7 @@ public class ImageTest {
 	@Test
 	public final void testGetterSetter() {
 		Image image = new Image();
-		long nb = 0;
+		Long nb = (long) 0;
 		
 		// Id
 		image.setId(nb);

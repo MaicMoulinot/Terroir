@@ -20,7 +20,7 @@ public class ProductTest {
 	public final void testGetterSetter() {
 		Product product = new Product();
 		String test = "test";
-		long nb = 0;
+		Long nb = (long) 0;
 		
 		// Id
 		product.setId(nb);
@@ -61,7 +61,7 @@ public class ProductTest {
 	 */
 	public static Product generateProduct() {
 		Product product = new Product();
-		product.setId((long) 0);
+		//product.setId((long) 0);
 		product.setDescription("Description");
 		product.setQuantity(10);
 		product.setSite(new Site());

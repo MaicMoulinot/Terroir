@@ -34,7 +34,7 @@ public class AbstractUserTest {
 	 */
 	@Test
 	public final void testGettersSetters() {
-		long nb = 0;
+		Long nb = (long) 0;
 		String test = "test";
 		
 		// Id

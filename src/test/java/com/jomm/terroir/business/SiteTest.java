@@ -21,7 +21,7 @@ public class SiteTest {
 	public final void testGetterSetter() {
 		Site site = new Site();
 		String test = "test";
-		long nb = 0;
+		Long nb = (long) 0;
 		
 		// Id
 		site.setId(nb);

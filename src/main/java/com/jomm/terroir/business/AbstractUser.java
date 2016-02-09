@@ -32,7 +32,7 @@ public abstract class AbstractUser implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "user_id")
-	private long id;
+	private Long id;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -56,14 +56,14 @@ public abstract class AbstractUser implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 	
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	

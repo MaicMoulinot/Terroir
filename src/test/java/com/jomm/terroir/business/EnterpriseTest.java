@@ -23,7 +23,7 @@ public class EnterpriseTest {
 	public final void testGetterSetter() {
 		Enterprise enterprise = new Enterprise();
 		String test = "test";
-		long nb = 0;
+		Long nb = (long) 0;
 		
 		// Id
 		enterprise.setId(nb);
