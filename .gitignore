@@ -3,4 +3,4 @@
 .project
 .settings
 .tern-project
-.log
+*log
