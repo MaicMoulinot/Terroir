@@ -49,4 +49,10 @@ public interface Dao<E extends Serializable> {
 	 * @param entityId {@link Long} the entity's id.
 	 */
 	public void deleteById(Long entityId);
+	
+	/**
+	 * Get the {@link javax.persistence.Entity}'s class.
+	 * @return the class of the entity.
+	 */
+	public Class<E> getEntityClass();
 }
