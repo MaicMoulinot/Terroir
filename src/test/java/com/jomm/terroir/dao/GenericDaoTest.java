@@ -1,16 +1,14 @@
 package com.jomm.terroir.dao;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
 import java.io.Serializable;
 
-import javax.persistence.EntityManager;
-
 /**
- * This abstract Class is testing the methods of {@link GenericDao}.
- * Practically, it verifies that each DAO method properly calls the appropriate {@link EntityManager}'s method.
+ * This abstract Class defines the contract of {@link GenericDao}.
+ * Each System Under Test (SUT) should extends this class implementing the methods 
+ * <code>testState()</code> and <code>testBehavior()</code>.
  * @author Maic
  * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.
  */
@@ -22,27 +20,24 @@ public abstract class GenericDaoTest<E extends Serializable> {
 	protected E entity;
 	
 	/**
-	 * Test contract of DAO checking all methods {@link GenericDao#GenericDao()},
-	 * {@link GenericDao#create(Serializable)}, {@link GenericDao#update(Serializable)}, 
-	 * {@link GenericDao#delete(Serializable)}, {@link GenericDao#deleteById(Long)}, 
-	 * {@link GenericDao#find(Long)}, and {@link GenericDao#findAll()}.
+	 * State verification of DAO's methods.
+	 * This test determines if the methods under test worked correctly by examining 
+	 * the state of the System Under Test (SUT) and its collaborators after the methods are exercised.
 	 */
-	public void testContract() {
-		testConstructor();
+	public abstract void testState();
+	
+	/**
+	 * Behavior verification of DAO's methods.
+	 * This test determines if the methods under test worked correctly by checking to see
+	 * if the System Under Test (SUT) made the correct calls when the methods are exercised.
+	 */
+	public void testBehavior() {
 		testCreate();		
 		testUpdate();		
 		testDelete();		
 		testDeleteById();		
 		testFind();
 		testFindAll();
-	}
-
-	/**
-	 * Test method for {@link GenericDao}'s contructor.
-	 */
-	private void testConstructor() {
-		assertNotNull(dao.getEntityClass());
-		// validate that entityClass was properly initialized
 	}
 	
 	/**
