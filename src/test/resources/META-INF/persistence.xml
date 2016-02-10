@@ -13,7 +13,7 @@
 		<class>com.jomm.terroir.business.Site</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.connection.username" value="" />
 			<property name="hibernate.connection.password" value="" />
 			<property name="hibernate.connection.driver_class" value="org.apache.derby.jdbc.EmbeddedDriver" />
