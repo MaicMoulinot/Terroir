@@ -1,9 +1,17 @@
 package com.jomm.terroir.dao;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.Query;
 
 /**
  * This abstract Class defines the contract of {@link GenericDao}.
@@ -13,19 +21,19 @@ import java.io.Serializable;
  * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.
  */
 public abstract class GenericDaoTest<E extends Serializable> {
-	
+
 	/** An implementation of {@link GenericDao}. */
 	protected GenericDao<E> dao;
 	/** An {@link javax.persistence.Entity} that extends {@link Serializable}. */
 	protected E entity;
-	
+
 	/**
 	 * State verification of DAO's methods.
 	 * This test determines if the methods under test worked correctly by examining 
 	 * the state of the System Under Test (SUT) and its collaborators after the methods are exercised.
 	 */
 	public abstract void testState();
-	
+
 	/**
 	 * Behavior verification of DAO's methods.
 	 * This test determines if the methods under test worked correctly by checking to see
@@ -39,7 +47,7 @@ public abstract class GenericDaoTest<E extends Serializable> {
 		testFind();
 		testFindAll();
 	}
-	
+
 	/**
 	 * Test method for {@link GenericDao#create(Serializable)}.
 	 */
@@ -74,6 +82,7 @@ public abstract class GenericDaoTest<E extends Serializable> {
 		dao.deleteById((long) 0);
 		// validate that entityManager.getReference() was called
 		verify(dao.getEntityManager()).getReference(dao.getEntityClass(), (long) 0);
+		verify(dao.getEntityManager(), times(2)).remove(any(Serializable.class));
 	}
 
 	/**
@@ -89,8 +98,19 @@ public abstract class GenericDaoTest<E extends Serializable> {
 	 * Test method for {@link GenericDao#findAll()}.
 	 */
 	private void testFindAll() {
-		dao.findAll();
+		// stub the EntityManager to return a mocked Query
+		Query mockedQuery = mock(Query.class);
+		when(dao.getEntityManager().createNamedQuery(any(String.class))).thenReturn(mockedQuery);
+		// stub the Query to return a dummy List
+		List<E> dummyList = new LinkedList<E>();
+		when(mockedQuery.getResultList()).thenReturn(dummyList);
+
+		List<E> result = dao.findAll();
 		// validate that entityManager.createNamedQuery() was called
 		verify(dao.getEntityManager()).createNamedQuery(any(String.class));
+		// validate that mockedQuery.getResultList() was called
+		verify(mockedQuery).getResultList();
+		// validate that the result is a List
+		assertEquals(dummyList, result);
 	}
 }
