@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * This abstract Class defines the contract of {@link Dao}.
- * Each System Under Test (SUT) should have its own test class implementing <code>testEntityClass()</code>.
+ * Each System Under Test (SUT) should have its own test class implementing <code>testEntityClassMatch()</code>.
  * @author Maic
  * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.
  */
@@ -21,7 +21,7 @@ public abstract class DaoTest<E extends Serializable> {
 	/**
 	 * Validate the entityClass was properly initialized.
 	 */
-	public void testEntityClass() {
+	public void testEntityClassMatch() {
 		assertNotNull("EntityClass should not be null", dao.getEntityClass());
 		assertEquals("EntityClass should be " + entity, entity.getClass(), dao.getEntityClass());
 	}

@@ -12,7 +12,7 @@ import com.jomm.terroir.business.AdminTest;
 
 /**
  * This Class is a Junit test case testing the contract of {@link AdminDao}.
- * It extends {@link DaoTest} with the parameter {@link Admin}, and implements <code>testEntityClass()</code>.
+ * It extends {@link DaoTest} with the parameter {@link Admin}, and implements <code>testEntityClassMatch()</code>.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
  * Here, the parameters are each implementation of {@link AdminDao}.
  * @author Maic
@@ -32,8 +32,8 @@ public class AdminDaoTest extends DaoTest<Admin> {
     
 	@Override
 	@Test
-	public final void testEntityClass() {
-		super.testEntityClass();
+	public final void testEntityClassMatch() {
+		super.testEntityClassMatch();
 	}
     
 	/**

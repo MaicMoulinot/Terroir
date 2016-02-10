@@ -32,8 +32,8 @@ public class ProductDaoTest extends DaoTest<Product> {
     
 	@Override
 	@Test
-	public final void testEntityClass() {
-		super.testEntityClass();
+	public final void testEntityClassMatch() {
+		super.testEntityClassMatch();
 	}
     
 	/**
