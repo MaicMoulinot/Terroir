@@ -12,7 +12,7 @@ import com.jomm.terroir.business.ProductTest;
 
 /**
  * This Class is a Junit test case testing the contract of {@link ProductDao}.
- * It extends {@link DaoTest} with the parameter {@link Product}, and implements <code>testEntityClass()</code>.
+ * It extends {@link DaoTest} with the parameter {@link Product}, and implements <code>testEntityClassMatch()</code>.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
  * Here, the parameters are each implementation of {@link ProductDao}.
  * @author Maic
