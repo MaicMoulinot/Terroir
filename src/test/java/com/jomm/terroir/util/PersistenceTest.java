@@ -16,76 +16,118 @@ import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
 /**
+ * This Class is the test-specific Tool exposing {@link EntityManager} and related methods to all test cases.
+ * It cannot be instantiated and all methods are <code>static</code>.
  * @author Maic
- *
  */
 public class PersistenceTest {
 
+	// Constants
+	private static final String PERSISTENCE_UNIT_TEST = "testPU";
+	private static final String SCHEMA_TEST = "sql/schema.ddl";
+	private static final String SHUTDOWN_URL = "jdbc:derby:memory:testDB;shutdown=true";
+	// SQL State must be "08006" (one database) or "XJ015" (all databases)
+	private static final String SHUTDOWN_SQL_STATE = "08006";
+
+	// Attributes
 	private static EntityManager entityManager;
 	private static EntityManagerFactory entityManagerFactory;
 	private static Connection connection;
 	
 	/**
-	 * Clean the data from previous tests and insert new data.
+	 * Get the {@link EntityManager}.
+	 * If it is null, it is created from the {@link EntityManagerFactory}, and the {@link Connection} is set.
+	 * @return the {@link EntityManager}.
 	 */
-	public static void initData() {
-		//TODO DatabaseOperation.CLEAN_INSERT.execute(mDBUnitConnection, mDataset);
-	}
-
-	public static EntityManager getEntityManager() {
+	public static EntityManager prepareEntityManager() {
 		if (entityManager == null) {
-			entityManager = getEntityManagerFactory().createEntityManager();
+			if (entityManagerFactory == null) {
+				entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
+			}
+			entityManager = entityManagerFactory.createEntityManager();
+			setConnection();
 		}
 		return entityManager;
 	}
-
-	public static EntityManagerFactory getEntityManagerFactory() {
-		if (entityManagerFactory == null) {
-			entityManagerFactory = Persistence.createEntityManagerFactory("testPU");
-			//entityManager = entityManagerFactory.createEntityManager();
-			//setUp();
+	
+	/**
+	 * Close the {@link EntityManager}. This method should be used after each test.
+	 */
+	public static void closeEntityManager() {
+		if (entityManager != null) {
+			entityManager.close();
+			entityManager = null;
 		}
-		return entityManagerFactory;
+		connection = null;
+	}
+	
+	/**
+	 * Clean the data from previous tests and insert new data. This method should be used before each test.
+	 */
+	public static void insertCleanData() {
+		//TODO DatabaseOperation.CLEAN_INSERT.execute(mDBUnitConnection, mDataset);
 	}
 
+	/**
+	 * Create the database used for tests. This method should be used before all tests are being run.
+	 */
 	public static void setUp() {
-		// Retrieve Connection
-		WorkImpl work = new WorkImpl();
-		Session session = getEntityManager().unwrap(Session.class);
-		session.doWork(work);
-		connection = work.getConnection();
+		// Use test-specific Persistence Unit
+		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
+
+		// Set EntityManager and Connection
+		prepareEntityManager();
+
 		// Create Database from SQL file
-		//createDatabase();
+		createDatabase();
 	}
 
-	public static void createDatabase() {
+	/**
+	 * Shutdown the database used for tests. This method should be used after all tests have been run.
+	 */
+	public static void tearDown() {
 		try {
-			ij.runScript(connection, ClassLoader.getSystemClassLoader().getResourceAsStream("sql/schema.ddl"),
+			DriverManager.getConnection(SHUTDOWN_URL);
+		} catch (SQLException exception) {
+			if (!Objects.equals(exception.getSQLState(), SHUTDOWN_SQL_STATE)) {
+				System.err.println(exception.getMessage());
+			}
+		}
+	}
+
+	/**
+	 * Create the database used for tests.
+	 */
+	private static void createDatabase() {
+		try {
+			ij.runScript(connection, ClassLoader.getSystemClassLoader().getResourceAsStream(SCHEMA_TEST),
 					"UTF-8", System.out, "UTF-8");
 		} catch (UnsupportedEncodingException exception) {
-			System.err.println("PB");
 			System.err.println(exception.getMessage());
 		}
 	}
 	
-	public static void dropDatabase() {
-		//ij kill
-		try {
-			//connection.
-			DriverManager.getConnection("jdbc:derby:memory:testDB;drop=true");
-		} catch (SQLException exception) {
-			if (!Objects.equals(exception.getSQLState(), "08006")) {//08006 XJ015
-				System.err.println(exception.getMessage());
-			}
-		}
-		//TODO drop.. mais comment être sur que c'est le dernier test??
+	/**
+	 * Set the Connection using the private class {@link WorkImpl}.
+	 */
+	private static void setConnection() {
+		WorkImpl work = new WorkImpl();
+		Session session = prepareEntityManager().unwrap(Session.class);
+		session.doWork(work);
+		connection = work.getConnection();
 	}
+	
+	/**
+	 * Constructor private to prevent the class to be instantiated.
+	 */
+	private PersistenceTest() {}
 
-	public static void tearDown() {
-		entityManager.close();
-		entityManager = null;
-	}
-
+	/**
+	 * Private Class allowing the {@link Session} to retrieve the {@link Connection}.
+	 * It implements {@link Work} and its method <code>execute(Connection)</code>.
+	 * It defines a getter for its private attribute <code>connectionWork</code>.
+	 * @author Maic
+	 */
 	private static class WorkImpl implements Work {
 
 		Connection connectionWork;

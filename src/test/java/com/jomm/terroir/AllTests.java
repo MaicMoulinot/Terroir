@@ -1,4 +1,6 @@
 package com.jomm.terroir;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -27,6 +29,9 @@ import com.jomm.terroir.dao.AdminDaoJpaTest;
 import com.jomm.terroir.dao.AdminDaoTest;
 import com.jomm.terroir.dao.ProductDaoJpaTest;
 import com.jomm.terroir.dao.ProductDaoTest;
+import com.jomm.terroir.dao.SiteDaoJpaTest;
+import com.jomm.terroir.dao.SiteDaoTest;
+import com.jomm.terroir.util.PersistenceTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({AbstractUserTest.class, AddressTest.class, AdminTest.class, CustomerTest.class, 
@@ -34,8 +39,23 @@ import com.jomm.terroir.dao.ProductDaoTest;
 	ProductTest.class, ProductServiceTest.class, ProductServiceImplTest.class, SellerTest.class, 
 	SiteTest.class, SiteServiceTest.class, SiteServiceImplTest.class, UserServiceTest.class, UserServiceImplTest.class,
 	EmailValidatorTest.class, PasswordValidatorTest.class, UsernameValidatorTest.class, 
-	AdminDaoJpaTest.class, AdminDaoTest.class, ProductDaoJpaTest.class, ProductDaoTest.class
+	AdminDaoJpaTest.class, AdminDaoTest.class, ProductDaoJpaTest.class, ProductDaoTest.class,
+	SiteDaoJpaTest.class, SiteDaoTest.class
 	})
 public class AllTests {
-	// Do nothing.
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		PersistenceTest.setUp();
+	}
+
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		PersistenceTest.tearDown();
+	}
 }
