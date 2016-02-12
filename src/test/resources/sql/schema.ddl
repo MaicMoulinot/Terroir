@@ -87,9 +87,15 @@
         primary key (product_id)
     );
     
-    create sequence hibernate_sequences;
+    create sequence seq_enterprise as bigint start with 1;
 
-    create table hibernate_sequences (
-         sequence_name varchar(255),
-         sequence_next_hi_value bigint 
+    create sequence seq_image as bigint start with 1;
+
+    create sequence seq_product as bigint start with 1;
+
+    create sequence seq_site as bigint start with 1;
+
+    create table tr_generated_id_user (
+         generator_key varchar(255),
+         generator_value bigint
     );
