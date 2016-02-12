@@ -71,9 +71,8 @@ public class SiteTest {
 	 */
 	public static Site generateSite() {
 		Site site = new Site();
-		site.setId((long) 0);
 		site.setAddress(new Address());
-		site.setEnterprise(new Enterprise());
+		site.setEnterprise(EnterpriseTest.generateEnterprise());
 		site.setLegalIdentification("LegalIdentification");
 		site.setListProducts(new ArrayList<Product>());
 		site.setSiteName("SiteName");

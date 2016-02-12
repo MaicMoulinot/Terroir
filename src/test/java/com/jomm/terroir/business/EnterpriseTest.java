@@ -96,7 +96,6 @@ public class EnterpriseTest {
 	 */
 	public static Enterprise generateEnterprise() {
 		Enterprise enterprise = new Enterprise();
-		enterprise.setId((long) 0);
 		enterprise.setAddress(new Address());
 		enterprise.setCreationDate(LocalDate.now());
 		enterprise.setLegalIdentification("LegalIdentification");

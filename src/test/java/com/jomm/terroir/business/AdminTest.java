@@ -55,7 +55,6 @@ public class AdminTest {
 	 */
 	public static Admin generateAdmin() {
 		Admin admin = new Admin();
-		admin.setId((long) 0);
 		admin.setEmail("Email");
 		admin.setFirstName("FirstName");
 		admin.setLastName("LastName");

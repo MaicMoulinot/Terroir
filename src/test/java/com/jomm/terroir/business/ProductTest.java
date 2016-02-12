@@ -61,10 +61,9 @@ public class ProductTest {
 	 */
 	public static Product generateProduct() {
 		Product product = new Product();
-		//product.setId((long) 0);
 		product.setDescription("Description");
 		product.setQuantity(10);
-		product.setSite(new Site());
+		product.setSite(SiteTest.generateSite());
 		product.setTitle("Title");
 		product.setRegistrationDate(ZonedDateTime.now());
 		return product;
