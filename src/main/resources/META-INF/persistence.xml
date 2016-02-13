@@ -14,6 +14,7 @@
 			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/dbterroir" />
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="post" />
+			<property name="hibernate.id.new_generator_mappings" value="true"/>
 		</properties>
 	</persistence-unit>
 </persistence>
