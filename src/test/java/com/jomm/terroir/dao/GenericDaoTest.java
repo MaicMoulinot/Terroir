@@ -15,12 +15,13 @@ import javax.persistence.Query;
 
 /**
  * This abstract Class defines the contract of {@link GenericDao}.
+ * It extends {@link AbstractDaoTest} and thus has access to its <code>dbSetupTracker.skipNextLaunch()</code> method.
  * Each System Under Test (SUT) should extends this class implementing the methods 
  * <code>testState()</code> and <code>testBehavior()</code>.
  * @author Maic
  * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.
  */
-public abstract class GenericDaoTest<E extends Serializable> {
+public abstract class GenericDaoTest<E extends Serializable> extends AbstractDaoTest {
 
 	/** An implementation of {@link GenericDao}. */
 	protected GenericDao<E> dao;
