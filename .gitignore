@@ -4,3 +4,4 @@
 .settings
 .tern-project
 *log
+/schema.ddl
