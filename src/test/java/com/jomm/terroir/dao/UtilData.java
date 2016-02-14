@@ -19,15 +19,20 @@ import com.ninja_squad.dbsetup.operation.Operation;
  */
 public abstract class UtilData {
 	
+	// Attributes
 	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
+	private static final String DESTINATION_URL = "jdbc:derby:memory:testDB";
+	private static final String DESTINATION_USER = "";
+	private static final String DESTINATION_PASSWORD = "";
 	
-	public static final Operation DELETE_ALL_DATA = deleteAllFrom("tr_admin", "tr_product", "tr_site", "tr_seller", 
+	private static final Operation DELETE_ALL_DATA = deleteAllFrom("tr_admin", "tr_product", "tr_site", "tr_seller", 
 			"tr_enterprise", "tr_customer", "tr_image");
-	public static final Operation INSERT_BASIC_DATA =
+	private static final Operation INSERT_BASIC_DATA =
 			sequenceOf(
 					insertInto("tr_enterprise")
 					.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", "date_creation", 
-							"number_employees", "date_signup", "address_street", "address_complement", "address_post_code",
+							"number_employees", "date_signup", 
+							"address_street", "address_complement", "address_post_code",
 							"address_town", "address_country", "address_coordinates")
 					.values(1, "Janichon&Sons", "GAEC Janichon", "XXDGQG", null, 2, 
 							//ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault()).nextValue(), 
@@ -42,9 +47,12 @@ public abstract class UtilData {
 					.columns("site_id", "site_name", "legal_identification", "address_street", "address_complement", 
 							"address_post_code", "address_town", "address_country", "address_coordinates", 
 							"enterprise_enterprise_id")
-					.values(1, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", "France", null, 1)
-					.values(2, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", "France", null, 2)
-					.values(3, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", "France", null, 2)
+					.values(1, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
+							"France", null, 1)
+					.values(2, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 
+							"France", null, 2)
+					.values(3, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
+							"France", null, 2)
 					.build());
 
 	/**
@@ -52,9 +60,10 @@ public abstract class UtilData {
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void cleanInsertData() throws Exception {
+	public final void cleanInsertData() throws Exception {
 		Operation operation = sequenceOf(DELETE_ALL_DATA, INSERT_BASIC_DATA);
-		DbSetup dbSetup = new DbSetup(DriverManagerDestination.with("jdbc:derby:memory:testDB", "", ""), operation);
+		DbSetup dbSetup = new DbSetup(DriverManagerDestination.with(DESTINATION_URL, DESTINATION_USER, 
+				DESTINATION_PASSWORD), operation);
 		dbSetupTracker.launchIfNecessary(dbSetup);
 	}
 }

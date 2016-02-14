@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * This abstract Class defines the contract of {@link Dao}.
- * It extends {@link UtilDao} and thus has access to its <code>dbSetupTracker.skipNextLaunch()</code> method.
+ * It extends {@link UtilData} and thus has access to its <code>dbSetupTracker.skipNextLaunch()</code> method.
  * Each System Under Test (SUT) should have its own test class implementing <code>testEntityClassMatch()</code>.
  * @author Maic
  * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.

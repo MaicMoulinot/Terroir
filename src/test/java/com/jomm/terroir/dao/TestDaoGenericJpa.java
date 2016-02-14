@@ -15,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  * This abstract Class defines the contract of {@link DaoGenericJpa}.
- * It extends {@link UtilDao} and thus has access to its <code>dbSetupTracker.skipNextLaunch()</code> method.
+ * It extends {@link UtilData} and thus has access to its <code>dbSetupTracker.skipNextLaunch()</code> method.
  * Each System Under Test (SUT) should extends this class implementing the methods 
  * <code>testState()</code> and <code>testBehavior()</code>.
  * @author Maic
