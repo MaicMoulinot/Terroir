@@ -5,42 +5,42 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import com.jomm.terroir.business.AbstractUserTest;
-import com.jomm.terroir.business.AddressTest;
-import com.jomm.terroir.business.AdminTest;
-import com.jomm.terroir.business.CustomerTest;
-import com.jomm.terroir.business.EnterpriseServiceImplTest;
-import com.jomm.terroir.business.EnterpriseServiceTest;
-import com.jomm.terroir.business.EnterpriseTest;
-import com.jomm.terroir.business.ImageTest;
-import com.jomm.terroir.business.ProductServiceImplTest;
-import com.jomm.terroir.business.ProductServiceTest;
-import com.jomm.terroir.business.ProductTest;
-import com.jomm.terroir.business.SellerTest;
-import com.jomm.terroir.business.SiteServiceImplTest;
-import com.jomm.terroir.business.SiteServiceTest;
-import com.jomm.terroir.business.SiteTest;
-import com.jomm.terroir.business.UserServiceImplTest;
-import com.jomm.terroir.business.UserServiceTest;
-import com.jomm.terroir.business.validator.EmailValidatorTest;
-import com.jomm.terroir.business.validator.PasswordValidatorTest;
-import com.jomm.terroir.business.validator.UsernameValidatorTest;
-import com.jomm.terroir.dao.AdminDaoJpaTest;
-import com.jomm.terroir.dao.AdminDaoTest;
-import com.jomm.terroir.dao.ProductDaoJpaTest;
-import com.jomm.terroir.dao.ProductDaoTest;
-import com.jomm.terroir.dao.SiteDaoJpaTest;
-import com.jomm.terroir.dao.SiteDaoTest;
-import com.jomm.terroir.util.PersistenceTest;
+import com.jomm.terroir.business.TestServiceEnterprise;
+import com.jomm.terroir.business.TestServiceEnterpriseImpl;
+import com.jomm.terroir.business.TestServiceProduct;
+import com.jomm.terroir.business.TestServiceProductImpl;
+import com.jomm.terroir.business.TestServiceSite;
+import com.jomm.terroir.business.TestServiceSiteImpl;
+import com.jomm.terroir.business.TestServiceUser;
+import com.jomm.terroir.business.TestServiceUserImpl;
+import com.jomm.terroir.business.model.TestAbstractUser;
+import com.jomm.terroir.business.model.TestAddress;
+import com.jomm.terroir.business.model.TestAdmin;
+import com.jomm.terroir.business.model.TestCustomer;
+import com.jomm.terroir.business.model.TestEnterprise;
+import com.jomm.terroir.business.model.TestImage;
+import com.jomm.terroir.business.model.TestProduct;
+import com.jomm.terroir.business.model.TestSeller;
+import com.jomm.terroir.business.model.TestSite;
+import com.jomm.terroir.business.validator.TestValidatorEmail;
+import com.jomm.terroir.business.validator.TestValidatorPassword;
+import com.jomm.terroir.business.validator.TestValidatorUsername;
+import com.jomm.terroir.dao.TestDaoAdmin;
+import com.jomm.terroir.dao.TestDaoAdminJpa;
+import com.jomm.terroir.dao.TestDaoProduct;
+import com.jomm.terroir.dao.TestDaoProductJpa;
+import com.jomm.terroir.dao.TestDaoSite;
+import com.jomm.terroir.dao.TestDaoSiteJpa;
+import com.jomm.terroir.dao.UtilDao;
 
 @RunWith(Suite.class)
-@SuiteClasses({AbstractUserTest.class, AddressTest.class, AdminTest.class, CustomerTest.class, 
-	EnterpriseTest.class, EnterpriseServiceTest.class, EnterpriseServiceImplTest.class, ImageTest.class, 
-	ProductTest.class, ProductServiceTest.class, ProductServiceImplTest.class, SellerTest.class, 
-	SiteTest.class, SiteServiceTest.class, SiteServiceImplTest.class, UserServiceTest.class, UserServiceImplTest.class,
-	EmailValidatorTest.class, PasswordValidatorTest.class, UsernameValidatorTest.class, 
-	AdminDaoJpaTest.class, AdminDaoTest.class, ProductDaoJpaTest.class, ProductDaoTest.class,
-	SiteDaoJpaTest.class, SiteDaoTest.class
+@SuiteClasses({TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
+	TestEnterprise.class, TestServiceEnterprise.class, TestServiceEnterpriseImpl.class, TestImage.class, 
+	TestProduct.class, TestServiceProduct.class, TestServiceProductImpl.class, TestSeller.class, 
+	TestSite.class, TestServiceSite.class, TestServiceSiteImpl.class, TestServiceUser.class, TestServiceUserImpl.class,
+	TestValidatorEmail.class, TestValidatorPassword.class, TestValidatorUsername.class, 
+	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoProductJpa.class, TestDaoProduct.class,
+	TestDaoSiteJpa.class, TestDaoSite.class
 	})
 public class AllTests {
 	/**
@@ -48,7 +48,7 @@ public class AllTests {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		PersistenceTest.setUp();
+		UtilDao.avant();
 	}
 
 	/**
@@ -56,6 +56,6 @@ public class AllTests {
 	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		PersistenceTest.tearDown();
+		UtilDao.apres();
 	}
 }

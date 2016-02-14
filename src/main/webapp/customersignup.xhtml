@@ -19,7 +19,7 @@
 				<p:outputLabel for="firstname" id="firstnameLabel"
 					value="#{label.firstname}" />
 				<p:spacer />
-				<p:inputText id="firstname" value="#{customerJsf.firstName}"
+				<p:inputText id="firstname" value="#{viewCustomer.firstName}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -30,7 +30,7 @@
 				<p:outputLabel for="lastname" id="lastnameLabel"
 					value="#{label.lastname}" />
 				<p:spacer />
-				<p:inputText id="lastname" value="#{customerJsf.lastName}"
+				<p:inputText id="lastname" value="#{viewCustomer.lastName}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -42,7 +42,7 @@
 					value="#{label.username}" />
 				<p:tooltip id="usertooltip" for="username"
 					value="#{label.usernametooltip}" />
-				<p:inputText id="username" value="#{customerJsf.userName}"
+				<p:inputText id="username" value="#{viewCustomer.userName}"
 					required="true" requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{usernameValidator}" />
 					<p:ajax event="blur" update="usernameMessage" />
@@ -51,7 +51,7 @@
 
 				<p:outputLabel for="email" id="emailLabel" value="#{label.email}" />
 				<p:spacer />
-				<p:inputText id="email" value="#{customerJsf.email}" required="true"
+				<p:inputText id="email" value="#{viewCustomer.email}" required="true"
 					requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{emailValidator}" />
 					<p:ajax event="blur" execute="email" update="emailMessage" />
@@ -61,11 +61,11 @@
 				<p:outputLabel for="password1" id="password1Label"
 					value="#{label.password}" />
 				<p:commandLink id="help" title="#{message.passwordtitle}"
-					process="@this" actionListener="#{customerJsf.passwordTooltip}"
+					process="@this" actionListener="#{viewCustomer.passwordTooltip}"
 					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
-				<p:password id="password1" value="#{customerJsf.password}"
+				<p:password id="password1" value="#{viewCustomer.password}"
 					feedback="true" binding="#{passwordParam}" required="true"
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
@@ -78,11 +78,11 @@
 				<p:outputLabel for="password2" id="password2Label"
 					value="#{label.password2}" />
 				<p:commandLink id="help2" title="#{message.passwordtitle}"
-					process="@this" actionListener="#{customerJsf.passwordTooltip}"
+					process="@this" actionListener="#{viewCustomer.passwordTooltip}"
 					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
-				<p:password id="password2" value="#{customerJsf.password}"
+				<p:password id="password2" value="#{viewCustomer.password}"
 					feedback="true" required="true"
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
@@ -97,9 +97,9 @@
 				<p:outputLabel for="birthdate" id="birthdateLabel"
 					value="#{label.birthdate}" />
 				<p:spacer />
-				<p:calendar id="birthdate" value="#{customerJsf.birthDate}"
+				<p:calendar id="birthdate" value="#{viewCustomer.birthDate}"
 					navigator="true" pattern="dd/MM/yyyy" converter="localDateConverter"
-					yearRange="#{customerJsf.generateYearRange()}" effect="slide"
+					yearRange="#{viewCustomer.generateYearRange()}" effect="slide"
 					required="true" requiredMessage="#{error.mandatory}">
 					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
@@ -110,7 +110,7 @@
 
 			<p:spacer height="100" />
 			<p:commandButton id="create" value="#{label.save}" update="form"
-				action="#{customerJsf.create}" icon="ui-icon-check" />
+				action="#{viewCustomer.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
 			<p:commandButton id="reset" value="#{label.reset}" update="form"
 				 process="@this" icon="ui-icon-refresh">

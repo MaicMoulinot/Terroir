@@ -15,20 +15,20 @@
 			<p:growl id="growl" showDetail="true" />
 
 			<h:outputLabel value="#{error.userempty}"
-				rendered="#{empty customerListJsf.listCustomers}"
+				rendered="#{empty viewCustomerList.listCustomers}"
 				styleClass="messages" />
 
 			<p:dataTable id="users" var="currentCustomer"
-				value="#{customerListJsf.listCustomers}" editable="true"
-				rendered="#{not empty customerListJsf.listCustomers}" rows="5"
+				value="#{viewCustomerList.listCustomers}" editable="true"
+				rendered="#{not empty viewCustomerList.listCustomers}" rows="5"
 				scrollable="true" scrollRows="2" stickyHeader="true"
 				paginator="true" paginatorPosition="top"
 				paginatorAlwaysVisible="false">
 
-				<p:ajax event="rowEdit" listener="#{customerListJsf.onRowEdit}"
+				<p:ajax event="rowEdit" listener="#{viewCustomerList.onRowEdit}"
 					update=":form:growl" />
 				<p:ajax event="rowEditCancel"
-					listener="#{customerListJsf.onRowCancel}" update=":form:growl"
+					listener="#{viewCustomerList.onRowCancel}" update=":form:growl"
 					resetValues="true" />
 
 				<f:facet name="header">#{label.userlist}</f:facet>
@@ -140,7 +140,7 @@
 					<p:commandLink styleClass="ui-icon ui-icon-trash"
 						update=":form:deleteConfirmDialog"
 						oncomplete="PF('deleteConfirmation').show();"
-						action="#{customerListJsf.setCurrentCustomer(currentCustomer)}">
+						action="#{viewCustomerList.setCurrentCustomer(currentCustomer)}">
 					</p:commandLink>
 				</p:column>
 
@@ -149,11 +149,11 @@
 			<p:confirmDialog id="deleteConfirmDialog"
 				header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
-				message="#{message.confirmdelete} #{customerListJsf.currentCustomer.userName} ?"
+				message="#{message.confirmdelete} #{viewCustomerList.currentCustomer.userName} ?"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
 					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"
-					action="#{customerListJsf.delete()}" process="@this" />
+					action="#{viewCustomerList.delete()}" process="@this" />
 				<p:commandButton id="decline" value="#{label.cancel}"
 					oncomplete="PF('deleteConfirmation').hide();" />
 			</p:confirmDialog>

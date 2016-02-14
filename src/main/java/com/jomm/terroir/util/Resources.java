@@ -56,7 +56,7 @@ public class Resources {
 	 * @return ResourceBundle to use.
 	 */
 	@Produces
-	@Message
+	@BundleMessage
 	public ResourceBundle getResourceBundleMessage() {
 		return ResourceBundle.getBundle(BUNDLE_MESSAGE, Locale.getDefault());
 	}
@@ -66,7 +66,7 @@ public class Resources {
 	 * @return ResourceBundle to use.
 	 */
 	@Produces
-	@Error
+	@BundleError
 	public ResourceBundle getResourceBundleError() {
 		return ResourceBundle.getBundle(BUNDLE_ERROR, Locale.getDefault());
 	}
@@ -76,7 +76,7 @@ public class Resources {
 	 * @return ResourceBundle to use.
 	 */
 	@Produces
-	@Label
+	@BundleLabel
 	public ResourceBundle getResourceBundleLabel() {
 		return ResourceBundle.getBundle(BUNDLE_LABEL, Locale.getDefault());
 	}
