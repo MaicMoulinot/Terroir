@@ -59,7 +59,7 @@
         last_name varchar(255),
         user_name varchar(255) unique,
         user_password varchar(255),
-        enterprise_id bigint CONSTRAINT seller_enterprise_id REFERENCES tr_enterprise,
+        enterprise_enterprise_id bigint CONSTRAINT fk_seller_enterprise REFERENCES tr_enterprise(enterprise_id),
         primary key (user_id)
     );
 
@@ -73,7 +73,7 @@
         address_town varchar(255),
         legal_identification varchar(255),
         site_name varchar(255),
-        enterprise_id bigint CONSTRAINT site_enterprise_id REFERENCES tr_enterprise,
+        enterprise_enterprise_id bigint CONSTRAINT fk_site_enterprise REFERENCES tr_enterprise(enterprise_id),
         primary key (site_id)
     );
 
@@ -83,7 +83,7 @@
         quantity bigint,
         registration_date timestamp,
         title varchar(255),
-        site_id bigint CONSTRAINT product_site_id REFERENCES tr_site,
+        site_site_id bigint CONSTRAINT fk_product_site REFERENCES tr_site(site_id),
         primary key (product_id)
     );
 
@@ -93,3 +93,5 @@
          sequence_name varchar(255),
          next_val bigint
     );
+    
+    commit;
