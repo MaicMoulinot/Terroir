@@ -1,6 +1,5 @@
 package com.jomm.terroir.util;
 
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,20 +25,21 @@ public class PersistenceTest {
 	private static final String PERSISTENCE_UNIT_TEST = "testPU";
 	private static final String SCHEMA_TEST = "sql/schema.ddl";
 	private static final String SHUTDOWN_URL = "jdbc:derby:memory:testDB;shutdown=true";
-	// SQL State must be "08006" (one database) or "XJ015" (all databases)
+	// SQL State is "08006" (one database) or "XJ015" (all databases)
 	private static final String SHUTDOWN_SQL_STATE = "08006";
 
 	// Attributes
 	private static EntityManager entityManager;
 	private static EntityManagerFactory entityManagerFactory;
 	private static Connection connection;
-	
+
 	/**
 	 * Get the {@link EntityManager}.
 	 * If it is null, it is created from the {@link EntityManagerFactory}, and the {@link Connection} is set.
 	 * @return the {@link EntityManager}.
 	 */
 	public static EntityManager prepareEntityManager() {
+		// Set EntityManager if null
 		if (entityManager == null) {
 			if (entityManagerFactory == null) {
 				entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
@@ -49,7 +49,7 @@ public class PersistenceTest {
 		}
 		return entityManager;
 	}
-	
+
 	/**
 	 * Close the {@link EntityManager}. This method should be used after each test.
 	 */
@@ -59,13 +59,6 @@ public class PersistenceTest {
 			entityManager = null;
 		}
 		connection = null;
-	}
-	
-	/**
-	 * Clean the data from previous tests and insert new data. This method should be used before each test.
-	 */
-	public static void insertCleanData() {
-		//TODO DatabaseOperation.CLEAN_INSERT.execute(mDBUnitConnection, mDataset);
 	}
 
 	/**
@@ -106,17 +99,17 @@ public class PersistenceTest {
 			System.err.println(exception.getMessage());
 		}
 	}
-	
+
 	/**
 	 * Set the Connection using the private class {@link WorkImpl}.
 	 */
 	private static void setConnection() {
 		WorkImpl work = new WorkImpl();
-		Session session = prepareEntityManager().unwrap(Session.class);
+		Session session = entityManager.unwrap(Session.class);
 		session.doWork(work);
 		connection = work.getConnection();
 	}
-	
+
 	/**
 	 * Constructor private to prevent the class to be instantiated.
 	 */

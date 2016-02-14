@@ -4,13 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.sql.SQLException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +13,7 @@ import org.mockito.Mockito;
 
 import com.jomm.terroir.business.Product;
 import com.jomm.terroir.business.ProductTest;
+import com.jomm.terroir.business.Site;
 import com.jomm.terroir.util.PersistenceTest;
 
 /**
@@ -42,7 +38,7 @@ public class ProductDaoJpaTest extends GenericDaoTest<Product> {
 	public final void testBehavior() {
 		// EntityManager is not working, it is mocked
 		dao.setEntityManager(Mockito.mock(EntityManager.class));
-
+		dbSetupTracker.skipNextLaunch();
 		super.testBehavior();
 	}
 
@@ -51,7 +47,8 @@ public class ProductDaoJpaTest extends GenericDaoTest<Product> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			dao.setEntityManager(PersistenceTest.prepareEntityManager());
+			EntityManager entityManager = PersistenceTest.prepareEntityManager();
+			dao.setEntityManager(entityManager);
 
 			Long initialId = entity.getId();
 			assertNull("Before persistence, id should be null", initialId);
@@ -60,7 +57,12 @@ public class ProductDaoJpaTest extends GenericDaoTest<Product> {
 			//			assertNotNull("Before persistence, the list should not be null", dao.findAll());
 			//			assertTrue("Before persistence, the list should be empty", dao.findAll().isEmpty());
 			//			assertEquals("Before persistence, the list's size should be 0", 0, dao.findAll().size());
-
+			
+			// Retrieve a Site from DataBase
+			Site site = findSiteFromDataBase(entityManager);
+			assertNotNull("Site should not be null", site);
+			entity.setSite(site);
+			
 			// Create
 			Long persistedId = dao.create(entity).getId();
 			assertNotNull("After persistence, id should not be null", persistedId);
@@ -84,7 +86,6 @@ public class ProductDaoJpaTest extends GenericDaoTest<Product> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Delete
-			entity = ProductTest.generateProduct();
 			dao.create(entity);
 			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
 			dao.delete(entity);
@@ -94,5 +95,16 @@ public class ProductDaoJpaTest extends GenericDaoTest<Product> {
 		} finally {
 			PersistenceTest.closeEntityManager();
 		}
+	}
+	
+	/**
+	 * Private method to retrieve an {@link Site} from database filled with basic test data.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Site} with <code>id=1</code>.
+	 */
+	private Site findSiteFromDataBase(EntityManager entityManager) {
+		SiteDaoJpa dao = new SiteDaoJpa();
+		dao.setEntityManager(entityManager);
+		return dao.find((long) 3);
 	}
 }
