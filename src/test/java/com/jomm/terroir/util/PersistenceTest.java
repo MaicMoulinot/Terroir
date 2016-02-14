@@ -23,7 +23,7 @@ public class PersistenceTest {
 
 	// Constants
 	private static final String PERSISTENCE_UNIT_TEST = "testPU";
-	private static final String SCHEMA_TEST = "sql/schema.ddl";
+	private static final String SCHEMA_TEST = "sql/schematest.ddl";
 	private static final String SHUTDOWN_URL = "jdbc:derby:memory:testDB;shutdown=true";
 	// SQL State is "08006" (one database) or "XJ015" (all databases)
 	private static final String SHUTDOWN_SQL_STATE = "08006";
