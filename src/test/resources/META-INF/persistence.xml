@@ -3,14 +3,14 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="testPU" transaction-type="RESOURCE_LOCAL">
-		<class>com.jomm.terroir.business.AbstractUser</class>
-		<class>com.jomm.terroir.business.Admin</class>
-		<class>com.jomm.terroir.business.Customer</class>
-		<class>com.jomm.terroir.business.Enterprise</class>
-		<class>com.jomm.terroir.business.Image</class>
-		<class>com.jomm.terroir.business.Product</class>
-		<class>com.jomm.terroir.business.Seller</class>
-		<class>com.jomm.terroir.business.Site</class>
+		<class>com.jomm.terroir.business.model.AbstractUser</class>
+		<class>com.jomm.terroir.business.model.Admin</class>
+		<class>com.jomm.terroir.business.model.Customer</class>
+		<class>com.jomm.terroir.business.model.Enterprise</class>
+		<class>com.jomm.terroir.business.model.Image</class>
+		<class>com.jomm.terroir.business.model.Product</class>
+		<class>com.jomm.terroir.business.model.Seller</class>
+		<class>com.jomm.terroir.business.model.Site</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="hibernate.connection.username" value="" />
