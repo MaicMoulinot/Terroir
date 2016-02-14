@@ -46,7 +46,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			EntityManager entityManager = UtilDao.prepareEntityManager();
+			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.setEntityManager(entityManager);
 
 			Long initialId = entity.getId();
@@ -92,7 +92,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 		} catch (Exception exception) {
 			assertNull(exception);
 		} finally {
-			UtilDao.closeEntityManager();
+			UtilEntityManager.closeEntityManager();
 		}
 	}
 	

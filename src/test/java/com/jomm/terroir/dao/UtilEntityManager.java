@@ -15,11 +15,11 @@ import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
 /**
- * This Class is the test-specific utility exposing {@link EntityManager} and related methods to all DAO test cases.
+ * This abstract Class is a test-specific utility exposing the {@link EntityManager} and related methods to all DAO test cases.
  * It cannot be instantiated and all methods are <code>static</code>.
  * @author Maic
  */
-public class UtilDao {
+public abstract class UtilEntityManager {
 	
 	// Constants
 	private static final String PERSISTENCE_UNIT_TEST = "testPU";
@@ -64,7 +64,7 @@ public class UtilDao {
 	/**
 	 * Create the database used for tests. This method should be used before all tests are being run.
 	 */
-	public static void avant() {
+	public static void setUp() {
 		// Use test-specific Persistence Unit
 		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
 
@@ -78,7 +78,7 @@ public class UtilDao {
 	/**
 	 * Shutdown the database used for tests. This method should be used after all tests have been run.
 	 */
-	public static void apres() {
+	public static void tearDown() {
 		try {
 			DriverManager.getConnection(SHUTDOWN_URL);
 		} catch (SQLException exception) {

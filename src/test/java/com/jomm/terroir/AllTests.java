@@ -31,7 +31,7 @@ import com.jomm.terroir.dao.TestDaoProduct;
 import com.jomm.terroir.dao.TestDaoProductJpa;
 import com.jomm.terroir.dao.TestDaoSite;
 import com.jomm.terroir.dao.TestDaoSiteJpa;
-import com.jomm.terroir.dao.UtilDao;
+import com.jomm.terroir.dao.UtilEntityManager;
 
 @RunWith(Suite.class)
 @SuiteClasses({TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
@@ -43,12 +43,13 @@ import com.jomm.terroir.dao.UtilDao;
 	TestDaoSiteJpa.class, TestDaoSite.class
 	})
 public class AllTests {
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		UtilDao.avant();
+		UtilEntityManager.setUp();
 	}
 
 	/**
@@ -56,6 +57,6 @@ public class AllTests {
 	 */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		UtilDao.apres();
+		UtilEntityManager.tearDown();
 	}
 }

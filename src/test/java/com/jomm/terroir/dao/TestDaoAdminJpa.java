@@ -1,8 +1,14 @@
 package com.jomm.terroir.dao;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import javax.persistence.EntityManager;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -37,11 +43,11 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 
 	@Override
 	@Test
-	//@Ignore
+	@Ignore
 	public final void testState() {
-	/*	try {
+		try {
 			// EntityManager is working with test-specific Persistence Unit
-			dao.setEntityManager(PersistenceTest.prepareEntityManager());
+			dao.setEntityManager(UtilEntityManager.prepareEntityManager());
 
 			Long initialId = entity.getId();
 			assertNull("Before persistence, id should be null", initialId);
@@ -74,7 +80,7 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Delete
-			entity = AdminTest.generateAdmin();
+			entity = TestAdmin.generateAdmin();
 			dao.create(entity);
 			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
 			dao.delete(entity);
@@ -82,7 +88,7 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 		} catch (Exception exception) {
 			assertNull(exception);
 		} finally {
-			PersistenceTest.closeEntityManager();
-		}*/
+			UtilEntityManager.closeEntityManager();
+		}
 	}
 }
