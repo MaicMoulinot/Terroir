@@ -12,9 +12,9 @@ import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
 import com.ninja_squad.dbsetup.operation.Operation;
 
 /**
- * This Class is an abstract Class that all DAO test cases should extend.
+ * This abstract Class should be extended by all DAO test cases.
  * It defines a method <code>cleanInsertData()</code> that is launched only if necessary,
- * thanks to the use of <code>DbSetupTracker</code>.
+ * thanks to the use of the attribute <code>DbSetupTracker</code>.
  * @author Maic
  */
 public abstract class UtilData {
