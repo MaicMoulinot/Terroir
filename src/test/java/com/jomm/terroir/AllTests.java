@@ -27,10 +27,18 @@ import com.jomm.terroir.business.validator.TestValidatorPassword;
 import com.jomm.terroir.business.validator.TestValidatorUsername;
 import com.jomm.terroir.dao.TestDaoAdmin;
 import com.jomm.terroir.dao.TestDaoAdminJpa;
+import com.jomm.terroir.dao.TestDaoCustomer;
+import com.jomm.terroir.dao.TestDaoCustomerJpa;
+import com.jomm.terroir.dao.TestDaoEnterprise;
+import com.jomm.terroir.dao.TestDaoEnterpriseJpa;
 import com.jomm.terroir.dao.TestDaoProduct;
 import com.jomm.terroir.dao.TestDaoProductJpa;
+import com.jomm.terroir.dao.TestDaoSeller;
+import com.jomm.terroir.dao.TestDaoSellerJpa;
 import com.jomm.terroir.dao.TestDaoSite;
 import com.jomm.terroir.dao.TestDaoSiteJpa;
+import com.jomm.terroir.dao.TestDaoUser;
+import com.jomm.terroir.dao.TestDaoUserJpa;
 import com.jomm.terroir.dao.UtilEntityManager;
 
 @RunWith(Suite.class)
@@ -39,8 +47,10 @@ import com.jomm.terroir.dao.UtilEntityManager;
 	TestProduct.class, TestServiceProduct.class, TestServiceProductImpl.class, TestSeller.class, 
 	TestSite.class, TestServiceSite.class, TestServiceSiteImpl.class, TestServiceUser.class, TestServiceUserImpl.class,
 	TestValidatorEmail.class, TestValidatorPassword.class, TestValidatorUsername.class, 
-	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoProductJpa.class, TestDaoProduct.class,
-	TestDaoSiteJpa.class, TestDaoSite.class
+	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoCustomerJpa.class, TestDaoCustomer.class,
+	TestDaoEnterpriseJpa.class, TestDaoEnterprise.class, TestDaoProductJpa.class, TestDaoProduct.class, 
+	TestDaoSiteJpa.class, TestDaoSite.class, TestDaoSellerJpa.class, TestDaoSeller.class,
+	TestDaoUserJpa.class, TestDaoUser.class
 	})
 public class AllTests {
 	
