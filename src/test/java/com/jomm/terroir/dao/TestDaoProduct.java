@@ -8,7 +8,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.model.Product;
-import com.jomm.terroir.business.model.TestProduct;
 
 /**
  * This Class is a Junit test case testing the contract of {@link DaoProduct}.
@@ -22,12 +21,12 @@ public class TestDaoProduct extends TestDao<Product> {
 	
 	/**
 	 * Constructor.
-	 * Its parameter comes from all values from {@link ProductDaooTest#implementationToTest()}.
+	 * Its parameter comes from all values from {@link ProductDaoTest#implementationToTest()}.
 	 * @param dao the implementation of {@link DaoProduct}.
 	 */
     public TestDaoProduct(DaoProduct dao) {
         this.dao = dao;
-        this.entity = TestProduct.generateProduct();
+        entityClass = Product.class;
     }
     
 	@Override

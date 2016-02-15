@@ -8,7 +8,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.model.Admin;
-import com.jomm.terroir.business.model.TestAdmin;
 
 /**
  * This Class is a Junit test case testing the contract of {@link DaoAdmin}.
@@ -27,7 +26,7 @@ public class TestDaoAdmin extends TestDao<Admin> {
 	 */
     public TestDaoAdmin(DaoAdmin dao) {
         this.dao = dao;
-        this.entity = TestAdmin.generateAdmin();
+        entityClass = Admin.class;
     }
     
 	@Override

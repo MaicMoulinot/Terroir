@@ -8,7 +8,6 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.model.Site;
-import com.jomm.terroir.business.model.TestSite;
 
 /**
  * This Class is a Junit test case testing the contract of {@link DaoSite}.
@@ -22,12 +21,12 @@ public class TestDaoSite extends TestDao<Site> {
 	
 	/**
 	 * Constructor.
-	 * Its parameter comes from all values from {@link SiteDaooTest#implementationToTest()}.
+	 * Its parameter comes from all values from {@link SiteDaoTest#implementationToTest()}.
 	 * @param dao the implementation of {@link DaoSite}.
 	 */
     public TestDaoSite(DaoSite dao) {
         this.dao = dao;
-        this.entity = TestSite.generateSite();
+        entityClass = Site.class;
     }
     
 	@Override
