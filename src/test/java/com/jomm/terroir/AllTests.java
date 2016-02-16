@@ -1,4 +1,5 @@
 package com.jomm.terroir;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -41,12 +42,25 @@ import com.jomm.terroir.dao.TestDaoUser;
 import com.jomm.terroir.dao.TestDaoUserJpa;
 import com.jomm.terroir.dao.UtilEntityManager;
 
+/**
+ * This Class is a Junit Suite Case launching all Junit test cases.
+ * It is annotated {@link RunWith} {@link Suite} to allow the launch of multiple tests.
+ * It is annotated {@link SuiteClasses} to explicit each test case being run.
+ * @author Maic
+ */
 @RunWith(Suite.class)
-@SuiteClasses({TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
-	TestEnterprise.class, TestServiceEnterprise.class, TestServiceEnterpriseImpl.class, TestImage.class, 
-	TestProduct.class, TestServiceProduct.class, TestServiceProductImpl.class, TestSeller.class, 
-	TestSite.class, TestServiceSite.class, TestServiceSiteImpl.class, TestServiceUser.class, TestServiceUserImpl.class,
+@SuiteClasses({
+	// Model
+	TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
+	TestEnterprise.class, TestImage.class, TestProduct.class, TestSeller.class, TestSite.class, 
+	// Service
+	TestServiceEnterprise.class, TestServiceEnterpriseImpl.class, 
+	TestServiceProduct.class, TestServiceProductImpl.class, 
+	TestServiceSite.class, TestServiceSiteImpl.class, 
+	TestServiceUser.class, TestServiceUserImpl.class,
+	// Validator
 	TestValidatorEmail.class, TestValidatorPassword.class, TestValidatorUsername.class, 
+	// DAO
 	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoCustomerJpa.class, TestDaoCustomer.class,
 	TestDaoEnterpriseJpa.class, TestDaoEnterprise.class, TestDaoProductJpa.class, TestDaoProduct.class, 
 	TestDaoSiteJpa.class, TestDaoSite.class, TestDaoSellerJpa.class, TestDaoSeller.class,
@@ -55,6 +69,7 @@ import com.jomm.terroir.dao.UtilEntityManager;
 public class AllTests {
 	
 	/**
+	 * Set the environment necessary for testing.
 	 * @throws java.lang.Exception
 	 */
 	@BeforeClass
@@ -63,6 +78,7 @@ public class AllTests {
 	}
 
 	/**
+	 * Clean the environment after all tests have been run.
 	 * @throws java.lang.Exception
 	 */
 	@AfterClass
