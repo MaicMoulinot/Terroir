@@ -1,6 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
@@ -11,6 +12,7 @@ import java.util.ResourceBundle;
 
 import javax.faces.validator.ValidatorException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -33,27 +35,53 @@ public class TestValidatorEmail {
 	
 	@InjectMocks
 	private ValidatorEmail validator;
+	
+	private ResourceBundle resource;
 
 	/**
-	 * Test method for {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
+	 * Set proper ResourceBundle for the validator
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
+		validator.setResourceBundle(resource);
+	}
+	
+	/**
+	 * Test with Email null for {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
 	 * javax.faces.component.UIComponent, java.lang.Object)}.
 	 */
 	@Test
-	public final void testValidate() {
-		// Set proper ResourceBundle for the validator
-		ResourceBundle resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
-		validator.setResourceBundle(resource);
-		
-		// Test with Email null and empty
+	public final void testValidateWithEmailNull() {
 		try {
 			validator.validate(null, null, null);
 			assertTrue(true); // Assert no ValidatorException was thrown
+		} catch (ValidatorException expectedException) {
+			assertNull("ValidatorException was thrown and should not have with Email null or empty", expectedException);
+		}
+	}
+	
+	/**
+	 * Test with Email empty for {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
+	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 */
+	@Test
+	public final void testValidateWithEmailEmpty() {
+		try {
 			validator.validate(null, null, "");
 			assertTrue(true); // Assert no ValidatorException was thrown
 		} catch (ValidatorException expectedException) {
-			fail("ValidatorException was thrown and should not have with Email null or empty");
+			assertNull("ValidatorException was thrown and should not have with Email null or empty", expectedException);
 		}
-		
+	}
+	
+	/**
+	 * Test with Email not matching pattern for {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
+	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 */
+	@Test
+	public final void testValidateWithEmailNotMatchingPattern() {		
 		// Test with Email not matching pattern ("Email")
 		try {
 			validator.validate(null, null, "Email");
@@ -63,13 +91,20 @@ public class TestValidatorEmail {
 			assertEquals(resource.getString(ValidatorEmail.EMAIL_UNVALID), 
 					expectedException.getFacesMessage().getSummary());
 		}
-		
+	}
+	
+	/**
+	 * Test with Email matching pattern for {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
+	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 */
+	@Test
+	public final void testValidateWithEmailMatchingPattern() {
 		// Test with Email matching pattern ("email@email.com")
 		try {
 			validator.validate(null, null, "email@email.com");
 			verify(service).isExistingEmail(anyString()); // validate that service.isExistingEmail() was called
 		} catch (ValidatorException expectedException) {
-			fail("ValidatorException was thrown and should not have");
+			assertNull("ValidatorException was thrown and should not have", expectedException);
 		}
 	}
 }

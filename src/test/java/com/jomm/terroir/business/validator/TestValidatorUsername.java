@@ -1,6 +1,9 @@
 package com.jomm.terroir.business.validator;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
@@ -9,6 +12,7 @@ import java.util.ResourceBundle;
 
 import javax.faces.validator.ValidatorException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -31,27 +35,54 @@ public class TestValidatorUsername {
 	
 	@InjectMocks
 	private ValidatorUsername validator;
+	
+	private ResourceBundle resource;
 
 	/**
-	 * Test method for {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
+	 * Set proper ResourceBundle for the validator
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
+		validator.setResourceBundle(resource);
+	}
+
+	/**
+	 * Test with Username null for {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
 	 * javax.faces.component.UIComponent, java.lang.Object)}.
 	 */
 	@Test
-	public final void testValidate() {
-		// Set proper ResourceBundle for the validator
-		ResourceBundle resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
-		validator.setResourceBundle(resource);
-
+	public final void testValidateWithUsernameNull() {
 		// Test with Username null and empty
 		try {
 			validator.validate(null, null, null);
 			assertTrue(true); // Assert no ValidatorException was thrown
+		} catch (ValidatorException expectedException) {
+			assertNull("ValidatorException was thrown and should not have with username null or empty", expectedException);
+		}
+	}
+	
+	/**
+	 * Test with Username empty for {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
+	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 */
+	@Test
+	public final void testValidateWithUsernameEmpty() {
+		try {
 			validator.validate(null, null, "");
 			assertTrue(true); // Assert no ValidatorException was thrown
 		} catch (ValidatorException expectedException) {
-			fail("ValidatorException was thrown and should not have with username null or empty");
+			assertNull("ValidatorException was thrown and should not have with username null or empty", expectedException);
 		}
-		
+	}
+	
+	/**
+	 * Test with Username's length < 6 for {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
+	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 */
+	@Test
+	public final void testValidateWithUsernameTooShort() {
 		// Test with Username's length < 6
 		try {
 			validator.validate(null, null, "user");
@@ -61,13 +92,19 @@ public class TestValidatorUsername {
 			assertEquals(resource.getString(ValidatorUsername.LENGTH_AT_LEAST_6_CHARACTERS), 
 					expectedException.getFacesMessage().getSummary());
 		}
-		
-		// Test with Username's length > 6
+	}
+	
+	/**
+	 * Test with Username's length > 6 for {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
+	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 */
+	@Test
+	public final void testValidateWithUsernameLongEnough() {
 		try {
 			validator.validate(null, null, "UserName");
 			verify(service).isExistingUserName(anyString()); // validate that service.isExistingUserName() was called
 		} catch (ValidatorException expectedException) {
-			fail("ValidatorException was thrown and should not have");
+			assertNull("ValidatorException was thrown and should not have", expectedException);
 		}
 	}
 }
