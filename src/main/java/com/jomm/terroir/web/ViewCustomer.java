@@ -13,7 +13,9 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Customer;
+import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the View linked to customersignup.xhtml, that creates a new {@link Customer}.
@@ -36,10 +38,15 @@ public class ViewCustomer extends ViewUser {
 	private FacesContext facesContext;	
 	@Inject
 	@BundleMessage
-	private ResourceBundle resource;
+	private ResourceBundle resourceMessage;
+	@Inject
+	@BundleError
+	private ResourceBundle resourceError;
 	
 	// Constants
 	private static final String USER_REGISTRED = "usersaved";
+	private static final String USER_NULL = "entitynull";
+	private static final String ID_NOT_NULL = "idnotnull";
 
 	//	Attributes
 	private LocalDate birthDate;
@@ -48,9 +55,17 @@ public class ViewCustomer extends ViewUser {
 	@Override
 	public String create() {
 		setSignUpDate(ZonedDateTime.now());
-		userService.create(convertIntoEntity());
-		FacesMessage message = new FacesMessage(resource.getString(USER_REGISTRED), null);
-		facesContext.addMessage(null, message);
+		FacesMessage message = null;
+		try {
+			userService.create(convertIntoEntity());
+			message = new FacesMessage(resourceMessage.getString(USER_REGISTRED), null);
+		} catch (NullPointerException exception) {
+			message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
+		} catch (InvalidEntityException exception) {
+			message = new FacesMessage(resourceError.getString(ID_NOT_NULL), exception.getMessage());
+		} finally {
+			facesContext.addMessage(null, message);
+		}
 		return "customerlist" + "?faces-redirect=true";	// Navigation case.
 	}
 

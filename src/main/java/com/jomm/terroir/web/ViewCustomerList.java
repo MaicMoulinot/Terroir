@@ -16,7 +16,9 @@ import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Customer;
+import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the View linked to customerlist.xhtml, that displays the list of {@link ViewCustomer}.
@@ -38,7 +40,10 @@ public class ViewCustomerList {
 	private FacesContext facesContext;	
 	@Inject
 	@BundleMessage
-	private ResourceBundle resource;
+	private ResourceBundle resourceMessage;
+	@Inject
+	@BundleError
+	private ResourceBundle resourceError;
 	
 	// Attributes
 	private LinkedList<ViewCustomer> listCustomers;
@@ -46,6 +51,8 @@ public class ViewCustomerList {
 	private HtmlDataTable dataTable;
 	
 	// Static constants
+	private static final String USER_NULL = "entitynull";
+	private static final String ID_NULL = "idnull";
 	private static final String UPDATE_USER = "updateuser";
 	private static final String UPDATE_OK = "updateok";
 
@@ -67,11 +74,19 @@ public class ViewCustomerList {
 	public void onRowEdit(RowEditEvent event) {
 		ViewCustomer customerJsf = (ViewCustomer) event.getObject();
 		if (customerJsf != null) {
-			userService.update(customerJsf.convertIntoEntity());
-			Object[] argument = {customerJsf.getUserName()};
-			String detail = MessageFormat.format(resource.getString(UPDATE_USER), argument);
-			FacesMessage msg = new FacesMessage(resource.getString(UPDATE_OK), detail);
-			facesContext.addMessage(null, msg);
+			FacesMessage message = null;
+			try {
+				userService.update(customerJsf.convertIntoEntity());
+				Object[] argument = {customerJsf.getUserName()};
+				String detail = MessageFormat.format(resourceMessage.getString(UPDATE_USER), argument);
+				message = new FacesMessage(resourceMessage.getString(UPDATE_OK), detail);
+			} catch (NullPointerException exception) {
+				message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
+			} catch (InvalidEntityException exception) {
+				message = new FacesMessage(resourceError.getString(ID_NULL), exception.getMessage());
+			} finally {
+				facesContext.addMessage(null, message);
+			}
 		}
 	}
 
