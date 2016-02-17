@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.dao.DaoEnterprise;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the Service relating to {@link Enterprise}.
@@ -23,15 +24,19 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	private DaoEnterprise enterpriseDao;
 
 	@Override
-	public Enterprise create(Enterprise enterprise) {
-		enterpriseDao.create(enterprise);
-		return enterprise;
+	public Enterprise create(Enterprise enterprise) throws InvalidEntityException {
+		if (enterprise == null || enterprise.getId() != null) {
+			throw new InvalidEntityException();
+		}
+		return enterpriseDao.create(enterprise);
 	}
 	
 	@Override
-	public Enterprise update(Enterprise enterprise) {
-		enterpriseDao.update(enterprise);
-		return enterprise;
+	public Enterprise update(Enterprise enterprise) throws InvalidEntityException {
+		if (enterprise == null || enterprise.getId() == null) {
+			throw new InvalidEntityException();
+		}
+		return enterpriseDao.update(enterprise);
 	}
 
 	@Override
@@ -45,7 +50,10 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
-	public void delete(Enterprise enterprise) {
+	public void delete(Enterprise enterprise) throws InvalidEntityException {
+		if (enterprise == null) {
+			throw new InvalidEntityException();
+		}
 		enterpriseDao.delete(enterprise);
 	}
 
