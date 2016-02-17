@@ -1,5 +1,6 @@
 package com.jomm.terroir.business;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
@@ -12,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.TestEnterprise;
 import com.jomm.terroir.dao.DaoEnterprise;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This class is a Junit test case testing the methods of {@link ServiceEnterpriseImpl}.
@@ -33,8 +35,12 @@ public class TestServiceEnterpriseImpl {
 	 */
 	@Test
 	public final void testCreate() {
-		service.create(TestEnterprise.generateEnterprise());
-		verify(dao).create(any(Enterprise.class)); // validate that dao.create() was called
+		try {
+			service.create(TestEnterprise.generateEnterprise());
+			verify(dao).create(any(Enterprise.class)); // validate that dao.create() was called
+		} catch (InvalidEntityException unexpectedException) {
+			assertNull("An InvalidEntityException was thrown and should not have", unexpectedException);
+		}
 	}
 	
 	/**
@@ -42,8 +48,14 @@ public class TestServiceEnterpriseImpl {
 	 */
 	@Test
 	public final void testUpdate() {
-		service.update(TestEnterprise.generateEnterprise());
-		verify(dao).update(any(Enterprise.class)); // validate that dao.update() was called
+		Enterprise enterprise = TestEnterprise.generateEnterprise();
+		enterprise.setId((long) 200);
+		try {
+			service.update(enterprise);
+			verify(dao).update(any(Enterprise.class)); // validate that dao.update() was called
+		} catch (InvalidEntityException unexpectedException) {
+			assertNull("An InvalidEntityException was thrown and should not have", unexpectedException);
+		}
 	}
 	
 	/**
@@ -51,8 +63,12 @@ public class TestServiceEnterpriseImpl {
 	 */
 	@Test
 	public final void testDelete() {
-		service.delete(TestEnterprise.generateEnterprise());
-		verify(dao).delete(any(Enterprise.class)); // validate that dao.delete() was called
+		try {
+			service.delete(TestEnterprise.generateEnterprise());
+			verify(dao).delete(any(Enterprise.class)); // validate that dao.delete() was called
+		} catch (InvalidEntityException unexpectedException) {
+			assertNull("An InvalidEntityException was thrown and should not have", unexpectedException);
+		}
 	}
 	
 	/**
