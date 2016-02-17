@@ -24,16 +24,20 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	private DaoEnterprise enterpriseDao;
 
 	@Override
-	public Enterprise create(Enterprise enterprise) throws InvalidEntityException {
-		if (enterprise == null || enterprise.getId() != null) {
+	public Enterprise create(Enterprise enterprise) throws NullPointerException, InvalidEntityException {
+		if (enterprise == null) {
+			throw new NullPointerException();
+		} else if (enterprise.getId() != null) {
 			throw new InvalidEntityException();
 		}
 		return enterpriseDao.create(enterprise);
 	}
 	
 	@Override
-	public Enterprise update(Enterprise enterprise) throws InvalidEntityException {
-		if (enterprise == null || enterprise.getId() == null) {
+	public Enterprise update(Enterprise enterprise) throws NullPointerException, InvalidEntityException {
+		if (enterprise == null) {
+			throw new NullPointerException();
+		} else if (enterprise.getId() == null) {
 			throw new InvalidEntityException();
 		}
 		return enterpriseDao.update(enterprise);
@@ -50,9 +54,9 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
-	public void delete(Enterprise enterprise) throws InvalidEntityException {
+	public void delete(Enterprise enterprise) throws NullPointerException {
 		if (enterprise == null) {
-			throw new InvalidEntityException();
+			throw new NullPointerException();
 		}
 		enterpriseDao.delete(enterprise);
 	}

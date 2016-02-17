@@ -15,6 +15,7 @@ import com.jomm.terroir.dao.DaoAdmin;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the Service relating to {@link AbstractUser} and its children {@link Admin}, 
@@ -42,19 +43,30 @@ public class ServiceUserImpl implements ServiceUser {
 	private DaoSeller sellerDao;
 
 	@Override
-	public AbstractUser create(AbstractUser user) {
-		userDao.create(user);
-		return user;
+	public AbstractUser create(AbstractUser user) throws NullPointerException, InvalidEntityException {
+		if (user == null) {
+			throw new NullPointerException();
+		} else if (user.getId() != null) {
+			throw new InvalidEntityException();
+		}
+		return userDao.create(user);
 	}
 	
 	@Override
-	public AbstractUser update(AbstractUser user) {
-		userDao.update(user);
-		return user;
+	public AbstractUser update(AbstractUser user) throws NullPointerException, InvalidEntityException {
+		if (user == null) {
+			throw new NullPointerException();
+		} else if (user.getId() == null) {
+			throw new InvalidEntityException();
+		}
+		return userDao.create(user);
 	}
 	
 	@Override
-	public void delete(AbstractUser user) {
+	public void delete(AbstractUser user) throws NullPointerException {
+		if (user == null) {
+			throw new NullPointerException();
+		}
 		userDao.delete(user);
 	}
 	

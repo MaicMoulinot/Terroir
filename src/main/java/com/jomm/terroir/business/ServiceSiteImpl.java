@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.dao.DaoSite;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the Service relating to {@link Site}.
@@ -23,15 +24,23 @@ public class ServiceSiteImpl implements ServiceSite {
 	private DaoSite siteDao;
 
 	@Override
-	public Site create(Site site) {
-		siteDao.create(site);
-		return site;
+	public Site create(Site site) throws NullPointerException, InvalidEntityException {
+		if (site == null) {
+			throw new NullPointerException();
+		} else if (site.getId() != null) {
+			throw new InvalidEntityException();
+		}
+		return siteDao.update(site);
 	}
 	
 	@Override
-	public Site update(Site site) {
-		siteDao.update(site);
-		return site;
+	public Site update(Site site) throws NullPointerException, InvalidEntityException {
+		if (site == null) {
+			throw new NullPointerException();
+		} else if (site.getId() == null) {
+			throw new InvalidEntityException();
+		}
+		return siteDao.update(site);
 	}
 
 	@Override
@@ -45,7 +54,10 @@ public class ServiceSiteImpl implements ServiceSite {
 	}
 	
 	@Override
-	public void delete(Site site) {
+	public void delete(Site site) throws NullPointerException {
+		if (site == null) {
+			throw new NullPointerException();
+		}
 		siteDao.delete(site);
 	}
 

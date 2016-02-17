@@ -15,17 +15,19 @@ public interface ServiceEnterprise {
 	 * Create an enterprise.
 	 * @param enterprise the {@link Enterprise} to create.
 	 * @return the persisted enterprise.
-	 * @throws InvalidEntityException if the enterprise is null, or if the id is not null.
+	 * @throws NullPointerException if the entity is null.
+	 * @throws InvalidEntityException if the id is not null.
 	 */
-	public Enterprise create(Enterprise enterprise) throws InvalidEntityException;
+	public Enterprise create(Enterprise enterprise) throws NullPointerException, InvalidEntityException;
 	
 	/**
 	 * Update an enterprise.
 	 * @param enterprise the {@link Enterprise} to update.
 	 * @return the updated enterprise.
-	 * @throws InvalidEntityException if the enterprise is null, or if the id is null.
+	 * @throws NullPointerException if the entity is null.
+	 * @throws InvalidEntityException if the id is null.
 	 */
-	public Enterprise update(Enterprise enterprise) throws InvalidEntityException;
+	public Enterprise update(Enterprise enterprise) throws NullPointerException, InvalidEntityException;
 	
 	/**
 	 * Fetch the list of all enterprises.
@@ -36,7 +38,7 @@ public interface ServiceEnterprise {
 	/**
 	 * Delete an enterprise.
 	 * @param enterprise the {@link Enterprise} to delete.
-	 * @throws InvalidEntityException if the enterprise is null, or if the id is null.
+	 * @throws NullPointerException if the entity is null.
 	 */
-	public void delete(Enterprise enterprise) throws InvalidEntityException;
+	public void delete(Enterprise enterprise) throws NullPointerException;
 }

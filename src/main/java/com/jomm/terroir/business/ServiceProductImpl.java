@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.dao.DaoProduct;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the Service relating to {@link Product}.
@@ -23,15 +24,23 @@ public class ServiceProductImpl implements ServiceProduct {
 	private DaoProduct productDao;
 
 	@Override
-	public Product create(Product product) {
-		productDao.create(product);
-		return product;
+	public Product create(Product product) throws NullPointerException, InvalidEntityException {
+		if (product == null) {
+			throw new NullPointerException();
+		} else if (product.getId() != null) {
+			throw new InvalidEntityException();
+		}
+		return productDao.create(product);
 	}
 	
 	@Override
-	public Product update(Product product) {
-		productDao.update(product);
-		return product;
+	public Product update(Product product) throws NullPointerException, InvalidEntityException {
+		if (product == null) {
+			throw new NullPointerException();
+		} else if (product.getId() == null) {
+			throw new InvalidEntityException();
+		}
+		return productDao.update(product);
 	}
 
 	@Override
@@ -45,7 +54,10 @@ public class ServiceProductImpl implements ServiceProduct {
 	}
 	
 	@Override
-	public void delete(Product product) {
+	public void delete(Product product) throws NullPointerException {
+		if (product == null) {
+			throw new NullPointerException();
+		}
 		productDao.delete(product);
 	}
 
