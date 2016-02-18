@@ -50,8 +50,7 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 	
 	@Override
 	public E update(E entity) {
-		entityManager.merge(entity);
-		return entity;
+		return entityManager.merge(entity);
 	}
 	
 	@Override
