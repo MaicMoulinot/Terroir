@@ -1,13 +1,7 @@
 package com.jomm.terroir.business;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -19,6 +13,7 @@ import org.mockito.Mockito;
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.TestProduct;
 import com.jomm.terroir.dao.DaoProduct;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceProduct}.
@@ -29,8 +24,6 @@ import com.jomm.terroir.dao.DaoProduct;
 @RunWith(Parameterized.class)
 public class TestServiceProduct {
 	
-	/** A mocked list to simulate calls to <code>getAllProducts()</code>. */
-	private ArrayList<Product> mockedList;
 	/** An implementation of {@link ServiceProduct}. */
 	private ServiceProduct service;
 	
@@ -45,48 +38,86 @@ public class TestServiceProduct {
 	}
 	
 	/**
-	 * Test contract for {@link ServiceProduct#create(Product)}, {@link ServiceProduct#update(Product)},
-	 * {@link ServiceProduct#delete(Product)}, and {@link ServiceProduct#getAllProducts()}.
+	 * Test that {@link ServiceProduct#create(Product)} throws an {@link NullPointerException}
+	 * when entity is null.
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testCreateWithEntityNull() throws NullPointerException, InvalidEntityException {
+		service.create(null);
+	}
+
+	/**
+	 * Test that {@link ServiceProduct#create(Product)} throws an {@link InvalidEntityException}
+	 * when entity's id is not null.
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
+	 */
+	@Test(expected = InvalidEntityException.class)
+	public final void testCreateWithEntityIdNotNull() throws NullPointerException, InvalidEntityException {
+		Product product = TestProduct.generateProductWithIdNull();
+		product.setId((long) 52);
+		service.create(product);
+	}
+
+	/**
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link InvalidEntityException}
+	 * when entity is null.
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testUpdateWithEntityNull() throws NullPointerException, InvalidEntityException {
+		service.update(null);
+	}
+
+	/**
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link InvalidEntityException}
+	 * when entity's id is null.
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
+	 */
+	@Test(expected = InvalidEntityException.class)
+	public final void testUpdateWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+		Product product = TestProduct.generateProductWithIdNull();
+		service.update(product);
+	}
+
+	/**
+	 * Test that {@link ServiceProduct#delete(Product)} throws an {@link NullPointerException}
+	 * when entity is null.
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testDeleteWithEntityNull() throws NullPointerException, InvalidEntityException {
+		service.delete(null);
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link InvalidEntityException}
+	 * when entity's id is null.
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
+	 */
+	@Test(expected = InvalidEntityException.class)
+	public final void testDeleteWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+		Product product = TestProduct.generateProductWithIdNull();
+		service.delete(product);
+	}
+
+	/**
+	 * Test that list from {@link ServiceProduct#getAllProducts()} is not null.
 	 */
 	@Test
-	public final void testContract() {
-		String message = "service.getAllProducts()";
-		mockedList = new ArrayList<Product>();
-		when(service.getAllProducts()).thenReturn(mockedList); // MOCK: service.getAllProducts() with mockedList
-		
-		// Before any persistence, the list is not null and is empty
-		assertNotNull(message + " should not be null", service.getAllProducts());
-		assertTrue(message + " should be empty", service.getAllProducts().isEmpty());
-
-		// Create
-		Product product = TestProduct.generateProduct();
-		service.create(product);
-		mockedList.add(product); // MOCK: simulate create into mockedList
-
-		// After persistence, the list is not empty and its size is 1
-		assertFalse(message + " should not be empty", service.getAllProducts().isEmpty());
-		assertEquals(message + " ' size should be 1", service.getAllProducts().size(), 1);
-
-		// Update
-		product = mockedList.get(0);
-		String initialTitle = product.getTitle();
-		product.setTitle("updatedTitle");
-		service.update(product);
-		mockedList.set(0, product); // MOCK: simulate update into mockedList
-		String updatedTitle = service.getAllProducts().get(0).getTitle();
-		assertNotEquals("Titles should not match", initialTitle, updatedTitle);
-
-		// Delete
-		service.delete(product);
-		mockedList.remove(product); // MOCK: simulate delete into mockedList
-		
-		// After delete, the list is back to empty
-		assertTrue(message + " should be empty", service.getAllProducts().isEmpty());
+	public final void testGetAllListIsNotNull() {
+		assertNotNull(service.getAllProducts());
 	}
 	
 	/**
 	 * Reference a list of all {@link ServiceProduct}'s implementation to be used as parameter on constructor.
-	 * Each implementation will be tested with <code>testContract()</code>.
+	 * Each implementation will be tested with all test methods.
 	 * @return <code>Iterable < Object[] > </code>.
 	 */
 	@Parameters(name= "{index}: {0}")

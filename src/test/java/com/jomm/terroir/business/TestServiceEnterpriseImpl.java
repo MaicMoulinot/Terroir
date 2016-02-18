@@ -36,10 +36,10 @@ public class TestServiceEnterpriseImpl {
 	@Test
 	public final void testCreate() {
 		try {
-			service.create(TestEnterprise.generateEnterprise());
+			service.create(TestEnterprise.generateEnterpriseWithIdNull());
 			verify(dao).create(any(Enterprise.class)); // validate that dao.create() was called
-		} catch (InvalidEntityException unexpectedException) {
-			assertNull("An InvalidEntityException was thrown and should not have", unexpectedException);
+		} catch (InvalidEntityException | NullPointerException unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
 	
@@ -48,13 +48,13 @@ public class TestServiceEnterpriseImpl {
 	 */
 	@Test
 	public final void testUpdate() {
-		Enterprise enterprise = TestEnterprise.generateEnterprise();
+		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId((long) 200);
 		try {
 			service.update(enterprise);
 			verify(dao).update(any(Enterprise.class)); // validate that dao.update() was called
-		} catch (InvalidEntityException unexpectedException) {
-			assertNull("An InvalidEntityException was thrown and should not have", unexpectedException);
+		} catch (InvalidEntityException | NullPointerException unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
 	
@@ -63,11 +63,13 @@ public class TestServiceEnterpriseImpl {
 	 */
 	@Test
 	public final void testDelete() {
+		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
+		enterprise.setId((long) 200);
 		try {
-			service.delete(TestEnterprise.generateEnterprise());
+			service.delete(enterprise);
 			verify(dao).delete(any(Enterprise.class)); // validate that dao.delete() was called
-		} catch (InvalidEntityException unexpectedException) {
-			assertNull("An InvalidEntityException was thrown and should not have", unexpectedException);
+		} catch (NullPointerException | InvalidEntityException unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
 	
@@ -77,6 +79,6 @@ public class TestServiceEnterpriseImpl {
 	@Test
 	public final void testGetAllEnterprises() {
 		service.getAllEnterprises();
-		verify(dao).findAll(); // validate that dao.getAllEnterprises() was called
+		verify(dao).findAll(); // validate that dao.findAll() was called
 	}
 }

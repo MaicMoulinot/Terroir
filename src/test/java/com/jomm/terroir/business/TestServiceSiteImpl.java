@@ -1,8 +1,6 @@
-/**
- * 
- */
 package com.jomm.terroir.business;
 
+import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
@@ -15,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.business.model.TestSite;
 import com.jomm.terroir.dao.DaoSite;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This class is a Junit test case testing the methods of {@link ServiceSiteImpl}.
@@ -36,19 +35,44 @@ public class TestServiceSiteImpl {
 	 */
 	@Test
 	public final void testCreate() {
-		service.create(TestSite.generateSite());
-		verify(dao).create(any(Site.class)); // validate that dao.create() was called
+		try {
+			service.create(TestSite.generateSiteWithIdNull());
+			verify(dao).create(any(Site.class)); // validate that dao.create() was called
+		} catch (InvalidEntityException | NullPointerException unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
 	}
-
+	
 	/**
 	 * Test method for {@link ServiceSiteImpl#update(Site)}.
 	 */
 	@Test
 	public final void testUpdate() {
-		service.update(TestSite.generateSite());
-		verify(dao).update(any(Site.class)); // validate that dao.update() was called
+		Site site = TestSite.generateSiteWithIdNull();
+		site.setId((long) 200);
+		try {
+			service.update(site);
+			verify(dao).update(any(Site.class)); // validate that dao.update() was called
+		} catch (InvalidEntityException | NullPointerException unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
 	}
-
+	
+	/**
+	 * Test method for {@link ServiceSiteImpl#delete(Site)}.
+	 */
+	@Test
+	public final void testDelete() {
+		Site site = TestSite.generateSiteWithIdNull();
+		site.setId((long) 200);
+		try {
+			service.delete(site);
+			verify(dao).delete(any(Site.class)); // validate that dao.delete() was called
+		} catch (NullPointerException | InvalidEntityException unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
+	}
+	
 	/**
 	 * Test method for {@link ServiceSiteImpl#getAllSites()}.
 	 */
@@ -56,14 +80,5 @@ public class TestServiceSiteImpl {
 	public final void testGetAllSites() {
 		service.getAllSites();
 		verify(dao).findAll(); // validate that dao.findAll() was called
-	}
-
-	/**
-	 * Test method for {@link ServiceSiteImpl#delete(Site)}.
-	 */
-	@Test
-	public final void testDelete() {
-		service.delete(TestSite.generateSite());
-		verify(dao).delete(any(Site.class)); // validate that dao.delete() was called
 	}
 }

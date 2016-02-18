@@ -38,23 +38,25 @@ public class TestServiceEnterprise {
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link InvalidEntityException}
+	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link NullPointerException}
 	 * when entity is null.
-	 * @throws InvalidEntityException
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
 	 */
-	@Test(expected = InvalidEntityException.class)
-	public final void testCreateWithEntityNull() throws InvalidEntityException {
+	@Test(expected = NullPointerException.class)
+	public final void testCreateWithEntityNull() throws NullPointerException, InvalidEntityException {
 		service.create(null);
 	}
 
 	/**
 	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link InvalidEntityException}
 	 * when entity's id is not null.
-	 * @throws InvalidEntityException
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
 	 */
 	@Test(expected = InvalidEntityException.class)
-	public final void testCreateWithEntityIdNotNull() throws InvalidEntityException {
-		Enterprise enterprise = TestEnterprise.generateEnterprise();
+	public final void testCreateWithEntityIdNotNull() throws NullPointerException, InvalidEntityException {
+		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId((long) 52);
 		service.create(enterprise);
 	}
@@ -62,32 +64,47 @@ public class TestServiceEnterprise {
 	/**
 	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link InvalidEntityException}
 	 * when entity is null.
-	 * @throws InvalidEntityException
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
 	 */
-	@Test(expected = InvalidEntityException.class)
-	public final void testUpdateWithEntityNull() throws InvalidEntityException {
+	@Test(expected = NullPointerException.class)
+	public final void testUpdateWithEntityNull() throws NullPointerException, InvalidEntityException {
 		service.update(null);
 	}
 
 	/**
 	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link InvalidEntityException}
 	 * when entity's id is null.
-	 * @throws InvalidEntityException
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
 	 */
 	@Test(expected = InvalidEntityException.class)
-	public final void testUpdateWithEntityIdNull() throws InvalidEntityException {
-		Enterprise enterprise = TestEnterprise.generateEnterprise();
+	public final void testUpdateWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		service.update(enterprise);
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#delete(Enterprise)} throws an {@link InvalidEntityException}
+	 * Test that {@link ServiceEnterprise#delete(Enterprise)} throws an {@link NullPointerException}
 	 * when entity is null.
-	 * @throws InvalidEntityException
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testDeleteWithEntityNull() throws NullPointerException, InvalidEntityException {
+		service.delete(null);
+	}
+	
+	/**
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link InvalidEntityException}
+	 * when entity's id is null.
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
 	 */
 	@Test(expected = InvalidEntityException.class)
-	public final void testDeleteWithEntityNull() throws InvalidEntityException {
-		service.delete(null);
+	public final void testDeleteWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
+		service.delete(enterprise);
 	}
 
 	/**
@@ -100,7 +117,7 @@ public class TestServiceEnterprise {
 
 	/**
 	 * Reference a list of all {@link ServiceEnterprise}'s implementation to be used as parameter on constructor.
-	 * Each implementation will be tested with <code>testContract()</code>.
+	 * Each implementation will be tested with all test methods.
 	 * @return <code>Iterable < Object[] > </code>.
 	 */
 	@Parameters(name= "{index}: {0}")

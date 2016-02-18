@@ -1,13 +1,7 @@
 package com.jomm.terroir.business;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -19,6 +13,7 @@ import org.mockito.Mockito;
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.business.model.TestSite;
 import com.jomm.terroir.dao.DaoSite;
+import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceSite}.
@@ -29,11 +24,9 @@ import com.jomm.terroir.dao.DaoSite;
 @RunWith(Parameterized.class)
 public class TestServiceSite {
 	
-	/** A mocked list to simulate calls to <code>getAllSites()</code>. */
-	private ArrayList<Site> mockedList;
 	/** An implementation of {@link ServiceSite}. */
 	private ServiceSite service;
-	
+
 	/**
 	 * Constructor.
 	 * As this class is running with <code>Parameterized.class</code>, the constructor will be initialized with
@@ -45,48 +38,86 @@ public class TestServiceSite {
 	}
 
 	/**
-	 * Test contract for {@link ServiceSite#create(Site)}, {@link ServiceSite#update(Site)},
-	 * {@link ServiceSite#delete(Site)}, and {@link ServiceSite#getAllSites()}.
+	 * Test that {@link ServiceSite#create(Site)} throws an {@link NullPointerException}
+	 * when entity is null.
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testCreateWithEntityNull() throws NullPointerException, InvalidEntityException {
+		service.create(null);
+	}
+
+	/**
+	 * Test that {@link ServiceSite#create(Site)} throws an {@link InvalidEntityException}
+	 * when entity's id is not null.
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
+	 */
+	@Test(expected = InvalidEntityException.class)
+	public final void testCreateWithEntityIdNotNull() throws NullPointerException, InvalidEntityException {
+		Site site = TestSite.generateSiteWithIdNull();
+		site.setId((long) 52);
+		service.create(site);
+	}
+
+	/**
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link InvalidEntityException}
+	 * when entity is null.
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testUpdateWithEntityNull() throws NullPointerException, InvalidEntityException {
+		service.update(null);
+	}
+
+	/**
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link InvalidEntityException}
+	 * when entity's id is null.
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
+	 */
+	@Test(expected = InvalidEntityException.class)
+	public final void testUpdateWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+		Site site = TestSite.generateSiteWithIdNull();
+		service.update(site);
+	}
+
+	/**
+	 * Test that {@link ServiceSite#delete(Site)} throws an {@link NullPointerException}
+	 * when entity is null.
+	 * @throws NullPointerException is expected.
+	 * @throws InvalidEntityException is not expected.
+	 */
+	@Test(expected = NullPointerException.class)
+	public final void testDeleteWithEntityNull() throws NullPointerException, InvalidEntityException {
+		service.delete(null);
+	}
+	
+	/**
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link InvalidEntityException}
+	 * when entity's id is null.
+	 * @throws NullPointerException is not expected.
+	 * @throws InvalidEntityException is expected.
+	 */
+	@Test(expected = InvalidEntityException.class)
+	public final void testDeleteWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+		Site site = TestSite.generateSiteWithIdNull();
+		service.delete(site);
+	}
+
+	/**
+	 * Test that list from {@link ServiceSite#getAllSites()} is not null.
 	 */
 	@Test
-	public final void testContract() {
-		String message = "service.getAllSites()";
-		mockedList = new ArrayList<Site>();
-		when(service.getAllSites()).thenReturn(mockedList); // MOCK: service.getAllSites() with mockedList
-		
-		// Before any persistence, the list is not null and is empty
-		assertNotNull(message + " should not be null", service.getAllSites());
-		assertTrue(message + " should be empty", service.getAllSites().isEmpty());
-
-		// Create
-		Site site = TestSite.generateSite();
-		service.create(site);
-		mockedList.add(site); // MOCK: simulate create into mockedList
-
-		// After persistence, the list is not empty and its size is 1
-		assertFalse(message + " should not be empty", service.getAllSites().isEmpty());
-		assertEquals(message + " ' size should be 1", service.getAllSites().size(), 1);
-
-		// Update
-		site = mockedList.get(0);
-		String initialSiteName = site.getSiteName();
-		site.setSiteName("updatedSiteName");
-		service.update(site);
-		mockedList.set(0, site); // MOCK: simulate update into mockedList
-		String updatedSiteName = service.getAllSites().get(0).getSiteName();
-		assertNotEquals("SiteNames should not match", initialSiteName, updatedSiteName);
-
-		// Delete
-		service.delete(site);
-		mockedList.remove(site); // MOCK: simulate delete into mockedList
-		
-		// After delete, the list is back to empty
-		assertTrue(message + " should be empty", service.getAllSites().isEmpty());
+	public final void testGetAllListIsNotNull() {
+		assertNotNull(service.getAllSites());
 	}
 	
 	/**
 	 * Reference a list of all {@link ServiceSite}'s implementation to be used as parameter on constructor.
-	 * Each implementation will be tested with <code>testContract()</code>.
+	 * Each implementation will be tested with all test methods.
 	 * @return <code>Iterable < Object[] > </code>.
 	 */
 	@Parameters(name= "{index}: {0}")
