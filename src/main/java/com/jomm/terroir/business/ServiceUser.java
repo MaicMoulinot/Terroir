@@ -6,7 +6,6 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Admin;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Interface describes all logic operations for {@link AbstractUser}.
@@ -19,18 +18,18 @@ public interface ServiceUser {
 	 * @param user the {@link AbstractUser} to create.
 	 * @return the persisted AbstractUser.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws InvalidEntityException if the id is not null.
+	 * @throws IllegalStateException if the id is not null.
 	 */
-	public AbstractUser create(AbstractUser user) throws NullPointerException, InvalidEntityException;
+	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalStateException;
 	
 	/**
 	 * Update an user.
 	 * @param user the {@link AbstractUser} to update.
 	 * @return the updated AbstractUser.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws InvalidEntityException if the id is null.
+	 * @throws IllegalStateException if the id is null.
 	 */
-	public AbstractUser update(AbstractUser user) throws NullPointerException, InvalidEntityException;
+	public AbstractUser update(AbstractUser user) throws NullPointerException, IllegalStateException;
 	
 	/**
 	 * Fetch the list of all admins.
@@ -54,9 +53,9 @@ public interface ServiceUser {
 	 * Delete an user.
 	 * @param user the {@link AbstractUser} to delete.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws InvalidEntityException if the id is null.
+	 * @throws IllegalStateException if the id is null.
 	 */
-	public void delete(AbstractUser user) throws NullPointerException, InvalidEntityException;
+	public void delete(AbstractUser user) throws NullPointerException, IllegalStateException;
 	
 	/**
 	 * Check if the user name already exists.

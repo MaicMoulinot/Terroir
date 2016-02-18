@@ -15,7 +15,6 @@ import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the View linked to customersignup.xhtml, that creates a new {@link Customer}.
@@ -61,7 +60,7 @@ public class ViewCustomer extends ViewUser {
 			message = new FacesMessage(resourceMessage.getString(USER_REGISTRED), null);
 		} catch (NullPointerException exception) {
 			message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
-		} catch (InvalidEntityException exception) {
+		} catch (IllegalStateException exception) {
 			message = new FacesMessage(resourceError.getString(ID_NOT_NULL), exception.getMessage());
 		} finally {
 			facesContext.addMessage(null, message);

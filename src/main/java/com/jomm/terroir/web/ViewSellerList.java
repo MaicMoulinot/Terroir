@@ -18,7 +18,6 @@ import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link ViewSeller}.
@@ -85,7 +84,7 @@ public class ViewSellerList {
 				message = new FacesMessage(resourceMessage.getString(UPDATE_OK), detail);
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
-			} catch (InvalidEntityException exception) {
+			} catch (IllegalStateException exception) {
 				message = new FacesMessage(resourceError.getString(ID_NULL), exception.getMessage());
 			} finally {
 				facesContext.addMessage(null, message);
@@ -117,7 +116,7 @@ public class ViewSellerList {
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(resourceError.getString(USER_NULL), seller.getUserName() 
 						+ ", " + seller.getId() + ":" + exception.getMessage());
-			} catch (InvalidEntityException exception) {
+			} catch (IllegalStateException exception) {
 				message = new FacesMessage(resourceError.getString(ID_NULL), seller.getUserName() 
 						+ ":" + exception.getMessage());
 			} finally {

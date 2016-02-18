@@ -13,7 +13,6 @@ import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the View linked to sellersignup.xhtml, that creates a new {@link Seller}.
@@ -57,7 +56,7 @@ public class ViewSeller extends ViewUser {
 			message = new FacesMessage(resourceMessage.getString(USER_REGISTRED), null);
 		} catch (NullPointerException exception) {
 			message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
-		} catch (InvalidEntityException exception) {
+		} catch (IllegalStateException exception) {
 			message = new FacesMessage(resourceError.getString(ID_NOT_NULL), exception.getMessage());
 		} finally {
 			facesContext.addMessage(null, message);

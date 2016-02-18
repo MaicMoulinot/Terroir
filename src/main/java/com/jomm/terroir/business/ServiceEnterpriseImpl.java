@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.dao.DaoEnterprise;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the Service relating to {@link Enterprise}.
@@ -24,21 +23,21 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	private DaoEnterprise enterpriseDao;
 
 	@Override
-	public Enterprise create(Enterprise enterprise) throws NullPointerException, InvalidEntityException {
+	public Enterprise create(Enterprise enterprise) throws NullPointerException, IllegalStateException {
 		if (enterprise == null) {
 			throw new NullPointerException();
 		} else if (enterprise.getId() != null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		return enterpriseDao.create(enterprise);
 	}
 	
 	@Override
-	public Enterprise update(Enterprise enterprise) throws NullPointerException, InvalidEntityException {
+	public Enterprise update(Enterprise enterprise) throws NullPointerException, IllegalStateException {
 		if (enterprise == null) {
 			throw new NullPointerException();
 		} else if (enterprise.getId() == null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		return enterpriseDao.update(enterprise);
 	}
@@ -54,11 +53,11 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
-	public void delete(Enterprise enterprise) throws NullPointerException, InvalidEntityException {
+	public void delete(Enterprise enterprise) throws NullPointerException, IllegalStateException {
 		if (enterprise == null) {
 			throw new NullPointerException();
 		} else if (enterprise.getId() == null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		enterpriseDao.delete(enterprise);
 	}

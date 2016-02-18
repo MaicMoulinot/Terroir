@@ -13,7 +13,6 @@ import org.mockito.Mockito;
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.TestProduct;
 import com.jomm.terroir.dao.DaoProduct;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceProduct}.
@@ -41,45 +40,45 @@ public class TestServiceProduct {
 	 * Test that {@link ServiceProduct#create(Product)} throws an {@link NullPointerException}
 	 * when entity is null.
 	 * @throws NullPointerException is expected.
-	 * @throws InvalidEntityException is not expected.
+	 * @throws IllegalStateException is not expected.
 	 */
 	@Test(expected = NullPointerException.class)
-	public final void testCreateWithEntityNull() throws NullPointerException, InvalidEntityException {
+	public final void testCreateWithEntityNull() throws NullPointerException, IllegalStateException {
 		service.create(null);
 	}
 
 	/**
-	 * Test that {@link ServiceProduct#create(Product)} throws an {@link InvalidEntityException}
+	 * Test that {@link ServiceProduct#create(Product)} throws an {@link IllegalStateException}
 	 * when entity's id is not null.
 	 * @throws NullPointerException is not expected.
-	 * @throws InvalidEntityException is expected.
+	 * @throws IllegalStateException is expected.
 	 */
-	@Test(expected = InvalidEntityException.class)
-	public final void testCreateWithEntityIdNotNull() throws NullPointerException, InvalidEntityException {
+	@Test(expected = IllegalStateException.class)
+	public final void testCreateWithEntityIdNotNull() throws NullPointerException, IllegalStateException {
 		Product product = TestProduct.generateProductWithIdNull();
 		product.setId((long) 52);
 		service.create(product);
 	}
 
 	/**
-	 * Test that {@link ServiceProduct#update(Product)} throws an {@link InvalidEntityException}
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link IllegalStateException}
 	 * when entity is null.
 	 * @throws NullPointerException is expected.
-	 * @throws InvalidEntityException is not expected.
+	 * @throws IllegalStateException is not expected.
 	 */
 	@Test(expected = NullPointerException.class)
-	public final void testUpdateWithEntityNull() throws NullPointerException, InvalidEntityException {
+	public final void testUpdateWithEntityNull() throws NullPointerException, IllegalStateException {
 		service.update(null);
 	}
 
 	/**
-	 * Test that {@link ServiceProduct#update(Product)} throws an {@link InvalidEntityException}
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link IllegalStateException}
 	 * when entity's id is null.
 	 * @throws NullPointerException is not expected.
-	 * @throws InvalidEntityException is expected.
+	 * @throws IllegalStateException is expected.
 	 */
-	@Test(expected = InvalidEntityException.class)
-	public final void testUpdateWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+	@Test(expected = IllegalStateException.class)
+	public final void testUpdateWithEntityIdNull() throws NullPointerException, IllegalStateException {
 		Product product = TestProduct.generateProductWithIdNull();
 		service.update(product);
 	}
@@ -88,21 +87,21 @@ public class TestServiceProduct {
 	 * Test that {@link ServiceProduct#delete(Product)} throws an {@link NullPointerException}
 	 * when entity is null.
 	 * @throws NullPointerException is expected.
-	 * @throws InvalidEntityException is not expected.
+	 * @throws IllegalStateException is not expected.
 	 */
 	@Test(expected = NullPointerException.class)
-	public final void testDeleteWithEntityNull() throws NullPointerException, InvalidEntityException {
+	public final void testDeleteWithEntityNull() throws NullPointerException, IllegalStateException {
 		service.delete(null);
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#update(Product)} throws an {@link InvalidEntityException}
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link IllegalStateException}
 	 * when entity's id is null.
 	 * @throws NullPointerException is not expected.
-	 * @throws InvalidEntityException is expected.
+	 * @throws IllegalStateException is expected.
 	 */
-	@Test(expected = InvalidEntityException.class)
-	public final void testDeleteWithEntityIdNull() throws NullPointerException, InvalidEntityException {
+	@Test(expected = IllegalStateException.class)
+	public final void testDeleteWithEntityIdNull() throws NullPointerException, IllegalStateException {
 		Product product = TestProduct.generateProductWithIdNull();
 		service.delete(product);
 	}

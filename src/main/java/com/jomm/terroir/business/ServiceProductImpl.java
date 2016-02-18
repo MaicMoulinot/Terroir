@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.dao.DaoProduct;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the Service relating to {@link Product}.
@@ -24,21 +23,21 @@ public class ServiceProductImpl implements ServiceProduct {
 	private DaoProduct productDao;
 
 	@Override
-	public Product create(Product product) throws NullPointerException, InvalidEntityException {
+	public Product create(Product product) throws NullPointerException, IllegalStateException {
 		if (product == null) {
 			throw new NullPointerException();
 		} else if (product.getId() != null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		return productDao.create(product);
 	}
 	
 	@Override
-	public Product update(Product product) throws NullPointerException, InvalidEntityException {
+	public Product update(Product product) throws NullPointerException, IllegalStateException {
 		if (product == null) {
 			throw new NullPointerException();
 		} else if (product.getId() == null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		return productDao.update(product);
 	}
@@ -54,11 +53,11 @@ public class ServiceProductImpl implements ServiceProduct {
 	}
 	
 	@Override
-	public void delete(Product product) throws NullPointerException, InvalidEntityException {
+	public void delete(Product product) throws NullPointerException, IllegalStateException {
 		if (product == null) {
 			throw new NullPointerException();
 		} else if (product.getId() == null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		productDao.delete(product);
 	}

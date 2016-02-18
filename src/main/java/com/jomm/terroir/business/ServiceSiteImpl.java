@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.dao.DaoSite;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This Class is the Service relating to {@link Site}.
@@ -24,21 +23,21 @@ public class ServiceSiteImpl implements ServiceSite {
 	private DaoSite siteDao;
 
 	@Override
-	public Site create(Site site) throws NullPointerException, InvalidEntityException {
+	public Site create(Site site) throws NullPointerException, IllegalStateException {
 		if (site == null) {
 			throw new NullPointerException();
 		} else if (site.getId() != null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		return siteDao.create(site);
 	}
 	
 	@Override
-	public Site update(Site site) throws NullPointerException, InvalidEntityException {
+	public Site update(Site site) throws NullPointerException, IllegalStateException {
 		if (site == null) {
 			throw new NullPointerException();
 		} else if (site.getId() == null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		return siteDao.update(site);
 	}
@@ -54,11 +53,11 @@ public class ServiceSiteImpl implements ServiceSite {
 	}
 	
 	@Override
-	public void delete(Site site) throws NullPointerException, InvalidEntityException {
+	public void delete(Site site) throws NullPointerException, IllegalStateException {
 		if (site == null) {
 			throw new NullPointerException();
 		} else if (site.getId() == null) {
-			throw new InvalidEntityException();
+			throw new IllegalStateException();
 		}
 		siteDao.delete(site);
 	}

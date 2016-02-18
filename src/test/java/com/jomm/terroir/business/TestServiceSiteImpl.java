@@ -13,7 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.business.model.TestSite;
 import com.jomm.terroir.dao.DaoSite;
-import com.jomm.terroir.util.InvalidEntityException;
 
 /**
  * This class is a Junit test case testing the methods of {@link ServiceSiteImpl}.
@@ -38,7 +37,7 @@ public class TestServiceSiteImpl {
 		try {
 			service.create(TestSite.generateSiteWithIdNull());
 			verify(dao).create(any(Site.class)); // validate that dao.create() was called
-		} catch (InvalidEntityException | NullPointerException unexpectedException) {
+		} catch (IllegalStateException | NullPointerException unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -53,7 +52,7 @@ public class TestServiceSiteImpl {
 		try {
 			service.update(site);
 			verify(dao).update(any(Site.class)); // validate that dao.update() was called
-		} catch (InvalidEntityException | NullPointerException unexpectedException) {
+		} catch (IllegalStateException | NullPointerException unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -68,7 +67,7 @@ public class TestServiceSiteImpl {
 		try {
 			service.delete(site);
 			verify(dao).delete(any(Site.class)); // validate that dao.delete() was called
-		} catch (NullPointerException | InvalidEntityException unexpectedException) {
+		} catch (NullPointerException | IllegalStateException unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
