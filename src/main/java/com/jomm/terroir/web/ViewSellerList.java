@@ -55,6 +55,8 @@ public class ViewSellerList {
 	private static final String ID_NULL = "idnull";
 	private static final String UPDATE_USER = "updateuser";
 	private static final String UPDATE_OK = "updateok";
+	private static final String DELETE_USER = "deleteuser";
+	private static final String DELETE_OK = "deleteok";
 
 	/**
 	 * Initialize the list of all users.
@@ -106,7 +108,21 @@ public class ViewSellerList {
 	public String delete() {
 		if (currentSeller != null) {
 			Seller seller = currentSeller.convertIntoEntity();
-			userService.delete(seller);
+			FacesMessage message = null;
+			try {
+				Object[] argument = {seller.getUserName()};
+				userService.delete(seller);
+				String detail = MessageFormat.format(resourceMessage.getString(DELETE_USER), argument);
+				message = new FacesMessage(resourceMessage.getString(DELETE_OK), detail);
+			} catch (NullPointerException exception) {
+				message = new FacesMessage(resourceError.getString(USER_NULL), seller.getUserName() 
+						+ ", " + seller.getId() + ":" + exception.getMessage());
+			} catch (InvalidEntityException exception) {
+				message = new FacesMessage(resourceError.getString(ID_NULL), seller.getUserName() 
+						+ ":" + exception.getMessage());
+			} finally {
+				facesContext.addMessage(null, message);
+			}
 		}
 		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
 	}
