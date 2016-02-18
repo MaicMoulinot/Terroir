@@ -39,6 +39,7 @@ public interface ServiceSite {
 	 * Delete a site.
 	 * @param site the {@link Site} to delete.
 	 * @throws NullPointerException if the entity is null.
+	 * @throws InvalidEntityException if the id is null.
 	 */
-	public void delete(Site site) throws NullPointerException;
+	public void delete(Site site) throws NullPointerException, InvalidEntityException;
 }

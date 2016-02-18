@@ -63,9 +63,11 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
-	public void delete(AbstractUser user) throws NullPointerException {
+	public void delete(AbstractUser user) throws NullPointerException, InvalidEntityException {
 		if (user == null) {
 			throw new NullPointerException();
+		} else if (user.getId() == null) {
+			throw new InvalidEntityException();
 		}
 		userDao.delete(user);
 	}

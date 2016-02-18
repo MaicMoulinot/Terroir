@@ -39,6 +39,7 @@ public interface ServiceEnterprise {
 	 * Delete an enterprise.
 	 * @param enterprise the {@link Enterprise} to delete.
 	 * @throws NullPointerException if the entity is null.
+	 * @throws InvalidEntityException if the id is null.
 	 */
-	public void delete(Enterprise enterprise) throws NullPointerException;
+	public void delete(Enterprise enterprise) throws NullPointerException, InvalidEntityException;
 }

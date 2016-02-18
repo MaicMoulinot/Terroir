@@ -39,6 +39,7 @@ public interface ServiceProduct {
 	 * Delete a product.
 	 * @param product the {@link Product} to delete.
 	 * @throws NullPointerException if the entity is null.
+	 * @throws InvalidEntityException if the id is null.
 	 */
-	public void delete(Product product) throws NullPointerException;
+	public void delete(Product product) throws NullPointerException, InvalidEntityException;
 }

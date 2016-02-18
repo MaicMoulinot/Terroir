@@ -54,9 +54,11 @@ public class ServiceSiteImpl implements ServiceSite {
 	}
 	
 	@Override
-	public void delete(Site site) throws NullPointerException {
+	public void delete(Site site) throws NullPointerException, InvalidEntityException {
 		if (site == null) {
 			throw new NullPointerException();
+		} else if (site.getId() == null) {
+			throw new InvalidEntityException();
 		}
 		siteDao.delete(site);
 	}

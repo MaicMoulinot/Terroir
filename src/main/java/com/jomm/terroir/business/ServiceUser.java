@@ -54,8 +54,9 @@ public interface ServiceUser {
 	 * Delete an user.
 	 * @param user the {@link AbstractUser} to delete.
 	 * @throws NullPointerException if the entity is null.
+	 * @throws InvalidEntityException if the id is null.
 	 */
-	public void delete(AbstractUser user) throws NullPointerException;
+	public void delete(AbstractUser user) throws NullPointerException, InvalidEntityException;
 	
 	/**
 	 * Check if the user name already exists.

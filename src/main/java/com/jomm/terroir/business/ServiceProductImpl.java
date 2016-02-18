@@ -54,9 +54,11 @@ public class ServiceProductImpl implements ServiceProduct {
 	}
 	
 	@Override
-	public void delete(Product product) throws NullPointerException {
+	public void delete(Product product) throws NullPointerException, InvalidEntityException {
 		if (product == null) {
 			throw new NullPointerException();
+		} else if (product.getId() == null) {
+			throw new InvalidEntityException();
 		}
 		productDao.delete(product);
 	}

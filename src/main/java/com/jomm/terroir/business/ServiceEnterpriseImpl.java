@@ -54,9 +54,11 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
-	public void delete(Enterprise enterprise) throws NullPointerException {
+	public void delete(Enterprise enterprise) throws NullPointerException, InvalidEntityException {
 		if (enterprise == null) {
 			throw new NullPointerException();
+		} else if (enterprise.getId() == null) {
+			throw new InvalidEntityException();
 		}
 		enterpriseDao.delete(enterprise);
 	}
