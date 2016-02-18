@@ -29,7 +29,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 	@Before
 	public void setUp() throws Exception {
 		dao = new DaoProductJpa();
-		entity = TestProduct.generateProduct();
+		entity = TestProduct.generateProductWithIdNull();
 	}
 
 	@Override

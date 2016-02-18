@@ -28,7 +28,7 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 	@Before
 	public void setUp() throws Exception {
 		dao = new DaoEnterpriseJpa();
-		entity = TestEnterprise.generateEnterprise();
+		entity = TestEnterprise.generateEnterpriseWithIdNull();
 	}
 
 	@Override

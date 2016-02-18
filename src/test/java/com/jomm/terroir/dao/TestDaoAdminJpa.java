@@ -29,7 +29,7 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 	@Before
 	public void setUp() throws Exception {
 		dao = new DaoAdminJpa();
-		entity = TestAdmin.generateAdmin();
+		entity = TestAdmin.generateAdminWithIdNull();
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Delete
-			entity = TestAdmin.generateAdmin();
+			entity = TestAdmin.generateAdminWithIdNull();
 			dao.create(entity);
 			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
 			dao.delete(entity);

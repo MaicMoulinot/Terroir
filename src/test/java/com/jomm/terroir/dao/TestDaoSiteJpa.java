@@ -29,7 +29,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	@Before
 	public void setUp() throws Exception {
 		dao = new DaoSiteJpa();
-		entity = TestSite.generateSite();
+		entity = TestSite.generateSiteWithIdNull();
 	}
 
 	@Override

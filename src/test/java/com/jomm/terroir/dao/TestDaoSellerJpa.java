@@ -29,7 +29,7 @@ public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
 	@Before
 	public void setUp() throws Exception {
 		dao = new DaoSellerJpa();
-		entity = TestSeller.generateSeller();
+		entity = TestSeller.generateSellerWithIdNull();
 	}
 
 	@Override
@@ -80,7 +80,7 @@ public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Delete
-			entity = TestSeller.generateSeller();
+			entity = TestSeller.generateSellerWithIdNull();
 			dao.create(entity);
 			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
 			dao.delete(entity);
