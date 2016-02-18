@@ -50,9 +50,8 @@ public class TestCustomer {
 	 * Generate a simple {@link Customer} usable for tests.
 	 * @return a {@link Customer}.
 	 */
-	public static Customer generateCustomer() {
+	public static Customer generateCustomerWithIdNull() {
 		Customer customer = new Customer();
-		customer.setId((long) 0);
 		customer.setEmail("Email");
 		customer.setFirstName("FirstName");
 		customer.setLastName("LastName");

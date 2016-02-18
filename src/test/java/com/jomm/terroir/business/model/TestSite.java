@@ -74,10 +74,10 @@ public class TestSite {
 	 * Generate a simple {@link Site} usable for tests.
 	 * @return a {@link Site}.
 	 */
-	public static Site generateSite() {
+	public static Site generateSiteWithIdNull() {
 		Site site = new Site();
 		site.setAddress(new Address());
-		site.setEnterprise(TestEnterprise.generateEnterprise());
+		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		site.setLegalIdentification("LegalIdentification");
 		site.setListProducts(new ArrayList<Product>());
 		site.setSiteName("SiteName");

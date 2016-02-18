@@ -62,11 +62,11 @@ public class TestProduct {
 	 * Generate a simple {@link Product} usable for tests.
 	 * @return a {@link Product}.
 	 */
-	public static Product generateProduct() {
+	public static Product generateProductWithIdNull() {
 		Product product = new Product();
 		product.setDescription("Description");
 		product.setQuantity(10);
-		product.setSite(TestSite.generateSite());
+		product.setSite(TestSite.generateSiteWithIdNull());
 		product.setTitle("Title");
 		product.setRegistrationDate(ZonedDateTime.now());
 		return product;

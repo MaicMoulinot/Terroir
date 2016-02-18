@@ -99,7 +99,7 @@ public class TestEnterprise {
 	 * Generate a simple {@link Enterprise} usable for tests.
 	 * @return a {@link Enterprise}.
 	 */
-	public static Enterprise generateEnterprise() {
+	public static Enterprise generateEnterpriseWithIdNull() {
 		Enterprise enterprise = new Enterprise();
 		enterprise.setAddress(new Address());
 		enterprise.setCreationDate(LocalDate.now());

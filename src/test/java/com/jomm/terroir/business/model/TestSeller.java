@@ -37,9 +37,8 @@ public class TestSeller {
 	 * Generate a simple {@link Seller} usable for tests.
 	 * @return a {@link Seller}.
 	 */
-	public static Seller generateSeller() {
+	public static Seller generateSellerWithIdNull() {
 		Seller seller = new Seller();
-		seller.setId((long) 0);
 		seller.setEmail("Email");
 		seller.setFirstName("FirstName");
 		seller.setLastName("LastName");

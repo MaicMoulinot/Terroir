@@ -71,9 +71,8 @@ public class TestAbstractUser {
 	 * Generate a simple {@link AbstractUser} usable for tests.
 	 * @return a {@link AbstractUser}.
 	 */
-	public static AbstractUser generateAbstractUser() {
+	public static AbstractUser generateAbstractUserWithIdNull() {
 		AbstractUser user = new Admin(); // AbstractUser is abstract so need to instantiate a child
-		user.setId((long) 0);
 		user.setEmail("Email");
 		user.setFirstName("FirstName");
 		user.setLastName("LastName");

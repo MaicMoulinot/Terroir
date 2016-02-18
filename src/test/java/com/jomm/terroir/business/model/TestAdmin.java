@@ -55,7 +55,7 @@ public class TestAdmin {
 	 * Generate a simple {@link Admin} usable for tests.
 	 * @return a {@link Admin}.
 	 */
-	public static Admin generateAdmin() {
+	public static Admin generateAdminWithIdNull() {
 		Admin admin = new Admin();
 		admin.setEmail("Email");
 		admin.setFirstName("FirstName");
