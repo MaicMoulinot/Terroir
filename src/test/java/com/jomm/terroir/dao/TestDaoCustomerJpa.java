@@ -68,6 +68,7 @@ public class TestDaoCustomerJpa extends TestDaoGenericJpa<Customer> {
 			Customer persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
 			assertEquals("After persistence, properties should be equal", entity.getEmail(), persistedEntity.getEmail());
+			assertNull("Entity with id=999999 should be null", dao.find((long) 999999));
 
 			// Update
 			String initialValue = persistedEntity.getEmail();

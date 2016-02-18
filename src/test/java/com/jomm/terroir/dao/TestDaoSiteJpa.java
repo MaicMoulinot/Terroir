@@ -73,6 +73,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
 			assertEquals("After persistence, properties should be equal", entity.getSiteName(), 
 					persistedEntity.getSiteName());
+			assertNull("Entity with id=999999 should be null", dao.find((long) 999999));
 
 			// Update
 			String initialValue = persistedEntity.getSiteName();
