@@ -30,7 +30,7 @@ public class ServiceSiteImpl implements ServiceSite {
 		} else if (site.getId() != null) {
 			throw new InvalidEntityException();
 		}
-		return siteDao.update(site);
+		return siteDao.create(site);
 	}
 	
 	@Override

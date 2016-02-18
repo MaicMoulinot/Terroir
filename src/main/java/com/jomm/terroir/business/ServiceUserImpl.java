@@ -59,7 +59,7 @@ public class ServiceUserImpl implements ServiceUser {
 		} else if (user.getId() == null) {
 			throw new InvalidEntityException();
 		}
-		return userDao.create(user);
+		return userDao.update(user);
 	}
 	
 	@Override
@@ -91,12 +91,18 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
-	public boolean isExistingUserName(String userName) {
+	public boolean isExistingUserName(String userName) throws NullPointerException {
+		if (userName == null) {
+			throw new NullPointerException();
+		}
 		return userDao.isExistingUserName(userName);
 	}
 	
 	@Override
-	public boolean isExistingEmail(String email) {
+	public boolean isExistingEmail(String email) throws NullPointerException {
+		if (email == null) {
+			throw new NullPointerException();
+		}
 		return userDao.isExistingEmail(email);
 	}
 

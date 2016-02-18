@@ -62,13 +62,15 @@ public interface ServiceUser {
 	 * Check if the user name already exists.
 	 * @param userName String the user name to check.
 	 * @return true if the user name is already in use, false otherwise.
+	 * @throws NullPointerException if userName is null.
 	 */
-	public boolean isExistingUserName(String userName);
+	public boolean isExistingUserName(String userName) throws NullPointerException;
 	
 	/**
 	 * Check if the email already exists.
 	 * @param email String the email to test.
 	 * @return true if email was found, false otherwise.
+	 * @throws NullPointerException if email is null.
 	 */
-	public boolean isExistingEmail(String email);
+	public boolean isExistingEmail(String email) throws NullPointerException;
 }
