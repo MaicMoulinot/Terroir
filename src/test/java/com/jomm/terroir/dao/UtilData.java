@@ -34,11 +34,11 @@ public abstract class UtilData {
 							"number_employees", "date_signup", 
 							"address_street", "address_complement", "address_post_code",
 							"address_town", "address_country", "address_coordinates")
-					.values(1, "Janichon&Sons", "GAEC Janichon", "XXDGQG", null, 2, 
+					.values(111111, "Janichon&Sons", "GAEC Janichon", "XXDGQG", null, 2, 
 							//ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault()).nextValue(), 
 							null,
 							"Dagallier Haut", null, "01400", "Sulignat", "France", null)
-					.values(2, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", null, 4, 
+					.values(222222, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", null, 4, 
 							//ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault()).nextValue(), 
 							null,
 							"Allée Pioch Redon", null, "34430", "St Jean de Védas", "France", null)
@@ -47,12 +47,12 @@ public abstract class UtilData {
 					.columns("site_id", "site_name", "legal_identification", "address_street", "address_complement", 
 							"address_post_code", "address_town", "address_country", "address_coordinates", 
 							"enterprise_enterprise_id")
-					.values(1, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
-							"France", null, 1)
-					.values(2, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 
-							"France", null, 2)
-					.values(3, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
-							"France", null, 2)
+					.values(111111, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
+							"France", null, 111111)
+					.values(222222, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 
+							"France", null, 222222)
+					.values(333333, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
+							"France", null, 222222)
 					.build());
 
 	/**
