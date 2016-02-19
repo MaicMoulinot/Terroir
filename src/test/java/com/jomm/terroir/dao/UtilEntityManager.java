@@ -11,6 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.apache.derby.tools.ij;
+import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.jdbc.Work;
 
@@ -106,6 +107,7 @@ public abstract class UtilEntityManager {
 	private static void setConnection() {
 		WorkImpl work = new WorkImpl();
 		Session session = entityManager.unwrap(Session.class);
+		session.setFlushMode(FlushMode.ALWAYS);
 		session.doWork(work);
 		connection = work.getConnection();
 	}
@@ -123,6 +125,7 @@ public abstract class UtilEntityManager {
 		@Override
 		public void execute(Connection connection) throws SQLException {
 			this.connectionWork = connection;
+			this.connectionWork.setAutoCommit(true);
 		}
 
 		Connection getConnection() {
