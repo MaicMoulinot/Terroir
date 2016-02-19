@@ -2,7 +2,7 @@ package com.jomm.terroir.dao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  * This abstract Class defines all CRUD operations involving a {@link Entity}.
@@ -70,14 +70,12 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 	
 	@Override
 	public List<E> findAll() {
-	    List<E> castedList = new LinkedList<E>();
-	    Query query = entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll");
+		List<E> result = new ArrayList<E>();
+	    TypedQuery<E> query = entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll", getEntityClass());
 	    if (query != null) {
-	    	for(Object obj : query.getResultList()) {
-	    		castedList.add(getEntityClass().cast(obj));
-	    	}
+	    	result = query.getResultList();
 	    }
-		return castedList;
+		return result;
 	}
 
 	@Override
