@@ -93,5 +93,3 @@
          sequence_name varchar(255),
          next_val bigint
     );
-    
-    commit;
