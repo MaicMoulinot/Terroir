@@ -11,8 +11,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.apache.derby.tools.ij;
-import org.hibernate.FlushMode;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 
 /**
@@ -33,6 +33,7 @@ public abstract class UtilEntityManager {
 	private static EntityManager entityManager;
 	private static EntityManagerFactory entityManagerFactory;
 	private static Connection connection;
+	private static Transaction transaction;
 
 	/**
 	 * Get the {@link EntityManager}.
@@ -60,6 +61,23 @@ public abstract class UtilEntityManager {
 			entityManager = null;
 		}
 		connection = null;
+	}
+	
+	/**
+	 * Retrieve a {@link Transaction} from the current {@link Session} and begin it.
+	 * This method should be used just after the create/update/delete actions that need to be immediately persisted.
+	 */
+	public static void beginTransaction() {
+		Session session = entityManager.unwrap(Session.class);
+		transaction = session.beginTransaction();
+	}
+
+	/**
+	 * Persist immediately the create/update/delete changes in database.
+	 * This method should be used just after the create/update/delete actions.
+	 */
+	public static void commit() {
+		transaction.commit();
 	}
 
 	/**
@@ -107,7 +125,6 @@ public abstract class UtilEntityManager {
 	private static void setConnection() {
 		WorkImpl work = new WorkImpl();
 		Session session = entityManager.unwrap(Session.class);
-		session.setFlushMode(FlushMode.ALWAYS);
 		session.doWork(work);
 		connection = work.getConnection();
 	}
@@ -125,7 +142,6 @@ public abstract class UtilEntityManager {
 		@Override
 		public void execute(Connection connection) throws SQLException {
 			this.connectionWork = connection;
-			this.connectionWork.setAutoCommit(true);
 		}
 
 		Connection getConnection() {

@@ -21,6 +21,8 @@ import com.jomm.terroir.business.model.TestEnterprise;
  * @author Maic
  */
 public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
+	
+	private static int LIST_INITIAL_SIZE = 2; // From UtilData.INSERT_BASIC_DATA
 
 	/**
 	 * @throws java.lang.Exception
@@ -28,7 +30,6 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 	@Before
 	public void setUp() throws Exception {
 		dao = new DaoEnterpriseJpa();
-		entity = TestEnterprise.generateEnterpriseWithIdNull();
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 	public final void testBehavior() {
 		// EntityManager is not working, it is mocked
 		dao.setEntityManager(Mockito.mock(EntityManager.class));
-		
+
 		super.testBehavior();
 	}
 
@@ -47,20 +48,22 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.setEntityManager(entityManager);
-			
+			entity = TestEnterprise.generateEnterpriseWithIdNull();
+
 			Long initialId = entity.getId();
 			assertNull("Before persistence, id should be null", initialId);
 
 			// FindAll
-			//			assertNotNull("Before persistence, the list should not be null", dao.findAll());
-			//			assertTrue("Before persistence, the list should be empty", dao.findAll().isEmpty());
-			//			assertEquals("Before persistence, the list's size should be 0", 0, dao.findAll().size());
-			
+			assertNotNull("Before persistence, the list should not be null", dao.findAll());
+			assertEquals("Before persistence, the list's size should be ", LIST_INITIAL_SIZE, dao.findAll().size());
+
 			// Create
+			UtilEntityManager.beginTransaction();
 			Long persistedId = dao.create(entity).getId();
+			UtilEntityManager.commit();
 			assertNotNull("After persistence, id should not be null", persistedId);
 			// FindAll
-			//			assertEquals("After persistence, the list's size should be 1", 1, dao.findAll().size());
+			assertEquals("After persistence, the list's size should be ", LIST_INITIAL_SIZE+1, dao.findAll().size());
 
 			// FindById
 			Enterprise persistedEntity = dao.find(persistedId);
@@ -80,12 +83,14 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Delete
+			UtilEntityManager.beginTransaction();
 			dao.create(entity);
 			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
 			dao.delete(entity);
+			UtilEntityManager.commit();
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
-		} catch (Exception exception) {
-			assertNull(exception);
+			// FindAll
+			assertEquals("After DeleteById, the list's size should be ", LIST_INITIAL_SIZE, dao.findAll().size());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

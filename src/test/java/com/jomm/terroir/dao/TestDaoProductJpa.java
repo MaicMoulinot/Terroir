@@ -23,13 +23,14 @@ import com.jomm.terroir.business.model.TestProduct;
  */
 public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 
+	private static int LIST_INITIAL_SIZE = 0; // From UtilData.INSERT_BASIC_DATA
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		dao = new DaoProductJpa();
-		entity = TestProduct.generateProductWithIdNull();
 	}
 
 	@Override
@@ -48,14 +49,14 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.setEntityManager(entityManager);
+			entity = TestProduct.generateProductWithIdNull();
 
 			Long initialId = entity.getId();
 			assertNull("Before persistence, id should be null", initialId);
 
 			// FindAll
-			//			assertNotNull("Before persistence, the list should not be null", dao.findAll());
-			//			assertTrue("Before persistence, the list should be empty", dao.findAll().isEmpty());
-			//			assertEquals("Before persistence, the list's size should be 0", 0, dao.findAll().size());
+			assertNotNull("Before persistence, the list should not be null", dao.findAll());
+			assertEquals("Before persistence, the list's size should be ", LIST_INITIAL_SIZE, dao.findAll().size());
 			
 			// Retrieve a Site from DataBase
 			Site site = findSiteFromDataBase(entityManager);
@@ -63,10 +64,12 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			entity.setSite(site);
 			
 			// Create
+			UtilEntityManager.beginTransaction();
 			Long persistedId = dao.create(entity).getId();
+			UtilEntityManager.commit();
 			assertNotNull("After persistence, id should not be null", persistedId);
 			// FindAll
-			//			assertEquals("After persistence, the list's size should be 1", 1, dao.findAll().size());
+			assertEquals("After persistence, the list's size should be ", LIST_INITIAL_SIZE+1, dao.findAll().size());
 
 			// FindById
 			Product persistedEntity = dao.find(persistedId);
@@ -86,12 +89,14 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Delete
+			UtilEntityManager.beginTransaction();
 			dao.create(entity);
 			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
 			dao.delete(entity);
+			UtilEntityManager.commit();
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
-		} catch (Exception exception) {
-			assertNull(exception);
+			// FindAll
+			assertEquals("After Delete, the list's size should be ", LIST_INITIAL_SIZE, dao.findAll().size());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}
@@ -105,6 +110,6 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 	private Site findSiteFromDataBase(EntityManager entityManager) {
 		DaoSiteJpa dao = new DaoSiteJpa();
 		dao.setEntityManager(entityManager);
-		return dao.find((long) 3);
+		return dao.find((long) 333333);
 	}
 }
