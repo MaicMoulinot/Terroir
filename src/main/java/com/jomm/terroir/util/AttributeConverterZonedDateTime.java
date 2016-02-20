@@ -23,14 +23,22 @@ import javax.persistence.Converter;
 public class AttributeConverterZonedDateTime implements AttributeConverter<ZonedDateTime, Timestamp> {
 
 	@Override
-	public Timestamp convertToDatabaseColumn(ZonedDateTime attribute) {
-		ZonedDateTime now = ZonedDateTime.now();
-        return Timestamp.from(now.toInstant());
+	public Timestamp convertToDatabaseColumn(ZonedDateTime entityDateTime) {
+		Timestamp dbDateTime = null;
+		if (entityDateTime != null) {
+			ZonedDateTime now = ZonedDateTime.now();
+			dbDateTime = Timestamp.from(now.toInstant());
+		}
+        return dbDateTime;
 	}
 
 	@Override
-	public ZonedDateTime convertToEntityAttribute(Timestamp dbData) {
-		Instant instant = Instant.ofEpochMilli(dbData.getTime());
-        return ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
+	public ZonedDateTime convertToEntityAttribute(Timestamp dbDateTime) {
+		ZonedDateTime entityDateTime = null;
+		if (dbDateTime != null) {
+			Instant instant = Instant.ofEpochMilli(dbDateTime.getTime());
+			entityDateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
+		}
+        return entityDateTime;
 	}
 }

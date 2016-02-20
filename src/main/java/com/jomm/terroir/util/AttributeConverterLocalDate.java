@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.jomm.terroir.util;
 
 import java.time.Instant;
@@ -28,15 +25,23 @@ import javax.persistence.Converter;
 public class AttributeConverterLocalDate implements AttributeConverter<LocalDate, Date> {
 
 	@Override
-	public Date convertToDatabaseColumn(LocalDate attribute) {
-		LocalTime now = LocalTime.now();
-        Instant instant = now.atDate(attribute).atZone(ZoneId.systemDefault()).toInstant();
-        return Date.from(instant);
+	public Date convertToDatabaseColumn(LocalDate entityDate) {
+		Date dbDate = null;
+		if (entityDate != null) {
+			LocalTime now = LocalTime.now();
+			Instant instant = now.atDate(entityDate).atZone(ZoneId.systemDefault()).toInstant();
+			dbDate = Date.from(instant);
+		}
+        return dbDate;
 	}
 
 	@Override
-	public LocalDate convertToEntityAttribute(Date dbData) {
-		Instant instant = Instant.ofEpochMilli(dbData.getTime());
-        return LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
+	public LocalDate convertToEntityAttribute(Date dbDate) {
+		LocalDate entityDate = null;
+		if (dbDate != null) {
+			Instant instant = Instant.ofEpochMilli(dbDate.getTime());
+			entityDate = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
+		}
+        return entityDate;
 	}
 }
