@@ -4,11 +4,16 @@ import static com.ninja_squad.dbsetup.Operations.deleteAllFrom;
 import static com.ninja_squad.dbsetup.Operations.insertInto;
 import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 
+import java.util.Date;
+import java.util.TimeZone;
+
 import org.junit.Before;
 
 import com.ninja_squad.dbsetup.DbSetup;
 import com.ninja_squad.dbsetup.DbSetupTracker;
 import com.ninja_squad.dbsetup.destination.DriverManagerDestination;
+import com.ninja_squad.dbsetup.generator.DateSequenceValueGenerator;
+import com.ninja_squad.dbsetup.generator.ValueGenerators;
 import com.ninja_squad.dbsetup.operation.Operation;
 
 /**
@@ -24,6 +29,9 @@ public abstract class UtilData {
 	private static final String DESTINATION_URL = "jdbc:derby:memory:testDB";
 	private static final String DESTINATION_USER = "";
 	private static final String DESTINATION_PASSWORD = "";
+	private static final DateSequenceValueGenerator GENERATOR_LOCAL_DATE = ValueGenerators.dateSequence();
+	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
+			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
 	
 	private static final Operation DELETE_ALL_DATA = deleteAllFrom("tr_admin", "tr_product", "tr_site", "tr_seller", 
 			"tr_enterprise", "tr_customer", "tr_image");
@@ -34,25 +42,23 @@ public abstract class UtilData {
 							"number_employees", "date_signup", 
 							"address_street", "address_complement", "address_post_code",
 							"address_town", "address_country", "address_coordinates")
-					.values(111111, "Janichon&Sons", "GAEC Janichon", "XXDGQG", null, 2, 
-							//ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault()).nextValue(), 
-							null,
-							"Dagallier Haut", null, "01400", "Sulignat", "France", null)
-					.values(222222, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", null, 4, 
-							//ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault()).nextValue(), 
-							null,
-							"Allée Pioch Redon", null, "34430", "St Jean de Védas", "France", null)
+					.values(111111, "Janichon&Sons", "GAEC Janichon", "XXDGQG", 
+							GENERATOR_LOCAL_DATE.nextValue(), 2, GENERATOR_ZONED_DATE_TIME.nextValue(), 
+							"Dagallier Haut", null, "01400", "Sulignat", "France", "46.182194, 4.970275")
+					.values(222222, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", 
+							GENERATOR_LOCAL_DATE.nextValue(), 4, GENERATOR_ZONED_DATE_TIME.nextValue(), 
+							"Allée Pioch Redon", null, "34430", "St Jean de Védas", "France", "43.589423, 3.827251")
 					.build(),
 					insertInto("tr_site")
 					.columns("site_id", "site_name", "legal_identification", "address_street", "address_complement", 
 							"address_post_code", "address_town", "address_country", "address_coordinates", 
 							"enterprise_enterprise_id")
 					.values(111111, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
-							"France", null, 111111)
+							"France", "46.182194, 4.970275", 111111)
 					.values(222222, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 
-							"France", null, 222222)
+							"France", "43.589423, 3.827251", 222222)
 					.values(333333, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
-							"France", null, 222222)
+							"France", "43.577740, 3.816562", 222222)
 					.build());
 
 	/**
