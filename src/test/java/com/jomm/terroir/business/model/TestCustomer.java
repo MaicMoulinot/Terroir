@@ -59,7 +59,6 @@ public class TestCustomer {
 		customer.setUserPassword("UserPassword");
 		customer.setAddress(new Address());
 		customer.setBirthDate(LocalDate.now());
-		customer.setSignUpDate(ZonedDateTime.now());
 		return customer;
 	}
 }

@@ -108,7 +108,6 @@ public class TestEnterprise {
 		enterprise.setListSellers(new ArrayList<Seller>());
 		enterprise.setListSites(new ArrayList<Site>());
 		enterprise.setNbEmployees(10);
-		enterprise.setSignUpDate(ZonedDateTime.now());
 		enterprise.setTradeName("TradeName");		
 		return enterprise;
 	}

@@ -1,7 +1,11 @@
 package com.jomm.terroir.business;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -58,6 +62,22 @@ public class TestServiceEnterprise {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId((long) 52);
 		service.create(enterprise);
+	}
+	
+	/**
+	 * Test that {@link ServiceEnterprise#create(Enterprise)} generate properly the sign up date.
+	 * @throws NullPointerException is not expected.
+	 * @throws IllegalArgumentException is not expected.
+	 */
+	@Test
+	public final void testCreateEnterpriseGenerateSignUpDate() throws NullPointerException, IllegalArgumentException {
+		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
+		assertNull("Sign Up Date should not yet be initialized", enterprise.getSignUpDate());
+		service.create(enterprise);
+		assertNotNull("Sign Up Date should be initialized", enterprise.getSignUpDate());
+		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
+		assertEquals("Sign Up Date should be like ZonedDateTime.now()", ZonedDateTime.now().format(formatter), 
+				enterprise.getSignUpDate().format(formatter));
 	}
 
 	/**

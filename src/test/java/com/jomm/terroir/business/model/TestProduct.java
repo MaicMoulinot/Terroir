@@ -7,9 +7,6 @@ import java.time.ZonedDateTime;
 
 import org.junit.Test;
 
-import com.jomm.terroir.business.model.Product;
-import com.jomm.terroir.business.model.Site;
-
 /**
  * This class is a Junit test case testing the methods of {@link Product}.
  * @author Maic
@@ -68,7 +65,6 @@ public class TestProduct {
 		product.setQuantity(10);
 		product.setSite(TestSite.generateSiteWithIdNull());
 		product.setTitle("Title");
-		product.setRegistrationDate(ZonedDateTime.now());
 		return product;
 	}
 }

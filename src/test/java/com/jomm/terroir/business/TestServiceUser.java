@@ -2,7 +2,10 @@ package com.jomm.terroir.business;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -12,7 +15,9 @@ import org.junit.runners.Parameterized.Parameters;
 import org.mockito.Mockito;
 
 import com.jomm.terroir.business.model.AbstractUser;
+import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.TestAbstractUser;
+import com.jomm.terroir.business.model.TestCustomer;
 import com.jomm.terroir.dao.DaoAdmin;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
@@ -62,6 +67,22 @@ public class TestServiceUser {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		user.setId((long) 52);
 		service.create(user);
+	}
+	
+	/**
+	 * Test that {@link ServiceUser#create(Customer)} generate properly the sign up date.
+	 * @throws NullPointerException is not expected.
+	 * @throws IllegalArgumentException is not expected.
+	 */
+	@Test
+	public final void testCreateCustomerGenerateSignUpDate() throws NullPointerException, IllegalArgumentException {
+		Customer customer = TestCustomer.generateCustomerWithIdNull();
+		assertNull("Sign Up Date should not yet be initialized", customer.getSignUpDate());
+		service.create(customer);
+		assertNotNull("Sign Up Date should be initialized", customer.getSignUpDate());
+		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
+		assertEquals("Sign Up Date should be like ZonedDateTime.now()", ZonedDateTime.now().format(formatter), 
+				customer.getSignUpDate().format(formatter));
 	}
 
 	/**
