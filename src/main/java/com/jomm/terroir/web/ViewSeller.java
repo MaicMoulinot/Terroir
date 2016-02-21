@@ -56,7 +56,7 @@ public class ViewSeller extends ViewUser {
 			message = new FacesMessage(resourceMessage.getString(USER_REGISTRED), null);
 		} catch (NullPointerException exception) {
 			message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
-		} catch (IllegalStateException exception) {
+		} catch (IllegalArgumentException exception) {
 			message = new FacesMessage(resourceError.getString(ID_NOT_NULL), exception.getMessage());
 		} finally {
 			facesContext.addMessage(null, message);

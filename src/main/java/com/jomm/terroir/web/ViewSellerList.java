@@ -84,7 +84,7 @@ public class ViewSellerList {
 				message = new FacesMessage(resourceMessage.getString(UPDATE_OK), detail);
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
-			} catch (IllegalStateException exception) {
+			} catch (IllegalArgumentException exception) {
 				message = new FacesMessage(resourceError.getString(ID_NULL), exception.getMessage());
 			} finally {
 				facesContext.addMessage(null, message);
@@ -116,7 +116,7 @@ public class ViewSellerList {
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(resourceError.getString(USER_NULL), seller.getUserName() 
 						+ ", " + seller.getId() + ":" + exception.getMessage());
-			} catch (IllegalStateException exception) {
+			} catch (IllegalArgumentException exception) {
 				message = new FacesMessage(resourceError.getString(ID_NULL), seller.getUserName() 
 						+ ":" + exception.getMessage());
 			} finally {

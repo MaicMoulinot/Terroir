@@ -24,22 +24,22 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	private DaoEnterprise enterpriseDao;
 
 	@Override
-	public Enterprise create(Enterprise enterprise) throws NullPointerException, IllegalStateException {
+	public Enterprise create(Enterprise enterprise) throws NullPointerException, IllegalArgumentException {
 		if (enterprise == null) {
 			throw new NullPointerException();
 		} else if (enterprise.getId() != null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		enterprise.setSignUpDate(ZonedDateTime.now());
 		return enterpriseDao.create(enterprise);
 	}
 	
 	@Override
-	public Enterprise update(Enterprise enterprise) throws NullPointerException, IllegalStateException {
+	public Enterprise update(Enterprise enterprise) throws NullPointerException, IllegalArgumentException {
 		if (enterprise == null) {
 			throw new NullPointerException();
 		} else if (enterprise.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		return enterpriseDao.update(enterprise);
 	}
@@ -55,11 +55,11 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
-	public void delete(Enterprise enterprise) throws NullPointerException, IllegalStateException {
+	public void delete(Enterprise enterprise) throws NullPointerException, IllegalArgumentException {
 		if (enterprise == null) {
 			throw new NullPointerException();
 		} else if (enterprise.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		enterpriseDao.delete(enterprise);
 	}

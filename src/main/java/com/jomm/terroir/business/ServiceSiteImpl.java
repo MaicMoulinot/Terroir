@@ -23,21 +23,21 @@ public class ServiceSiteImpl implements ServiceSite {
 	private DaoSite siteDao;
 
 	@Override
-	public Site create(Site site) throws NullPointerException, IllegalStateException {
+	public Site create(Site site) throws NullPointerException, IllegalArgumentException {
 		if (site == null) {
 			throw new NullPointerException();
 		} else if (site.getId() != null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		return siteDao.create(site);
 	}
 	
 	@Override
-	public Site update(Site site) throws NullPointerException, IllegalStateException {
+	public Site update(Site site) throws NullPointerException, IllegalArgumentException {
 		if (site == null) {
 			throw new NullPointerException();
 		} else if (site.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		return siteDao.update(site);
 	}
@@ -53,11 +53,11 @@ public class ServiceSiteImpl implements ServiceSite {
 	}
 	
 	@Override
-	public void delete(Site site) throws NullPointerException, IllegalStateException {
+	public void delete(Site site) throws NullPointerException, IllegalArgumentException {
 		if (site == null) {
 			throw new NullPointerException();
 		} else if (site.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		siteDao.delete(site);
 	}

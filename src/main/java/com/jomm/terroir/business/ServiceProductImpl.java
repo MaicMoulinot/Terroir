@@ -24,22 +24,22 @@ public class ServiceProductImpl implements ServiceProduct {
 	private DaoProduct productDao;
 
 	@Override
-	public Product create(Product product) throws NullPointerException, IllegalStateException {
+	public Product create(Product product) throws NullPointerException, IllegalArgumentException {
 		if (product == null) {
 			throw new NullPointerException();
 		} else if (product.getId() != null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		product.setRegistrationDate(ZonedDateTime.now());
 		return productDao.create(product);
 	}
 	
 	@Override
-	public Product update(Product product) throws NullPointerException, IllegalStateException {
+	public Product update(Product product) throws NullPointerException, IllegalArgumentException {
 		if (product == null) {
 			throw new NullPointerException();
 		} else if (product.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		return productDao.update(product);
 	}
@@ -55,11 +55,11 @@ public class ServiceProductImpl implements ServiceProduct {
 	}
 	
 	@Override
-	public void delete(Product product) throws NullPointerException, IllegalStateException {
+	public void delete(Product product) throws NullPointerException, IllegalArgumentException {
 		if (product == null) {
 			throw new NullPointerException();
 		} else if (product.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		productDao.delete(product);
 	}

@@ -37,7 +37,7 @@ public class TestServiceProductImpl {
 		try {
 			service.create(TestProduct.generateProductWithIdNull());
 			verify(dao).create(any(Product.class)); // validate that dao.create() was called
-		} catch (IllegalStateException | NullPointerException unexpectedException) {
+		} catch (IllegalArgumentException | NullPointerException unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -52,7 +52,7 @@ public class TestServiceProductImpl {
 		try {
 			service.update(product);
 			verify(dao).update(any(Product.class)); // validate that dao.update() was called
-		} catch (IllegalStateException | NullPointerException unexpectedException) {
+		} catch (IllegalArgumentException | NullPointerException unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -67,7 +67,7 @@ public class TestServiceProductImpl {
 		try {
 			service.delete(product);
 			verify(dao).delete(any(Product.class)); // validate that dao.delete() was called
-		} catch (NullPointerException | IllegalStateException unexpectedException) {
+		} catch (NullPointerException | IllegalArgumentException unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}

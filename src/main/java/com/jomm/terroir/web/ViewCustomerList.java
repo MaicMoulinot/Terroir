@@ -83,7 +83,7 @@ public class ViewCustomerList {
 				message = new FacesMessage(resourceMessage.getString(UPDATE_OK), detail);
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
-			} catch (IllegalStateException exception) {
+			} catch (IllegalArgumentException exception) {
 				message = new FacesMessage(resourceError.getString(ID_NULL), exception.getMessage());
 			} finally {
 				facesContext.addMessage(null, message);
@@ -115,7 +115,7 @@ public class ViewCustomerList {
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(resourceError.getString(USER_NULL), customer.getUserName() 
 						+ ", " + customer.getId() + ":" + exception.getMessage());
-			} catch (IllegalStateException exception) {
+			} catch (IllegalArgumentException exception) {
 				message = new FacesMessage(resourceError.getString(ID_NULL), customer.getUserName() 
 						+ ":" + exception.getMessage());
 			} finally {

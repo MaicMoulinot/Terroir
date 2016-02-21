@@ -40,45 +40,45 @@ public class TestServiceEnterprise {
 	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link NullPointerException}
 	 * when entity is null.
 	 * @throws NullPointerException is expected.
-	 * @throws IllegalStateException is not expected.
+	 * @throws IllegalArgumentException is not expected.
 	 */
 	@Test(expected = NullPointerException.class)
-	public final void testCreateWithEntityNull() throws NullPointerException, IllegalStateException {
+	public final void testCreateWithEntityNull() throws NullPointerException, IllegalArgumentException {
 		service.create(null);
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link IllegalStateException}
+	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link IllegalArgumentException}
 	 * when entity's id is not null.
 	 * @throws NullPointerException is not expected.
-	 * @throws IllegalStateException is expected.
+	 * @throws IllegalArgumentException is expected.
 	 */
-	@Test(expected = IllegalStateException.class)
-	public final void testCreateWithEntityIdNotNull() throws NullPointerException, IllegalStateException {
+	@Test(expected = IllegalArgumentException.class)
+	public final void testCreateWithEntityIdNotNull() throws NullPointerException, IllegalArgumentException {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId((long) 52);
 		service.create(enterprise);
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalStateException}
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalArgumentException}
 	 * when entity is null.
 	 * @throws NullPointerException is expected.
-	 * @throws IllegalStateException is not expected.
+	 * @throws IllegalArgumentException is not expected.
 	 */
 	@Test(expected = NullPointerException.class)
-	public final void testUpdateWithEntityNull() throws NullPointerException, IllegalStateException {
+	public final void testUpdateWithEntityNull() throws NullPointerException, IllegalArgumentException {
 		service.update(null);
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalStateException}
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalArgumentException}
 	 * when entity's id is null.
 	 * @throws NullPointerException is not expected.
-	 * @throws IllegalStateException is expected.
+	 * @throws IllegalArgumentException is expected.
 	 */
-	@Test(expected = IllegalStateException.class)
-	public final void testUpdateWithEntityIdNull() throws NullPointerException, IllegalStateException {
+	@Test(expected = IllegalArgumentException.class)
+	public final void testUpdateWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		service.update(enterprise);
 	}
@@ -87,21 +87,21 @@ public class TestServiceEnterprise {
 	 * Test that {@link ServiceEnterprise#delete(Enterprise)} throws an {@link NullPointerException}
 	 * when entity is null.
 	 * @throws NullPointerException is expected.
-	 * @throws IllegalStateException is not expected.
+	 * @throws IllegalArgumentException is not expected.
 	 */
 	@Test(expected = NullPointerException.class)
-	public final void testDeleteWithEntityNull() throws NullPointerException, IllegalStateException {
+	public final void testDeleteWithEntityNull() throws NullPointerException, IllegalArgumentException {
 		service.delete(null);
 	}
 	
 	/**
-	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalStateException}
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalArgumentException}
 	 * when entity's id is null.
 	 * @throws NullPointerException is not expected.
-	 * @throws IllegalStateException is expected.
+	 * @throws IllegalArgumentException is expected.
 	 */
-	@Test(expected = IllegalStateException.class)
-	public final void testDeleteWithEntityIdNull() throws NullPointerException, IllegalStateException {
+	@Test(expected = IllegalArgumentException.class)
+	public final void testDeleteWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		service.delete(enterprise);
 	}

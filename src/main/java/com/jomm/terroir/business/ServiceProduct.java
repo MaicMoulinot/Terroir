@@ -15,18 +15,18 @@ public interface ServiceProduct {
 	 * @param product the {@link Product} to create.
 	 * @return the persisted product.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is not null.
+	 * @throws IllegalArgumentException if the id is not null.
 	 */
-	public Product create(Product product) throws NullPointerException, IllegalStateException;
+	public Product create(Product product) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Update a product.
 	 * @param product the {@link Product} to update.
 	 * @return the updated product.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is null.
+	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public Product update(Product product) throws NullPointerException, IllegalStateException;
+	public Product update(Product product) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Fetch the list of all products.
@@ -38,7 +38,7 @@ public interface ServiceProduct {
 	 * Delete a product.
 	 * @param product the {@link Product} to delete.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is null.
+	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public void delete(Product product) throws NullPointerException, IllegalStateException;
+	public void delete(Product product) throws NullPointerException, IllegalArgumentException;
 }

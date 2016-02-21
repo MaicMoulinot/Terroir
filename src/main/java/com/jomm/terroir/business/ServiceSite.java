@@ -15,18 +15,18 @@ public interface ServiceSite {
 	 * @param site the {@link Site} to create.
 	 * @return the persisted site.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is not null.
+	 * @throws IllegalArgumentException if the id is not null.
 	 */
-	public Site create(Site site) throws NullPointerException, IllegalStateException;
+	public Site create(Site site) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Update a site.
 	 * @param site the {@link Site} to update.
 	 * @return the updated site.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is null.
+	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public Site update(Site site) throws NullPointerException, IllegalStateException;
+	public Site update(Site site) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Fetch the list of all sites.
@@ -38,7 +38,7 @@ public interface ServiceSite {
 	 * Delete a site.
 	 * @param site the {@link Site} to delete.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is null.
+	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public void delete(Site site) throws NullPointerException, IllegalStateException;
+	public void delete(Site site) throws NullPointerException, IllegalArgumentException;
 }

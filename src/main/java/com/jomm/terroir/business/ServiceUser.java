@@ -18,18 +18,18 @@ public interface ServiceUser {
 	 * @param user the {@link AbstractUser} to create.
 	 * @return the persisted AbstractUser.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is not null.
+	 * @throws IllegalArgumentException if the id is not null.
 	 */
-	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalStateException;
+	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Update an user.
 	 * @param user the {@link AbstractUser} to update.
 	 * @return the updated AbstractUser.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is null.
+	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public AbstractUser update(AbstractUser user) throws NullPointerException, IllegalStateException;
+	public AbstractUser update(AbstractUser user) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Fetch the list of all admins.
@@ -53,9 +53,9 @@ public interface ServiceUser {
 	 * Delete an user.
 	 * @param user the {@link AbstractUser} to delete.
 	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalStateException if the id is null.
+	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public void delete(AbstractUser user) throws NullPointerException, IllegalStateException;
+	public void delete(AbstractUser user) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Check if the user name already exists.

@@ -43,11 +43,11 @@ public class ServiceUserImpl implements ServiceUser {
 	private DaoSeller sellerDao;
 
 	@Override
-	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalStateException {
+	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalArgumentException {
 		if (user == null) {
 			throw new NullPointerException();
 		} else if (user.getId() != null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		if (user instanceof Customer) {
 			((Customer) user).setSignUpDate(ZonedDateTime.now());
@@ -56,21 +56,21 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
-	public AbstractUser update(AbstractUser user) throws NullPointerException, IllegalStateException {
+	public AbstractUser update(AbstractUser user) throws NullPointerException, IllegalArgumentException {
 		if (user == null) {
 			throw new NullPointerException();
 		} else if (user.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		return userDao.update(user);
 	}
 	
 	@Override
-	public void delete(AbstractUser user) throws NullPointerException, IllegalStateException {
+	public void delete(AbstractUser user) throws NullPointerException, IllegalArgumentException {
 		if (user == null) {
 			throw new NullPointerException();
 		} else if (user.getId() == null) {
-			throw new IllegalStateException();
+			throw new IllegalArgumentException();
 		}
 		userDao.delete(user);
 	}
