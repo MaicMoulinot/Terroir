@@ -53,7 +53,6 @@ public class ViewCustomer extends ViewUser {
 
 	@Override
 	public String create() {
-		setSignUpDate(ZonedDateTime.now());
 		FacesMessage message = null;
 		try {
 			userService.create(convertIntoEntity());

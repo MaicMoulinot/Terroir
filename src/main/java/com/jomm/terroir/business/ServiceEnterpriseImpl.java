@@ -1,5 +1,6 @@
 package com.jomm.terroir.business;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import javax.ejb.Stateless;
@@ -29,6 +30,7 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 		} else if (enterprise.getId() != null) {
 			throw new IllegalStateException();
 		}
+		enterprise.setSignUpDate(ZonedDateTime.now());
 		return enterpriseDao.create(enterprise);
 	}
 	

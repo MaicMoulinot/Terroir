@@ -1,5 +1,6 @@
 package com.jomm.terroir.business;
 
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import javax.ejb.Stateless;
@@ -29,6 +30,7 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() != null) {
 			throw new IllegalStateException();
 		}
+		product.setRegistrationDate(ZonedDateTime.now());
 		return productDao.create(product);
 	}
 	

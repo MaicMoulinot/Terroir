@@ -1,5 +1,6 @@
 package com.jomm.terroir.business;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -47,6 +48,9 @@ public class ServiceUserImpl implements ServiceUser {
 			throw new NullPointerException();
 		} else if (user.getId() != null) {
 			throw new IllegalStateException();
+		}
+		if (user instanceof Customer) {
+			((Customer) user).setSignUpDate(ZonedDateTime.now());
 		}
 		return userDao.create(user);
 	}
