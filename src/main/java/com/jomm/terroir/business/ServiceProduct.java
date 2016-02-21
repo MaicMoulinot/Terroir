@@ -11,7 +11,7 @@ import com.jomm.terroir.business.model.Product;
 public interface ServiceProduct {
 	
 	/**
-	 * Create a product.
+	 * Create a product and generate its <code>registrationDate</code>.
 	 * @param product the {@link Product} to create.
 	 * @return the persisted product.
 	 * @throws NullPointerException if the entity is null.

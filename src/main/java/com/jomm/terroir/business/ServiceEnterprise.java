@@ -11,7 +11,7 @@ import com.jomm.terroir.business.model.Enterprise;
 public interface ServiceEnterprise {
 	
 	/**
-	 * Create an enterprise.
+	 * Create an enterprise and generate its <code>signUpDate</code>.
 	 * @param enterprise the {@link Enterprise} to create.
 	 * @return the persisted enterprise.
 	 * @throws NullPointerException if the entity is null.

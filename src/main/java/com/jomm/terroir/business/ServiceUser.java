@@ -15,6 +15,7 @@ public interface ServiceUser {
 	
 	/**
 	 * Create an user.
+	 * If the user is a {@link Customer}, it generates its <code>signUpDate</code>.
 	 * @param user the {@link AbstractUser} to create.
 	 * @return the persisted AbstractUser.
 	 * @throws NullPointerException if the entity is null.
