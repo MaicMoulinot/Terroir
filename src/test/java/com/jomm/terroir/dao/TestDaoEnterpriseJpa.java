@@ -22,7 +22,8 @@ import com.jomm.terroir.business.model.TestEnterprise;
  */
 public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 	
-	private static int LIST_INITIAL_SIZE = 2; // From UtilData.INSERT_BASIC_DATA
+	private static final int LIST_INITIAL_SIZE = 2; // From UtilData.INSERT_BASIC_DATA
+	private static final long NON_EXISTING_ENTITY_ID = 999999; // From UtilData.INSERT_BASIC_DATA
 
 	/**
 	 * @throws java.lang.Exception
@@ -46,31 +47,31 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
-			dao.setEntityManager(entityManager);
+			dao.setEntityManager(UtilEntityManager.prepareEntityManager());
 			entity = TestEnterprise.generateEnterpriseWithIdNull();
 
-			Long initialId = entity.getId();
-			assertNull("Before persistence, id should be null", initialId);
+			assertNull("Before persistence, id should be null", entity.getId());
 
 			// FindAll
 			assertNotNull("Before persistence, the list should not be null", dao.findAll());
-			assertEquals("Before persistence, the list's size should be ", LIST_INITIAL_SIZE, dao.findAll().size());
-
+			assertEquals("Before persistence, the list's size should be", LIST_INITIAL_SIZE, dao.findAll().size());
+			
 			// Create
 			UtilEntityManager.beginTransaction();
-			Long persistedId = dao.create(entity).getId();
+			entity = dao.create(entity);
+			Long persistedId = entity.getId();
 			UtilEntityManager.commit();
 			assertNotNull("After persistence, id should not be null", persistedId);
+			
 			// FindAll
-			assertEquals("After persistence, the list's size should be ", LIST_INITIAL_SIZE+1, dao.findAll().size());
+			assertEquals("After persistence, the list's size should be", LIST_INITIAL_SIZE+1, dao.findAll().size());
 
 			// FindById
 			Enterprise persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
 			assertEquals("After persistence, properties should be equal", entity.getLegalName(), 
 					persistedEntity.getLegalName());
-			assertNull("Entity with id=999999 should be null", dao.find((long) 999999));
+			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
 
 			// Update
 			String initialValue = persistedEntity.getLegalName();
@@ -79,18 +80,26 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			assertNotEquals("Values should not match", initialValue, updatedValue);
 
 			// DeleteById
+			UtilEntityManager.beginTransaction();
 			dao.deleteById(persistedId);
+			UtilEntityManager.commit();
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
-			// Delete
+			// Create
+			entity = TestEnterprise.generateEnterpriseWithIdNull();
+			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
+			assertNotNull("After Create, id should not be null", entity.getId());
+			
+			// Delete
 			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
 			dao.delete(entity);
 			UtilEntityManager.commit();
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
+			
 			// FindAll
-			assertEquals("After DeleteById, the list's size should be ", LIST_INITIAL_SIZE, dao.findAll().size());
+			assertEquals("After Delete, the list's size should be", LIST_INITIAL_SIZE, dao.findAll().size());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

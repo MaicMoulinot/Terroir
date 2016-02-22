@@ -44,7 +44,7 @@ public class TestSeller {
 		seller.setLastName("LastName");
 		seller.setUserName("UserName");
 		seller.setUserPassword("UserPassword");
-		seller.setEnterprise(new Enterprise());
+		seller.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		return seller;
 	}
 }
