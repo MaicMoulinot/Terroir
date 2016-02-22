@@ -73,11 +73,13 @@ public class TestServiceProduct {
 	public final void testCreateProductGenerateRegistrationDate() throws NullPointerException, IllegalArgumentException {
 		Product product = TestProduct.generateProductWithIdNull();
 		assertNull("RegistrationDate should not yet be initialized", product.getRegistrationDate());
+		ZonedDateTime now = ZonedDateTime.now();
 		service.create(product);
-		assertNotNull("RegistrationDate should be initialized", product.getRegistrationDate());
+		ZonedDateTime entityDate = product.getRegistrationDate();
+		assertNotNull("RegistrationDate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
-		assertEquals("RegistrationDate should be like ZonedDateTime.now()", ZonedDateTime.now().format(formatter), 
-				product.getRegistrationDate().format(formatter));
+		assertEquals("RegistrationDate should be like ZonedDateTime.now()", now.format(formatter), 
+				entityDate.format(formatter));
 	}
 
 	/**
