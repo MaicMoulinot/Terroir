@@ -16,8 +16,11 @@ import org.hibernate.Transaction;
 import org.hibernate.jdbc.Work;
 
 /**
- * This abstract Class is a test-specific utility exposing the {@link EntityManager} and related methods to all DAO test cases.
+ * This abstract Class is a test-specific utility exposing the {@link EntityManager} 
+ * and related methods to all DAO test cases.
  * It cannot be instantiated and all methods are <code>static</code>.
+ * The related Persistence Unit has a <code>transaction-type="RESOURCE_LOCAL"</code>,
+ * implying the explicit use of <code>session.beginTransaction()<code> and <code>transaction.commit()</code>.
  * @author Maic
  */
 public abstract class UtilEntityManager {
@@ -49,6 +52,7 @@ public abstract class UtilEntityManager {
 			entityManager = entityManagerFactory.createEntityManager();
 			setConnection();
 		}
+		// Get EntityManager
 		return entityManager;
 	}
 
