@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
@@ -20,9 +21,10 @@ import com.jomm.terroir.util.BundleError;
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link BundleError} messages,
  * and to {@link Pattern} to define a correct password pattern.
- * It is annotated {@link Named} for proper access from/to the view pages.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages.
  * @author Maic
  */
+//@FacesValidator(value = "validatorPassword")
 @Named
 public class ValidatorPassword implements Validator {
 
@@ -32,10 +34,10 @@ public class ValidatorPassword implements Validator {
 	public static final String FIELD_MANDATORY = "mandatory";
 	public static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
 	public static final String PASSWORD_RULES = "passwordrules";
-	
+
 	@Inject
 	@BundleError
-    private ResourceBundle resource;
+	private ResourceBundle resource;
 
 	// Pattern for password
 	public static final Pattern PASSWORD_PATTERN = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
@@ -48,36 +50,39 @@ public class ValidatorPassword implements Validator {
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		try {
-			String password1 = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER)).getValue();
-			String password2 = (String) value;
-			if (password1 == null || password1.isEmpty() || password2 == null || password2.isEmpty()) {
-				// One password at least is lacking
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(FIELD_MANDATORY), null));
-			} else if (!password2.equals(password1)) {
-				// Passwords don't match
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORDS_DONT_MATCH), null));
-			} else {
-				// Password doesn't match pattern
-				if (!PASSWORD_PATTERN.matcher(password1).matches()) {
-					throw new ValidatorException(
-							new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORD_TOO_SIMPLE), 
-									resource.getString(PASSWORD_RULES)));
-				}
-			}
-		} catch(Exception exception) {
+		// Retrieve password1
+		String password1 = null;
+		if (component != null && component.getAttributes().get(PASSWORD_PARAMETER) != null) {
+			password1 = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER)).getValue();
+		}
+		// Retrieve password2
+		String password2 = null;
+		if (value != null) {
+			password2 = (String) value;
+		}
+		if (password1 == null || password1.isEmpty() || password2 == null || password2.isEmpty()) {
+			// One password at least is lacking
 			throw new ValidatorException(
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(FIELD_MANDATORY), null));
+		} else if (!password2.equals(password1)) {
+			// Passwords don't match
+			throw new ValidatorException(
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORDS_DONT_MATCH), null));
+		} else {
+			// Password doesn't match pattern
+			if (!PASSWORD_PATTERN.matcher(password1).matches()) {
+				throw new ValidatorException(
+						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORD_TOO_SIMPLE), 
+								resource.getString(PASSWORD_RULES)));
+			}
 		}
 	}
-	
-    /**
-     * This method is used for Junit testing only.
-     * @param resource {@link ResourceBundle} the resource to set.
-     */
-    public void setResourceBundle(ResourceBundle resource) {
-    	this.resource = resource;
-    }
+
+	/**
+	 * This method is used for Junit testing only.
+	 * @param resource {@link ResourceBundle} the resource to set.
+	 */
+	public void setResourceBundle(ResourceBundle resource) {
+		this.resource = resource;
+	}
 }

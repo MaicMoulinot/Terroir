@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
@@ -20,9 +21,10 @@ import com.jomm.terroir.util.BundleError;
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link BundleError} messages,
  * and to {@link ServiceUser} to check if the user name is already in use.
- * It is annotated {@link Named} for proper access from/to the view pages.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages.
  * @author Maic
  */
+//@FacesValidator(value = "validatorUsername")
 @Named
 public class ValidatorUsername implements Validator {
 
@@ -32,16 +34,16 @@ public class ValidatorUsername implements Validator {
 
 	@Inject
 	private ServiceUser userService;
-	
+
 	@Inject
 	@BundleError
 	private ResourceBundle resource;
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		try {
+		if (value != null) {
 			String userName = (String) value;
-			if (userName != null && !userName.isEmpty()) {
+			if (!userName.isEmpty()) {
 				// Minimum length = 6
 				if (userName.length() < 6) {
 					throw new ValidatorException(
@@ -56,17 +58,14 @@ public class ValidatorUsername implements Validator {
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
 				}
 			}
-		} catch (Exception exception) {
-			throw new ValidatorException(
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, exception.getMessage(), null));
 		}
 	}
-    
-    /**
-     * This method is used for Junit testing only.
-     * @param resource {@link ResourceBundle} the resource to set.
-     */
-    public void setResourceBundle(ResourceBundle resource) {
-    	this.resource = resource;
-    }
+
+	/**
+	 * This method is used for Junit testing only.
+	 * @param resource {@link ResourceBundle} the resource to set.
+	 */
+	public void setResourceBundle(ResourceBundle resource) {
+		this.resource = resource;
+	}
 }
