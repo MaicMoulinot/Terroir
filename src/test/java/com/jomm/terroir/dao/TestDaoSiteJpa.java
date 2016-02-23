@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.junit.Before;
@@ -56,8 +58,9 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			assertNull("Before persistence, id should be null", entity.getId());
 
 			// FindAll
-			assertNotNull("Before persistence, the list should not be null", dao.findAll());
-			assertEquals("Before persistence, the list's size should be", LIST_INITIAL_SIZE, dao.findAll().size());
+			List<Site> list = dao.findAll();
+			assertNotNull("Before persistence, the list should not be null", list);
+			assertEquals("Before persistence, the list's size should be", LIST_INITIAL_SIZE, list.size());
 			
 			// Retrieve an Enterprise from DataBase
 			Enterprise enterprise = findEnterpriseFromDataBase(entityManager);
