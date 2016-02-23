@@ -7,7 +7,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
@@ -21,10 +20,11 @@ import com.jomm.terroir.util.BundleError;
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link BundleError} messages,
  * and to {@link Pattern} to define a correct password pattern.
- * It is annotated {@link FacesValidator} for proper access from/to the view pages.
+ * It is annotated {@link Named} for proper access from/to the view pages, with
+ * <code>f:validator binding="#{validatorPassword}"</code>. It is not yet annotated 
+ * {@link javax.faces.validator.FacesValidator} because validators are not injection targets in JSF2.2.
  * @author Maic
  */
-//@FacesValidator(value = "validatorPassword")
 @Named
 public class ValidatorPassword implements Validator {
 

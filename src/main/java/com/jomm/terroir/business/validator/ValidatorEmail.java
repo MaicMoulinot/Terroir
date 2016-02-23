@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
@@ -23,10 +22,11 @@ import com.jomm.terroir.util.BundleError;
  * It relates to {@link ResourceBundle} to get proper {@link BundleError} messages,
  * to {@link Pattern} to define a correct email pattern,
  * and to {@link ServiceUser} to check if the email is already in use.
- * It is annotated {@link FacesValidator} for proper access from/to the view pages.
+ * It is annotated {@link Named} for proper access from/to the view pages, with
+ * <code>f:validator binding="#{validatorEmail}"</code>. It is not yet annotated 
+ * {@link javax.faces.validator.FacesValidator} because validators are not injection targets in JSF2.2.
  * @author Maic
  */
-//@FacesValidator(value = "validatorEmail")
 @Named
 public class ValidatorEmail implements Validator {
 
