@@ -2,7 +2,6 @@ package com.jomm.terroir.web;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
@@ -72,7 +71,7 @@ public class ViewCustomer extends ViewUser {
 	 * @return "minYear:maxYear"
 	 */
 	public String generateYearRange() {
-		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		int currentYear = LocalDate.now().getYear();
 		int minYear = currentYear - 97;
 		int maxYear = currentYear - 17;
 		return minYear + ":" + maxYear;
