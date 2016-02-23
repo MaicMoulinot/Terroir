@@ -6,7 +6,7 @@
 	<display-name>terroirWA</display-name>
 
 	<welcome-file-list>
-		<welcome-file>userlist.xhtml</welcome-file>
+		<welcome-file>customerlist.xhtml</welcome-file>
 	</welcome-file-list>
 
 	<context-param>
