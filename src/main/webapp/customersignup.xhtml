@@ -44,7 +44,7 @@
 					value="#{label.usernametooltip}" />
 				<p:inputText id="username" value="#{viewCustomer.userName}"
 					required="true" requiredMessage="#{error.mandatory}">
-					<f:validator binding="#{usernameValidator}" />
+					<f:validator binding="#{validatorUsername}" />
 					<p:ajax event="blur" update="usernameMessage" />
 				</p:inputText>
 				<p:message id="usernameMessage" for="username" display="text" />
@@ -53,7 +53,7 @@
 				<p:spacer />
 				<p:inputText id="email" value="#{viewCustomer.email}" required="true"
 					requiredMessage="#{error.mandatory}">
-					<f:validator binding="#{emailValidator}" />
+					<f:validator binding="#{validatorEmail}" />
 					<p:ajax event="blur" execute="email" update="emailMessage" />
 				</p:inputText>
 				<p:message id="emailMessage" for="email" display="text" />
@@ -88,7 +88,7 @@
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
 					<f:attribute name="passwordParam" value="#{passwordParam}" />
-					<f:validator binding="#{passwordValidator}" />
+					<f:validator binding="#{validatorPassword}" />
 					<p:ajax event="blur" execute="password1 password2"
 						update="password1Message password2Message" />
 				</p:password>
