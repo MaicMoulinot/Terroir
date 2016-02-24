@@ -48,6 +48,8 @@
 
     create table tr_image (
         image_id bigint not null,
+        title varchar(255),
+        description varchar(255),
         image blob,
         primary key (image_id)
     );

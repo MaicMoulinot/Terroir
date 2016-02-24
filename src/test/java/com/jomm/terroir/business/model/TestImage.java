@@ -1,11 +1,10 @@
 package com.jomm.terroir.business.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+
+import java.awt.image.BufferedImage;
 
 import org.junit.Test;
-
-import com.jomm.terroir.business.model.Image;
 
 /**
  * This class is a Junit test case testing the methods of {@link Image}.
@@ -20,13 +19,25 @@ public class TestImage {
 	public final void testGetterSetter() {
 		Image image = new Image();
 		Long nb = (long) 0;
+		String test = "test";
 		
 		// Id
 		image.setId(nb);
 		assertEquals("Id should be " + nb, nb, image.getId());
 		
-		// Blob
-		// TODO fail("Blob: Not yet implemented"); 
+		// Title
+		image.setTitle(test);
+		assertEquals("Title should be " + test, test, image.getTitle());
+		
+		// Description
+		image.setDescription(test);
+		assertEquals("Description should be " + test, test, image.getDescription());
+		
+		// BufferedImage
+		BufferedImage bufferedImage = new BufferedImage(10, 10, BufferedImage.TRANSLUCENT);
+		image.setBufferedImage(bufferedImage);
+		assertEquals("BufferedImage should be " + bufferedImage, bufferedImage, image.getBufferedImage());
+		bufferedImage = null; // Available for Garbage Collector
 		
 		image = null; // Available for Garbage Collector
 	}

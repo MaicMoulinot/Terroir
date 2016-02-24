@@ -1,5 +1,6 @@
 package com.jomm.terroir.business.model;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.sql.Blob;
 
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * This Class is an {@link Entity} representing an image.
@@ -33,8 +35,15 @@ public class Image implements Serializable {
 	@Column(name = "image_id")
 	private Long id;
 	
+	@NotNull
+	private String title;
+	
+	private String description;
+	
 	@Lob
-	private Blob image;
+	@NotNull
+	@Column(name = "image_data")
+	private BufferedImage imageData;
 	
 	// Getters and Setters
 	/**
@@ -52,16 +61,44 @@ public class Image implements Serializable {
 	}
 
 	/**
-	 * @return the image
+	 * @return the title
 	 */
-	public Blob getImage() {
-		return image;
+	public String getTitle() {
+		return title;
 	}
 
 	/**
-	 * @param image the image to set
+	 * @param title the title to set
 	 */
-	public void setImage(Blob image) {
-		this.image = image;
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the imageData
+	 */
+	public BufferedImage getBufferedImage() {
+		return imageData;
+	}
+
+	/**
+	 * @param imageData the imageData to set
+	 */
+	public void setBufferedImage(BufferedImage imageData) {
+		this.imageData = imageData;
 	}
 }
