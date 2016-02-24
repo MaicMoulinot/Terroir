@@ -12,17 +12,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * This Class is the specific Tool for exposing resources using the resource producer pattern.
+ * This Class is a Utility tool exposing resources using the resource producer pattern.
  * It relies on {@link Produces}.
  * @author Maic
  */
-public class Resources {
+public final class Resources {
 	
 	// Constants
 	public static final String BUNDLE_MESSAGE = "i18n.message";
 	public static final String BUNDLE_ERROR = "i18n.error";
 	public static final String BUNDLE_LABEL = "i18n.label";
 
+	/**
+	 * Constructor private to prevent instantiation.
+	 */
+	private Resources() {}
+	
 	/**
 	 * Expose an entity manager using the resource producer pattern
 	 */
@@ -81,4 +86,3 @@ public class Resources {
 		return ResourceBundle.getBundle(BUNDLE_LABEL, Locale.getDefault());
 	}
 }
-
