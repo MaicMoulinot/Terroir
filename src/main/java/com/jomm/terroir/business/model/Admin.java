@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 import com.jomm.terroir.business.ServiceUser;
 
 /**
@@ -27,13 +29,16 @@ public class Admin extends AbstractUser implements Serializable {
 
 	// Attributes
 	@Column(name = "can_read")
-	private boolean canReadData;
+	@Type(type = "yes_no")
+	private Boolean canReadData;
 	
 	@Column(name = "can_update")
-	private boolean canUpdateData;
+	@Type(type = "yes_no")
+	private Boolean canUpdateData;
 	
 	@Column(name = "can_delete")
-	private boolean canDeleteData;
+	@Type(type = "yes_no")
+	private Boolean canDeleteData;
 
 	/**
 	 * No-arg constructor.
@@ -50,42 +55,42 @@ public class Admin extends AbstractUser implements Serializable {
 	/**
 	 * @return the canReadData
 	 */
-	public boolean canReadData() {
+	public Boolean canReadData() {
 		return canReadData;
 	}
 
 	/**
 	 * @param canReadData the canReadData to set
 	 */
-	public void setCanReadData(boolean canReadData) {
+	public void setCanReadData(Boolean canReadData) {
 		this.canReadData = canReadData;
 	}
 
 	/**
 	 * @return the canUpdateData
 	 */
-	public boolean canUpdateData() {
+	public Boolean canUpdateData() {
 		return canUpdateData;
 	}
 
 	/**
 	 * @param canUpdateData the canUpdateData to set
 	 */
-	public void setCanUpdateData(boolean canUpdateData) {
+	public void setCanUpdateData(Boolean canUpdateData) {
 		this.canUpdateData = canUpdateData;
 	}
 
 	/**
 	 * @return the canDeleteData
 	 */
-	public boolean canDeleteData() {
+	public Boolean canDeleteData() {
 		return canDeleteData;
 	}
 
 	/**
 	 * @param canDeleteData the canDeleteData to set
 	 */
-	public void setCanDeleteData(boolean canDeleteData) {
+	public void setCanDeleteData(Boolean canDeleteData) {
 		this.canDeleteData = canDeleteData;
 	}
 }
