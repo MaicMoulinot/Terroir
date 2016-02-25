@@ -23,7 +23,7 @@ import org.hibernate.jdbc.Work;
  * implying the explicit use of <code>session.beginTransaction()<code> and <code>transaction.commit()</code>.
  * @author Maic
  */
-public abstract class UtilEntityManager {
+public final class UtilEntityManager {
 	
 	// Constants
 	private static final String PERSISTENCE_UNIT_TEST = "testPU";
@@ -32,12 +32,19 @@ public abstract class UtilEntityManager {
 	// SQL State is "08006" (one database) or "XJ015" (all databases)
 	private static final String SHUTDOWN_SQL_STATE = "08006";
 
+	private static final EntityManagerFactory entityManagerFactory = 
+			Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
+	
 	// Attributes
 	private static EntityManager entityManager;
-	private static EntityManagerFactory entityManagerFactory;
 	private static Connection connection;
 	private static Transaction transaction;
-
+	
+	/**
+	 * Constructor private to prevent instantiation.
+	 */
+	private UtilEntityManager() {}
+	
 	/**
 	 * Get the {@link EntityManager}.
 	 * If it is null, it is created from the {@link EntityManagerFactory}, and the {@link Connection} is set.
@@ -46,9 +53,6 @@ public abstract class UtilEntityManager {
 	public static EntityManager prepareEntityManager() {
 		// Set EntityManager if null
 		if (entityManager == null) {
-			if (entityManagerFactory == null) {
-				entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
-			}
 			entityManager = entityManagerFactory.createEntityManager();
 			setConnection();
 		}
@@ -88,9 +92,6 @@ public abstract class UtilEntityManager {
 	 * Create the database used for tests. This method should be used before all tests are being run.
 	 */
 	public static void setUp() {
-		// Use test-specific Persistence Unit
-		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
-
 		// Set EntityManager and Connection
 		prepareEntityManager();
 
@@ -124,32 +125,13 @@ public abstract class UtilEntityManager {
 	}
 
 	/**
-	 * Set the Connection using the private class {@link WorkImpl}.
+	 * Set the Connection using a lambda expression.
 	 */
 	private static void setConnection() {
-		WorkImpl work = new WorkImpl();
 		Session session = entityManager.unwrap(Session.class);
+		Work work = (connection) -> {
+			UtilEntityManager.connection = connection;
+			};
 		session.doWork(work);
-		connection = work.getConnection();
-	}
-
-	/**
-	 * Private Class allowing the {@link Session} to retrieve the {@link Connection}.
-	 * It implements {@link Work} and its method <code>execute(Connection)</code>.
-	 * It defines a getter for its private attribute <code>connectionWork</code>.
-	 * @author Maic
-	 */
-	private static class WorkImpl implements Work {
-
-		Connection connectionWork;
-
-		@Override
-		public void execute(Connection connection) throws SQLException {
-			this.connectionWork = connection;
-		}
-
-		Connection getConnection() {
-			return connectionWork;
-		}
 	}
 }
