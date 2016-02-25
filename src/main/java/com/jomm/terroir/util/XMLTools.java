@@ -12,7 +12,7 @@ import java.io.IOException;
  * It relates on the file's path of the {@link Object} to manipulate.
  * @author Maic
  */
-public class XMLTools {
+public final class XMLTools {
 
 	/** No-arg constructor. */
 	private XMLTools() {}

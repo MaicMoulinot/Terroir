@@ -33,7 +33,7 @@ public final class Resources {
 	 */
 	@PersistenceContext(name="terroirPU")
 	@Produces
-	private EntityManager entityManager;
+	private static EntityManager entityManager;
 
 	/**
 	 * Expose the Logger.
