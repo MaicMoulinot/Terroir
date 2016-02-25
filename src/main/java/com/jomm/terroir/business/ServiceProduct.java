@@ -17,7 +17,7 @@ public interface ServiceProduct {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is not null.
 	 */
-	public Product create(Product product) throws NullPointerException, IllegalArgumentException;
+	Product create(Product product) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Update a product.
@@ -26,13 +26,13 @@ public interface ServiceProduct {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public Product update(Product product) throws NullPointerException, IllegalArgumentException;
+	Product update(Product product) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Fetch the list of all products.
 	 * @return a list of all {@link Product}.
 	 */
-	public ArrayList<Product> getAllProducts();
+	ArrayList<Product> getAllProducts();
 	
 	/**
 	 * Delete a product.
@@ -40,5 +40,5 @@ public interface ServiceProduct {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public void delete(Product product) throws NullPointerException, IllegalArgumentException;
+	void delete(Product product) throws NullPointerException, IllegalArgumentException;
 }

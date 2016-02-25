@@ -21,7 +21,7 @@ public interface ServiceUser {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is not null.
 	 */
-	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalArgumentException;
+	AbstractUser create(AbstractUser user) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Update an user.
@@ -30,25 +30,25 @@ public interface ServiceUser {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public AbstractUser update(AbstractUser user) throws NullPointerException, IllegalArgumentException;
+	AbstractUser update(AbstractUser user) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Fetch the list of all admins.
 	 * @return a list of {@link Admin}.
 	 */
-	public List<Admin> getAllAdmins();
+	List<Admin> getAllAdmins();
 	
 	/**
 	 * Fetch the list of all customers.
 	 * @return a list of {@link Customer}.
 	 */
-	public List<Customer> getAllCustomers();
+	List<Customer> getAllCustomers();
 	
 	/**
 	 * Fetch the list of all sellers.
 	 * @return a list of {@link Seller}.
 	 */
-	public List<Seller> getAllSellers();
+	List<Seller> getAllSellers();
 
 	/**
 	 * Delete an user.
@@ -56,7 +56,7 @@ public interface ServiceUser {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public void delete(AbstractUser user) throws NullPointerException, IllegalArgumentException;
+	void delete(AbstractUser user) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Check if the user name already exists.
@@ -64,7 +64,7 @@ public interface ServiceUser {
 	 * @return true if the user name is already in use, false otherwise.
 	 * @throws NullPointerException if userName is null.
 	 */
-	public boolean isExistingUserName(String userName) throws NullPointerException;
+	boolean isExistingUserName(String userName) throws NullPointerException;
 	
 	/**
 	 * Check if the email already exists.
@@ -72,5 +72,5 @@ public interface ServiceUser {
 	 * @return true if email was found, false otherwise.
 	 * @throws NullPointerException if email is null.
 	 */
-	public boolean isExistingEmail(String email) throws NullPointerException;
+	boolean isExistingEmail(String email) throws NullPointerException;
 }

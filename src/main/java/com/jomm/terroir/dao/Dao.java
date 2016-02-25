@@ -16,43 +16,43 @@ public interface Dao<E extends Serializable> {
 	 * @param id {@link Long} the entity's id.
 	 * @return E the {@link javax.persistence.Entity}.
 	 */
-	public E find(Long id);
+	E find(Long id);
 
 	/**
 	 * Fetch all {@link javax.persistence.Entity}.
 	 * @return a list of {@link javax.persistence.Entity}.
 	 */
-	public List<E> findAll();
+	List<E> findAll();
 
 	/**
 	 * Create and persist a new {@link javax.persistence.Entity}.
 	 * @param entity the {@link javax.persistence.Entity}.
 	 * @return the persisted {@link javax.persistence.Entity}.
 	 */
-	public E create(E entity);
+	E create(E entity);
 
 	/**
 	 * Update a previously persisted {@link javax.persistence.Entity}.
 	 * @param entity the {@link javax.persistence.Entity}.
 	 * @return the updated {@link javax.persistence.Entity}.
 	 */
-	public E update(E entity);
+	E update(E entity);
 
 	/**
 	 * Delete an {@link javax.persistence.Entity}.
 	 * @param entity the {@link javax.persistence.Entity}.
 	 */
-	public void delete(E entity);
+	void delete(E entity);
 
 	/**
 	 * Delete an {@link javax.persistence.Entity} using its id.
 	 * @param entityId {@link Long} the entity's id.
 	 */
-	public void deleteById(Long entityId);
+	void deleteById(Long entityId);
 	
 	/**
 	 * Get the {@link javax.persistence.Entity}'s class.
 	 * @return the class of the entity.
 	 */
-	public Class<E> getEntityClass();
+	Class<E> getEntityClass();
 }

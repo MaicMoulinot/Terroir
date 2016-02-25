@@ -17,7 +17,7 @@ public interface ServiceSite {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is not null.
 	 */
-	public Site create(Site site) throws NullPointerException, IllegalArgumentException;
+	Site create(Site site) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Update a site.
@@ -26,13 +26,13 @@ public interface ServiceSite {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public Site update(Site site) throws NullPointerException, IllegalArgumentException;
+	Site update(Site site) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Fetch the list of all sites.
 	 * @return a list of all {@link Site}.
 	 */
-	public ArrayList<Site> getAllSites();
+	ArrayList<Site> getAllSites();
 	
 	/**
 	 * Delete a site.
@@ -40,5 +40,5 @@ public interface ServiceSite {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public void delete(Site site) throws NullPointerException, IllegalArgumentException;
+	void delete(Site site) throws NullPointerException, IllegalArgumentException;
 }

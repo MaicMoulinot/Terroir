@@ -17,7 +17,7 @@ public interface ServiceEnterprise {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is not null.
 	 */
-	public Enterprise create(Enterprise enterprise) throws NullPointerException, IllegalArgumentException;
+	Enterprise create(Enterprise enterprise) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Update an enterprise.
@@ -26,13 +26,13 @@ public interface ServiceEnterprise {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public Enterprise update(Enterprise enterprise) throws NullPointerException, IllegalArgumentException;
+	Enterprise update(Enterprise enterprise) throws NullPointerException, IllegalArgumentException;
 	
 	/**
 	 * Fetch the list of all enterprises.
 	 * @return a list of all {@link Enterprise}.
 	 */
-	public ArrayList<Enterprise> getAllEnterprises();
+	ArrayList<Enterprise> getAllEnterprises();
 	
 	/**
 	 * Delete an enterprise.
@@ -40,5 +40,5 @@ public interface ServiceEnterprise {
 	 * @throws NullPointerException if the entity is null.
 	 * @throws IllegalArgumentException if the id is null.
 	 */
-	public void delete(Enterprise enterprise) throws NullPointerException, IllegalArgumentException;
+	void delete(Enterprise enterprise) throws NullPointerException, IllegalArgumentException;
 }
