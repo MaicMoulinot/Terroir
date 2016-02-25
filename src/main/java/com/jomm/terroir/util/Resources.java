@@ -19,9 +19,9 @@ import javax.persistence.PersistenceContext;
 public final class Resources {
 	
 	// Constants
-	public static final String BUNDLE_MESSAGE = "i18n.message";
-	public static final String BUNDLE_ERROR = "i18n.error";
-	public static final String BUNDLE_LABEL = "i18n.label";
+	private static final String BUNDLE_MESSAGE = "i18n.message";
+	private static final String BUNDLE_ERROR = "i18n.error";
+	private static final String BUNDLE_LABEL = "i18n.label";
 
 	/**
 	 * Constructor private to prevent instantiation.
@@ -41,7 +41,7 @@ public final class Resources {
 	 * @return Logger to use.
 	 */
 	@Produces
-	public Logger getLogger(InjectionPoint ip) {
+	public static Logger getLogger(InjectionPoint ip) {
 		String category = ip.getMember().getDeclaringClass().getName();
 		return Logger.getLogger(category);
 	}
@@ -52,7 +52,7 @@ public final class Resources {
 	 */
 	@Produces
 	@RequestScoped
-	public FacesContext getFacesContext() {
+	public static FacesContext getFacesContext() {
 		return FacesContext.getCurrentInstance();
 	}
 	
@@ -62,7 +62,7 @@ public final class Resources {
 	 */
 	@Produces
 	@BundleMessage
-	public ResourceBundle getResourceBundleMessage() {
+	public static ResourceBundle getResourceBundleMessage() {
 		return ResourceBundle.getBundle(BUNDLE_MESSAGE, Locale.getDefault());
 	}
 	
@@ -72,7 +72,7 @@ public final class Resources {
 	 */
 	@Produces
 	@BundleError
-	public ResourceBundle getResourceBundleError() {
+	public static ResourceBundle getResourceBundleError() {
 		return ResourceBundle.getBundle(BUNDLE_ERROR, Locale.getDefault());
 	}
 	
@@ -82,7 +82,7 @@ public final class Resources {
 	 */
 	@Produces
 	@BundleLabel
-	public ResourceBundle getResourceBundleLabel() {
+	public static ResourceBundle getResourceBundleLabel() {
 		return ResourceBundle.getBundle(BUNDLE_LABEL, Locale.getDefault());
 	}
 }

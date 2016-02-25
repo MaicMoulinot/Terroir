@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.component.UIComponent;
@@ -32,8 +31,8 @@ public class TestValidatorPassword {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
 		validator = new ValidatorPassword();
+		resource = Resources.getResourceBundleError();
 		validator.setResourceBundle(resource);
 	}
 	

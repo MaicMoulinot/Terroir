@@ -7,7 +7,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.faces.validator.ValidatorException;
@@ -44,7 +43,7 @@ public class TestValidatorEmail {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		resource = ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault());
+		resource = Resources.getResourceBundleError();
 		validator.setResourceBundle(resource);
 	}
 	
