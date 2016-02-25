@@ -19,7 +19,7 @@ import javax.faces.convert.FacesConverter;
  * @author Maic
  */
 @FacesConverter(value = "zonedDateTimeConverter")
-public class ConverterZonedDateTime implements Converter {
+public final class ConverterZonedDateTime implements Converter {
 	
 	private static final String ZONED_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss z";
 

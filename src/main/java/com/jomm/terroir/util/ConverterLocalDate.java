@@ -19,7 +19,7 @@ import javax.faces.convert.FacesConverter;
  * @author Maic
  */
 @FacesConverter(value = "localDateConverter")
-public class ConverterLocalDate implements Converter {
+public final class ConverterLocalDate implements Converter {
 	
 	private static final String LOCAL_DATE_PATTERN = "dd/MM/yyyy";
 

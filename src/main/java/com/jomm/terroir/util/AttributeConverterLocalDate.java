@@ -22,7 +22,7 @@ import javax.persistence.Converter;
  * @author Maic
  */
 @Converter(autoApply = true)
-public class AttributeConverterLocalDate implements AttributeConverter<LocalDate, Date> {
+public final class AttributeConverterLocalDate implements AttributeConverter<LocalDate, Date> {
 
 	@Override
 	public Date convertToDatabaseColumn(LocalDate entityDate) {

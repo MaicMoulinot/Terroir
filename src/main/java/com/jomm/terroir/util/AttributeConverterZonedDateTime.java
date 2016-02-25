@@ -20,7 +20,7 @@ import javax.persistence.Converter;
  * @author Maic
  */
 @Converter(autoApply = true)
-public class AttributeConverterZonedDateTime implements AttributeConverter<ZonedDateTime, Timestamp> {
+public final class AttributeConverterZonedDateTime implements AttributeConverter<ZonedDateTime, Timestamp> {
 
 	@Override
 	public Timestamp convertToDatabaseColumn(ZonedDateTime entityDateTime) {
