@@ -70,7 +70,7 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 	
 	@Override
 	public List<E> findAll() {
-		List<E> result = new ArrayList<E>();
+		List<E> result = new ArrayList<>();
 	    TypedQuery<E> query = entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll", getEntityClass());
 	    if (query != null) {
 	    	result = query.getResultList();

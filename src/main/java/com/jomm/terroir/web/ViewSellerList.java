@@ -62,7 +62,7 @@ public class ViewSellerList {
 	 */
 	@PostConstruct 
 	public void init() {
-		listSellers = new LinkedList<ViewSeller>();
+		listSellers = new LinkedList<>();
 		for (Seller seller : userService.getAllSellers()) {
 			listSellers.add(ViewSeller.convertIntoView(seller));
 		}

@@ -112,7 +112,7 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 		// stub the EntityManager to return a mocked Query
 		when(dao.getEntityManager().createNamedQuery(anyString(), eq(dao.getEntityClass()))).thenReturn(mockedQuery);
 		// stub the Query to return a dummy List
-		List<E> dummyList = new ArrayList<E>();
+		List<E> dummyList = new ArrayList<>();
 		when(mockedQuery.getResultList()).thenReturn(dummyList);
 
 		List<E> result = dao.findAll();

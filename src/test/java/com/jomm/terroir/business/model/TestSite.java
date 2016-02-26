@@ -57,7 +57,7 @@ public class TestSite {
 		enterprise = null; // Available for Garbage Collector
 		
 		// ListProducts
-		ArrayList<Product> listProducts = new ArrayList<Product>();
+		ArrayList<Product> listProducts = new ArrayList<>();
 		Product product = new Product();
 		listProducts.add(product);
 		site.setListProducts(listProducts);
@@ -79,7 +79,7 @@ public class TestSite {
 		site.setAddress(new Address());
 		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		site.setLegalIdentification("LegalIdentification");
-		site.setListProducts(new ArrayList<Product>());
+		site.setListProducts(new ArrayList<>());
 		site.setSiteName("SiteName");
 		return site;
 	}

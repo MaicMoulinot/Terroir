@@ -70,7 +70,7 @@ public class TestEnterprise {
 		assertEquals("SignUpDate should be " + zonedDate, zonedDate, enterprise.getSignUpDate());
 		
 		// ListSellers
-		ArrayList<Seller> listSellers = new ArrayList<Seller>();
+		ArrayList<Seller> listSellers = new ArrayList<>();
 		Seller seller = new Seller();
 		listSellers.add(seller);
 		enterprise.setListSellers(listSellers);
@@ -81,7 +81,7 @@ public class TestEnterprise {
 		listSellers = null; // Available for Garbage Collector
 		
 		// ListSites
-		ArrayList<Site> listSites = new ArrayList<Site>();
+		ArrayList<Site> listSites = new ArrayList<>();
 		Site site = new Site();
 		listSites.add(site);
 		enterprise.setListSites(listSites);
@@ -105,8 +105,8 @@ public class TestEnterprise {
 		enterprise.setCreationDate(LocalDate.now());
 		enterprise.setLegalIdentification("LegalIdentification");
 		enterprise.setLegalName("LegalName");
-		enterprise.setListSellers(new ArrayList<Seller>());
-		enterprise.setListSites(new ArrayList<Site>());
+		enterprise.setListSellers(new ArrayList<>());
+		enterprise.setListSites(new ArrayList<>());
 		enterprise.setNbEmployees(10);
 		enterprise.setTradeName("TradeName");		
 		return enterprise;
