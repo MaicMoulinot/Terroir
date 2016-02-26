@@ -5,9 +5,9 @@
         last_name varchar(255),
         user_name varchar(255) unique,
         user_password varchar(255),
-        can_delete char(1),
-        can_read char(1),
-        can_update char(1),
+        can_delete int,
+        can_read int,
+        can_update int,
         primary key (user_id)
     );
 

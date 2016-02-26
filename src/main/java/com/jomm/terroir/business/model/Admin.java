@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Type;
-
 import com.jomm.terroir.business.ServiceUser;
 
 /**
@@ -29,15 +27,12 @@ public class Admin extends AbstractUser implements Serializable {
 
 	// Attributes
 	@Column(name = "can_read")
-	@Type(type = "yes_no")
 	private Boolean canReadData;
 	
 	@Column(name = "can_update")
-	@Type(type = "yes_no")
 	private Boolean canUpdateData;
 	
 	@Column(name = "can_delete")
-	@Type(type = "yes_no")
 	private Boolean canDeleteData;
 
 	/**
