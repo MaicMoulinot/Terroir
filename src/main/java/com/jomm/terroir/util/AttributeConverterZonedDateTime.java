@@ -11,7 +11,7 @@ import javax.persistence.Converter;
 /**
  * This Class is a Converter.
  * <br />The current JPA API does not work with the Java 8 Date/Time API by default since it was built to work with 
- * {@link Timestamp}, java.util.Date, and other old Java Date/Time APIs.
+ * {@link Timestamp}, {@link java.util.Date}, and other old Java Date/Time APIs.
  * <br />This Class implements {@link AttributeConverter}<{@link ZonedDateTime}, {@link Timestamp}>, and
  * converts a {@link ZonedDateTime} (type of entity attribute) to/from a {@link Timestamp} (type of database column),
  * using the methods <code>convertToDatabaseColumn()</code> and <code>convertToEntityAttribute()</code>.
