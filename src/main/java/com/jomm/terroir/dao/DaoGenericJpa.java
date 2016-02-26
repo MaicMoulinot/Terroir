@@ -43,33 +43,33 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 	}
 	
 	@Override
-	public final E create(E entity) {
+	public E create(E entity) {
 		entityManager.persist(entity);
 		return entity;
 	}
 	
 	@Override
-	public final E update(E entity) {
+	public E update(E entity) {
 		return entityManager.merge(entity);
 	}
 	
 	@Override
-	public final void delete(E entity) {
+	public void delete(E entity) {
 		entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
 	}
 	
 	@Override
-	public final void deleteById(Long entityId) {
+	public void deleteById(Long entityId) {
 		entityManager.remove(entityManager.getReference(getEntityClass(), entityId));
 	}
     
 	@Override
-	public final E find(Long id) {
+	public E find(Long id) {
 		return entityManager.find(getEntityClass(), id);
 	}
 	
 	@Override
-	public final List<E> findAll() {
+	public List<E> findAll() {
 		List<E> result = new ArrayList<E>();
 	    TypedQuery<E> query = entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll", getEntityClass());
 	    if (query != null) {
@@ -79,7 +79,7 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 	}
 
 	@Override
-	public final Class<E> getEntityClass() {
+	public Class<E> getEntityClass() {
 		return entityClass;
 	}
 
