@@ -19,9 +19,9 @@ import javax.persistence.PersistenceContext;
 public final class Resources {
 	
 	// Constants
-	private static final String BUNDLE_MESSAGE = "i18n.message";
-	private static final String BUNDLE_ERROR = "i18n.error";
-	private static final String BUNDLE_LABEL = "i18n.label";
+	static final String BUNDLE_MESSAGE = "i18n.message";
+	static final String BUNDLE_ERROR = "i18n.error";
+	static final String BUNDLE_LABEL = "i18n.label";
 
 	/**
 	 * Constructor private to prevent instantiation.
@@ -41,9 +41,13 @@ public final class Resources {
 	 * @return Logger to use.
 	 */
 	@Produces
-	public static Logger getLogger(InjectionPoint ip) {
-		String category = ip.getMember().getDeclaringClass().getName();
-		return Logger.getLogger(category);
+	public static Logger getLogger(InjectionPoint injectionPoint) {
+		Logger logger = null;
+		if (injectionPoint != null) {
+			String category = injectionPoint.getMember().getDeclaringClass().getName();
+			logger = Logger.getLogger(category);
+		}
+		return logger;
 	}
 
 	/**
