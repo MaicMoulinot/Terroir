@@ -19,8 +19,9 @@ import com.jomm.terroir.dao.DaoSite;
 @Stateless
 public class ServiceSiteImpl implements ServiceSite {
 	
+	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	private DaoSite siteDao;
+	DaoSite siteDao;
 
 	@Override
 	public Site create(Site site) throws NullPointerException, IllegalArgumentException {
@@ -60,13 +61,5 @@ public class ServiceSiteImpl implements ServiceSite {
 			throw new IllegalArgumentException();
 		}
 		siteDao.delete(site);
-	}
-
-	/**
-	 * This method is used for Junit testing only.
-	 * @param siteDao the siteDao to set
-	 */
-	void setSiteDao(DaoSite siteDao) {
-		this.siteDao = siteDao;
 	}
 }

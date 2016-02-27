@@ -133,7 +133,7 @@ public class TestServiceSite {
 	 */
 	private static ServiceSiteImpl generateMockedSiteServiceImpl() {
 		ServiceSiteImpl impl = new ServiceSiteImpl();
-		impl.setSiteDao(Mockito.mock(DaoSite.class));
+		impl.siteDao = Mockito.mock(DaoSite.class);
 		return impl;
 	}
 }

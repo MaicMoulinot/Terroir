@@ -20,8 +20,9 @@ import com.jomm.terroir.dao.DaoProduct;
 @Stateless
 public class ServiceProductImpl implements ServiceProduct {
 	
+	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	private DaoProduct productDao;
+	DaoProduct productDao;
 
 	@Override
 	public Product create(Product product) throws NullPointerException, IllegalArgumentException {
@@ -62,13 +63,5 @@ public class ServiceProductImpl implements ServiceProduct {
 			throw new IllegalArgumentException();
 		}
 		productDao.delete(product);
-	}
-
-	/**
-	 * This method is used for Junit testing only.
-	 * @param productDao the productDao to set
-	 */
-	void setProductDao(DaoProduct productDao) {
-		this.productDao = productDao;
 	}
 }

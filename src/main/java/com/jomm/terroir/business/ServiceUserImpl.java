@@ -30,17 +30,18 @@ import com.jomm.terroir.dao.DaoUser;
 @Stateless
 public class ServiceUserImpl implements ServiceUser {
 	
+	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	private DaoUser userDao;
+	DaoUser userDao;
 	
 	@Inject
-	private DaoAdmin adminDao;
+	DaoAdmin adminDao;
 	
 	@Inject
-	private DaoCustomer customerDao;
+	DaoCustomer customerDao;
 	
 	@Inject
-	private DaoSeller sellerDao;
+	DaoSeller sellerDao;
 
 	@Override
 	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalArgumentException {
@@ -107,37 +108,5 @@ public class ServiceUserImpl implements ServiceUser {
 			throw new NullPointerException();
 		}
 		return userDao.isExistingEmail(email);
-	}
-
-	/**
-	 * This method is used for Junit testing only.
-	 * @param userDao the userDao to set
-	 */
-	void setUserDao(DaoUser userDao) {
-		this.userDao = userDao;
-	}
-	
-	/**
-	 * This method is used for Junit testing only.
-	 * @param adminDao the adminDao to set
-	 */
-	void setAdminDao(DaoAdmin adminDao) {
-		this.adminDao = adminDao;
-	}
-	
-	/**
-	 * This method is used for Junit testing only.
-	 * @param customerDao the customerDao to set
-	 */
-	void setCustomerDao(DaoCustomer customerDao) {
-		this.customerDao = customerDao;
-	}
-	
-	/**
-	 * This method is used for Junit testing only.
-	 * @param sellerDao the sellerDao to set
-	 */
-	void setSellerDao(DaoSeller sellerDao) {
-		this.sellerDao = sellerDao;
 	}
 }

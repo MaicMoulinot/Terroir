@@ -226,10 +226,10 @@ public class TestServiceUser {
 	 */
 	private static ServiceUserImpl generateMockedUserServiceImpl() {
 		ServiceUserImpl impl = new ServiceUserImpl();
-		impl.setUserDao(Mockito.mock(DaoUser.class));
-		impl.setAdminDao(Mockito.mock(DaoAdmin.class));
-		impl.setCustomerDao(Mockito.mock(DaoCustomer.class));
-		impl.setSellerDao(Mockito.mock(DaoSeller.class));
+		impl.userDao = Mockito.mock(DaoUser.class);
+		impl.adminDao = Mockito.mock(DaoAdmin.class);
+		impl.customerDao = Mockito.mock(DaoCustomer.class);
+		impl.sellerDao = Mockito.mock(DaoSeller.class);
 		return impl;
 	}
 }

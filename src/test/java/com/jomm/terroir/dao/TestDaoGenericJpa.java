@@ -65,7 +65,7 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 	private void testCreate() {
 		dao.create(entity);
 		// validate that entityManager.persist() was called
-		verify(dao.getEntityManager()).persist(any(Serializable.class));
+		verify(dao.entityManager).persist(any(Serializable.class));
 	}
 
 	/**
@@ -74,7 +74,7 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 	private void testUpdate() {
 		dao.update(entity);
 		// validate that entityManager.merge() was called
-		verify(dao.getEntityManager()).merge(any(Serializable.class));
+		verify(dao.entityManager).merge(any(Serializable.class));
 	}
 
 	/**
@@ -83,7 +83,7 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 	private void testDelete() {
 		dao.delete(entity);
 		// validate that entityManager.remove() was called
-		verify(dao.getEntityManager()).remove(any(Serializable.class));
+		verify(dao.entityManager).remove(any(Serializable.class));
 	}
 
 	/**
@@ -92,8 +92,8 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 	private void testDeleteById() {
 		dao.deleteById((long) 0);
 		// validate that entityManager.getReference() was called
-		verify(dao.getEntityManager()).getReference(dao.getEntityClass(), (long) 0);
-		verify(dao.getEntityManager(), times(2)).remove(any(Serializable.class));
+		verify(dao.entityManager).getReference(dao.getEntityClass(), (long) 0);
+		verify(dao.entityManager, times(2)).remove(any(Serializable.class));
 	}
 
 	/**
@@ -102,7 +102,7 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 	private void testFind() {
 		dao.find((long) 0);
 		// validate that entityManager.find() was called
-		verify(dao.getEntityManager()).find(dao.getEntityClass(), (long) 0);
+		verify(dao.entityManager).find(dao.getEntityClass(), (long) 0);
 	}
 
 	/**
@@ -110,7 +110,7 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 	 */
 	private void testFindAll() {
 		// stub the EntityManager to return a mocked Query
-		when(dao.getEntityManager().createNamedQuery(anyString(), eq(dao.getEntityClass()))).thenReturn(mockedQuery);
+		when(dao.entityManager.createNamedQuery(anyString(), eq(dao.getEntityClass()))).thenReturn(mockedQuery);
 		// stub the Query to return a dummy List
 		List<E> dummyList = new ArrayList<>();
 		when(mockedQuery.getResultList()).thenReturn(dummyList);
@@ -118,7 +118,7 @@ public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData
 		List<E> result = dao.findAll();
 		
 		// validate that entityManager.createNamedQuery() was called
-		verify(dao.getEntityManager()).createNamedQuery(anyString(), eq(dao.getEntityClass()));
+		verify(dao.entityManager).createNamedQuery(anyString(), eq(dao.getEntityClass()));
 		// validate that mockedQuery.getResultList() was called
 		verify(mockedQuery).getResultList();
 		// validate that the result is a List

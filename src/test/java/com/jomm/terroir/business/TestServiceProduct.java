@@ -155,7 +155,7 @@ public class TestServiceProduct {
 	 */
 	private static ServiceProductImpl generateMockedProductServiceImpl() {
 		ServiceProductImpl impl = new ServiceProductImpl();
-		impl.setProductDao(Mockito.mock(DaoProduct.class));
+		impl.productDao = Mockito.mock(DaoProduct.class);
 		return impl;
 	}
 }

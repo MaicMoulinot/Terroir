@@ -153,7 +153,7 @@ public class TestServiceEnterprise {
 	 */
 	private static ServiceEnterpriseImpl generateMockedEnterpriseServiceImpl() {
 		ServiceEnterpriseImpl impl = new ServiceEnterpriseImpl();
-		impl.setEnterpriseDao(Mockito.mock(DaoEnterprise.class));
+		impl.enterpriseDao = Mockito.mock(DaoEnterprise.class);
 		return impl;
 	}
 }

@@ -20,8 +20,9 @@ import com.jomm.terroir.dao.DaoEnterprise;
 @Stateless
 public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	
+	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	private DaoEnterprise enterpriseDao;
+	DaoEnterprise enterpriseDao;
 
 	@Override
 	public Enterprise create(Enterprise enterprise) throws NullPointerException, IllegalArgumentException {
@@ -62,13 +63,5 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 			throw new IllegalArgumentException();
 		}
 		enterpriseDao.delete(enterprise);
-	}
-
-	/**
-	 * This method is used for Junit testing only.
-	 * @param enterpriseDao the enterpriseDao to set
-	 */
-	void setEnterpriseDao(DaoEnterprise enterpriseDao) {
-		this.enterpriseDao = enterpriseDao;
 	}
 }

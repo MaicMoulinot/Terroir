@@ -39,7 +39,7 @@ public class TestDaoCustomerJpa extends TestDaoGenericJpa<Customer> {
 	@Test
 	public final void testBehavior() {
 		// EntityManager is not working, it is mocked
-		dao.setEntityManager(Mockito.mock(EntityManager.class));
+		dao.entityManager = Mockito.mock(EntityManager.class);
 
 		super.testBehavior();
 	}
@@ -49,7 +49,7 @@ public class TestDaoCustomerJpa extends TestDaoGenericJpa<Customer> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			dao.setEntityManager(UtilEntityManager.prepareEntityManager());
+			dao.entityManager = UtilEntityManager.prepareEntityManager();
 			entity = TestCustomer.generateCustomerWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());

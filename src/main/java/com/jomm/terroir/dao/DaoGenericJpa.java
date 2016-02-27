@@ -82,18 +82,4 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 	public Class<E> getEntityClass() {
 		return entityClass;
 	}
-
-	/**
-	 * @return the entityManager
-	 */
-	protected EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	/**
-	 * @param entityManager the entityManager to set
-	 */
-	protected void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}
 }
