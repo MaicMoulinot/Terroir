@@ -13,6 +13,9 @@
 		<maven.compile.source>1.8</maven.compile.source>
 		<maven.compile.target>1.8</maven.compile.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<hibernate.version>5.1.0.Final</hibernate.version>
+		<jsf.version>2.2.13</jsf.version>
+		<derby.version>10.12.1.1</derby.version>
 	</properties>
 
 	<dependencies>
@@ -171,25 +174,25 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>5.1.0.Final</version>
+				<version>${hibernate.version}</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-java8</artifactId>
-				<version>5.1.0.Final</version>
+				<version>${hibernate.version}</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-api</artifactId>
-				<version>2.2.13</version>
+				<version>${jsf.version}</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>com.sun.faces</groupId>
 				<artifactId>jsf-impl</artifactId>
-				<version>2.2.13</version>
+				<version>${jsf.version}</version>
 			</dependency>
 			
 			<dependency>
@@ -233,14 +236,14 @@
 			<dependency>
 				<groupId>org.apache.derby</groupId>
 				<artifactId>derby</artifactId>
-				<version>10.12.1.1</version>
+				<version>${derby.version}</version>
 				<scope>test</scope>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.apache.derby</groupId>
 				<artifactId>derbytools</artifactId>
-				<version>10.12.1.1</version>
+				<version>${derby.version}</version>
 				<scope>test</scope>
 			</dependency>
 			
