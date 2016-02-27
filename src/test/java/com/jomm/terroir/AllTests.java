@@ -41,6 +41,11 @@ import com.jomm.terroir.dao.TestDaoSiteJpa;
 import com.jomm.terroir.dao.TestDaoUser;
 import com.jomm.terroir.dao.TestDaoUserJpa;
 import com.jomm.terroir.dao.UtilEntityManager;
+import com.jomm.terroir.util.TestAttributeConverterLocalDate;
+import com.jomm.terroir.util.TestAttributeConverterZonedDateTime;
+import com.jomm.terroir.util.TestConverterLocalDate;
+import com.jomm.terroir.util.TestConverterZonedDateTime;
+import com.jomm.terroir.util.TestResources;
 
 /**
  * This Class is a Junit Suite Case launching all Junit test cases.
@@ -64,7 +69,11 @@ import com.jomm.terroir.dao.UtilEntityManager;
 	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoCustomerJpa.class, TestDaoCustomer.class,
 	TestDaoEnterpriseJpa.class, TestDaoEnterprise.class, TestDaoProductJpa.class, TestDaoProduct.class, 
 	TestDaoSiteJpa.class, TestDaoSite.class, TestDaoSellerJpa.class, TestDaoSeller.class,
-	TestDaoUserJpa.class, TestDaoUser.class
+	TestDaoUserJpa.class, TestDaoUser.class,
+	// Util
+	TestAttributeConverterLocalDate.class, TestAttributeConverterZonedDateTime.class, 
+	TestConverterLocalDate.class, TestConverterZonedDateTime.class, 
+	TestResources.class
 	})
 public class AllTests {
 	

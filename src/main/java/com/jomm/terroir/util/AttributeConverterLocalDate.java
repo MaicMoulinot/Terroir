@@ -1,9 +1,7 @@
 package com.jomm.terroir.util;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 
@@ -28,9 +26,7 @@ public final class AttributeConverterLocalDate implements AttributeConverter<Loc
 	public Date convertToDatabaseColumn(LocalDate entityDate) {
 		Date dbDate = null;
 		if (entityDate != null) {
-			LocalTime now = LocalTime.now();
-			Instant instant = now.atDate(entityDate).atZone(ZoneId.systemDefault()).toInstant();
-			dbDate = Date.from(instant);
+			dbDate = Date.from(entityDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 		}
         return dbDate;
 	}
@@ -39,8 +35,7 @@ public final class AttributeConverterLocalDate implements AttributeConverter<Loc
 	public LocalDate convertToEntityAttribute(Date dbDate) {
 		LocalDate entityDate = null;
 		if (dbDate != null) {
-			Instant instant = Instant.ofEpochMilli(dbDate.getTime());
-			entityDate = LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).toLocalDate();
+			entityDate = LocalDateTime.ofInstant(dbDate.toInstant(), ZoneId.systemDefault()).toLocalDate();
 		}
         return entityDate;
 	}

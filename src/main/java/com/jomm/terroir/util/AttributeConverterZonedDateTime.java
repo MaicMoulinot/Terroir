@@ -1,7 +1,6 @@
 package com.jomm.terroir.util;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
@@ -26,8 +25,7 @@ public final class AttributeConverterZonedDateTime implements AttributeConverter
 	public Timestamp convertToDatabaseColumn(ZonedDateTime entityDateTime) {
 		Timestamp dbDateTime = null;
 		if (entityDateTime != null) {
-			ZonedDateTime now = ZonedDateTime.now();
-			dbDateTime = Timestamp.from(now.toInstant());
+			dbDateTime = Timestamp.from(ZonedDateTime.now().toInstant());
 		}
         return dbDateTime;
 	}
@@ -36,8 +34,7 @@ public final class AttributeConverterZonedDateTime implements AttributeConverter
 	public ZonedDateTime convertToEntityAttribute(Timestamp dbDateTime) {
 		ZonedDateTime entityDateTime = null;
 		if (dbDateTime != null) {
-			Instant instant = Instant.ofEpochMilli(dbDateTime.getTime());
-			entityDateTime = ZonedDateTime.ofInstant(instant, ZoneId.systemDefault());
+			entityDateTime = ZonedDateTime.ofInstant(dbDateTime.toInstant(), ZoneId.systemDefault());
 		}
         return entityDateTime;
 	}
