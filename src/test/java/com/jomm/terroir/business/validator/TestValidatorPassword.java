@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.util.ResourceBundle;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIInput;
@@ -23,7 +21,6 @@ import com.jomm.terroir.util.Resources;
 public class TestValidatorPassword {
 
 	private ValidatorPassword validator;
-	private ResourceBundle resource;
 
 	/**
 	 * Instantiate the ValidatorPassword and set proper ResourceBundle.
@@ -32,8 +29,7 @@ public class TestValidatorPassword {
 	@Before
 	public void setUp() throws Exception {
 		validator = new ValidatorPassword();
-		resource = Resources.getResourceBundleError();
-		validator.setResourceBundle(resource);
+		validator.resource = Resources.getResourceBundleError();
 	}
 	
 	/**
@@ -47,7 +43,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorPassword.FIELD_MANDATORY), 
+			assertEquals(validator.resource.getString(ValidatorPassword.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -63,7 +59,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorPassword.FIELD_MANDATORY), 
+			assertEquals(validator.resource.getString(ValidatorPassword.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -79,7 +75,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorPassword.FIELD_MANDATORY), 
+			assertEquals(validator.resource.getString(ValidatorPassword.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -95,7 +91,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorPassword.FIELD_MANDATORY), 
+			assertEquals(validator.resource.getString(ValidatorPassword.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -111,7 +107,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 and password2 different");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorPassword.PASSWORDS_DONT_MATCH), 
+			assertEquals(validator.resource.getString(ValidatorPassword.PASSWORDS_DONT_MATCH), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -128,7 +124,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have password not matching the pattern");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorPassword.PASSWORD_TOO_SIMPLE), 
+			assertEquals(validator.resource.getString(ValidatorPassword.PASSWORD_TOO_SIMPLE), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

@@ -43,7 +43,7 @@ public class ValidatorEmail implements Validator {
 
 	@Inject
 	@BundleError
-	private ResourceBundle resource;
+	ResourceBundle resource;
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
@@ -62,13 +62,5 @@ public class ValidatorEmail implements Validator {
 				}
 			}
 		}
-	}
-
-	/**
-	 * This method is used for Junit testing only.
-	 * @param resource {@link ResourceBundle} the resource to set.
-	 */
-	public void setResourceBundle(ResourceBundle resource) {
-		this.resource = resource;
 	}
 }

@@ -7,8 +7,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
-import java.util.ResourceBundle;
-
 import javax.faces.validator.ValidatorException;
 
 import org.junit.Before;
@@ -34,8 +32,6 @@ public class TestValidatorUsername {
 	
 	@InjectMocks
 	private ValidatorUsername validator;
-	
-	private ResourceBundle resource;
 
 	/**
 	 * Set proper ResourceBundle for the validator
@@ -43,8 +39,7 @@ public class TestValidatorUsername {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		resource = Resources.getResourceBundleError();
-		validator.setResourceBundle(resource);
+		validator.resource = Resources.getResourceBundleError();
 	}
 
 	/**
@@ -88,7 +83,7 @@ public class TestValidatorUsername {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with lenght < 6");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorUsername.LENGTH_AT_LEAST_6_CHARACTERS), 
+			assertEquals(validator.resource.getString(ValidatorUsername.LENGTH_AT_LEAST_6_CHARACTERS), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
