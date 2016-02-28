@@ -7,8 +7,6 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 
-import java.util.ResourceBundle;
-
 import javax.faces.validator.ValidatorException;
 
 import org.junit.Before;
@@ -34,8 +32,6 @@ public class TestValidatorEmail {
 	
 	@InjectMocks
 	private ValidatorEmail validator;
-	
-	private ResourceBundle resource;
 
 	/**
 	 * Set proper ResourceBundle for the validator
@@ -43,8 +39,7 @@ public class TestValidatorEmail {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		resource = Resources.getResourceBundleError();
-		validator.setResourceBundle(resource);
+		validator.resource = Resources.getResourceBundleError();
 	}
 	
 	/**
@@ -87,7 +82,7 @@ public class TestValidatorEmail {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with email non valid");
 		} catch (ValidatorException expectedException) {
-			assertEquals(resource.getString(ValidatorEmail.EMAIL_UNVALID), 
+			assertEquals(validator.resource.getString(ValidatorEmail.EMAIL_UNVALID), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
