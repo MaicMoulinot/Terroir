@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,6 +23,15 @@ public class TestAttributeConverterZonedDateTime {
 
 	@InjectMocks
 	private AttributeConverterZonedDateTime converter;
+	
+	/**
+	 * Set proper ZonedId for the converter.
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		converter.zoneId = Resources.getZonedId();
+	}
 
 	/**
 	 * Test method for {@link AttributeConverterZonedDateTime#convertToDatabaseColumn(ZonedDateTime)} with its value null.
@@ -37,7 +47,9 @@ public class TestAttributeConverterZonedDateTime {
 	@Test
 	public final void testConvertToDatabaseColumnWithValueNotNull() {
 		ZonedDateTime now = ZonedDateTime.now();
-		assertEquals(Timestamp.from(now.toInstant()), converter.convertToDatabaseColumn(now));
+		assertEquals("This method might fail because of rounding", 
+				Timestamp.from(now.toInstant()), 
+				converter.convertToDatabaseColumn(now));
 	}
 	
 	/**
@@ -54,6 +66,7 @@ public class TestAttributeConverterZonedDateTime {
 	@Test
 	public final void testConvertToEntityAttributeWithValueNotNull() {
 		ZonedDateTime now = ZonedDateTime.now();
-		assertEquals(now, converter.convertToEntityAttribute(Timestamp.from(now.toInstant())));
+		assertEquals("This method might fail because of rounding", now, 
+				converter.convertToEntityAttribute(Timestamp.from(now.toInstant())));
 	}
 }

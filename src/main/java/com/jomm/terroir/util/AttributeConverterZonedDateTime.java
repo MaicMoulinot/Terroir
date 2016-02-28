@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
+import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -21,6 +22,9 @@ import javax.persistence.Converter;
 @Converter(autoApply = true)
 public final class AttributeConverterZonedDateTime implements AttributeConverter<ZonedDateTime, Timestamp> {
 
+	@Inject
+	ZoneId zoneId;
+	
 	@Override
 	public Timestamp convertToDatabaseColumn(ZonedDateTime entityDateTime) {
 		Timestamp dbDateTime = null;
@@ -34,8 +38,16 @@ public final class AttributeConverterZonedDateTime implements AttributeConverter
 	public ZonedDateTime convertToEntityAttribute(Timestamp dbDateTime) {
 		ZonedDateTime entityDateTime = null;
 		if (dbDateTime != null) {
-			entityDateTime = ZonedDateTime.ofInstant(dbDateTime.toInstant(), ZoneId.systemDefault());
+			entityDateTime = ZonedDateTime.ofInstant(dbDateTime.toInstant(), getZoneId());
 		}
         return entityDateTime;
+	}
+	
+	/**
+	 * This method is for testing purpose as injection isn't fully supported.
+	 * @return the {@link ZoneId}.
+	 */
+	private ZoneId getZoneId() {
+		return (zoneId != null) ? zoneId : Resources.getZonedId();
 	}
 }

@@ -1,5 +1,6 @@
 package com.jomm.terroir.util;
 
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -29,16 +30,16 @@ public final class Resources {
 	private Resources() {}
 	
 	/**
-	 * Expose an entity manager using the resource producer pattern
+	 * Expose an {@link EntityManager} using the resource producer pattern.
 	 */
 	@PersistenceContext(name="terroirPU")
 	@Produces
 	private static EntityManager entityManager;
 
 	/**
-	 * Expose the Logger.
-	 * @param ip InjectionPoint the injection point.
-	 * @return Logger to use.
+	 * Expose the {@link Logger} using the resource producer pattern.
+	 * @param injectionPoint the {@link InjectionPoint}.
+	 * @return the {@link Logger} to use.
 	 */
 	@Produces
 	public static Logger getLogger(InjectionPoint injectionPoint) {
@@ -48,6 +49,15 @@ public final class Resources {
 			logger = Logger.getLogger(category);
 		}
 		return logger;
+	}
+	
+	/**
+	 * Expose the {@link ZoneId} of the system using the resource producer pattern.
+	 * @return the {@link ZoneId} to use.
+	 */
+	@Produces
+	public static ZoneId getZonedId() {
+		return ZoneId.systemDefault();
 	}
 
 	/**

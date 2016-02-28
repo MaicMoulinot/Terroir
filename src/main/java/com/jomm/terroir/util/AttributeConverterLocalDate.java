@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
@@ -21,12 +22,15 @@ import javax.persistence.Converter;
  */
 @Converter(autoApply = true)
 public final class AttributeConverterLocalDate implements AttributeConverter<LocalDate, Date> {
+	
+	@Inject
+	ZoneId zoneId;
 
 	@Override
 	public Date convertToDatabaseColumn(LocalDate entityDate) {
 		Date dbDate = null;
 		if (entityDate != null) {
-			dbDate = Date.from(entityDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+			dbDate = Date.from(entityDate.atStartOfDay().atZone(getZoneId()).toInstant());
 		}
         return dbDate;
 	}
@@ -35,8 +39,16 @@ public final class AttributeConverterLocalDate implements AttributeConverter<Loc
 	public LocalDate convertToEntityAttribute(Date dbDate) {
 		LocalDate entityDate = null;
 		if (dbDate != null) {
-			entityDate = LocalDateTime.ofInstant(dbDate.toInstant(), ZoneId.systemDefault()).toLocalDate();
+			entityDate = LocalDateTime.ofInstant(dbDate.toInstant(), getZoneId()).toLocalDate();
 		}
         return entityDate;
+	}
+	
+	/**
+	 * This method is for testing purpose as injection isn't fully supported.
+	 * @return the {@link ZoneId}.
+	 */
+	private ZoneId getZoneId() {
+		return (zoneId != null) ? zoneId : Resources.getZonedId();
 	}
 }

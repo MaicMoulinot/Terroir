@@ -5,9 +5,9 @@ import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -24,6 +24,15 @@ public class TestAttributeConverterLocalDate {
 
 	@InjectMocks
 	private AttributeConverterLocalDate converter;
+	
+	/**
+	 * Set proper ZonedId for the converter.
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		converter.zoneId = Resources.getZonedId();
+	}
 
 	/**
 	 * Test method for {@link AttributeConverterLocalDate#convertToDatabaseColumn(LocalDate)} with its value null.
@@ -40,8 +49,9 @@ public class TestAttributeConverterLocalDate {
 	public final void testConvertToDatabaseColumnWithValueNotNull() {
 		Date fromJavaUtil = new Date();
 		Date fromConverter = converter.convertToDatabaseColumn(LocalDate.now());
-		assertEquals(LocalDateTime.ofInstant(fromJavaUtil.toInstant(), ZoneId.systemDefault()).toLocalDate(), 
-				LocalDateTime.ofInstant(fromConverter.toInstant(), ZoneId.systemDefault()).toLocalDate());
+		assertEquals("This method might fail because of rounding", 
+				LocalDateTime.ofInstant(fromJavaUtil.toInstant(), converter.zoneId).toLocalDate(), 
+				LocalDateTime.ofInstant(fromConverter.toInstant(), converter.zoneId).toLocalDate());
 	}
 	
 	/**
@@ -57,6 +67,8 @@ public class TestAttributeConverterLocalDate {
 	 */
 	@Test
 	public final void testConvertToEntityAttributeWithValueNotNull() {
-		assertEquals(LocalDate.now(), converter.convertToEntityAttribute(new Date()));
+		assertEquals("This method might fail because of rounding", 
+				LocalDate.now(), 
+				converter.convertToEntityAttribute(new Date()));
 	}
 }
