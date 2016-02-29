@@ -13,6 +13,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.TestProduct;
 import com.jomm.terroir.dao.DaoProduct;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing the methods of {@link ServiceProductImpl}.
@@ -37,7 +39,7 @@ public class TestServiceProductImpl {
 		try {
 			service.create(TestProduct.generateProductWithIdNull());
 			verify(dao).create(any(Product.class)); // validate that dao.create() was called
-		} catch (IllegalArgumentException | NullPointerException unexpectedException) {
+		} catch (ExceptionInvalidId | ExceptionNullEntity unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -52,7 +54,7 @@ public class TestServiceProductImpl {
 		try {
 			service.update(product);
 			verify(dao).update(any(Product.class)); // validate that dao.update() was called
-		} catch (IllegalArgumentException | NullPointerException unexpectedException) {
+		} catch (ExceptionInvalidId | ExceptionNullEntity unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -67,7 +69,7 @@ public class TestServiceProductImpl {
 		try {
 			service.delete(product);
 			verify(dao).delete(any(Product.class)); // validate that dao.delete() was called
-		} catch (NullPointerException | IllegalArgumentException unexpectedException) {
+		} catch (ExceptionNullEntity | ExceptionInvalidId unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}

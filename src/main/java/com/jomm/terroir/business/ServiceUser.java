@@ -6,6 +6,8 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Admin;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Interface describes all logic operations for {@link AbstractUser}.
@@ -18,19 +20,19 @@ public interface ServiceUser {
 	 * If the user is a {@link Customer}, it generates its <code>signUpDate</code>.
 	 * @param user the {@link AbstractUser} to create.
 	 * @return the persisted AbstractUser.
-	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalArgumentException if the id is not null.
+	 * @throws ExceptionNullEntity if the entity is null.
+	 * @throws ExceptionInvalidId if the id is not null.
 	 */
-	AbstractUser create(AbstractUser user) throws NullPointerException, IllegalArgumentException;
+	AbstractUser create(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId;
 	
 	/**
 	 * Update an user.
 	 * @param user the {@link AbstractUser} to update.
 	 * @return the updated AbstractUser.
-	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalArgumentException if the id is null.
+	 * @throws ExceptionNullEntity if the entity is null.
+	 * @throws ExceptionInvalidId if the id is null.
 	 */
-	AbstractUser update(AbstractUser user) throws NullPointerException, IllegalArgumentException;
+	AbstractUser update(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId;
 	
 	/**
 	 * Fetch the list of all admins.
@@ -53,10 +55,10 @@ public interface ServiceUser {
 	/**
 	 * Delete an user.
 	 * @param user the {@link AbstractUser} to delete.
-	 * @throws NullPointerException if the entity is null.
-	 * @throws IllegalArgumentException if the id is null.
+	 * @throws ExceptionNullEntity if the entity is null.
+	 * @throws ExceptionInvalidId if the id is null.
 	 */
-	void delete(AbstractUser user) throws NullPointerException, IllegalArgumentException;
+	void delete(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId;
 	
 	/**
 	 * Check if the user name already exists.
@@ -64,7 +66,7 @@ public interface ServiceUser {
 	 * @return true if the user name is already in use, false otherwise.
 	 * @throws NullPointerException if userName is null.
 	 */
-	boolean isExistingUserName(String userName) throws NullPointerException;
+	boolean isExistingUserName(String userName);
 	
 	/**
 	 * Check if the email already exists.
@@ -72,5 +74,5 @@ public interface ServiceUser {
 	 * @return true if email was found, false otherwise.
 	 * @throws NullPointerException if email is null.
 	 */
-	boolean isExistingEmail(String email) throws NullPointerException;
+	boolean isExistingEmail(String email);
 }

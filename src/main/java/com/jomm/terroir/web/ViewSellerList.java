@@ -19,6 +19,8 @@ import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link ViewSeller}.
@@ -74,10 +76,10 @@ public class ViewSellerList {
 				Object[] argument = {sellerJsf.getUserName()};
 				String detail = MessageFormat.format(resourceMessage.getString(Constants.UPDATE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(Constants.UPDATE_OK), detail);
-			} catch (NullPointerException exception) {
+			} catch (ExceptionNullEntity exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 						resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), exception.getMessage());
-			} catch (IllegalArgumentException exception) {
+			} catch (ExceptionInvalidId exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 						resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), exception.getMessage());
 			} finally {
@@ -107,11 +109,11 @@ public class ViewSellerList {
 				userService.delete(seller);
 				String detail = MessageFormat.format(resourceMessage.getString(Constants.DELETE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(Constants.DELETE_OK), detail);
-			} catch (NullPointerException exception) {
+			} catch (ExceptionNullEntity exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 						resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), seller.getUserName() 
 						+ ", " + seller.getId() + ":" + exception.getMessage());
-			} catch (IllegalArgumentException exception) {
+			} catch (ExceptionInvalidId exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
 						resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), seller.getUserName() 
 						+ ":" + exception.getMessage());

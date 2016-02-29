@@ -21,6 +21,8 @@ import com.jomm.terroir.business.model.TestEnterprise;
 import com.jomm.terroir.business.model.TestSeller;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing {@link ViewSeller}.
@@ -48,13 +50,14 @@ public class TestViewSeller {
 
 	/**
 	 * Test method for {@link ViewSeller#create()} when entity is null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithNullPointerException() {
+	public final void testCreateWithExceptionNullEntity() throws Exception {
 		// initialization
 		setInjections();
 		// call to create()
-		when(view.userService.create(any(Seller.class))).thenThrow(new NullPointerException());
+		when(view.userService.create(any(Seller.class))).thenThrow(new ExceptionNullEntity());
 		view.create();
 		// verify Service.create() was called
 		verify(view.userService).create(any(Seller.class));
@@ -69,13 +72,14 @@ public class TestViewSeller {
 	
 	/**
 	 * Test method for {@link ViewSeller#create()} with id not null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithIllegalArgumentException() {
+	public final void testCreateWithExceptionInvalidId() throws Exception {
 		// initialization
 		setInjections();
 		// call to create()
-		when(view.userService.create(any(Seller.class))).thenThrow(new IllegalArgumentException());
+		when(view.userService.create(any(Seller.class))).thenThrow(new ExceptionInvalidId(true));
 		view.create();
 		// verify Service.create() was called
 		verify(view.userService).create(any(Seller.class));
@@ -90,9 +94,10 @@ public class TestViewSeller {
 	
 	/**
 	 * Test method for {@link ViewSeller#create()} with id null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithEntityIdNull() {
+	public final void testCreateWithEntityIdNull() throws Exception {
 		// initialization
 		setInjections();
 		// call to create()

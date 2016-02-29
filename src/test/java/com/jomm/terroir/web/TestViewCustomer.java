@@ -22,13 +22,15 @@ import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.TestCustomer;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing {@link ViewCustomer}.
  * @author Maic
  */
 public class TestViewCustomer {
-	
+
 	private ViewCustomer view;
 
 	/**
@@ -49,51 +51,54 @@ public class TestViewCustomer {
 
 	/**
 	 * Test method for {@link ViewCustomer#create()} when entity is null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithNullPointerException() {
+	public final void testCreateWithExceptionNullEntity() throws Exception {
 		// initialization
 		setInjections();
 		// call to create()
-		when(view.userService.create(any(Customer.class))).thenThrow(new NullPointerException());
+		when(view.userService.create(any(Customer.class))).thenThrow(new ExceptionNullEntity());
 		view.create();
 		// verify Service.create() was called
 		verify(view.userService).create(any(Customer.class));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
 		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
+		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
+		assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
 	}
-	
+
 	/**
 	 * Test method for {@link ViewCustomer#create()} with id not null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithIllegalArgumentException() {
+	public final void testCreateWithExceptionInvalidId() throws Exception {
 		// initialization
 		setInjections();
 		// call to create()
-		when(view.userService.create(any(Customer.class))).thenThrow(new IllegalArgumentException());
+		when(view.userService.create(any(Customer.class))).thenThrow(new ExceptionInvalidId(true));
 		view.create();
 		// verify Service.create() was called
 		verify(view.userService).create(any(Customer.class));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
 		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
+		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(Constants.ID_SHOULD_BE_NULL), message.getSummary());
+		assertEquals(view.resourceError.getString(Constants.ID_SHOULD_BE_NULL), message.getSummary());
 	}
-	
+
 	/**
 	 * Test method for {@link ViewCustomer#create()} with id null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithEntityIdNull() {
+	public final void testCreateWithEntityIdNull() throws Exception {
 		// initialization
 		setInjections();
 		// call to create()
@@ -103,11 +108,11 @@ public class TestViewCustomer {
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
 		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage
-        FacesMessage message = messageCaptor.getValue();
-        // check if the captured FacesMessage contains the expected values
-        assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resourceMessage.getString(Constants.USER_REGISTRED), message.getSummary());
+		// retrieve the captured FacesMessage
+		FacesMessage message = messageCaptor.getValue();
+		// check if the captured FacesMessage contains the expected values
+		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
+		assertEquals(view.resourceMessage.getString(Constants.USER_REGISTRED), message.getSummary());
 	}
 
 	/**
@@ -144,7 +149,7 @@ public class TestViewCustomer {
 		ViewCustomer view = ViewCustomer.convertIntoView(entity);
 		compareViewAndEntity(view, entity);
 	}
-	
+
 	/**
 	 * Test method for {@link ViewCustomer}'s getters and setters.
 	 */
@@ -154,13 +159,13 @@ public class TestViewCustomer {
 		LocalDate birthdate = LocalDate.now();
 		view.setBirthDate(birthdate);
 		assertEquals("BirthDate should be " + birthdate, birthdate, view.getBirthDate());
-		
+
 		// SignUpDate
 		ZonedDateTime date = ZonedDateTime.now();
 		view.setSignUpDate(date);
 		assertEquals("SignUpDate should be " + date, date, view.getSignUpDate());
 	}	
-	
+
 	/**
 	 * Compare a view and an entity.
 	 * @param view {@link ViewCustomer}.
@@ -176,7 +181,7 @@ public class TestViewCustomer {
 		assertEquals(view.getBirthDate(), entity.getBirthDate());
 		assertEquals(view.getSignUpDate(), entity.getSignUpDate());
 	}
-	
+
 	/**
 	 * Generate a dummy {@link ViewCustomer} usable for tests.
 	 * @return {@link ViewCustomer}.
@@ -191,7 +196,7 @@ public class TestViewCustomer {
 		view.setBirthDate(LocalDate.now());
 		return view;
 	}
-	
+
 	/**
 	 * Set mocked {@link javax.faces.context.FacesContext}, and mocked {@link ServiceUser} into view.
 	 * Retrieve the {@link java.util.ResourceBundle}s from {@link Resources}.

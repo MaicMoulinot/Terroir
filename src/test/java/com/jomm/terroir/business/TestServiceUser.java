@@ -1,8 +1,8 @@
 package com.jomm.terroir.business;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertEquals;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +22,8 @@ import com.jomm.terroir.dao.DaoAdmin;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceUser}.
@@ -46,24 +48,24 @@ public class TestServiceUser {
 	}
 
 	/**
-	 * Test that {@link ServiceUser#create(AbstractUser)} throws an {@link NullPointerException}
+	 * Test that {@link ServiceUser#create(AbstractUser)} throws an {@link ExceptionNullEntity}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testCreateWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testCreateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.create(null);
 	}
 
 	/**
-	 * Test that {@link ServiceUser#create(AbstractUser)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceUser#create(AbstractUser)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is not null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testCreateWithEntityIdNotNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testCreateWithEntityIdNotNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		user.setId((long) 52);
 		service.create(user);
@@ -71,11 +73,11 @@ public class TestServiceUser {
 	
 	/**
 	 * Test that {@link ServiceUser#create(Customer)} generate properly the sign up date.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
 	@Test
-	public final void testCreateCustomerGenerateSignUpDate() throws NullPointerException, IllegalArgumentException {
+	public final void testCreateCustomerGenerateSignUpDate() throws ExceptionNullEntity, ExceptionInvalidId {
 		Customer customer = TestCustomer.generateCustomerWithIdNull();
 		assertNull("Sign Up Date should not yet be initialized", customer.getSignUpDate());
 		ZonedDateTime now = ZonedDateTime.now();
@@ -88,47 +90,47 @@ public class TestServiceUser {
 	}
 
 	/**
-	 * Test that {@link ServiceUser#update(AbstractUser)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceUser#update(AbstractUser)} throws an {@link ExceptionInvalidId}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testUpdateWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testUpdateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.update(null);
 	}
 
 	/**
-	 * Test that {@link ServiceUser#update(AbstractUser)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceUser#update(AbstractUser)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testUpdateWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testUpdateWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		service.update(user);
 	}
 
 	/**
-	 * Test that {@link ServiceUser#delete(AbstractUser)} throws an {@link NullPointerException}
+	 * Test that {@link ServiceUser#delete(AbstractUser)} throws an {@link ExceptionNullEntity}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testDeleteWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testDeleteWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.delete(null);
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#update(AbstractUser)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceUser#update(AbstractUser)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testDeleteWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testDeleteWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		service.delete(user);
 	}
@@ -158,7 +160,7 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#isExistingUserName(String)} throws an {@link NullPointerException}
+	 * Test that {@link ServiceUser#isExistingUserName(String)} throws an {@link ExceptionNullEntity}
 	 * when user name is null.
 	 * @throws NullPointerException is expected.
 	 */
@@ -178,7 +180,7 @@ public class TestServiceUser {
 			service.isExistingUserName(test);
 			assertNotNull(test);
 		} catch (NullPointerException unexpectedException) {
-			assertNull("A NullPointerException was thrown and should not have", unexpectedException);
+			assertNull("A ExceptionNullEntity was thrown and should not have", unexpectedException);
 		}
 	}
 	
@@ -193,7 +195,7 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#isExistingEmail(String)} do not throw an {@link NullPointerException}
+	 * Test that {@link ServiceUser#isExistingEmail(String)} do not throw an {@link ExceptionNullEntity}
 	 * when email is not null.
 	 */
 	@Test
@@ -203,7 +205,7 @@ public class TestServiceUser {
 			service.isExistingEmail(test);
 			assertNotNull(test);
 		} catch (NullPointerException unexpectedException) {
-			assertNull("A NullPointerException was thrown and should not have", unexpectedException);
+			assertNull("A ExceptionNullEntity was thrown and should not have", unexpectedException);
 		}
 	}
 	

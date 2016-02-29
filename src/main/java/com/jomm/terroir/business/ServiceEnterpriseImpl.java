@@ -10,6 +10,8 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.dao.DaoEnterprise;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Class is the Service relating to {@link Enterprise}.
@@ -25,22 +27,22 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	DaoEnterprise enterpriseDao;
 
 	@Override
-	public Enterprise create(Enterprise enterprise) throws NullPointerException, IllegalArgumentException {
+	public Enterprise create(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId {
 		if (enterprise == null) {
-			throw new NullPointerException();
+			throw new ExceptionNullEntity();
 		} else if (enterprise.getId() != null) {
-			throw new IllegalArgumentException();
+			throw new ExceptionInvalidId(true);
 		}
 		enterprise.setSignUpDate(ZonedDateTime.now());
 		return enterpriseDao.create(enterprise);
 	}
 	
 	@Override
-	public Enterprise update(Enterprise enterprise) throws NullPointerException, IllegalArgumentException {
+	public Enterprise update(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId {
 		if (enterprise == null) {
-			throw new NullPointerException();
+			throw new ExceptionNullEntity();
 		} else if (enterprise.getId() == null) {
-			throw new IllegalArgumentException();
+			throw new ExceptionInvalidId(false);
 		}
 		return enterpriseDao.update(enterprise);
 	}
@@ -56,11 +58,11 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
-	public void delete(Enterprise enterprise) throws NullPointerException, IllegalArgumentException {
+	public void delete(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId {
 		if (enterprise == null) {
-			throw new NullPointerException();
+			throw new ExceptionNullEntity();
 		} else if (enterprise.getId() == null) {
-			throw new IllegalArgumentException();
+			throw new ExceptionInvalidId(false);
 		}
 		enterpriseDao.delete(enterprise);
 	}

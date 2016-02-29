@@ -28,6 +28,8 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing {@link ViewSellerList}.
@@ -68,12 +70,13 @@ public class TestViewSellerList {
 	
 	/**
 	 * Test method for {@link ViewSellerList#onRowEdit(RowEditEvent)} with entity null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testOnRowEditWithNullPointerException() {
+	public final void testOnRowEditWithExceptionNullEntity() throws Exception {
 		// initialization
 		setInjections();
-		when(view.userService.update(any(Seller.class))).thenThrow(new NullPointerException());
+		when(view.userService.update(any(Seller.class))).thenThrow(new ExceptionNullEntity());
 		RowEditEvent event = mock(RowEditEvent.class);
 		when(event.getObject()).thenReturn(new ViewSeller());
 		// call to onRowEdit()
@@ -91,12 +94,13 @@ public class TestViewSellerList {
 	
 	/**
 	 * Test method for {@link ViewSellerList#onRowEdit(RowEditEvent)} with id null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testOnRowEditWithIllegalArgumentException() {
+	public final void testOnRowEditWithExceptionInvalidId() throws Exception {
 		// initialization
 		setInjections();
-		when(view.userService.update(any(Seller.class))).thenThrow(new IllegalArgumentException());
+		when(view.userService.update(any(Seller.class))).thenThrow(new ExceptionInvalidId(false));
 		RowEditEvent event = mock(RowEditEvent.class);
 		when(event.getObject()).thenReturn(new ViewSeller());
 		// call to onRowEdit()
@@ -114,9 +118,10 @@ public class TestViewSellerList {
 	
 	/**
 	 * Test method for {@link ViewSellerList#onRowEdit(RowEditEvent)} with id not null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testOnRowEditWithEntityIdNull() {
+	public final void testOnRowEditWithEntityIdNull() throws Exception {
 		// initialization
 		setInjections();
 		RowEditEvent event = mock(RowEditEvent.class);
@@ -140,9 +145,10 @@ public class TestViewSellerList {
 	
 	/**
 	 * Test method for {@link ViewSellerList#delete()} with current seller null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testDeleteWithCurrentSellerNull() {
+	public final void testDeleteWithCurrentSellerNull() throws Exception {
 		// initialization
 		setInjections();
 		view.setCurrentSeller(null);
@@ -154,13 +160,14 @@ public class TestViewSellerList {
 	
 	/**
 	 * Test method for {@link ViewSellerList#delete()} with entity null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testDeleteWithNullPointerException() {
+	public final void testDeleteWithExceptionNullEntity() throws Exception {
 		// initialization
 		setInjections();
 		view.setCurrentSeller(TestViewSeller.generateDummyViewSeller());
-		doThrow(new NullPointerException()).when(view.userService).delete(any(AbstractUser.class));
+		doThrow(new ExceptionNullEntity()).when(view.userService).delete(any(AbstractUser.class));
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called
@@ -176,13 +183,14 @@ public class TestViewSellerList {
 	
 	/**
 	 * Test method for {@link ViewSellerList#delete()} with entity's id null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testDeleteWithIllegalArgumentException() {
+	public final void testDeleteWithExceptionInvalidId() throws Exception {
 		// initialization
 		setInjections();
 		view.setCurrentSeller(TestViewSeller.generateDummyViewSeller());
-		doThrow(new IllegalArgumentException()).when(view.userService).delete(any(AbstractUser.class));
+		doThrow(new ExceptionInvalidId(false)).when(view.userService).delete(any(AbstractUser.class));
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called
@@ -198,9 +206,10 @@ public class TestViewSellerList {
 	
 	/**
 	 * Test method for {@link ViewSellerList#delete()} with entity's id not null.
+	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() {
+	public final void testDeleteWithEntityIdNotNull() throws Exception {
 		// initialization
 		setInjections();
 		ViewSeller viewSeller = TestViewSeller.generateDummyViewSeller();

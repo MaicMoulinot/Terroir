@@ -17,6 +17,8 @@ import org.mockito.Mockito;
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.TestEnterprise;
 import com.jomm.terroir.dao.DaoEnterprise;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceEnterprise}.
@@ -41,24 +43,24 @@ public class TestServiceEnterprise {
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link NullPointerException}
+	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link ExceptionNullEntity}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testCreateWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testCreateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.create(null);
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceEnterprise#create(Enterprise)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is not null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testCreateWithEntityIdNotNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testCreateWithEntityIdNotNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId((long) 52);
 		service.create(enterprise);
@@ -66,11 +68,11 @@ public class TestServiceEnterprise {
 	
 	/**
 	 * Test that {@link ServiceEnterprise#create(Enterprise)} generate properly the sign up date.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
 	@Test
-	public final void testCreateEnterpriseGenerateSignUpDate() throws NullPointerException, IllegalArgumentException {
+	public final void testCreateEnterpriseGenerateSignUpDate() throws ExceptionNullEntity, ExceptionInvalidId {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		assertNull("Sign Up Date should not yet be initialized", enterprise.getSignUpDate());
 		ZonedDateTime now = ZonedDateTime.now();
@@ -83,47 +85,47 @@ public class TestServiceEnterprise {
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link ExceptionInvalidId}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testUpdateWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testUpdateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.update(null);
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testUpdateWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testUpdateWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		service.update(enterprise);
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#delete(Enterprise)} throws an {@link NullPointerException}
+	 * Test that {@link ServiceEnterprise#delete(Enterprise)} throws an {@link ExceptionNullEntity}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testDeleteWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testDeleteWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.delete(null);
 	}
 	
 	/**
-	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testDeleteWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testDeleteWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		service.delete(enterprise);
 	}

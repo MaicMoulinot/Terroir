@@ -13,6 +13,8 @@ import org.mockito.Mockito;
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.business.model.TestSite;
 import com.jomm.terroir.dao.DaoSite;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceSite}.
@@ -37,71 +39,71 @@ public class TestServiceSite {
 	}
 
 	/**
-	 * Test that {@link ServiceSite#create(Site)} throws an {@link NullPointerException}
+	 * Test that {@link ServiceSite#create(Site)} throws an {@link ExceptionNullEntity}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testCreateWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testCreateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.create(null);
 	}
 
 	/**
-	 * Test that {@link ServiceSite#create(Site)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceSite#create(Site)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is not null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testCreateWithEntityIdNotNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testCreateWithEntityIdNotNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		Site site = TestSite.generateSiteWithIdNull();
 		site.setId((long) 52);
 		service.create(site);
 	}
 
 	/**
-	 * Test that {@link ServiceSite#update(Site)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionInvalidId}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testUpdateWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testUpdateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.update(null);
 	}
 
 	/**
-	 * Test that {@link ServiceSite#update(Site)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testUpdateWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testUpdateWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		Site site = TestSite.generateSiteWithIdNull();
 		service.update(site);
 	}
 
 	/**
-	 * Test that {@link ServiceSite#delete(Site)} throws an {@link NullPointerException}
+	 * Test that {@link ServiceSite#delete(Site)} throws an {@link ExceptionNullEntity}
 	 * when entity is null.
-	 * @throws NullPointerException is expected.
-	 * @throws IllegalArgumentException is not expected.
+	 * @throws ExceptionNullEntity is expected.
+	 * @throws ExceptionInvalidId is not expected.
 	 */
-	@Test(expected = NullPointerException.class)
-	public final void testDeleteWithEntityNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionNullEntity.class)
+	public final void testDeleteWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		service.delete(null);
 	}
 	
 	/**
-	 * Test that {@link ServiceSite#update(Site)} throws an {@link IllegalArgumentException}
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionInvalidId}
 	 * when entity's id is null.
-	 * @throws NullPointerException is not expected.
-	 * @throws IllegalArgumentException is expected.
+	 * @throws ExceptionNullEntity is not expected.
+	 * @throws ExceptionInvalidId is expected.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public final void testDeleteWithEntityIdNull() throws NullPointerException, IllegalArgumentException {
+	@Test(expected = ExceptionInvalidId.class)
+	public final void testDeleteWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
 		Site site = TestSite.generateSiteWithIdNull();
 		service.delete(site);
 	}

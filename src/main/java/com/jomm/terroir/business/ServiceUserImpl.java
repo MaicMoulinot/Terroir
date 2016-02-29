@@ -16,6 +16,8 @@ import com.jomm.terroir.dao.DaoAdmin;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Class is the Service relating to {@link AbstractUser} and its children {@link Admin}, 
@@ -44,11 +46,11 @@ public class ServiceUserImpl implements ServiceUser {
 	DaoSeller sellerDao;
 
 	@Override
-	public AbstractUser create(AbstractUser user) throws NullPointerException, IllegalArgumentException {
+	public AbstractUser create(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId {
 		if (user == null) {
-			throw new NullPointerException();
+			throw new ExceptionNullEntity();
 		} else if (user.getId() != null) {
-			throw new IllegalArgumentException();
+			throw new ExceptionInvalidId(true);
 		}
 		if (user instanceof Customer) {
 			((Customer) user).setSignUpDate(ZonedDateTime.now());
@@ -57,21 +59,21 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
-	public AbstractUser update(AbstractUser user) throws NullPointerException, IllegalArgumentException {
+	public AbstractUser update(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId {
 		if (user == null) {
-			throw new NullPointerException();
+			throw new ExceptionNullEntity();
 		} else if (user.getId() == null) {
-			throw new IllegalArgumentException();
+			throw new ExceptionInvalidId(false);
 		}
 		return userDao.update(user);
 	}
 	
 	@Override
-	public void delete(AbstractUser user) throws NullPointerException, IllegalArgumentException {
+	public void delete(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId {
 		if (user == null) {
-			throw new NullPointerException();
+			throw new ExceptionNullEntity();
 		} else if (user.getId() == null) {
-			throw new IllegalArgumentException();
+			throw new ExceptionInvalidId(false);
 		}
 		userDao.delete(user);
 	}
@@ -95,7 +97,7 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
-	public boolean isExistingUserName(String userName) throws NullPointerException {
+	public boolean isExistingUserName(String userName) {
 		if (userName == null) {
 			throw new NullPointerException();
 		}
@@ -103,7 +105,7 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
-	public boolean isExistingEmail(String email) throws NullPointerException {
+	public boolean isExistingEmail(String email) {
 		if (email == null) {
 			throw new NullPointerException();
 		}

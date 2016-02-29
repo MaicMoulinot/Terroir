@@ -13,6 +13,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.TestEnterprise;
 import com.jomm.terroir.dao.DaoEnterprise;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing the methods of {@link ServiceEnterpriseImpl}.
@@ -37,7 +39,7 @@ public class TestServiceEnterpriseImpl {
 		try {
 			service.create(TestEnterprise.generateEnterpriseWithIdNull());
 			verify(dao).create(any(Enterprise.class)); // validate that dao.create() was called
-		} catch (IllegalArgumentException | NullPointerException unexpectedException) {
+		} catch (ExceptionInvalidId | ExceptionNullEntity unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -52,7 +54,7 @@ public class TestServiceEnterpriseImpl {
 		try {
 			service.update(enterprise);
 			verify(dao).update(any(Enterprise.class)); // validate that dao.update() was called
-		} catch (IllegalArgumentException | NullPointerException unexpectedException) {
+		} catch (ExceptionInvalidId | ExceptionNullEntity unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -67,7 +69,7 @@ public class TestServiceEnterpriseImpl {
 		try {
 			service.delete(enterprise);
 			verify(dao).delete(any(Enterprise.class)); // validate that dao.delete() was called
-		} catch (NullPointerException | IllegalArgumentException unexpectedException) {
+		} catch (ExceptionNullEntity | ExceptionInvalidId unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
