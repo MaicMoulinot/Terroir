@@ -47,7 +47,7 @@ public class TestConverterZonedDateTime {
 	@Test
 	public final void testGetAsObjectWithValueNotNull() {
 		String value = "27/02/2016 23:52:36 GMT";
-		assertEquals("This method should not fail because of rounding", 
+		assertEquals("This method should never fail because of rounding", 
 				ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN)), 
 				converter.getAsObject(context, component, value));
 	}
@@ -66,7 +66,7 @@ public class TestConverterZonedDateTime {
 	@Test
 	public final void testGetAsStringWithValueNotNull() {
 		ZonedDateTime now = ZonedDateTime.now();
-		assertEquals("This method should not fail because of rounding", 
+		assertEquals("This method should never fail because of rounding", 
 				now.format(DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN)), 
 				converter.getAsString(context, component, now));
 	}

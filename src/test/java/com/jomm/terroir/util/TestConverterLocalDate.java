@@ -47,7 +47,7 @@ public class TestConverterLocalDate {
 	@Test
 	public final void testGetAsObjectWithValueNotNull() {
 		String value = "27/02/2016";
-		assertEquals("This should not fail because of rounding", 
+		assertEquals("This should never fail because of rounding", 
 				LocalDate.parse(value, DateTimeFormatter.ofPattern(Constants.LOCAL_DATE_PATTERN)), 
 				converter.getAsObject(context, component, value));
 	}
@@ -66,7 +66,7 @@ public class TestConverterLocalDate {
 	@Test
 	public final void testGetAsStringWithValueNotNull() {
 		LocalDate now = LocalDate.now();
-		assertEquals("This method should not fail because of rounding", 
+		assertEquals("This method should never fail because of rounding", 
 				now.format(DateTimeFormatter.ofPattern(Constants.LOCAL_DATE_PATTERN)), 
 				converter.getAsString(context, component, now));
 	}

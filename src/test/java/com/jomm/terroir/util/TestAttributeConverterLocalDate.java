@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import org.junit.Before;
@@ -49,9 +50,8 @@ public class TestAttributeConverterLocalDate {
 	public final void testConvertToDatabaseColumnWithValueNotNull() {
 		Date fromJavaUtil = new Date();
 		Date fromConverter = converter.convertToDatabaseColumn(LocalDate.now());
-		assertEquals("This method might fail because of rounding", 
-				LocalDateTime.ofInstant(fromJavaUtil.toInstant(), converter.zoneId).toLocalDate(), 
-				LocalDateTime.ofInstant(fromConverter.toInstant(), converter.zoneId).toLocalDate());
+		assertEquals("This method should never fail because of rounding", 
+				formatDateIntoString(fromJavaUtil), formatDateIntoString(fromConverter));
 	}
 	
 	/**
@@ -67,8 +67,27 @@ public class TestAttributeConverterLocalDate {
 	 */
 	@Test
 	public final void testConvertToEntityAttributeWithValueNotNull() {
-		assertEquals("This method might fail because of rounding", 
-				LocalDate.now(), 
-				converter.convertToEntityAttribute(new Date()));
+		assertEquals("This method should never fail because of rounding", 
+				formatLocalDateIntoString(LocalDate.now()), 
+				formatLocalDateIntoString(converter.convertToEntityAttribute(new Date())));
+	}
+	
+	/**
+	 * Format a {@link Date} into a String.
+	 * @param date the {@link Date} to format.
+	 * @return String the formatted date.
+	 */
+	private String formatDateIntoString(Date date) {
+		LocalDate localDate = LocalDateTime.ofInstant(date.toInstant(), converter.zoneId).toLocalDate();
+		return formatLocalDateIntoString(localDate);
+	}
+	
+	/**
+	 * Format a {@link LocalDate} into a String.
+	 * @param localDate the {@link LocalDate} to format.
+	 * @return String the formatted date.
+	 */
+	private String formatLocalDateIntoString(LocalDate localDate) {
+		return localDate.format(DateTimeFormatter.ofPattern(Constants.LOCAL_DATE_PATTERN));
 	}
 }
