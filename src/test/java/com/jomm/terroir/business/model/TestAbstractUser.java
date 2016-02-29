@@ -28,7 +28,7 @@ public class TestAbstractUser {
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestAbstractUser#childToTest()}.
-	 * @param class the concrete child of {@link AbstractUser}.
+	 * @param user the concrete child of {@link AbstractUser}.
 	 */
     public TestAbstractUser(AbstractUser user) {
         this.user = user;
