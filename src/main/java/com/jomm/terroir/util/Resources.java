@@ -18,23 +18,18 @@ import javax.persistence.PersistenceContext;
  * @author Maic
  */
 public final class Resources {
-	
-	// Constants
-	static final String BUNDLE_MESSAGE = "i18n.message";
-	static final String BUNDLE_ERROR = "i18n.error";
-	static final String BUNDLE_LABEL = "i18n.label";
 
-	/**
-	 * Constructor private to prevent instantiation.
-	 */
-	private Resources() {}
-	
 	/**
 	 * Expose an {@link EntityManager} using the resource producer pattern.
 	 */
 	@PersistenceContext(name="terroirPU")
 	@Produces
 	private static EntityManager entityManager;
+	
+	/**
+	 * Constructor private to prevent instantiation.
+	 */
+	private Resources() {}	
 
 	/**
 	 * Expose the {@link Logger} using the resource producer pattern.
@@ -77,7 +72,7 @@ public final class Resources {
 	@Produces
 	@BundleMessage
 	public static ResourceBundle getResourceBundleMessage() {
-		return ResourceBundle.getBundle(BUNDLE_MESSAGE, Locale.getDefault());
+		return ResourceBundle.getBundle(Constants.BUNDLE_MESSAGE, Locale.getDefault());
 	}
 	
 	/**
@@ -87,7 +82,7 @@ public final class Resources {
 	@Produces
 	@BundleError
 	public static ResourceBundle getResourceBundleError() {
-		return ResourceBundle.getBundle(BUNDLE_ERROR, Locale.getDefault());
+		return ResourceBundle.getBundle(Constants.BUNDLE_ERROR, Locale.getDefault());
 	}
 	
 	/**
@@ -97,6 +92,6 @@ public final class Resources {
 	@Produces
 	@BundleLabel
 	public static ResourceBundle getResourceBundleLabel() {
-		return ResourceBundle.getBundle(BUNDLE_LABEL, Locale.getDefault());
+		return ResourceBundle.getBundle(Constants.BUNDLE_LABEL, Locale.getDefault());
 	}
 }

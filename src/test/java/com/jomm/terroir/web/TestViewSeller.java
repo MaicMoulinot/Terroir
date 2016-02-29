@@ -19,6 +19,7 @@ import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.business.model.TestEnterprise;
 import com.jomm.terroir.business.model.TestSeller;
+import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 
 /**
@@ -63,7 +64,7 @@ public class TestViewSeller {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewSeller.USER_SHOULD_NOT_BE_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -84,7 +85,7 @@ public class TestViewSeller {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewSeller.ID_SHOULD_BE_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.ID_SHOULD_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -105,7 +106,7 @@ public class TestViewSeller {
         FacesMessage message = messageCaptor.getValue();
         // check if the captured FacesMessage contains the expected values
         assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resourceMessage.getString(ViewSeller.USER_REGISTRED), message.getSummary());
+        assertEquals(view.resourceMessage.getString(Constants.USER_REGISTRED), message.getSummary());
 	}
 
 	/**

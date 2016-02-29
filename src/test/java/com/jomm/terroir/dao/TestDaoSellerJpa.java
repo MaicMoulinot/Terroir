@@ -27,7 +27,6 @@ public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
 	
 	private static final int LIST_INITIAL_SIZE = 0; // From UtilData.INSERT_BASIC_DATA
 	private static final long EXISTING_ENTERPRISE_ID = 111111; // From UtilData.INSERT_BASIC_DATA
-	private static final long NON_EXISTING_ENTITY_ID = 999999; // From UtilData.INSERT_BASIC_DATA
 
 	/**
 	 * @throws java.lang.Exception

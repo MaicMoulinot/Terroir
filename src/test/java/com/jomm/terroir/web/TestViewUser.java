@@ -16,6 +16,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.mockito.ArgumentCaptor;
 
+import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 
 /**
@@ -53,12 +54,12 @@ public class TestViewUser {
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
 		verify(view.facesContext).addMessage(stringCaptor.capture(), messageCaptor.capture());
         // retrieve the captured String and check if it contains the expected value
-        assertEquals("growl", stringCaptor.getValue());
+        assertEquals(Constants.CLIENT_ID_GROWL, stringCaptor.getValue());
         // retrieve the captured FacesMessage and check if it contains the expected values
         FacesMessage message = messageCaptor.getValue();
         assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resource.getString(ViewUser.PASSWORD_TITLE), message.getSummary());
-        assertEquals(view.resource.getString(ViewUser.PASSWORD_RULES), message.getDetail());
+        assertEquals(view.resource.getString(Constants.PASSWORD_TITLE), message.getSummary());
+        assertEquals(view.resource.getString(Constants.PASSWORD_RULES), message.getDetail());
 	}
 
 	/**

@@ -25,7 +25,6 @@ import com.jomm.terroir.business.model.TestAbstractUser;
 public class TestDaoUserJpa extends TestDaoGenericJpa<AbstractUser> {
 	
 	private static final int LIST_INITIAL_SIZE = 0; // From UtilData.INSERT_BASIC_DATA
-	private static final long NON_EXISTING_ENTITY_ID = 999999; // From UtilData.INSERT_BASIC_DATA
 
 	/**
 	 * @throws java.lang.Exception

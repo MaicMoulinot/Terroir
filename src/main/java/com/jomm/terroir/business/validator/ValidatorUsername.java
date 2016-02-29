@@ -13,6 +13,7 @@ import javax.inject.Named;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.util.BundleError;
+import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is the Validator relating to an user name.
@@ -27,10 +28,6 @@ import com.jomm.terroir.util.BundleError;
  */
 @Named
 public class ValidatorUsername implements Validator {
-
-	// Static constants
-	public static final String EXISTING_USER_NAME = "existingusername";
-	public static final String LENGTH_AT_LEAST_6_CHARACTERS = "length6";
 
 	@Inject
 	private ServiceUser userService;
@@ -48,12 +45,12 @@ public class ValidatorUsername implements Validator {
 				if (userName.length() < 6) {
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-									resource.getString(LENGTH_AT_LEAST_6_CHARACTERS), null));
+									resource.getString(Constants.LENGTH_AT_LEAST_6_CHARACTERS), null));
 				}
 				// Existing in database
 				if (userService.isExistingUserName(userName)) {
 					Object[] argument = {userName};
-					String detail = MessageFormat.format(resource.getString(EXISTING_USER_NAME), argument);
+					String detail = MessageFormat.format(resource.getString(Constants.USER_NAME_EXISTING), argument);
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
 				}

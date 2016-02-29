@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.business.ServiceUser;
+import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 
 /**
@@ -83,7 +84,7 @@ public class TestValidatorUsername {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with lenght < 6");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(ValidatorUsername.LENGTH_AT_LEAST_6_CHARACTERS), 
+			assertEquals(validator.resource.getString(Constants.LENGTH_AT_LEAST_6_CHARACTERS), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

@@ -10,6 +10,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
 import com.jomm.terroir.util.BundleMessage;
+import com.jomm.terroir.util.Constants;
 
 /**
  * This abstract Class is the View that creates a new {@link com.jomm.terroir.business.model.AbstractUser}.
@@ -30,10 +31,6 @@ public abstract class ViewUser {
 	@Inject
 	@BundleMessage
 	ResourceBundle resource;
-	
-	// Constants
-	static final String PASSWORD_TITLE = "passwordtitle";
-	static final String PASSWORD_RULES = "passwordrules";
 
 	//	Attributes
 	protected Long id;
@@ -42,7 +39,6 @@ public abstract class ViewUser {
 	protected String userName;
 	protected String email;
 	protected String password;
-
 
 	/**
 	 * Create and save a new User.
@@ -55,8 +51,10 @@ public abstract class ViewUser {
 	 * @param actionEvent the ActionEvent invoking the tips.
 	 */
 	public void passwordTooltip(ActionEvent actionEvent) {
-		FacesMessage message = new FacesMessage(resource.getString(PASSWORD_TITLE), resource.getString(PASSWORD_RULES));
-		facesContext.addMessage("growl", message);
+		FacesMessage message = new FacesMessage(
+				resource.getString(Constants.PASSWORD_TITLE), 
+				resource.getString(Constants.PASSWORD_RULES));
+		facesContext.addMessage(Constants.CLIENT_ID_GROWL, message);
 	}
 
 	/**

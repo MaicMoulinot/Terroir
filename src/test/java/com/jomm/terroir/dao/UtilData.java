@@ -24,8 +24,11 @@ import com.ninja_squad.dbsetup.operation.Operation;
  */
 public abstract class UtilData {
 	
-	// Attributes
+	// Protected constants
 	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
+	protected static final long NON_EXISTING_ENTITY_ID = 999999;
+	
+	// Private constants
 	private static final String DESTINATION_URL = "jdbc:derby:memory:testDB";
 	private static final String DESTINATION_USER = "";
 	private static final String DESTINATION_PASSWORD = "";

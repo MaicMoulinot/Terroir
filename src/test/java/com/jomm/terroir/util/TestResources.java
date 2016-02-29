@@ -59,7 +59,7 @@ public class TestResources {
 	 */
 	@Test
 	public final void testGetResourceBundleMessage() {
-		assertEquals(ResourceBundle.getBundle(Resources.BUNDLE_MESSAGE, Locale.getDefault()), 
+		assertEquals(ResourceBundle.getBundle(Constants.BUNDLE_MESSAGE, Locale.getDefault()), 
 				Resources.getResourceBundleMessage());
 	}
 
@@ -68,7 +68,7 @@ public class TestResources {
 	 */
 	@Test
 	public final void testGetResourceBundleError() {
-		assertEquals(ResourceBundle.getBundle(Resources.BUNDLE_ERROR, Locale.getDefault()), 
+		assertEquals(ResourceBundle.getBundle(Constants.BUNDLE_ERROR, Locale.getDefault()), 
 				Resources.getResourceBundleError());
 	}
 
@@ -77,7 +77,7 @@ public class TestResources {
 	 */
 	@Test
 	public final void testGetResourceBundleLabel() {
-		assertEquals(ResourceBundle.getBundle(Resources.BUNDLE_LABEL, Locale.getDefault()), 
+		assertEquals(ResourceBundle.getBundle(Constants.BUNDLE_LABEL, Locale.getDefault()), 
 				Resources.getResourceBundleLabel());
 	}
 	

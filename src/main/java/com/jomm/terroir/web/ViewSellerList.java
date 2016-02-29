@@ -18,6 +18,7 @@ import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
+import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link ViewSeller}.
@@ -48,14 +49,6 @@ public class ViewSellerList {
 	LinkedList<ViewSeller> listSellers;
 	ViewSeller currentSeller;
 	HtmlDataTable dataTable;
-	
-	// Static constants
-	static final String USER_NULL = "entitynull";
-	static final String ID_NULL = "idnull";
-	static final String UPDATE_USER = "updateuser";
-	static final String UPDATE_OK = "updateok";
-	static final String DELETE_USER = "deleteuser";
-	static final String DELETE_OK = "deleteok";
 
 	/**
 	 * Initialize the list of all users.
@@ -66,7 +59,6 @@ public class ViewSellerList {
 		for (Seller seller : userService.getAllSellers()) {
 			listSellers.add(ViewSeller.convertIntoView(seller));
 		}
-
 	}
 
 	/**
@@ -80,14 +72,14 @@ public class ViewSellerList {
 			try {
 				userService.update(sellerJsf.convertIntoEntity());
 				Object[] argument = {sellerJsf.getUserName()};
-				String detail = MessageFormat.format(resourceMessage.getString(UPDATE_USER), argument);
-				message = new FacesMessage(resourceMessage.getString(UPDATE_OK), detail);
+				String detail = MessageFormat.format(resourceMessage.getString(Constants.UPDATE_USER), argument);
+				message = new FacesMessage(resourceMessage.getString(Constants.UPDATE_OK), detail);
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(USER_NULL), exception.getMessage());
+						resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), exception.getMessage());
 			} catch (IllegalArgumentException exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(ID_NULL), exception.getMessage());
+						resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), exception.getMessage());
 			} finally {
 				facesContext.addMessage(null, message);
 			}
@@ -113,15 +105,15 @@ public class ViewSellerList {
 			try {
 				Object[] argument = {seller.getUserName()};
 				userService.delete(seller);
-				String detail = MessageFormat.format(resourceMessage.getString(DELETE_USER), argument);
-				message = new FacesMessage(resourceMessage.getString(DELETE_OK), detail);
+				String detail = MessageFormat.format(resourceMessage.getString(Constants.DELETE_USER), argument);
+				message = new FacesMessage(resourceMessage.getString(Constants.DELETE_OK), detail);
 			} catch (NullPointerException exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(USER_NULL), seller.getUserName() 
+						resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), seller.getUserName() 
 						+ ", " + seller.getId() + ":" + exception.getMessage());
 			} catch (IllegalArgumentException exception) {
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(ID_NULL), seller.getUserName() 
+						resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), seller.getUserName() 
 						+ ":" + exception.getMessage());
 			} finally {
 				facesContext.addMessage(null, message);

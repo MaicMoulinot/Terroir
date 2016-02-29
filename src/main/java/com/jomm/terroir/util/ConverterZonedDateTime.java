@@ -20,14 +20,13 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value = "zonedDateTimeConverter")
 public final class ConverterZonedDateTime implements Converter {
-	
-	static final String ZONED_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss z";
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		ZonedDateTime dateAsZonedDateTime = null;
 		if (value != null) {
-			dateAsZonedDateTime = ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(ZONED_DATE_TIME_PATTERN));
+			dateAsZonedDateTime = ZonedDateTime.parse(value, 
+					DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN));
 		}
 		return dateAsZonedDateTime;
 	}
@@ -37,7 +36,7 @@ public final class ConverterZonedDateTime implements Converter {
 		String dateAsString = null;
 		if (value != null) {
 			ZonedDateTime dateValue = (ZonedDateTime) value;
-			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME_PATTERN));
+			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN));
 		}
 		return dateAsString;
 	}

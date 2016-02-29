@@ -26,6 +26,7 @@ import org.primefaces.event.RowEditEvent;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Seller;
+import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 
 /**
@@ -85,7 +86,7 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewSellerList.USER_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -108,7 +109,7 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewSellerList.ID_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -131,9 +132,9 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resourceMessage.getString(ViewSellerList.UPDATE_OK), message.getSummary());
+        assertEquals(view.resourceMessage.getString(Constants.UPDATE_OK), message.getSummary());
         Object[] argument = {viewSeller.getUserName()};
-        assertEquals(MessageFormat.format(view.resourceMessage.getString(ViewSellerList.UPDATE_USER), argument), 
+        assertEquals(MessageFormat.format(view.resourceMessage.getString(Constants.UPDATE_USER), argument), 
         		message.getDetail());
 	}
 	
@@ -170,7 +171,7 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewSellerList.USER_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -192,7 +193,7 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewSellerList.ID_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -214,9 +215,9 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resourceMessage.getString(ViewSellerList.DELETE_OK), message.getSummary());
+        assertEquals(view.resourceMessage.getString(Constants.DELETE_OK), message.getSummary());
         Object[] argument = {viewSeller.getUserName()};
-        assertEquals(MessageFormat.format(view.resourceMessage.getString(ViewSellerList.DELETE_USER), argument), 
+        assertEquals(MessageFormat.format(view.resourceMessage.getString(Constants.DELETE_USER), argument), 
         		message.getDetail());
 	}
 	

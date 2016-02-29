@@ -17,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.business.ServiceUser;
+import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 
 /**
@@ -82,7 +83,7 @@ public class TestValidatorEmail {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with email non valid");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(ValidatorEmail.EMAIL_UNVALID), 
+			assertEquals(validator.resource.getString(Constants.EMAIL_UNVALID), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

@@ -14,6 +14,7 @@ import javax.inject.Named;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.util.BundleError;
+import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is the Validator relating to an email.
@@ -30,12 +31,8 @@ import com.jomm.terroir.util.BundleError;
 @Named
 public class ValidatorEmail implements Validator {
 
-	// Static constants
-	public static final String EXISTING_EMAIL = "emaildoublon";
-	public static final String EMAIL_UNVALID = "emailnonvalid";
-
 	// Pattern for password
-	public static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", 
+	static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", 
 			Pattern.CASE_INSENSITIVE);
 
 	@Inject
@@ -53,10 +50,11 @@ public class ValidatorEmail implements Validator {
 				if (!EMAIL_PATTERN.matcher(email).matches()) {
 					// Email address is unvalid
 					throw new ValidatorException(
-							new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(EMAIL_UNVALID), null));
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+									resource.getString(Constants.EMAIL_UNVALID), null));
 				} else if (userService.isExistingEmail(email)) {
 					Object[] argument = {email};
-					String detail = MessageFormat.format(resource.getString(EXISTING_EMAIL), argument);
+					String detail = MessageFormat.format(resource.getString(Constants.EMAIL_EXISTING), argument);
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
 				}

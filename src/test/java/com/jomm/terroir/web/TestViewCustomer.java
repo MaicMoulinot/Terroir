@@ -20,6 +20,7 @@ import org.mockito.ArgumentCaptor;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.TestCustomer;
+import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 
 /**
@@ -64,7 +65,7 @@ public class TestViewCustomer {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewCustomer.USER_SHOULD_NOT_BE_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -85,7 +86,7 @@ public class TestViewCustomer {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(ViewCustomer.ID_SHOULD_BE_NULL), message.getSummary());
+        assertEquals(view.resourceError.getString(Constants.ID_SHOULD_BE_NULL), message.getSummary());
 	}
 	
 	/**
@@ -106,7 +107,7 @@ public class TestViewCustomer {
         FacesMessage message = messageCaptor.getValue();
         // check if the captured FacesMessage contains the expected values
         assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resourceMessage.getString(ViewCustomer.USER_REGISTRED), message.getSummary());
+        assertEquals(view.resourceMessage.getString(Constants.USER_REGISTRED), message.getSummary());
 	}
 
 	/**

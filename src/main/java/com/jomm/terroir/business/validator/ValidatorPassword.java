@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.util.BundleError;
+import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is the Validator relating to a password.
@@ -28,19 +29,13 @@ import com.jomm.terroir.util.BundleError;
 @Named
 public class ValidatorPassword implements Validator {
 
-	// Static constants
-	public static final String PASSWORD_PARAMETER = "passwordParam";
-	public static final String PASSWORDS_DONT_MATCH = "passwordsdifferent";
-	public static final String FIELD_MANDATORY = "mandatory";
-	public static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
-	public static final String PASSWORD_RULES = "passwordrules";
-
 	@Inject
 	@BundleError
-	private ResourceBundle resource;
+	ResourceBundle resource;
 
 	// Pattern for password
-	public static final Pattern PASSWORD_PATTERN = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
+	static final Pattern PASSWORD_PATTERN = 
+			Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
 	// (?=.*\d)		#   must contain one digit from 0-9
 	// (?=.*[a-z])	#   must contain one lowercase character
 	// (?=.*[A-Z])	#   must contain one uppercase character
@@ -51,38 +46,48 @@ public class ValidatorPassword implements Validator {
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		// Retrieve password1
-		String password1 = null;
-		if (component != null && component.getAttributes().get(PASSWORD_PARAMETER) != null) {
-			password1 = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER)).getValue();
-		}
+		String password1 = retrieveValueFromComponent(component);
 		// Retrieve password2
-		String password2 = null;
-		if (value != null) {
-			password2 = (String) value;
-		}
-		if (password1 == null || password1.isEmpty() || password2 == null || password2.isEmpty()) {
+		String password2 = (value != null) ? (String) value : null;
+		// Validation
+		if (isLacking(password1) || isLacking(password2)) {
 			// One password at least is lacking
 			throw new ValidatorException(
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(FIELD_MANDATORY), null));
-		} else if (!password2.equals(password1)) {
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+							resource.getString(Constants.FIELD_MANDATORY), null));
+		} else if (!password2.matches(password1)) {
 			// Passwords don't match
 			throw new ValidatorException(
-					new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORDS_DONT_MATCH), null));
-		} else {
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+							resource.getString(Constants.PASSWORDS_DONT_MATCH), null));
+		} else if (!PASSWORD_PATTERN.matcher(password1).matches()) {
 			// Password doesn't match pattern
-			if (!PASSWORD_PATTERN.matcher(password1).matches()) {
-				throw new ValidatorException(
-						new FacesMessage(FacesMessage.SEVERITY_ERROR, resource.getString(PASSWORD_TOO_SIMPLE), 
-								resource.getString(PASSWORD_RULES)));
-			}
+			throw new ValidatorException(
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+							resource.getString(Constants.PASSWORD_TOO_SIMPLE), 
+							resource.getString(Constants.PASSWORD_RULES)));
 		}
 	}
-
+	
 	/**
-	 * This method is used for Junit testing only.
-	 * @param resource {@link ResourceBundle} the resource to set.
+	 * Determine if the password is null or empty.
+	 * @param password String.
+	 * @return true if the password is lacking null or empty, false otherwise.
 	 */
-	public void setResourceBundle(ResourceBundle resource) {
-		this.resource = resource;
+	private boolean isLacking(String password) {
+		return password == null || password.isEmpty();
+	}
+	
+	/**
+	 * Retrieve the value from a {@link UIComponent}.
+	 * @param component {@link UIComponent}.
+	 * @return a String the value.
+	 */
+	private String retrieveValueFromComponent(UIComponent component) {
+		String value = null;
+		if (component != null && component.getAttributes().get(Constants.PASSWORD_PARAMETER) != null) {
+			value = (String) ((UIInput) component.getAttributes().get(Constants.PASSWORD_PARAMETER)).getValue();
+		}
+		return value;
 	}
 }
