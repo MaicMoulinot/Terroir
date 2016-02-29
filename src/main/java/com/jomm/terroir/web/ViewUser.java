@@ -26,14 +26,14 @@ public abstract class ViewUser {
 	
 	// Injected fields
 	@Inject
-	private FacesContext facesContext;
+	FacesContext facesContext;
 	@Inject
 	@BundleMessage
-	private ResourceBundle resource;
+	ResourceBundle resource;
 	
 	// Constants
-	private static final String PASSWORD_TITLE = "passwordtitle";
-	private static final String PASSWORD_RULES = "passwordrules";
+	static final String PASSWORD_TITLE = "passwordtitle";
+	static final String PASSWORD_RULES = "passwordrules";
 
 	//	Attributes
 	protected Long id;

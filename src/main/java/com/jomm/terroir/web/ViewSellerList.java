@@ -34,28 +34,28 @@ public class ViewSellerList {
 
 	// Injected fields
 	@Inject
-	private ServiceUser userService;	
+	ServiceUser userService;	
 	@Inject
-	private FacesContext facesContext;	
+	FacesContext facesContext;	
 	@Inject
 	@BundleMessage
-	private ResourceBundle resourceMessage;
+	ResourceBundle resourceMessage;
 	@Inject
 	@BundleError
-	private ResourceBundle resourceError;
+	ResourceBundle resourceError;
 	
 	// Attributes
-	private LinkedList<ViewSeller> listSellers;
-	private ViewSeller currentSeller;
-	private HtmlDataTable dataTable;
+	LinkedList<ViewSeller> listSellers;
+	ViewSeller currentSeller;
+	HtmlDataTable dataTable;
 	
 	// Static constants
-	private static final String USER_NULL = "entitynull";
-	private static final String ID_NULL = "idnull";
-	private static final String UPDATE_USER = "updateuser";
-	private static final String UPDATE_OK = "updateok";
-	private static final String DELETE_USER = "deleteuser";
-	private static final String DELETE_OK = "deleteok";
+	static final String USER_NULL = "entitynull";
+	static final String ID_NULL = "idnull";
+	static final String UPDATE_USER = "updateuser";
+	static final String UPDATE_OK = "updateok";
+	static final String DELETE_USER = "deleteuser";
+	static final String DELETE_OK = "deleteok";
 
 	/**
 	 * Initialize the list of all users.
@@ -83,9 +83,11 @@ public class ViewSellerList {
 				String detail = MessageFormat.format(resourceMessage.getString(UPDATE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(UPDATE_OK), detail);
 			} catch (NullPointerException exception) {
-				message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						resourceError.getString(USER_NULL), exception.getMessage());
 			} catch (IllegalArgumentException exception) {
-				message = new FacesMessage(resourceError.getString(ID_NULL), exception.getMessage());
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						resourceError.getString(ID_NULL), exception.getMessage());
 			} finally {
 				facesContext.addMessage(null, message);
 			}
@@ -114,10 +116,12 @@ public class ViewSellerList {
 				String detail = MessageFormat.format(resourceMessage.getString(DELETE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(DELETE_OK), detail);
 			} catch (NullPointerException exception) {
-				message = new FacesMessage(resourceError.getString(USER_NULL), seller.getUserName() 
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						resourceError.getString(USER_NULL), seller.getUserName() 
 						+ ", " + seller.getId() + ":" + exception.getMessage());
 			} catch (IllegalArgumentException exception) {
-				message = new FacesMessage(resourceError.getString(ID_NULL), seller.getUserName() 
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
+						resourceError.getString(ID_NULL), seller.getUserName() 
 						+ ":" + exception.getMessage());
 			} finally {
 				facesContext.addMessage(null, message);

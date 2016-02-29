@@ -46,6 +46,11 @@ import com.jomm.terroir.util.TestAttributeConverterZonedDateTime;
 import com.jomm.terroir.util.TestConverterLocalDate;
 import com.jomm.terroir.util.TestConverterZonedDateTime;
 import com.jomm.terroir.util.TestResources;
+import com.jomm.terroir.web.TestViewCustomer;
+import com.jomm.terroir.web.TestViewCustomerList;
+import com.jomm.terroir.web.TestViewSeller;
+import com.jomm.terroir.web.TestViewSellerList;
+import com.jomm.terroir.web.TestViewUser;
 
 /**
  * This Class is a Junit Suite Case launching all Junit test cases.
@@ -73,7 +78,10 @@ import com.jomm.terroir.util.TestResources;
 	// Util
 	TestAttributeConverterLocalDate.class, TestAttributeConverterZonedDateTime.class, 
 	TestConverterLocalDate.class, TestConverterZonedDateTime.class, 
-	TestResources.class
+	TestResources.class,
+	// View
+	TestViewCustomer.class, TestViewCustomerList.class, TestViewSeller.class, TestViewSellerList.class,
+	TestViewUser.class
 	})
 public class AllTests {
 	

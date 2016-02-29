@@ -14,6 +14,7 @@ import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
+import com.jomm.terroir.util.PersistenceIllegalArgumentException;
 
 /**
  * This Class is the View linked to customersignup.xhtml, that creates a new {@link Customer}.
@@ -31,20 +32,20 @@ public class ViewCustomer extends ViewUser {
 
 	// Injected fields
 	@Inject
-	private ServiceUser userService;	
+	ServiceUser userService;	
 	@Inject
-	private FacesContext facesContext;	
+	FacesContext facesContext;	
 	@Inject
 	@BundleMessage
-	private ResourceBundle resourceMessage;
+	ResourceBundle resourceMessage;
 	@Inject
 	@BundleError
-	private ResourceBundle resourceError;
+	ResourceBundle resourceError;
 	
 	// Constants
-	private static final String USER_REGISTRED = "usersaved";
-	private static final String USER_NULL = "entitynull";
-	private static final String ID_NOT_NULL = "idnotnull";
+	static final String USER_REGISTRED = "usersaved";
+	static final String USER_SHOULD_NOT_BE_NULL = "entitynull";
+	static final String ID_SHOULD_BE_NULL = "idnotnull";
 
 	//	Attributes
 	private LocalDate birthDate;
@@ -57,9 +58,11 @@ public class ViewCustomer extends ViewUser {
 			userService.create(convertIntoEntity());
 			message = new FacesMessage(resourceMessage.getString(USER_REGISTRED), null);
 		} catch (NullPointerException exception) {
-			message = new FacesMessage(resourceError.getString(USER_NULL), exception.getMessage());
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, resourceError.getString(USER_SHOULD_NOT_BE_NULL), 
+					exception.getMessage());
 		} catch (IllegalArgumentException exception) {
-			message = new FacesMessage(resourceError.getString(ID_NOT_NULL), exception.getMessage());
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, resourceError.getString(ID_SHOULD_BE_NULL), 
+					exception.getMessage());
 		} finally {
 			facesContext.addMessage(null, message);
 		}
