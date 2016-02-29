@@ -1,4 +1,4 @@
-package com.jomm.terroir.util;
+package com.jomm.terroir.util.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -13,6 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.converter.AttributeConverterLocalDate;
 
 /**
  * This class is a Junit test case testing the <code>convertToDatabaseColumn()</code> and <code>convertToEntityAttribute()</code> 

@@ -7,9 +7,9 @@ package com.jomm.terroir.util;
 public final class Constants {
 	
 	// ResourceBundle names
-	static final String BUNDLE_MESSAGE = "i18n.message";
-	static final String BUNDLE_ERROR = "i18n.error";
-	static final String BUNDLE_LABEL = "i18n.label";
+	public static final String BUNDLE_MESSAGE = "i18n.message";
+	public static final String BUNDLE_ERROR = "i18n.error";
+	public static final String BUNDLE_LABEL = "i18n.label";
 	
 	// ResourceBundle keys in error
 	public static final String FIELD_MANDATORY = "mandatory";
@@ -37,8 +37,8 @@ public final class Constants {
 	public static final String CLIENT_ID_GROWL = "growl";
 	
 	// Converter patterns
-	static final String LOCAL_DATE_PATTERN = "dd/MM/yyyy";
-	static final String ZONED_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss z";
+	public static final String LOCAL_DATE_PATTERN = "dd/MM/yyyy";
+	public static final String ZONED_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss z";
 	
 	/** Private constructor to prevent instantiation. */
 	private Constants() {}

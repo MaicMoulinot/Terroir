@@ -1,4 +1,4 @@
-package com.jomm.terroir.util;
+package com.jomm.terroir.util.converter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -14,6 +14,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+
+import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.converter.ConverterZonedDateTime;
 
 /**
  * This class is a Junit test case testing the <code>getAsObject()</code> and <code>getAsString()</code> 

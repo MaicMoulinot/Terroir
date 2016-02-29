@@ -1,4 +1,4 @@
-package com.jomm.terroir.util;
+package com.jomm.terroir.util.converter;
 
 import java.sql.Timestamp;
 import java.time.ZoneId;
@@ -7,6 +7,8 @@ import java.time.ZonedDateTime;
 import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import com.jomm.terroir.util.Resources;
 
 /**
  * This Class is a Converter.

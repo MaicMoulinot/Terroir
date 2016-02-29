@@ -1,4 +1,4 @@
-package com.jomm.terroir.util;
+package com.jomm.terroir.util.converter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import com.jomm.terroir.util.Resources;
 
 /**
  * This Class is a Converter.
