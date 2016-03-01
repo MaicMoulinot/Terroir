@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,7 +39,7 @@ public class TestViewUser {
     }
 
 	/**
-	 * Test method for {@link ViewUser#passwordTooltip(javax.faces.event.ActionEvent)}.
+	 * Test method for {@link ViewUser#passwordTooltip()}.
 	 */
 	@Test
 	public final void testPasswordTooltip() {
@@ -48,7 +47,7 @@ public class TestViewUser {
 		view.facesContext = mock(FacesContext.class);
 		view.resource = Resources.getResourceBundleMessage();
 		// call
-		view.passwordTooltip(mock(ActionEvent.class));
+		view.passwordTooltip();
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);

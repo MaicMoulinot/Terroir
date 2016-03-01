@@ -6,7 +6,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
 import com.jomm.terroir.util.BundleMessage;
@@ -48,9 +47,8 @@ public abstract class ViewUser {
 
 	/**
 	 * Generate tips to create a secured enough password into growl.
-	 * @param actionEvent the ActionEvent invoking the tips.
 	 */
-	public void passwordTooltip(ActionEvent actionEvent) {
+	public void passwordTooltip() {
 		FacesMessage message = new FacesMessage(
 				resource.getString(Constants.PASSWORD_TITLE), 
 				resource.getString(Constants.PASSWORD_RULES));
