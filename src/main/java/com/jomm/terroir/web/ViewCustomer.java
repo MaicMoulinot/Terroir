@@ -3,6 +3,8 @@ package com.jomm.terroir.web;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -12,7 +14,6 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Customer;
-import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
@@ -41,8 +42,7 @@ public class ViewCustomer extends ViewUser {
 	@BundleMessage
 	ResourceBundle resourceMessage;
 	@Inject
-	@BundleError
-	ResourceBundle resourceError;
+	Logger logger;
 
 	//	Attributes
 	private LocalDate birthDate;
@@ -54,14 +54,10 @@ public class ViewCustomer extends ViewUser {
 		try {
 			userService.create(convertIntoEntity());
 			message = new FacesMessage(resourceMessage.getString(Constants.USER_REGISTRED), null);
-		} catch (ExceptionNullEntity exception) {
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-					resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), 
-					exception.getMessage());
-		} catch (ExceptionInvalidId exception) {
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-					resourceError.getString(Constants.ID_SHOULD_BE_NULL), 
-					exception.getMessage());
+		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+			String problem = exception.getLocalizedMessage();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
+			logger.log(Level.FINE, problem, exception);
 		} finally {
 			facesContext.addMessage(null, message);
 		}

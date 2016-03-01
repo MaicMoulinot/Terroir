@@ -2,7 +2,10 @@ package com.jomm.terroir.web;
 
 import java.text.MessageFormat;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,7 +19,6 @@ import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
@@ -44,11 +46,10 @@ public class ViewSellerList {
 	@BundleMessage
 	ResourceBundle resourceMessage;
 	@Inject
-	@BundleError
-	ResourceBundle resourceError;
+	Logger logger;
 	
 	// Attributes
-	LinkedList<ViewSeller> listSellers;
+	List<ViewSeller> listSellers;
 	ViewSeller currentSeller;
 	HtmlDataTable dataTable;
 
@@ -76,12 +77,11 @@ public class ViewSellerList {
 				Object[] argument = {sellerJsf.getUserName()};
 				String detail = MessageFormat.format(resourceMessage.getString(Constants.UPDATE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(Constants.UPDATE_OK), detail);
-			} catch (ExceptionNullEntity exception) {
-				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), exception.getMessage());
-			} catch (ExceptionInvalidId exception) {
-				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), exception.getMessage());
+			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+				String problem = exception.getLocalizedMessage();
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
+						"Username=" + sellerJsf.getUserName() + ", UserId=" + sellerJsf.getId());
+				logger.log(Level.FINE, problem, exception);
 			} finally {
 				facesContext.addMessage(null, message);
 			}
@@ -109,14 +109,11 @@ public class ViewSellerList {
 				userService.delete(seller);
 				String detail = MessageFormat.format(resourceMessage.getString(Constants.DELETE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(Constants.DELETE_OK), detail);
-			} catch (ExceptionNullEntity exception) {
-				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), seller.getUserName() 
-						+ ", " + seller.getId() + ":" + exception.getMessage());
-			} catch (ExceptionInvalidId exception) {
-				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-						resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), seller.getUserName() 
-						+ ":" + exception.getMessage());
+			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+				String problem = exception.getLocalizedMessage();
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
+						"Username=" + seller.getUserName() + ", UserId=" + seller.getId());
+				logger.log(Level.FINE, problem, exception);
 			} finally {
 				facesContext.addMessage(null, message);
 			}
@@ -141,14 +138,14 @@ public class ViewSellerList {
 	/**
 	 * @return the listSellers
 	 */
-	public LinkedList<ViewSeller> getListSellers() {
+	public List<ViewSeller> getListSellers() {
 		return listSellers;	// Return the already-prepared model.
 	}
 
 	/**
 	 * @param listSellers the listSellers to set
 	 */
-	public void setListSellers(LinkedList<ViewSeller> listSellers) {
+	public void setListSellers(List<ViewSeller> listSellers) {
 		this.listSellers = listSellers;
 	}
 
