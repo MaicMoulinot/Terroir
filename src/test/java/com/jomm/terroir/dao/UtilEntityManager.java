@@ -28,6 +28,7 @@ public final class UtilEntityManager {
 	// Constants
 	private static final String PERSISTENCE_UNIT_TEST = "testPU";
 	private static final String SCHEMA_TEST = "sql/schematest.ddl";
+	private static final String TEXT_FILE_ENCODING = "UTF-8";
 	private static final String SHUTDOWN_URL = "jdbc:derby:memory:testDB;shutdown=true";
 	// SQL State is "08006" (one database) or "XJ015" (all databases)
 	private static final String SHUTDOWN_SQL_STATE = "08006";
@@ -118,7 +119,7 @@ public final class UtilEntityManager {
 	private static void createDatabase() {
 		try {
 			ij.runScript(connection, ClassLoader.getSystemClassLoader().getResourceAsStream(SCHEMA_TEST),
-					"UTF-8", System.out, "UTF-8");
+					TEXT_FILE_ENCODING, System.out, TEXT_FILE_ENCODING);
 		} catch (UnsupportedEncodingException exception) {
 			System.err.println(exception.getMessage());
 		}

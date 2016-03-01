@@ -3,7 +3,6 @@ package com.jomm.terroir.util;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -21,10 +20,9 @@ public final class XMLTools {
 	 * Serialize an object in file.
 	 * @param object {@link Object} to serialize.
 	 * @param fileName {@link String} file's path.
-	 * @throws FileNotFoundException if file is not found.
 	 * @throws IOException if any IOException occurs.
 	 */
-	public static void encodeToFile(Object object, String fileName) throws FileNotFoundException, IOException {
+	public static void encodeToFile(Object object, String fileName) throws IOException {
 		// open encoder
 		XMLEncoder encoder = new XMLEncoder(new FileOutputStream(fileName));
 		try {
@@ -41,10 +39,9 @@ public final class XMLTools {
 	 * Deserialization of an object from a file.
 	 * @param fileName {@link String} file's path.
 	 * @return {@link Object} the deserialized object from file.
-	 * @throws FileNotFoundException if file is not found.
 	 * @throws IOException if any IOException occurs.
 	 */
-	public static Object decodeFromFile(String fileName) throws FileNotFoundException, IOException {
+	public static Object decodeFromFile(String fileName) throws IOException {
 	    Object object = null;
 	    // open decoder
 	    XMLDecoder decoder = new XMLDecoder(new FileInputStream(fileName));

@@ -1,6 +1,6 @@
 package com.jomm.terroir.business;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
@@ -34,7 +34,7 @@ public interface ServiceSite {
 	 * Fetch the list of all sites.
 	 * @return a list of all {@link Site}.
 	 */
-	ArrayList<Site> getAllSites();
+	List<Site> getAllSites();
 	
 	/**
 	 * Delete a site.

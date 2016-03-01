@@ -1,6 +1,6 @@
 package com.jomm.terroir.business;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
@@ -34,7 +34,7 @@ public interface ServiceProduct {
 	 * Fetch the list of all products.
 	 * @return a list of all {@link Product}.
 	 */
-	ArrayList<Product> getAllProducts();
+	List<Product> getAllProducts();
 	
 	/**
 	 * Delete a product.

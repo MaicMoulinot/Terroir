@@ -1,6 +1,6 @@
 package com.jomm.terroir.business;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
@@ -34,7 +34,7 @@ public interface ServiceEnterprise {
 	 * Fetch the list of all enterprises.
 	 * @return a list of all {@link Enterprise}.
 	 */
-	ArrayList<Enterprise> getAllEnterprises();
+	List<Enterprise> getAllEnterprises();
 	
 	/**
 	 * Delete an enterprise.

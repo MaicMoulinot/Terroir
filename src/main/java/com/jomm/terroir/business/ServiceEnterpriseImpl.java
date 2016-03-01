@@ -1,7 +1,7 @@
 package com.jomm.terroir.business;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -49,12 +49,8 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<Enterprise> getAllEnterprises() {
-		ArrayList<Enterprise> result = new ArrayList<>();
-		for (Enterprise enterprise : enterpriseDao.findAll()) {
-			result.add(enterprise);
-		}
-		return result;
+	public List<Enterprise> getAllEnterprises() {
+		return enterpriseDao.findAll();
 	}
 	
 	@Override

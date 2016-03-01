@@ -1,6 +1,6 @@
 package com.jomm.terroir.business;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -47,12 +47,8 @@ public class ServiceSiteImpl implements ServiceSite {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public ArrayList<Site> getAllSites() {
-		ArrayList<Site> result = new ArrayList<>();
-		for (Site site : siteDao.findAll()) {
-			result.add(site);
-		}
-		return result;
+	public List<Site> getAllSites() {
+		return siteDao.findAll();
 	}
 	
 	@Override

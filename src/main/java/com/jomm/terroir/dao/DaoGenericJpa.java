@@ -39,7 +39,7 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 	@SuppressWarnings("unchecked")
 	public DaoGenericJpa() {
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-		this.entityClass = ((Class<E>) genericSuperclass.getActualTypeArguments()[0]);
+		this.entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
 	}
 	
 	@Override
