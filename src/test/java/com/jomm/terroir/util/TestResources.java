@@ -39,7 +39,7 @@ public class TestResources {
 	 */
 	@Test
 	public final void testGetLoggerWithInjectionPointNotNull() {
-		Logger logger = Resources.getLogger(constructInjectionPoint(this.getClass()));
+		Logger logger = createLogger(this.getClass());
 		assertNotNull(logger);
 		assertEquals(logger.getName(), this.getClass().getName());
 		logger.log(Level.SEVERE, "This entry should be logged in SEVERE level");
@@ -82,11 +82,30 @@ public class TestResources {
 	}
 	
 	/**
+	 * When injection is not available (in testing environment), this method retrieve
+	 * the value from a {@link ResourceBundle}.
+	 * @param key String the key.
+	 * @return String the value.
+	 */
+	public static String getResourceBundleError(String key) {
+		return Resources.getResourceBundleError().getString(key);
+	}
+	
+	/**
+	 * Construct a dummy {@link Logger} usable for test.
+	 * @param declaringClass the declaring class of {@link InjectionPoint}.
+	 * @return the {@link Logger}.
+	 */
+	public static Logger createLogger(Class<?> declaringClass) {
+		return Resources.getLogger(constructInjectionPoint(declaringClass));
+	}
+	
+	/**
 	 * Construct a dummy {@link InjectionPoint} usable for test.
 	 * @param declaringClass the declaring class of {@link InjectionPoint}.
 	 * @return the {@link InjectionPoint}.
 	 */
-	private InjectionPoint constructInjectionPoint(Class<?> declaringClass) {
+	private static InjectionPoint constructInjectionPoint(Class<?> declaringClass) {
 		InjectionPoint injectionPoint = new InjectionPoint() {
 			
 			@Override

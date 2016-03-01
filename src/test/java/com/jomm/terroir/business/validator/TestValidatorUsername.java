@@ -19,6 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.TestResources;
 
 /**
  * This class is a Junit test case testing the <code>validate()</code> method of {@link ValidatorUsername}.
@@ -84,7 +85,7 @@ public class TestValidatorUsername {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with lenght < 6");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.LENGTH_AT_LEAST_6_CHARACTERS), 
+			assertEquals(TestResources.getResourceBundleError(Constants.LENGTH_AT_LEAST_6_CHARACTERS), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

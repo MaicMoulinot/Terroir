@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.TestResources;
 
 /**
  * This class is a Junit test case testing the <code>validate()</code> method of {@link ValidatorPassword}.
@@ -44,7 +45,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.FIELD_MANDATORY), 
+			assertEquals(TestResources.getResourceBundleError(Constants.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -60,7 +61,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.FIELD_MANDATORY), 
+			assertEquals(TestResources.getResourceBundleError(Constants.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -76,7 +77,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.FIELD_MANDATORY), 
+			assertEquals(TestResources.getResourceBundleError(Constants.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -92,7 +93,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.FIELD_MANDATORY), 
+			assertEquals(TestResources.getResourceBundleError(Constants.FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -108,7 +109,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 and password2 different");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.PASSWORDS_DONT_MATCH), 
+			assertEquals(TestResources.getResourceBundleError(Constants.PASSWORDS_DONT_MATCH), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -125,7 +126,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have password not matching the pattern");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.PASSWORD_TOO_SIMPLE), 
+			assertEquals(TestResources.getResourceBundleError(Constants.PASSWORD_TOO_SIMPLE), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

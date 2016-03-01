@@ -19,6 +19,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.TestResources;
 
 /**
  * This class is a Junit test case testing the <code>validate()</code> method of {@link ValidatorEmail}.
@@ -83,7 +84,7 @@ public class TestValidatorEmail {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with email non valid");
 		} catch (ValidatorException expectedException) {
-			assertEquals(validator.resource.getString(Constants.EMAIL_UNVALID), 
+			assertEquals(TestResources.getResourceBundleError(Constants.EMAIL_UNVALID), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
