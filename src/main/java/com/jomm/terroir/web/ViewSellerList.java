@@ -78,7 +78,7 @@ public class ViewSellerList {
 				String detail = MessageFormat.format(resourceMessage.getString(Constants.UPDATE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(Constants.UPDATE_OK), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
-				String problem = exception.getLocalizedMessage();
+				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
 						"Username=" + sellerJsf.getUserName() + ", UserId=" + sellerJsf.getId());
 				logger.log(Level.FINE, problem, exception);
@@ -110,7 +110,7 @@ public class ViewSellerList {
 				String detail = MessageFormat.format(resourceMessage.getString(Constants.DELETE_USER), argument);
 				message = new FacesMessage(resourceMessage.getString(Constants.DELETE_OK), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
-				String problem = exception.getLocalizedMessage();
+				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
 						"Username=" + seller.getUserName() + ", UserId=" + seller.getId());
 				logger.log(Level.FINE, problem, exception);

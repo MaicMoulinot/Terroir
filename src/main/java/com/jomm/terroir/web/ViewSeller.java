@@ -53,7 +53,7 @@ public class ViewSeller extends ViewUser {
 			userService.create(convertIntoEntity());
 			message = new FacesMessage(resourceMessage.getString(Constants.USER_REGISTRED), null);
 		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
-			String problem = exception.getLocalizedMessage();
+			String problem = exception.getMessage();
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
 			logger.log(Level.FINE, problem, exception);
 		} finally {
