@@ -28,8 +28,11 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
 import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.TestExceptionInvalidId;
+import com.jomm.terroir.util.exception.TestExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing {@link ViewCustomerList}.
@@ -73,10 +76,12 @@ public class TestViewCustomerList {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testOnRowEditWithExceptionNullEntity() throws Exception {
+	public final void testOnRowEditWithEntityNull() throws Exception {
 		// initialization
 		setInjections();
-		when(view.userService.update(any(Customer.class))).thenThrow(new ExceptionNullEntity());
+		// Simulate an exception thrown by service
+		ExceptionNullEntity exception = TestExceptionNullEntity.createMockedException();
+		when(view.userService.update(any(Customer.class))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
 		when(event.getObject()).thenReturn(new ViewCustomer());
 		// call to onRowEdit()
@@ -89,7 +94,8 @@ public class TestViewCustomerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
+        assertEquals(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL), 
+        		message.getSummary());
 	}
 	
 	/**
@@ -97,10 +103,12 @@ public class TestViewCustomerList {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testOnRowEditWithExceptionInvalidId() throws Exception {
+	public final void testOnRowEditWithIdNull() throws Exception {
 		// initialization
 		setInjections();
-		when(view.userService.update(any(Customer.class))).thenThrow(new ExceptionInvalidId(false));
+		// Simulate an exception thrown by service
+		ExceptionInvalidId exception = TestExceptionInvalidId.createMockedExceptionIdShouldNotBeNull();
+		when(view.userService.update(any(Customer.class))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
 		when(event.getObject()).thenReturn(new ViewCustomer());
 		// call to onRowEdit()
@@ -113,7 +121,8 @@ public class TestViewCustomerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), message.getSummary());
+        assertEquals(TestResources.getResourceBundleError(Constants.ID_SHOULD_NOT_BE_NULL), 
+        		message.getSummary());
 	}
 	
 	/**
@@ -121,7 +130,7 @@ public class TestViewCustomerList {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testOnRowEditWithEntityIdNull() throws Exception {
+	public final void testOnRowEditWithIdNotNull() throws Exception {
 		// initialization
 		setInjections();
 		RowEditEvent event = mock(RowEditEvent.class);
@@ -163,11 +172,13 @@ public class TestViewCustomerList {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testDeleteWithExceptionNullEntity() throws Exception {
+	public final void testDeleteWithEntityNull() throws Exception {
 		// initialization
 		setInjections();
 		view.setCurrentCustomer(TestViewCustomer.generateDummyViewCustomer());
-		doThrow(new ExceptionNullEntity()).when(view.userService).delete(any(AbstractUser.class));
+		// Simulate an exception thrown by service
+		ExceptionNullEntity exception = TestExceptionNullEntity.createMockedException();
+		doThrow(exception).when(view.userService).delete(any(AbstractUser.class));
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called
@@ -178,7 +189,8 @@ public class TestViewCustomerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
+        assertEquals(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL), 
+        		message.getSummary());
 	}
 	
 	/**
@@ -186,11 +198,13 @@ public class TestViewCustomerList {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testDeleteWithExceptionInvalidId() throws Exception {
+	public final void testDeleteWithIdNull() throws Exception {
 		// initialization
 		setInjections();
 		view.setCurrentCustomer(TestViewCustomer.generateDummyViewCustomer());
-		doThrow(new ExceptionInvalidId(false)).when(view.userService).delete(any(AbstractUser.class));
+		// Simulate an exception thrown by service
+		ExceptionInvalidId exception = TestExceptionInvalidId.createMockedExceptionIdShouldNotBeNull();
+		doThrow(exception).when(view.userService).delete(any(AbstractUser.class));
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called
@@ -201,7 +215,8 @@ public class TestViewCustomerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(view.resourceError.getString(Constants.ID_SHOULD_NOT_BE_NULL), message.getSummary());
+        assertEquals(TestResources.getResourceBundleError(Constants.ID_SHOULD_NOT_BE_NULL), 
+        		message.getSummary());
 	}
 	
 	/**
@@ -209,7 +224,7 @@ public class TestViewCustomerList {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() throws Exception {
+	public final void testDeleteWithIdNotNull() throws Exception {
 		// initialization
 		setInjections();
 		ViewCustomer viewCustomer = TestViewCustomer.generateDummyViewCustomer();
@@ -252,13 +267,14 @@ public class TestViewCustomerList {
 	}
 	
 	/**
-	 * Set mocked {@link javax.faces.context.FacesContext}, and mocked {@link ServiceUser} into view.
-	 * Retrieve the {@link java.util.ResourceBundle}s from {@link Resources}.
+	 * Set mocked {@link FacesContext}, mocked {@link ServiceUser},
+	 * and a dummy {@link java.util.logging.Logger} into view.
+	 * Retrieve the {@link java.util.ResourceBundle} Message from {@link Resources}.
 	 */
 	private void setInjections() {
 		view.facesContext = mock(FacesContext.class);
 		view.userService = mock(ServiceUser.class);
-		view.resourceError = Resources.getResourceBundleError();
+		view.logger = TestResources.createLogger(this.getClass());
 		view.resourceMessage = Resources.getResourceBundleMessage();
 	}
 }

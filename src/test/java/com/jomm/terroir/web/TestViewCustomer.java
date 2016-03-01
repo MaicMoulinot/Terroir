@@ -22,8 +22,11 @@ import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.TestCustomer;
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
+import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
 import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.TestExceptionInvalidId;
+import com.jomm.terroir.util.exception.TestExceptionNullEntity;
 
 /**
  * This class is a Junit test case testing {@link ViewCustomer}.
@@ -54,11 +57,13 @@ public class TestViewCustomer {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithExceptionNullEntity() throws Exception {
+	public final void testCreateWithEntityNull() throws Exception {
 		// initialization
 		setInjections();
+		// Simulate an exception thrown by service
+		ExceptionNullEntity exception = TestExceptionNullEntity.createMockedException();
+		when(view.userService.create(any(Customer.class))).thenThrow(exception);
 		// call to create()
-		when(view.userService.create(any(Customer.class))).thenThrow(new ExceptionNullEntity());
 		view.create();
 		// verify Service.create() was called
 		verify(view.userService).create(any(Customer.class));
@@ -68,7 +73,8 @@ public class TestViewCustomer {
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		assertEquals(view.resourceError.getString(Constants.USER_SHOULD_NOT_BE_NULL), message.getSummary());
+		assertEquals(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL), 
+				message.getSummary());
 	}
 
 	/**
@@ -76,11 +82,13 @@ public class TestViewCustomer {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithExceptionInvalidId() throws Exception {
+	public final void testCreateWithIdNotNull() throws Exception {
 		// initialization
 		setInjections();
+		// Simulate an exception thrown by service
+		ExceptionInvalidId exception = TestExceptionInvalidId.createMockedExceptionIdShouldBeNull();
+		when(view.userService.create(any(Customer.class))).thenThrow(exception);
 		// call to create()
-		when(view.userService.create(any(Customer.class))).thenThrow(new ExceptionInvalidId(true));
 		view.create();
 		// verify Service.create() was called
 		verify(view.userService).create(any(Customer.class));
@@ -90,7 +98,8 @@ public class TestViewCustomer {
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		assertEquals(view.resourceError.getString(Constants.ID_SHOULD_BE_NULL), message.getSummary());
+		assertEquals(TestResources.getResourceBundleError(Constants.ID_SHOULD_BE_NULL), 
+				message.getSummary());
 	}
 
 	/**
@@ -98,7 +107,7 @@ public class TestViewCustomer {
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
-	public final void testCreateWithEntityIdNull() throws Exception {
+	public final void testCreateWithIdNull() throws Exception {
 		// initialization
 		setInjections();
 		// call to create()
@@ -108,9 +117,8 @@ public class TestViewCustomer {
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
 		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
-		// retrieve the captured FacesMessage
+		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
-		// check if the captured FacesMessage contains the expected values
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
 		assertEquals(view.resourceMessage.getString(Constants.USER_REGISTRED), message.getSummary());
 	}
@@ -198,13 +206,14 @@ public class TestViewCustomer {
 	}
 
 	/**
-	 * Set mocked {@link javax.faces.context.FacesContext}, and mocked {@link ServiceUser} into view.
-	 * Retrieve the {@link java.util.ResourceBundle}s from {@link Resources}.
+	 * Set mocked {@link FacesContext}, mocked {@link ServiceUser},
+	 * and a dummy {@link java.util.logging.Logger} into view.
+	 * Retrieve the {@link java.util.ResourceBundle} Message from {@link Resources}.
 	 */
 	private void setInjections() {
 		view.facesContext = mock(FacesContext.class);
 		view.userService = mock(ServiceUser.class);
-		view.resourceError = Resources.getResourceBundleError();
+		view.logger = TestResources.createLogger(this.getClass());
 		view.resourceMessage = Resources.getResourceBundleMessage();
 	}
 }
