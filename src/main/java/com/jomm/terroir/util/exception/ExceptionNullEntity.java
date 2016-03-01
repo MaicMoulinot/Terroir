@@ -14,14 +14,14 @@ import com.jomm.terroir.util.Constants;
  * and <code>getLocalizedMessage()</code>.
  * @author Maic
  */
-public final class ExceptionNullEntity extends Exception {
+public class ExceptionNullEntity extends Exception {
 
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = -9046790551328167438L;
 	
 	@Inject
 	@BundleError
-	private ResourceBundle resource;
+	private transient ResourceBundle resource;
 	
 	
 	@Override

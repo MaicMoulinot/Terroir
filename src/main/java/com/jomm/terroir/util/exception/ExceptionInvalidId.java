@@ -15,7 +15,7 @@ import com.jomm.terroir.util.Constants;
  * and <code>getLocalizedMessage()</code>.
  * @author Maic
  */
-public final class ExceptionInvalidId extends Exception {
+public class ExceptionInvalidId extends Exception {
 
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = -9046790551328167438L;
@@ -24,7 +24,7 @@ public final class ExceptionInvalidId extends Exception {
 	
 	@Inject
 	@BundleError
-	private ResourceBundle resource;
+	private transient ResourceBundle resource;
 	
 	/**
 	 * Constructor. Determine if the id should be <code>null</code> or should not be <code>null</code>.
@@ -36,22 +36,18 @@ public final class ExceptionInvalidId extends Exception {
 
 	@Override
 	public String getMessage() {
-		String message = null;
+		String message = "The identifier should not be null at this stage";
 		if (idShouldBeNull) {
 			message = "The identifier should be null at this stage";
-		} else {
-			message = "The identifier should not be null at this stage";
 		}
 		return message;
 	}
 	
 	@Override
 	public String getLocalizedMessage() {
-		String message = null;
+		String message = resource.getString(Constants.ID_SHOULD_NOT_BE_NULL);;
 		if (idShouldBeNull) {
 			message = resource.getString(Constants.ID_SHOULD_BE_NULL);
-		} else {
-			message = resource.getString(Constants.ID_SHOULD_NOT_BE_NULL);
 		}
 		return message;
 	}
