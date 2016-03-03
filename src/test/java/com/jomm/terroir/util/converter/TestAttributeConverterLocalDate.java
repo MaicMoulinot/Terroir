@@ -10,24 +10,17 @@ import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
-import com.jomm.terroir.util.converter.AttributeConverterLocalDate;
 
 /**
  * This class is a Junit test case testing the <code>convertToDatabaseColumn()</code> and <code>convertToEntityAttribute()</code> 
  * methods of {@link AttributeConverterLocalDate}.
- * It is annotated {@link RunWith} {@link MockitoJUnitRunner} to explicit usage of Mockito annotations.
  * @author Maic
  */
-@RunWith(MockitoJUnitRunner.class)
 public class TestAttributeConverterLocalDate {
 
-	@InjectMocks
 	private AttributeConverterLocalDate converter;
 	
 	/**
@@ -36,7 +29,8 @@ public class TestAttributeConverterLocalDate {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		converter.zoneId = Resources.getZonedId();
+		converter = new AttributeConverterLocalDate();
+		converter.setZoneId(Resources.getZonedId());
 	}
 
 	/**
@@ -82,7 +76,7 @@ public class TestAttributeConverterLocalDate {
 	 * @return String the formatted date.
 	 */
 	private String formatDateIntoString(Date date) {
-		LocalDate localDate = LocalDateTime.ofInstant(date.toInstant(), converter.zoneId).toLocalDate();
+		LocalDate localDate = LocalDateTime.ofInstant(date.toInstant(), converter.getZoneId()).toLocalDate();
 		return formatLocalDateIntoString(localDate);
 	}
 	

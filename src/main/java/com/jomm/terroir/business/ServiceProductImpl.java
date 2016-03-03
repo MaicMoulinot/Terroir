@@ -22,9 +22,8 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 @Stateless
 public class ServiceProductImpl implements ServiceProduct {
 	
-	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	DaoProduct productDao;
+	private DaoProduct daoProduct;
 
 	@Override
 	public Product create(Product product) throws ExceptionNullEntity, ExceptionInvalidId {
@@ -34,7 +33,7 @@ public class ServiceProductImpl implements ServiceProduct {
 			throw new ExceptionInvalidId(true);
 		}
 		product.setRegistrationDate(ZonedDateTime.now());
-		return productDao.create(product);
+		return daoProduct.create(product);
 	}
 	
 	@Override
@@ -44,13 +43,13 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		return productDao.update(product);
+		return daoProduct.update(product);
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Product> getAllProducts() {
-		return productDao.findAll();
+		return daoProduct.findAll();
 	}
 	
 	@Override
@@ -60,6 +59,14 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		productDao.delete(product);
+		daoProduct.delete(product);
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoProduct the daoProduct to set.
+	 */
+	void setDaoProduct(DaoProduct daoProduct) {
+		this.daoProduct = daoProduct;
 	}
 }

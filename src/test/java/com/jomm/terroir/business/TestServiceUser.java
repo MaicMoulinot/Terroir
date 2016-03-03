@@ -3,6 +3,7 @@ package com.jomm.terroir.business;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.Mockito;
 
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Customer;
@@ -228,10 +228,10 @@ public class TestServiceUser {
 	 */
 	private static ServiceUserImpl generateMockedUserServiceImpl() {
 		ServiceUserImpl impl = new ServiceUserImpl();
-		impl.userDao = Mockito.mock(DaoUser.class);
-		impl.adminDao = Mockito.mock(DaoAdmin.class);
-		impl.customerDao = Mockito.mock(DaoCustomer.class);
-		impl.sellerDao = Mockito.mock(DaoSeller.class);
+		impl.setDaoAdmin(mock(DaoAdmin.class));
+		impl.setDaoCustomer(mock(DaoCustomer.class));
+		impl.setDaoSeller(mock(DaoSeller.class));
+		impl.setDaoUser(mock(DaoUser.class));
 		return impl;
 	}
 }

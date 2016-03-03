@@ -29,7 +29,7 @@ import com.jomm.terroir.util.TestResources;
 @RunWith(MockitoJUnitRunner.class)
 public class TestValidatorUsername {
 	
-	@Mock(name = "service")
+	@Mock
     private ServiceUser service;
 	
 	@InjectMocks
@@ -41,7 +41,7 @@ public class TestValidatorUsername {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		validator.resource = Resources.getResourceBundleError();
+		validator.setResourceBundle(Resources.getResourceBundleError());
 	}
 
 	/**

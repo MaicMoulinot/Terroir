@@ -21,9 +21,8 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 @Stateless
 public class ServiceSiteImpl implements ServiceSite {
 	
-	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	DaoSite siteDao;
+	private DaoSite daoSite;
 
 	@Override
 	public Site create(Site site) throws ExceptionNullEntity, ExceptionInvalidId {
@@ -32,7 +31,7 @@ public class ServiceSiteImpl implements ServiceSite {
 		} else if (site.getId() != null) {
 			throw new ExceptionInvalidId(true);
 		}
-		return siteDao.create(site);
+		return daoSite.create(site);
 	}
 	
 	@Override
@@ -42,13 +41,13 @@ public class ServiceSiteImpl implements ServiceSite {
 		} else if (site.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		return siteDao.update(site);
+		return daoSite.update(site);
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Site> getAllSites() {
-		return siteDao.findAll();
+		return daoSite.findAll();
 	}
 	
 	@Override
@@ -58,6 +57,14 @@ public class ServiceSiteImpl implements ServiceSite {
 		} else if (site.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		siteDao.delete(site);
+		daoSite.delete(site);
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoSite the daoSite to set.
+	 */
+	void setDaoSite(DaoSite daoSite) {
+		this.daoSite = daoSite;
 	}
 }

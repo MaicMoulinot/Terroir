@@ -40,7 +40,7 @@ public class ValidatorEmail implements Validator {
 
 	@Inject
 	@BundleError
-	ResourceBundle resource;
+	private ResourceBundle resource;
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
@@ -60,5 +60,13 @@ public class ValidatorEmail implements Validator {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param resource the resource to set.
+	 */
+	void setResourceBundle(ResourceBundle resource) {
+		this.resource = resource;
 	}
 }

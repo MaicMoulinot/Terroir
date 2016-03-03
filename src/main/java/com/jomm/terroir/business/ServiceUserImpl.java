@@ -32,18 +32,17 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 @Stateless
 public class ServiceUserImpl implements ServiceUser {
 	
-	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	DaoUser userDao;
+	private DaoUser daoUser;
 	
 	@Inject
-	DaoAdmin adminDao;
+	private DaoAdmin daoAdmin;
 	
 	@Inject
-	DaoCustomer customerDao;
+	private DaoCustomer daoCustomer;
 	
 	@Inject
-	DaoSeller sellerDao;
+	private DaoSeller daoSeller;
 
 	@Override
 	public AbstractUser create(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId {
@@ -55,7 +54,7 @@ public class ServiceUserImpl implements ServiceUser {
 		if (user instanceof Customer) {
 			((Customer) user).setSignUpDate(ZonedDateTime.now());
 		}
-		return userDao.create(user);
+		return daoUser.create(user);
 	}
 	
 	@Override
@@ -65,7 +64,7 @@ public class ServiceUserImpl implements ServiceUser {
 		} else if (user.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		return userDao.update(user);
+		return daoUser.update(user);
 	}
 	
 	@Override
@@ -75,25 +74,25 @@ public class ServiceUserImpl implements ServiceUser {
 		} else if (user.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		userDao.delete(user);
+		daoUser.delete(user);
 	}
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Admin> getAllAdmins() {
-		return adminDao.findAll();
+		return daoAdmin.findAll();
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Customer> getAllCustomers() {
-		return customerDao.findAll();
+		return daoCustomer.findAll();
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Seller> getAllSellers() {
-		return sellerDao.findAll();
+		return daoSeller.findAll();
 	}
 	
 	@Override
@@ -101,7 +100,7 @@ public class ServiceUserImpl implements ServiceUser {
 		if (userName == null) {
 			throw new NullPointerException();
 		}
-		return userDao.isExistingUserName(userName);
+		return daoUser.isExistingUserName(userName);
 	}
 	
 	@Override
@@ -109,6 +108,38 @@ public class ServiceUserImpl implements ServiceUser {
 		if (email == null) {
 			throw new NullPointerException();
 		}
-		return userDao.isExistingEmail(email);
+		return daoUser.isExistingEmail(email);
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoAdmin the daoAdmin to set.
+	 */
+	void setDaoAdmin(DaoAdmin daoAdmin) {
+		this.daoAdmin = daoAdmin;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoCustomer the daoCustomer to set.
+	 */
+	void setDaoCustomer(DaoCustomer daoCustomer) {
+		this.daoCustomer = daoCustomer;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoSeller the daoSeller to set.
+	 */
+	void setDaoSeller(DaoSeller daoSeller) {
+		this.daoSeller = daoSeller;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoUser the daoUser to set.
+	 */
+	void setDaoUser(DaoUser daoUser) {
+		this.daoUser = daoUser;
 	}
 }

@@ -15,21 +15,23 @@ import com.jomm.terroir.util.TestResources;
  * @author Maic
  */
 public class TestExceptionNullEntity {
+	 
+	 private ExceptionNullEntity exception;
 
 	/**
 	 * Test method for {@link ExceptionNullEntity#getMessage()}.
 	 */
 	@Test
 	public final void testGetMessage() {
-		ExceptionNullEntity exception = new ExceptionNullEntity();
-		exception.resource = Resources.getResourceBundleError();
+		exception = new ExceptionNullEntity();
+		exception.setResourceBundle(Resources.getResourceBundleError());
 		assertEquals(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL), 
 				exception.getMessage());
 	}
 	
 	/**
 	 * Generate a mocked {@link ExceptionNullEntity} usable for tests which
-	 * method <code>getLocalizedMessage()</code> returns {@link Constants#USER_SHOULD_NOT_BE_NULL}.
+	 * method <code>getMessage()</code> returns {@link Constants#USER_SHOULD_NOT_BE_NULL}.
 	 * @return the {@link ExceptionNullEntity}.
 	 */
 	public static ExceptionNullEntity createMockedException() {

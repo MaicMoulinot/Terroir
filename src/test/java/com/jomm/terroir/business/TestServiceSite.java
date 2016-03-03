@@ -1,6 +1,7 @@
 package com.jomm.terroir.business;
 
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
 
@@ -8,7 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.Mockito;
 
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.business.model.TestSite;
@@ -135,7 +135,7 @@ public class TestServiceSite {
 	 */
 	private static ServiceSiteImpl generateMockedSiteServiceImpl() {
 		ServiceSiteImpl impl = new ServiceSiteImpl();
-		impl.siteDao = Mockito.mock(DaoSite.class);
+		impl.setDaoSite(mock(DaoSite.class));
 		return impl;
 	}
 }

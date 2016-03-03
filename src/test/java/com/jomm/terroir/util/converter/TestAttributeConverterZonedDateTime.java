@@ -9,24 +9,17 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
-import com.jomm.terroir.util.converter.AttributeConverterZonedDateTime;
 
 /**
  * This class is a Junit test case testing the <code>convertToDatabaseColumn()</code> and <code>convertToEntityAttribute()</code> 
  * methods of {@link AttributeConverterZonedDateTime}.
- * It is annotated {@link RunWith} {@link MockitoJUnitRunner} to explicit usage of Mockito annotations.
  * @author Maic
  */
-@RunWith(MockitoJUnitRunner.class)
 public class TestAttributeConverterZonedDateTime {
 
-	@InjectMocks
 	private AttributeConverterZonedDateTime converter;
 
 	/**
@@ -35,7 +28,8 @@ public class TestAttributeConverterZonedDateTime {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		converter.zoneId = Resources.getZonedId();
+		converter = new AttributeConverterZonedDateTime();
+		converter.setZoneId(Resources.getZonedId());
 	}
 
 	/**
@@ -86,7 +80,7 @@ public class TestAttributeConverterZonedDateTime {
 	 * @return String the formatted date time.
 	 */
 	private String formatTimestampIntoString(Timestamp timestamp) {
-		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(timestamp.toInstant(), converter.zoneId);
+		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(timestamp.toInstant(), converter.getZoneId());
 		return formatZonedDateTimeIntoString(zonedDateTime);
 	}
 

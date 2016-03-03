@@ -22,9 +22,8 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 @Stateless
 public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	
-	// The visibility of DAO is set to default/package to be accessible in tests.
 	@Inject
-	DaoEnterprise enterpriseDao;
+	private DaoEnterprise daoEnterprise;
 
 	@Override
 	public Enterprise create(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId {
@@ -34,7 +33,7 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 			throw new ExceptionInvalidId(true);
 		}
 		enterprise.setSignUpDate(ZonedDateTime.now());
-		return enterpriseDao.create(enterprise);
+		return daoEnterprise.create(enterprise);
 	}
 	
 	@Override
@@ -44,13 +43,13 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 		} else if (enterprise.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		return enterpriseDao.update(enterprise);
+		return daoEnterprise.update(enterprise);
 	}
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Enterprise> getAllEnterprises() {
-		return enterpriseDao.findAll();
+		return daoEnterprise.findAll();
 	}
 	
 	@Override
@@ -60,6 +59,14 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 		} else if (enterprise.getId() == null) {
 			throw new ExceptionInvalidId(false);
 		}
-		enterpriseDao.delete(enterprise);
+		daoEnterprise.delete(enterprise);
+	}
+
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoEnterprise the daoEnterprise to set.
+	 */
+	void setDaoEnterprise(DaoEnterprise daoEnterprise) {
+		this.daoEnterprise = daoEnterprise;
 	}
 }

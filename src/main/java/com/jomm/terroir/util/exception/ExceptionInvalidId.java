@@ -23,7 +23,7 @@ public class ExceptionInvalidId extends Exception {
 	
 	@Inject
 	@BundleError
-	transient ResourceBundle resource;
+	private transient ResourceBundle resource;
 	
 	/**
 	 * Constructor. Determine if the id should be <code>null</code> or should not be <code>null</code>.
@@ -47,5 +47,13 @@ public class ExceptionInvalidId extends Exception {
 	 */
 	public boolean isIdShouldBeNull() {
 		return idShouldBeNull;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param resource the resource to set.
+	 */
+	void setResourceBundle(ResourceBundle resource) {
+		this.resource = resource;
 	}
 }

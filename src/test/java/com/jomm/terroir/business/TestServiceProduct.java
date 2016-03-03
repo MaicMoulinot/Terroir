@@ -3,6 +3,7 @@ package com.jomm.terroir.business;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.Mockito;
 
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.TestProduct;
@@ -157,7 +157,7 @@ public class TestServiceProduct {
 	 */
 	private static ServiceProductImpl generateMockedProductServiceImpl() {
 		ServiceProductImpl impl = new ServiceProductImpl();
-		impl.productDao = Mockito.mock(DaoProduct.class);
+		impl.setDaoProduct(mock(DaoProduct.class));
 		return impl;
 	}
 }

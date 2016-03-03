@@ -9,8 +9,6 @@ import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
-import com.jomm.terroir.util.Resources;
-
 /**
  * This Class is a Converter.
  * <br />The current JPA API does not work with the Java 8 Date/Time API by default since it was built to work with 
@@ -26,13 +24,13 @@ import com.jomm.terroir.util.Resources;
 public final class AttributeConverterLocalDate implements AttributeConverter<LocalDate, Date> {
 	
 	@Inject
-	ZoneId zoneId;
+	private ZoneId zoneId;
 
 	@Override
 	public Date convertToDatabaseColumn(LocalDate entityDate) {
 		Date dbDate = null;
 		if (entityDate != null) {
-			dbDate = Date.from(entityDate.atStartOfDay().atZone(getZoneId()).toInstant());
+			dbDate = Date.from(entityDate.atStartOfDay().atZone(zoneId).toInstant());
 		}
         return dbDate;
 	}
@@ -41,16 +39,24 @@ public final class AttributeConverterLocalDate implements AttributeConverter<Loc
 	public LocalDate convertToEntityAttribute(Date dbDate) {
 		LocalDate entityDate = null;
 		if (dbDate != null) {
-			entityDate = LocalDateTime.ofInstant(dbDate.toInstant(), getZoneId()).toLocalDate();
+			entityDate = LocalDateTime.ofInstant(dbDate.toInstant(), zoneId).toLocalDate();
 		}
         return entityDate;
 	}
-	
+
 	/**
-	 * This method is for testing purpose as injection isn't fully supported.
-	 * @return the {@link ZoneId}.
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @return the zoneId
 	 */
-	private ZoneId getZoneId() {
-		return (zoneId != null) ? zoneId : Resources.getZonedId();
+	ZoneId getZoneId() {
+		return zoneId;
+	}
+
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param zoneId the zoneId to set
+	 */
+	void setZoneId(ZoneId zoneId) {
+		this.zoneId = zoneId;
 	}
 }

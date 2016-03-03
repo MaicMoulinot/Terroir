@@ -31,7 +31,7 @@ public class ValidatorPassword implements Validator {
 
 	@Inject
 	@BundleError
-	ResourceBundle resource;
+	private ResourceBundle resource;
 
 	// Pattern for password
 	static final Pattern PASSWORD_PATTERN = 
@@ -89,5 +89,13 @@ public class ValidatorPassword implements Validator {
 			value = (String) ((UIInput) component.getAttributes().get(Constants.PASSWORD_PARAMETER)).getValue();
 		}
 		return value;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param resource the resource to set.
+	 */
+	void setResourceBundle(ResourceBundle resource) {
+		this.resource = resource;
 	}
 }

@@ -13,10 +13,12 @@ import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 
 /**
+ * This Class is a Junit test case testing {@link ExceptionInvalidId}.
  * @author Maic
- *
  */
 public class TestExceptionInvalidId {
+	
+	private ExceptionInvalidId exception;
 
 	/**
 	 * Test method for {@link ExceptionInvalidId#ExceptionInvalidId(boolean)}
@@ -24,7 +26,7 @@ public class TestExceptionInvalidId {
 	 */
 	@Test
 	public final void testConstructorWithBooleanTrue() {
-		ExceptionInvalidId exception = new ExceptionInvalidId(true);
+		exception = new ExceptionInvalidId(true);
 		assertTrue(exception.isIdShouldBeNull());
 	}
 	
@@ -34,7 +36,7 @@ public class TestExceptionInvalidId {
 	 */
 	@Test
 	public final void testConstructorWithBooleanFalse() {
-		ExceptionInvalidId exception = new ExceptionInvalidId(false);
+		exception = new ExceptionInvalidId(false);
 		assertFalse(exception.isIdShouldBeNull());
 	}
 
@@ -43,8 +45,8 @@ public class TestExceptionInvalidId {
 	 */
 	@Test
 	public final void testGetMessageWithIdShouldBeNull() {
-		ExceptionInvalidId exception = new ExceptionInvalidId(true);
-		exception.resource = Resources.getResourceBundleError();
+		exception = new ExceptionInvalidId(true);
+		exception.setResourceBundle(Resources.getResourceBundleError());
 		assertEquals(TestResources.getResourceBundleError(Constants.ID_SHOULD_BE_NULL), 
 				exception.getMessage());
 	}
@@ -54,8 +56,8 @@ public class TestExceptionInvalidId {
 	 */
 	@Test
 	public final void testGetMessageWithIdShouldNotBeNull() {
-		ExceptionInvalidId exception = new ExceptionInvalidId(false);
-		exception.resource = Resources.getResourceBundleError();
+		exception = new ExceptionInvalidId(false);
+		exception.setResourceBundle(Resources.getResourceBundleError());
 		assertEquals(TestResources.getResourceBundleError(Constants.ID_SHOULD_NOT_BE_NULL), 
 				exception.getMessage());
 	}

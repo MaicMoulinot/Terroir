@@ -31,7 +31,7 @@ public class TestValidatorPassword {
 	@Before
 	public void setUp() throws Exception {
 		validator = new ValidatorPassword();
-		validator.resource = Resources.getResourceBundleError();
+		validator.setResourceBundle(Resources.getResourceBundleError());
 	}
 	
 	/**
