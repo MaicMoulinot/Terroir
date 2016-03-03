@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
 
 import java.util.List;
 
@@ -11,7 +12,6 @@ import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Site;
@@ -40,7 +40,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	@Test
 	public final void testBehavior() {
 		// EntityManager is not working, it is mocked
-		dao.entityManager = Mockito.mock(EntityManager.class);
+		dao.entityManager = mock(EntityManager.class);
 
 		super.testBehavior();
 	}
