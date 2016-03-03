@@ -140,7 +140,7 @@
 					<p:commandLink styleClass="ui-icon ui-icon-trash"
 						update=":form:deleteConfirmDialog"
 						oncomplete="PF('deleteConfirmation').show();"
-						action="#{viewCustomerList.setCurrentCustomer(currentCustomer)}">
+						action="#{viewCustomerList.setCurrentUser(currentCustomer)}">
 					</p:commandLink>
 				</p:column>
 
@@ -149,7 +149,7 @@
 			<p:confirmDialog id="deleteConfirmDialog"
 				header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
-				message="#{message.confirmdelete} #{viewCustomerList.currentCustomer.userName} ?"
+				message="#{message.confirmdelete} #{viewCustomerList.currentUser.userName} ?"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
 					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"

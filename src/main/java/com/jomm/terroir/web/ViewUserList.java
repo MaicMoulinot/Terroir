@@ -1,7 +1,11 @@
 package com.jomm.terroir.web;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlDataTable;
@@ -11,7 +15,11 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
+import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
+import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This abstract Class is the View linked to a list of {@link ViewUser}.
@@ -35,9 +43,12 @@ public abstract class ViewUserList {
 	@Inject
 	@BundleMessage
 	protected ResourceBundle resource;
+	@Inject
+	protected Logger logger;
 	
 	// Attributes
 	protected HtmlDataTable dataTable;
+	protected ViewUser currentUser;
 	
 	/**
 	 * Initialize the list of all users.
@@ -48,19 +59,58 @@ public abstract class ViewUserList {
 	 * Is called when a row is edited.
 	 * @param event RowEditEvent the AJAX event.
 	 */
-	public abstract void onRowEdit(RowEditEvent event);
+	public void onRowEdit(RowEditEvent event) {
+		ViewUser view = (ViewUser) event.getObject();
+		if (view != null) {
+			FacesMessage message = null;
+			try {
+				userService.update(view.convertIntoEntity());
+				Object[] argument = {view.getUserName()};
+				String detail = MessageFormat.format(resource.getString(Constants.UPDATE_USER), argument);
+				message = new FacesMessage(resource.getString(Constants.UPDATE_OK), detail);
+			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+				String problem = exception.getMessage();
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
+						"Username=" + view.getUserName() + ", UserId=" + view.getId());
+				logger.log(Level.FINE, problem, exception);
+			} finally {
+				facesContext.addMessage(null, message);
+			}
+		}
+	}
 	
 	/**
 	 * Is called when a edited row is back to normal state.
 	 * @param event RowEditEvent the AJAX event.
 	 */
-	public abstract void onRowCancel(RowEditEvent event);
+	public void onRowCancel(RowEditEvent event) {
+		// Do nothing.
+	}
 	
 	/**
 	 * Delete an user.
 	 * @return a String for navigation.
 	 */
-	public abstract String delete();
+	public String delete() {
+		if (currentUser != null) {
+			AbstractUser user = currentUser.convertIntoEntity();
+			FacesMessage message = null;
+			try {
+				Object[] argument = {user.getUserName()};
+				userService.delete(user);
+				String detail = MessageFormat.format(resource.getString(Constants.DELETE_USER), argument);
+				message = new FacesMessage(resource.getString(Constants.DELETE_OK), detail);
+			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+				String problem = exception.getMessage();
+				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
+						"Username=" + user.getUserName() + ", UserId=" + user.getId());
+				logger.log(Level.FINE, problem, exception);
+			} finally {
+				facesContext.addMessage(null, message);
+			}
+		}
+		return null;	// Navigation case.
+	}
 	
 	/**
 	 * @return the dataTable
@@ -74,5 +124,19 @@ public abstract class ViewUserList {
 	 */
 	public void setDataTable(HtmlDataTable dataTable) {
 		this.dataTable = dataTable;
+	}
+
+	/**
+	 * @return the currentUser
+	 */
+	ViewUser getCurrentUser() {
+		return currentUser;
+	}
+
+	/**
+	 * @param currentUser the currentUser to set
+	 */
+	void setCurrentUser(ViewUser currentUser) {
+		this.currentUser = currentUser;
 	}
 }
