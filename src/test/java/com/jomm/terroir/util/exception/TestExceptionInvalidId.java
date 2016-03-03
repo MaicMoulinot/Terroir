@@ -62,7 +62,7 @@ public class TestExceptionInvalidId {
 	
 	/**
 	 * Generate a mocked {@link ExceptionInvalidId} usable for tests which
-	 * method <code>getLocalizedMessage()</code> returns {@link Constants#ID_SHOULD_BE_NULL}.
+	 * method <code>getMessage()</code> returns {@link Constants#ID_SHOULD_BE_NULL}.
 	 * @return the {@link ExceptionInvalidId}.
 	 */
 	public static ExceptionInvalidId createMockedExceptionIdShouldBeNull() {
@@ -71,7 +71,7 @@ public class TestExceptionInvalidId {
 	
 	/**
 	 * Generate a mocked {@link ExceptionInvalidId} usable for tests which
-	 * method <code>getLocalizedMessage()</code> returns {@link Constants#ID_SHOULD_NOT_BE_NULL}.
+	 * method <code>getMessage()</code> returns {@link Constants#ID_SHOULD_NOT_BE_NULL}.
 	 * @return the {@link ExceptionInvalidId}.
 	 */
 	public static ExceptionInvalidId createMockedExceptionIdShouldNotBeNull() {
