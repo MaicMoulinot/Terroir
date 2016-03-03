@@ -9,14 +9,13 @@ import java.time.format.DateTimeFormatter;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.util.Constants;
-import com.jomm.terroir.util.converter.ConverterLocalDate;
 
 /**
  * This class is a Junit test case testing the <code>getAsObject()</code> and <code>getAsString()</code> 
@@ -27,14 +26,21 @@ import com.jomm.terroir.util.converter.ConverterLocalDate;
 @RunWith(MockitoJUnitRunner.class)
 public class TestConverterLocalDate {
 	
-	@Mock(name = "context")
+	@Mock
     private FacesContext context;
 	
-	@Mock(name = "component")
+	@Mock
     private UIComponent component;
 	
-	@InjectMocks
 	private ConverterLocalDate converter;
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		converter = new ConverterLocalDate();
+	}
 
 	/**
 	 * Test method for {@link ConverterLocalDate#getAsObject(FacesContext, UIComponent, String)} with its value null.
