@@ -8,6 +8,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.Constants;
 
@@ -26,10 +27,12 @@ public abstract class ViewUser {
 	
 	// Injected fields
 	@Inject
-	FacesContext facesContext;
+	protected ServiceUser userService;
+	@Inject
+	protected FacesContext facesContext;
 	@Inject
 	@BundleMessage
-	ResourceBundle resource;
+	protected ResourceBundle resource;
 
 	//	Attributes
 	protected Long id;

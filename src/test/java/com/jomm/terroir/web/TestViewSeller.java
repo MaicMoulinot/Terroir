@@ -119,7 +119,7 @@ public class TestViewSeller {
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-		assertEquals(view.resourceMessage.getString(Constants.USER_REGISTRED), message.getSummary());
+		assertEquals(view.resource.getString(Constants.USER_REGISTRED), message.getSummary());
 	}
 
 	/**
@@ -192,7 +192,7 @@ public class TestViewSeller {
 	private void setInjections() {
 		view.facesContext = mock(FacesContext.class);
 		view.userService = mock(ServiceUser.class);
-		view.logger = TestResources.createLogger(this.getClass());
-		view.resourceMessage = Resources.getResourceBundleMessage();
+		view.resource = Resources.getResourceBundleMessage();
+		view.setLogger(TestResources.createLogger(this.getClass()));
 	}
 }

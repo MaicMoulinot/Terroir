@@ -34,14 +34,7 @@ public class ViewSeller extends ViewUser {
 	
 	// Injected fields
 	@Inject
-	ServiceUser userService;
-	@Inject
-	FacesContext facesContext;
-	@Inject
-	@BundleMessage
-	ResourceBundle resourceMessage;
-	@Inject
-	Logger logger;
+	private Logger logger;
 	
 	//	Attributes
 	private Enterprise enterprise;
@@ -51,7 +44,7 @@ public class ViewSeller extends ViewUser {
 		FacesMessage message = null;
 		try {
 			userService.create(convertIntoEntity());
-			message = new FacesMessage(resourceMessage.getString(Constants.USER_REGISTRED), null);
+			message = new FacesMessage(resource.getString(Constants.USER_REGISTRED), null);
 		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 			String problem = exception.getMessage();
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
@@ -107,5 +100,21 @@ public class ViewSeller extends ViewUser {
 	 */
 	public void setEnterprise(Enterprise enterprise) {
 		this.enterprise = enterprise;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @return the userService
+	 */
+	ServiceUser getUserService() {
+		return userService;
+	}
+
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param logger the logger to set
+	 */
+	void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 }
