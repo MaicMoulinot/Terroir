@@ -1,6 +1,8 @@
 package com.jomm.terroir.web;
 
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -9,8 +11,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.ServiceUser;
+import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.exception.ExceptionInvalidId;
+import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This abstract Class is the View that creates a new {@link com.jomm.terroir.business.model.AbstractUser}.
@@ -33,6 +38,8 @@ public abstract class ViewUser {
 	@Inject
 	@BundleMessage
 	protected ResourceBundle resource;
+	@Inject
+	protected Logger logger;
 
 	//	Attributes
 	protected Long id;
@@ -41,12 +48,31 @@ public abstract class ViewUser {
 	protected String userName;
 	protected String email;
 	protected String password;
+	
+	/**
+	 * Transform an {@link ViewUser} into {@link AbstractUser}.
+	 * @return {@link AbstractUser}.
+	 */
+	public abstract AbstractUser convertIntoEntity();
 
 	/**
 	 * Create and save a new User.
-	 * @return a String (navigation).
+	 * @return String for navigation.
 	 */
-	public abstract String create();
+	public String create() {
+		FacesMessage message = null;
+		try {
+			userService.create(convertIntoEntity());
+			message = new FacesMessage(resource.getString(Constants.USER_REGISTRED), null);
+		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+			String problem = exception.getMessage();
+			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
+			logger.log(Level.FINE, problem, exception);
+		} finally {
+			facesContext.addMessage(null, message);
+		}
+		return null;
+	}
 
 	/**
 	 * Generate tips to create a secured enough password into growl.

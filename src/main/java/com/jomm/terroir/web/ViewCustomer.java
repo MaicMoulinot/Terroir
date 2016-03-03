@@ -3,21 +3,14 @@ package com.jomm.terroir.web;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.Constants;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Class is the View linked to customersignup.xhtml, that creates a new {@link Customer}.
@@ -33,27 +26,16 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 @ViewScoped
 public class ViewCustomer extends ViewUser {
 
-	// Injected fields
-	@Inject
-	private Logger logger;
-
 	//	Attributes
 	private LocalDate birthDate;
 	private ZonedDateTime signUpDate;
-
-	@Override
+	
+	/**
+	 * Create and save a new Customer.
+	 * @return String for navigation.
+	 */
 	public String create() {
-		FacesMessage message = null;
-		try {
-			userService.create(convertIntoEntity());
-			message = new FacesMessage(resource.getString(Constants.USER_REGISTRED), null);
-		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
-			String problem = exception.getMessage();
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
-			logger.log(Level.FINE, problem, exception);
-		} finally {
-			facesContext.addMessage(null, message);
-		}
+		super.create();
 		return "customerlist" + "?faces-redirect=true";	// Navigation case.
 	}
 
@@ -129,21 +111,5 @@ public class ViewCustomer extends ViewUser {
 	 */
 	public void setSignUpDate(ZonedDateTime signUpDate) {
 		this.signUpDate = signUpDate;
-	}
-
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @return the userService
-	 */
-	ServiceUser getUserService() {
-		return userService;
-	}
-
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param logger the logger to set
-	 */
-	void setLogger(Logger logger) {
-		this.logger = logger;
 	}
 }

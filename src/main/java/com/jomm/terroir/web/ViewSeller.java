@@ -1,22 +1,15 @@
 package com.jomm.terroir.web;
 
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.Constants;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Class is the View linked to sellersignup.xhtml, that creates a new {@link Seller}.
@@ -32,26 +25,15 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 @ViewScoped
 public class ViewSeller extends ViewUser {
 	
-	// Injected fields
-	@Inject
-	private Logger logger;
-	
 	//	Attributes
 	private Enterprise enterprise;
 
-	@Override
+	/**
+	 * Create and save a new Seller.
+	 * @return String for navigation.
+	 */
 	public String create() {
-		FacesMessage message = null;
-		try {
-			userService.create(convertIntoEntity());
-			message = new FacesMessage(resource.getString(Constants.USER_REGISTRED), null);
-		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
-			String problem = exception.getMessage();
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
-			logger.log(Level.FINE, problem, exception);
-		} finally {
-			facesContext.addMessage(null, message);
-		}
+		super.create();
 		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
 	}
 
@@ -100,21 +82,5 @@ public class ViewSeller extends ViewUser {
 	 */
 	public void setEnterprise(Enterprise enterprise) {
 		this.enterprise = enterprise;
-	}
-	
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @return the userService
-	 */
-	ServiceUser getUserService() {
-		return userService;
-	}
-
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param logger the logger to set
-	 */
-	void setLogger(Logger logger) {
-		this.logger = logger;
 	}
 }
