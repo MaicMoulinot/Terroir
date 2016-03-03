@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -26,6 +25,7 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link ViewSeller}.
+ * It extends {@link ViewUserList} and defines specific attributes.
  * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
  * to {@link FacesContext} to throw them to the view, 
  * and to {@link ServiceUser} to update or delete the {@link Seller}.
@@ -35,27 +35,17 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
  */
 @ManagedBean
 @ViewScoped
-public class ViewSellerList {
+public class ViewSellerList extends ViewUserList {
 
 	// Injected fields
 	@Inject
-	ServiceUser userService;	
-	@Inject
-	FacesContext facesContext;	
-	@Inject
-	@BundleMessage
-	ResourceBundle resourceMessage;
-	@Inject
-	Logger logger;
+	private Logger logger;
 	
 	// Attributes
-	List<ViewSeller> listSellers;
-	ViewSeller currentSeller;
-	HtmlDataTable dataTable;
+	private List<ViewSeller> listSellers;
+	private ViewSeller currentSeller;
 
-	/**
-	 * Initialize the list of all users.
-	 */
+	@Override
 	@PostConstruct 
 	public void init() {
 		listSellers = new LinkedList<>();
@@ -64,10 +54,7 @@ public class ViewSellerList {
 		}
 	}
 
-	/**
-	 * Is called when a row is edited.
-	 * @param event RowEditEvent the AJAX event.
-	 */
+	@Override
 	public void onRowEdit(RowEditEvent event) {
 		ViewSeller sellerJsf = (ViewSeller) event.getObject();
 		if (sellerJsf != null) {
@@ -75,8 +62,8 @@ public class ViewSellerList {
 			try {
 				userService.update(sellerJsf.convertIntoEntity());
 				Object[] argument = {sellerJsf.getUserName()};
-				String detail = MessageFormat.format(resourceMessage.getString(Constants.UPDATE_USER), argument);
-				message = new FacesMessage(resourceMessage.getString(Constants.UPDATE_OK), detail);
+				String detail = MessageFormat.format(resource.getString(Constants.UPDATE_USER), argument);
+				message = new FacesMessage(resource.getString(Constants.UPDATE_OK), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
@@ -88,18 +75,12 @@ public class ViewSellerList {
 		}
 	}
 
-	/**
-	 * Is called when a edited row is back to normal state.
-	 * @param event RowEditEvent the AJAX event.
-	 */
+	@Override
 	public void onRowCancel(RowEditEvent event) {
 		// Do nothing.
 	}
 
-	/**
-	 * Delete a seller.
-	 * @return "sellerlist" (navigation).
-	 */
+	@Override
 	public String delete() {
 		if (currentSeller != null) {
 			Seller seller = currentSeller.convertIntoEntity();
@@ -107,8 +88,8 @@ public class ViewSellerList {
 			try {
 				Object[] argument = {seller.getUserName()};
 				userService.delete(seller);
-				String detail = MessageFormat.format(resourceMessage.getString(Constants.DELETE_USER), argument);
-				message = new FacesMessage(resourceMessage.getString(Constants.DELETE_OK), detail);
+				String detail = MessageFormat.format(resource.getString(Constants.DELETE_USER), argument);
+				message = new FacesMessage(resource.getString(Constants.DELETE_OK), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
@@ -119,20 +100,6 @@ public class ViewSellerList {
 			}
 		}
 		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
-	}
-
-	/**
-	 * @return the dataTable
-	 */
-	public HtmlDataTable getDataTable() {
-		return dataTable;
-	}
-
-	/**
-	 * @param dataTable the dataTable to set
-	 */
-	public void setDataTable(HtmlDataTable dataTable) {
-		this.dataTable = dataTable;
 	}
 
 	/**
@@ -161,5 +128,13 @@ public class ViewSellerList {
 	 */
 	public void setCurrentSeller(ViewSeller currentSeller) {
 		this.currentSeller = currentSeller;
+	}
+
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param logger the logger to set
+	 */
+	void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 }

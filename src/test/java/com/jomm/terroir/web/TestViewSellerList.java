@@ -146,9 +146,9 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resourceMessage.getString(Constants.UPDATE_OK), message.getSummary());
+        assertEquals(view.resource.getString(Constants.UPDATE_OK), message.getSummary());
         Object[] argument = {viewSeller.getUserName()};
-        assertEquals(MessageFormat.format(view.resourceMessage.getString(Constants.UPDATE_USER), argument), 
+        assertEquals(MessageFormat.format(view.resource.getString(Constants.UPDATE_USER), argument), 
         		message.getDetail());
 	}
 	
@@ -239,9 +239,9 @@ public class TestViewSellerList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resourceMessage.getString(Constants.DELETE_OK), message.getSummary());
+        assertEquals(view.resource.getString(Constants.DELETE_OK), message.getSummary());
         Object[] argument = {viewSeller.getUserName()};
-        assertEquals(MessageFormat.format(view.resourceMessage.getString(Constants.DELETE_USER), argument), 
+        assertEquals(MessageFormat.format(view.resource.getString(Constants.DELETE_USER), argument), 
         		message.getDetail());
 	}
 	
@@ -274,7 +274,7 @@ public class TestViewSellerList {
 	private void setInjections() {
 		view.facesContext = mock(FacesContext.class);
 		view.userService = mock(ServiceUser.class);
-		view.logger = TestResources.createLogger(this.getClass());
-		view.resourceMessage = Resources.getResourceBundleMessage();
+		view.resource = Resources.getResourceBundleMessage();
+		view.setLogger(TestResources.createLogger(this.getClass()));
 	}
 }

@@ -53,6 +53,7 @@ import com.jomm.terroir.web.TestViewCustomerList;
 import com.jomm.terroir.web.TestViewSeller;
 import com.jomm.terroir.web.TestViewSellerList;
 import com.jomm.terroir.web.TestViewUser;
+import com.jomm.terroir.web.TestViewUserList;
 
 /**
  * This Class is a Junit Suite Case launching all Junit test cases.
@@ -86,7 +87,7 @@ import com.jomm.terroir.web.TestViewUser;
 	TestExceptionInvalidId.class, TestExceptionNullEntity.class, 
 	// Web
 	TestViewCustomer.class, TestViewCustomerList.class, TestViewSeller.class, TestViewSellerList.class,
-	TestViewUser.class
+	TestViewUser.class, TestViewUserList.class
 	})
 public class AllTests {
 	

@@ -11,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -26,6 +25,7 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
 /**
  * This Class is the View linked to customerlist.xhtml, that displays the list of {@link ViewCustomer}.
+ * It extends {@link ViewUserList} and defines specific attributes.
  * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
  * to {@link FacesContext} to throw them to the view, 
  * and to {@link ServiceUser} to update or delete the {@link Customer}.
@@ -35,27 +35,17 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
  */
 @ManagedBean
 @ViewScoped
-public class ViewCustomerList {
+public class ViewCustomerList extends ViewUserList {
 
 	// Injected fields
 	@Inject
-	ServiceUser userService;	
-	@Inject
-	FacesContext facesContext;	
-	@Inject
-	@BundleMessage
-	ResourceBundle resourceMessage;
-	@Inject
-	Logger logger;
+	private Logger logger;
 	
 	// Attributes
 	private List<ViewCustomer> listCustomers;
 	private ViewCustomer currentCustomer;
-	private HtmlDataTable dataTable;
 
-	/**
-	 * Initialize the list of all customers.
-	 */
+	@Override
 	@PostConstruct 
 	public void init() {
 		listCustomers = new LinkedList<>();
@@ -64,10 +54,7 @@ public class ViewCustomerList {
 		}
 	}
 
-	/**
-	 * Is called when a row is edited.
-	 * @param event RowEditEvent the AJAX event.
-	 */
+	@Override
 	public void onRowEdit(RowEditEvent event) {
 		ViewCustomer customerJsf = (ViewCustomer) event.getObject();
 		if (customerJsf != null) {
@@ -75,8 +62,8 @@ public class ViewCustomerList {
 			try {
 				userService.update(customerJsf.convertIntoEntity());
 				Object[] argument = {customerJsf.getUserName()};
-				String detail = MessageFormat.format(resourceMessage.getString(Constants.UPDATE_USER), argument);
-				message = new FacesMessage(resourceMessage.getString(Constants.UPDATE_OK), detail);
+				String detail = MessageFormat.format(resource.getString(Constants.UPDATE_USER), argument);
+				message = new FacesMessage(resource.getString(Constants.UPDATE_OK), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
@@ -88,18 +75,12 @@ public class ViewCustomerList {
 		}
 	}
 
-	/**
-	 * Is called when a edited row is back to normal state.
-	 * @param event RowEditEvent the AJAX event.
-	 */
+	@Override
 	public void onRowCancel(RowEditEvent event) {
 		// Do nothing.
 	}
 
-	/**
-	 * Delete a customer.
-	 * @return "customerlist" (navigation).
-	 */
+	@Override
 	public String delete() {
 		if (currentCustomer != null) {
 			Customer customer = currentCustomer.convertIntoEntity();
@@ -107,8 +88,8 @@ public class ViewCustomerList {
 			try {
 				Object[] argument = {customer.getUserName()};
 				userService.delete(customer);
-				String detail = MessageFormat.format(resourceMessage.getString(Constants.DELETE_USER), argument);
-				message = new FacesMessage(resourceMessage.getString(Constants.DELETE_OK), detail);
+				String detail = MessageFormat.format(resource.getString(Constants.DELETE_USER), argument);
+				message = new FacesMessage(resource.getString(Constants.DELETE_OK), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
@@ -119,20 +100,6 @@ public class ViewCustomerList {
 			}
 		}
 		return "customerlist" + "?faces-redirect=true";	// Navigation case.
-	}
-
-	/**
-	 * @return the dataTable
-	 */
-	public HtmlDataTable getDataTable() {
-		return dataTable;
-	}
-
-	/**
-	 * @param dataTable the dataTable to set
-	 */
-	public void setDataTable(HtmlDataTable dataTable) {
-		this.dataTable = dataTable;
 	}
 
 	/**
@@ -161,5 +128,13 @@ public class ViewCustomerList {
 	 */
 	public void setCurrentCustomer(ViewCustomer currentCustomer) {
 		this.currentCustomer = currentCustomer;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param logger the logger to set
+	 */
+	void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 }
