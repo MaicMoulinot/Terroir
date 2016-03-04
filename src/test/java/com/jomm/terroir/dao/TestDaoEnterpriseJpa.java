@@ -19,7 +19,7 @@ import com.jomm.terroir.business.model.TestEnterprise;
 /**
  * This Class is a Junit test case testing {@link DaoEnterpriseJpa}.
  * It extends {@link TestDaoGenericJpa} with {@link Enterprise} as parameter, 
- * and implements <code>testBehavior()</code> and <code>testState()</code>.
+ * and implements {@code testBehavior()} and {@code testState()}.
  * @author Maic
  */
 public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {

@@ -65,7 +65,8 @@ public class TestExceptionInvalidId {
 	
 	/**
 	 * Generate a mocked {@link ExceptionInvalidId} usable for tests which
-	 * method <code>getMessage()</code> returns {@link BundleErrorKey#ID_SHOULD_BE_NULL}.
+	 * method {@code getMessage()} returns 
+	 * {@link com.jomm.terroir.util.Constants.ResourceBundleError#ID_SHOULD_BE_NULL}.
 	 * @return the {@link ExceptionInvalidId}.
 	 */
 	public static ExceptionInvalidId createMockedExceptionIdShouldBeNull() {
@@ -74,7 +75,8 @@ public class TestExceptionInvalidId {
 	
 	/**
 	 * Generate a mocked {@link ExceptionInvalidId} usable for tests which
-	 * method <code>getMessage()</code> returns {@link BundleErrorKey#ID_SHOULD_NOT_BE_NULL}.
+	 * method {@code getMessage()} returns 
+	 * {@link com.jomm.terroir.util.Constants.ResourceBundleError#ID_SHOULD_NOT_BE_NULL}.
 	 * @return the {@link ExceptionInvalidId}.
 	 */
 	public static ExceptionInvalidId createMockedExceptionIdShouldNotBeNull() {
@@ -83,7 +85,7 @@ public class TestExceptionInvalidId {
 	
 	/**
 	 * Generate a mocked {@link ExceptionInvalidId} usable for tests.
-	 * @param exceptionMessage String the message returned by method <code>getMessage()</code>.
+	 * @param exceptionMessage String the message returned by method {@code getMessage()}.
 	 * @return the {@link ExceptionInvalidId}.
 	 */
 	private static ExceptionInvalidId createException(String exceptionMessage) {

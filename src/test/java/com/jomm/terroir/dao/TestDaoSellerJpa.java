@@ -20,7 +20,7 @@ import com.jomm.terroir.business.model.TestSeller;
 /**
  * This Class is a Junit test case testing {@link DaoSellerJpa}.
  * It extends {@link TestDaoGenericJpa} with {@link Seller} as parameter, 
- * and implements <code>testBehavior()</code> and <code>testState()</code>.
+ * and implements {@code testBehavior()} and {@code testState()}.
  * @author Maic
  */
 public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
@@ -118,7 +118,7 @@ public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
 	/**
 	 * Private method to retrieve an {@link Enterprise} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Enterprise} with <code>id=ENTERPRISE_ID</code>.
+	 * @return the {@link Enterprise} with {@link TestDaoSellerJpa#EXISTING_ENTERPRISE_ID}.
 	 */
 	private Enterprise findEnterpriseFromDataBase(EntityManager entityManager) {
 		DaoEnterpriseJpa dao = new DaoEnterpriseJpa();

@@ -13,7 +13,7 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 public interface ServiceProduct {
 	
 	/**
-	 * Create a product and generate its <code>registrationDate</code>.
+	 * Create a product and generate its {@code registrationDate}.
 	 * @param product the {@link Product} to create.
 	 * @return the persisted product.
 	 * @throws ExceptionNullEntity if the entity is null.

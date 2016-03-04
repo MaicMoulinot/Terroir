@@ -15,9 +15,9 @@ import javax.persistence.Converter;
  * {@link Date}, and other old Java Date/Time APIs.
  * <br />This Class implements {@link AttributeConverter}<{@link LocalDate}, {@link Date}>, and
  * converts a {@link LocalDate} (type of entity attribute) to/from a {@link Date} (type of database column),
- * using the methods <code>convertToDatabaseColumn()</code> and <code>convertToEntityAttribute()</code>.
+ * using the methods {@code convertToDatabaseColumn()} and {@code convertToEntityAttribute()}.
  * <br />It is annotated {@link Converter} to be registered as a Converter, with its parameter 
- * <code>autoApply=true</code> in order to be applied on each related entity's attributes by default.
+ * {@code autoApply=true} in order to be applied on each related entity's attributes by default.
  * @author Maic
  */
 @Converter(autoApply = true)

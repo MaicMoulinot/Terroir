@@ -20,10 +20,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * This abstract Class defines the contract of {@link DaoGenericJpa}.
- * It extends {@link UtilData} and thus has access to its <code>dbSetupTracker.skipNextLaunch()</code> method.
+ * It extends {@link UtilData} and thus has access to its {@code dbSetupTracker.skipNextLaunch()} method.
  * It is annotated {@link RunWith} {@link MockitoJUnitRunner} to explicit usage of Mockito annotations.
  * Each System Under Test (SUT) should extends this class implementing the methods 
- * <code>testState()</code> and <code>testBehavior()</code>.
+ * {@code testState()} and {@code testBehavior()}.
  * @author Maic
  * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.
  */

@@ -11,7 +11,7 @@ import com.jomm.terroir.business.model.Customer;
 
 /**
  * This Class is a Junit test case testing the contract of {@link DaoCustomer}.
- * It extends {@link TestDao} with the parameter {@link Customer}, and implements <code>testEntityClassMatch()</code>.
+ * It extends {@link TestDao} with the parameter {@link Customer}, and implements {@code testEntityClassMatch()}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
  * Here, the parameters are each implementation of {@link DaoCustomer}.
  * @author Maic
@@ -37,7 +37,7 @@ public class TestDaoCustomer extends TestDao<Customer> {
     
 	/**
 	 * Reference a list of all {@link DaoCustomer}'s concrete children to be used as parameter on constructor.
-	 * @return <code>Iterable < Object[] > </code>.
+	 * @return {@code Iterable<Object[]>}.
 	 */
 	@Parameters(name= "{index}: {0}")
 	public static Iterable<Object[]> implementationToTest() {

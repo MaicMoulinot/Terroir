@@ -10,8 +10,8 @@ import com.jomm.terroir.util.BundleError;
 
 /**
  * This Class is an Exception.
- * It is used in Services when working with a <code>null</code> entity that should not be <code>null</code>.
- * It extends {@link Exception} and overrides its method <code>getMessage()</code>.
+ * It is used in Services when working with a {@code null} entity that should not be {@code null}.
+ * It extends {@link Exception} and overrides its method {@code getMessage()}.
  * @author Maic
  */
 public class ExceptionNullEntity extends Exception {

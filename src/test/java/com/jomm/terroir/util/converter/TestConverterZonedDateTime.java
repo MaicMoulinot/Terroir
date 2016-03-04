@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- * This class is a Junit test case testing the <code>getAsObject()</code> and <code>getAsString()</code> 
+ * This class is a Junit test case testing the {@code getAsObject()} and {@code getAsString()} 
  * methods of {@link ConverterZonedDateTime}.
  * It is annotated {@link RunWith} {@link MockitoJUnitRunner} to explicit usage of Mockito annotations.
  * @author Maic

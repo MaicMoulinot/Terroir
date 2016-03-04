@@ -39,8 +39,8 @@ public class TestServiceUser {
 
 	/**
 	 * Constructor.
-	 * As this class is running with <code>Parameterized.class</code>, the constructor will be initialized with
-	 * all values contained in the list returned from <code>implementationToTest()</code>.
+	 * As this class is running with {@code Parameterized.class}, the constructor will be initialized with
+	 * all values contained in the list returned from {@code implementationToTest()}.
 	 * @param service an implementation of {@link ServiceUser}.
 	 */
 	public TestServiceUser(ServiceUser service) {
@@ -212,7 +212,7 @@ public class TestServiceUser {
 	/**
 	 * Reference a list of all {@link ServiceUser}'s implementation to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.
-	 * @return <code>Iterable < Object[] > </code>.
+	 * @return {@code Iterable<Object[]>}.
 	 */
 	@Parameters(name= "{index}: {0}")
 	public static Iterable<Object[]> implementationToTest() {

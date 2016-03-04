@@ -12,8 +12,8 @@ import com.jomm.terroir.util.BundleError;
 /**
  * This Class is an Exception.
  * It is used in Services when working with an entity whose id is not in a valid state :
- * it is <code>null</code> while it should not be, or it is not <code>null</code> while it should be.
- * It extends {@link Exception} and overrides its method <code>getMessage()</code>.
+ * it is {@code null} while it should not be, or it is not {@code null} while it should be.
+ * It extends {@link Exception} and overrides its method {@code getMessage()}.
  * @author Maic
  */
 public class ExceptionInvalidId extends Exception {
@@ -28,7 +28,7 @@ public class ExceptionInvalidId extends Exception {
 	private transient ResourceBundle resource;
 	
 	/**
-	 * Constructor. Determine if the id should be <code>null</code> or should not be <code>null</code>.
+	 * Constructor. Determine if the id should be {@code null} or should not be {@code null}.
 	 * @param idShouldBeNull boolean.
 	 */
 	public ExceptionInvalidId(boolean idShouldBeNull) {

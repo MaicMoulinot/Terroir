@@ -20,7 +20,7 @@ import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 
 /**
- * This class is a Junit test case testing the <code>validate()</code> method of {@link ValidatorPassword}.
+ * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorPassword}.
  * @author Maic
  */
 public class TestValidatorPassword {

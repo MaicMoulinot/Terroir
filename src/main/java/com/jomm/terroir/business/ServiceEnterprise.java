@@ -13,7 +13,7 @@ import com.jomm.terroir.util.exception.ExceptionNullEntity;
 public interface ServiceEnterprise {
 	
 	/**
-	 * Create an enterprise and generate its <code>signUpDate</code>.
+	 * Create an enterprise and generate its {@code signUpDate}.
 	 * @param enterprise the {@link Enterprise} to create.
 	 * @return the persisted enterprise.
 	 * @throws ExceptionNullEntity if the entity is null.

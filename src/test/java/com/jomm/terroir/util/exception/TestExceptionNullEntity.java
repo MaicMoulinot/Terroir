@@ -31,7 +31,8 @@ public class TestExceptionNullEntity {
 	
 	/**
 	 * Generate a mocked {@link ExceptionNullEntity} usable for tests which
-	 * method <code>getMessage()</code> returns {@link BundleErrorKey#USER_SHOULD_NOT_BE_NULL}.
+	 * method {@code getMessage()} returns 
+	 * {@link com.jomm.terroir.util.Constants.ResourceBundleError#USER_SHOULD_NOT_BE_NULL}.
 	 * @return the {@link ExceptionNullEntity}.
 	 */
 	public static ExceptionNullEntity createMockedException() {
@@ -40,7 +41,7 @@ public class TestExceptionNullEntity {
 	
 	/**
 	 * Generate a mocked {@link ExceptionNullEntity} usable for tests.
-	 * @param exceptionMessage String the message returned by method <code>getMessage()</code>.
+	 * @param exceptionMessage String the message returned by method {@code getMessage()}.
 	 * @return the {@link ExceptionNullEntity}.
 	 */
 	private static ExceptionNullEntity createException(String exceptionMessage) {

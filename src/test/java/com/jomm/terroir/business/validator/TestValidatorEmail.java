@@ -22,7 +22,7 @@ import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 
 /**
- * This class is a Junit test case testing the <code>validate()</code> method of {@link ValidatorEmail}.
+ * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorEmail}.
  * It is annotated {@link RunWith} {@link MockitoJUnitRunner} to explicit usage of Mockito annotations.
  * @author Maic
  */

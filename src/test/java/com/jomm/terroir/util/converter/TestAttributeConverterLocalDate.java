@@ -15,7 +15,7 @@ import org.junit.Test;
 import com.jomm.terroir.util.Resources;
 
 /**
- * This class is a Junit test case testing the <code>convertToDatabaseColumn()</code> and <code>convertToEntityAttribute()</code> 
+ * This class is a Junit test case testing the {@code convertToDatabaseColumn()} and {@code convertToEntityAttribute()} 
  * methods of {@link AttributeConverterLocalDate}.
  * @author Maic
  */

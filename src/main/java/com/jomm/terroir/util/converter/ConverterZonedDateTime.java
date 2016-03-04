@@ -15,9 +15,9 @@ import javax.faces.convert.FacesConverter;
  * <br />The JSF2.2 API does not work with the Java 8 Date/Time API by default since it was built to work with 
  * {@link java.util.Date}, and other old Java Date/Time APIs.
  * <br />This Class implements {@link Converter}, and converts a {@link String} to/from a {@link ZonedDateTime}, 
- * using the methods <code>getAsObject()</code> and <code>getAsString()</code>.
+ * using the methods {@code getAsObject()} and {@code getAsString()}.
  * <br />It is annotated {@link FacesConverter} to be registered as a FacesConverter, with its parameter 
- * <code>value="zonedDateTimeConverter"</code> in order to be called in the views using <code>converterId</code>.
+ * {@code value="zonedDateTimeConverter"} in order to be called in the views using {@code converterId}.
  * @author Maic
  */
 @FacesConverter(value = "zonedDateTimeConverter")

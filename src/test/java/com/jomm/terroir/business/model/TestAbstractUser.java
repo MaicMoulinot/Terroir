@@ -83,7 +83,7 @@ public class TestAbstractUser {
 	
 	/**
 	 * Reference a list of all {@link AbstractUser}'s concrete children to be used as parameter on constructor.
-	 * @return <code>Iterable < Object[] > </code>.
+	 * @return {@code Iterable<Object[]>}.
 	 */
 	@Parameters(name= "{index}: {0}")
 	public static Iterable<Object[]> childToTest() {

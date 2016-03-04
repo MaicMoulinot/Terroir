@@ -18,9 +18,9 @@ import org.hibernate.jdbc.Work;
 /**
  * This abstract Class is a test-specific utility exposing the {@link EntityManager} 
  * and related methods to all DAO test cases.
- * It cannot be instantiated and all methods are <code>static</code>.
- * The related Persistence Unit has a <code>transaction-type="RESOURCE_LOCAL"</code>,
- * implying the explicit use of <code>session.beginTransaction()<code> and <code>transaction.commit()</code>.
+ * It cannot be instantiated and all methods are {@code static}.
+ * The related Persistence Unit has a {@code transaction-type="RESOURCE_LOCAL"},
+ * implying the explicit use of {@code session.beginTransaction(){@code  and {@code transaction.commit()}.
  * @author Maic
  */
 public final class UtilEntityManager {

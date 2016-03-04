@@ -18,8 +18,8 @@ import com.ninja_squad.dbsetup.operation.Operation;
 
 /**
  * This abstract Class should be extended by all DAO test cases.
- * It defines a method <code>cleanInsertData()</code> that is launched only if necessary,
- * thanks to the use of the attribute <code>DbSetupTracker</code>.
+ * It defines a method {@code cleanInsertData()} that is launched only if necessary,
+ * thanks to the use of the attribute {@code DbSetupTracker}.
  * @author Maic
  */
 public abstract class UtilData {

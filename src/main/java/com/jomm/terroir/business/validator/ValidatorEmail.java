@@ -20,13 +20,13 @@ import com.jomm.terroir.util.BundleError;
 
 /**
  * This Class is the Validator relating to an email.
- * It implements {@link Validator} and defines its method <code>validate()</code>,
+ * It implements {@link Validator} and defines its method {@code validate()},
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link ResourceBundle} to get proper {@link BundleError} messages,
  * to {@link Pattern} to define a correct email pattern,
  * and to {@link ServiceUser} to check if the email is already in use.
  * It is annotated {@link Named} for proper access from/to the view pages, with
- * <code>f:validator binding="#{validatorEmail}"</code>. It is not yet annotated 
+ * {@code f:validator binding="validatorEmail"}. It is not yet annotated 
  * {@link javax.faces.validator.FacesValidator} because validators are not injection targets in JSF2.2.
  * @author Maic
  */

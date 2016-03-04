@@ -19,7 +19,7 @@ import com.jomm.terroir.business.model.TestAdmin;
 /**
  * This Class is a Junit test case testing {@link DaoAdminJpa}.
  * It extends {@link TestDaoGenericJpa} with {@link Admin} as parameter, 
- * and implements <code>testBehavior()</code> and <code>testState()</code>.
+ * and implements {@code testBehavior()} and {@code testState()}.
  * @author Maic
  */
 public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
