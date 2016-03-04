@@ -5,41 +5,180 @@ package com.jomm.terroir.util;
  * @author Maic
  */
 public final class Constants {
+
+	/**
+	 * This enumeration stores all {@link java.util.ResourceBundle} file names.
+	 * @author Maic
+	 */
+	public enum ResourceBundleFileName {
+		/** "i18n.error" */
+		ERROR("i18n.error"),
+		/** "i18n.label" */
+		LABEL("i18n.label"),
+		/** "i18n.message" */
+		MESSAGE("i18n.message");
+		
+		private String fileName;
+		
+		/**
+		 * Constructor.
+		 * @param fileName String the file name.
+		 */
+		private ResourceBundleFileName(String fileName) {
+			this.fileName = fileName;
+		}
+
+		/**
+		 * Get the appropriate file name where the {@link java.util.ResourceBundle} is stored.
+		 * @return String the file name.
+		 */
+		public String getFileName() {
+			return fileName;
+		}
+	}
+
+	/**
+	 * This enumeration stores all {@link java.util.ResourceBundle} keys for errors.
+	 * @author Maic
+	 */
+	public enum ResourceBundleError {
+		/** "emailduplicate" */
+		EMAIL_EXISTING("emailduplicate"),
+		/** "emailnonvalid" */
+		EMAIL_UNVALID("emailnonvalid"),
+		/** "mandatory" */
+		FIELD_MANDATORY("mandatory"),
+		/** "idnotnull" */
+		ID_SHOULD_BE_NULL("idnotnull"),
+		/** "idnull" */
+		ID_SHOULD_NOT_BE_NULL("idnull"),
+		/** "length6" */
+		LENGTH_AT_LEAST_6_CHARACTERS("length6"),
+		/** "passwordsdifferent" */
+		PASSWORDS_DONT_MATCH("passwordsdifferent"),
+		/** "passwordunsecured" */
+		PASSWORD_TOO_SIMPLE("passwordunsecured"),
+		/** "usernameduplicate" */
+		USER_NAME_EXISTING("usernameduplicate"),
+		/** "entitynull" */
+		USER_SHOULD_NOT_BE_NULL("entitynull");
+		
+		private String key;
+		
+		/**
+		 * Constructor.
+		 * @param key String the key.
+		 */
+		private ResourceBundleError(String key) {
+			this.key = key;
+		}
+
+		/**
+		 * Get the appropriate key for the {@link java.util.ResourceBundle} Error.
+		 * @return the key
+		 */
+		public String getKey() {
+			return key;
+		}
+	}
+
+	/**
+	 * This enumeration stores all {@link java.util.ResourceBundle} keys for messages.
+	 * @author Maic
+	 */
+	public enum ResourceBundleMessage {
+		/** "deleteok" */
+		DELETE_OK("deleteok"),
+		/** "deleteuser" */
+		DELETE_USER("deleteuser"),
+		/** "passwordtitle" */
+		PASSWORD_TITLE("passwordtitle"),
+		/** "passwordrules" */
+		PASSWORD_RULES("passwordrules"),
+		/** "updateok" */
+		UPDATE_OK("updateok"),
+		/** "updateuser" */
+		UPDATE_USER("updateuser"),
+		/** "usersaved" */
+		USER_REGISTRED("usersaved");
+		
+		private String key;
+		
+		/**
+		 * Constructor.
+		 * @param key String the key.
+		 */
+		private ResourceBundleMessage(String key) {
+			this.key = key;
+		}
+
+		/**
+		 * Get the appropriate key for the {@link java.util.ResourceBundle} Message.
+		 * @return the key
+		 */
+		public String getKey() {
+			return key;
+		}
+	}
 	
-	// ResourceBundle names
-	public static final String BUNDLE_MESSAGE = "i18n.message";
-	public static final String BUNDLE_ERROR = "i18n.error";
-	public static final String BUNDLE_LABEL = "i18n.label";
+	/**
+	 * This enumeration stores all the id and binding in the views.
+	 * @author Maic
+	 */
+	public enum View {
+		/** "passwordParam" */
+		PASSWORD_PARAMETER("passwordParam"),
+		/** "growl" */
+		CLIENT_ID_GROWL("growl");
+		
+		private String id;
+		
+		/**
+		 * Constructor.
+		 * @param id String the id.
+		 */
+		private View(String id) {
+			this.id = id;
+		}
+
+		/**
+		 * Get the appropriate id or binding used in the view.
+		 * @return the id
+		 */
+		public String getId() {
+			return id;
+		}
+	}
 	
-	// ResourceBundle keys in error
-	public static final String FIELD_MANDATORY = "mandatory";
-	public static final String LENGTH_AT_LEAST_6_CHARACTERS = "length6";
-	public static final String USER_SHOULD_NOT_BE_NULL = "entitynull";
-	public static final String ID_SHOULD_NOT_BE_NULL = "idnull";
-	public static final String ID_SHOULD_BE_NULL = "idnotnull";
-	public static final String EMAIL_EXISTING = "emaildoublon";
-	public static final String EMAIL_UNVALID = "emailnonvalid";
-	public static final String USER_NAME_EXISTING = "existingusername";
-	public static final String PASSWORDS_DONT_MATCH = "passwordsdifferent";
-	public static final String PASSWORD_TOO_SIMPLE = "passwordunsecured";
-	public static final String PASSWORD_RULES = "passwordrules";
-	
-	// ResourceBundle keys in message
-	public static final String UPDATE_USER = "updateuser";
-	public static final String UPDATE_OK = "updateok";
-	public static final String DELETE_USER = "deleteuser";
-	public static final String DELETE_OK = "deleteok";
-	public static final String PASSWORD_TITLE = "passwordtitle";
-	public static final String USER_REGISTRED = "usersaved";
-	
-	// Id in views
-	public static final String PASSWORD_PARAMETER = "passwordParam";
-	public static final String CLIENT_ID_GROWL = "growl";
-	
-	// Converter patterns
-	public static final String LOCAL_DATE_PATTERN = "dd/MM/yyyy";
-	public static final String ZONED_DATE_TIME_PATTERN = "dd/MM/yyyy HH:mm:ss z";
-	
+	/**
+	 * This enumeration stores all patterns for date/time converters.
+	 * @author Maic
+	 */
+	public enum ConverterPattern {
+		/** "dd/MM/yyyy" */
+		LOCAL_DATE("dd/MM/yyyy"),
+		/** "dd/MM/yyyy HH:mm:ss z" */
+		ZONED_DATE_TIME("dd/MM/yyyy HH:mm:ss z");
+		
+		private String pattern;
+		
+		/**
+		 * Constructor.
+		 * @param pattern String the pattern.
+		 */
+		private ConverterPattern(String pattern) {
+			this.pattern = pattern;
+		}
+
+		/**
+		 * Get the appropriate pattern used in the date/time converter.
+		 * @return the pattern
+		 */
+		public String getPattern() {
+			return pattern;
+		}
+	}
+
 	/** Private constructor to prevent instantiation. */
 	private Constants() {}
 }

@@ -1,5 +1,10 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
+
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -17,7 +22,6 @@ import org.primefaces.event.RowEditEvent;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
 import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
@@ -66,8 +70,8 @@ public abstract class ViewUserList {
 			try {
 				userService.update(view.convertIntoEntity());
 				Object[] argument = {view.getUserName()};
-				String detail = MessageFormat.format(resource.getString(Constants.UPDATE_USER), argument);
-				message = new FacesMessage(resource.getString(Constants.UPDATE_OK), detail);
+				String detail = MessageFormat.format(resource.getString(UPDATE_USER.getKey()), argument);
+				message = new FacesMessage(resource.getString(UPDATE_OK.getKey()), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
@@ -98,8 +102,8 @@ public abstract class ViewUserList {
 			try {
 				Object[] argument = {user.getUserName()};
 				userService.delete(user);
-				String detail = MessageFormat.format(resource.getString(Constants.DELETE_USER), argument);
-				message = new FacesMessage(resource.getString(Constants.DELETE_OK), detail);
+				String detail = MessageFormat.format(resource.getString(DELETE_USER.getKey()), argument);
+				message = new FacesMessage(resource.getString(DELETE_OK.getKey()), detail);
 			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 

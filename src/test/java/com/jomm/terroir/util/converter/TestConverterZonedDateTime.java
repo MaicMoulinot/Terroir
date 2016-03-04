@@ -1,5 +1,6 @@
 package com.jomm.terroir.util.converter;
 
+import static com.jomm.terroir.util.Constants.ConverterPattern.ZONED_DATE_TIME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -14,8 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.jomm.terroir.util.Constants;
 
 /**
  * This class is a Junit test case testing the <code>getAsObject()</code> and <code>getAsString()</code> 
@@ -57,7 +56,7 @@ public class TestConverterZonedDateTime {
 	public final void testGetAsObjectWithValueNotNull() {
 		String value = "27/02/2016 23:52:36 GMT";
 		assertEquals("This method should never fail because of rounding", 
-				ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN)), 
+				ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern())), 
 				converter.getAsObject(context, component, value));
 	}
 	
@@ -76,7 +75,7 @@ public class TestConverterZonedDateTime {
 	public final void testGetAsStringWithValueNotNull() {
 		ZonedDateTime now = ZonedDateTime.now();
 		assertEquals("This method should never fail because of rounding", 
-				now.format(DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN)), 
+				now.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern())), 
 				converter.getAsString(context, component, now));
 	}
 }

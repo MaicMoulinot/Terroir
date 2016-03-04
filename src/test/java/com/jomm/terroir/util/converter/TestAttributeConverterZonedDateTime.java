@@ -1,5 +1,6 @@
 package com.jomm.terroir.util.converter;
 
+import static com.jomm.terroir.util.Constants.ConverterPattern.ZONED_DATE_TIME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -10,7 +11,6 @@ import java.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 
 /**
@@ -90,6 +90,6 @@ public class TestAttributeConverterZonedDateTime {
 	 * @return String the formatted date time.
 	 */
 	private String formatZonedDateTimeIntoString(ZonedDateTime zonedDateTime) {
-		return zonedDateTime.format(DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN));
+		return zonedDateTime.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern()));
 	}
 }

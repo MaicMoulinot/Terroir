@@ -1,5 +1,6 @@
 package com.jomm.terroir.util.converter;
 
+import static com.jomm.terroir.util.Constants.ConverterPattern.LOCAL_DATE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -14,8 +15,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.jomm.terroir.util.Constants;
 
 /**
  * This class is a Junit test case testing the <code>getAsObject()</code> and <code>getAsString()</code> 
@@ -57,7 +56,7 @@ public class TestConverterLocalDate {
 	public final void testGetAsObjectWithValueNotNull() {
 		String value = "27/02/2016";
 		assertEquals("This should never fail because of rounding", 
-				LocalDate.parse(value, DateTimeFormatter.ofPattern(Constants.LOCAL_DATE_PATTERN)), 
+				LocalDate.parse(value, DateTimeFormatter.ofPattern(LOCAL_DATE.getPattern())), 
 				converter.getAsObject(context, component, value));
 	}
 	
@@ -76,7 +75,7 @@ public class TestConverterLocalDate {
 	public final void testGetAsStringWithValueNotNull() {
 		LocalDate now = LocalDate.now();
 		assertEquals("This method should never fail because of rounding", 
-				now.format(DateTimeFormatter.ofPattern(Constants.LOCAL_DATE_PATTERN)), 
+				now.format(DateTimeFormatter.ofPattern(LOCAL_DATE.getPattern())), 
 				converter.getAsString(context, component, now));
 	}
 }

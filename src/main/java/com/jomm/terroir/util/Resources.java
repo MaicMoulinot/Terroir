@@ -1,5 +1,9 @@
 package com.jomm.terroir.util;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleFileName.ERROR;
+import static com.jomm.terroir.util.Constants.ResourceBundleFileName.LABEL;
+import static com.jomm.terroir.util.Constants.ResourceBundleFileName.MESSAGE;
+
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -72,7 +76,7 @@ public final class Resources {
 	@Produces
 	@BundleMessage
 	public static ResourceBundle getResourceBundleMessage() {
-		return ResourceBundle.getBundle(Constants.BUNDLE_MESSAGE, Locale.getDefault());
+		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault());
 	}
 	
 	/**
@@ -82,7 +86,7 @@ public final class Resources {
 	@Produces
 	@BundleError
 	public static ResourceBundle getResourceBundleError() {
-		return ResourceBundle.getBundle(Constants.BUNDLE_ERROR, Locale.getDefault());
+		return ResourceBundle.getBundle(ERROR.getFileName(), Locale.getDefault());
 	}
 	
 	/**
@@ -92,6 +96,6 @@ public final class Resources {
 	@Produces
 	@BundleLabel
 	public static ResourceBundle getResourceBundleLabel() {
-		return ResourceBundle.getBundle(Constants.BUNDLE_LABEL, Locale.getDefault());
+		return ResourceBundle.getBundle(LABEL.getFileName(), Locale.getDefault());
 	}
 }

@@ -1,12 +1,12 @@
 package com.jomm.terroir.util.exception;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_SHOULD_NOT_BE_NULL;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 
@@ -25,17 +25,17 @@ public class TestExceptionNullEntity {
 	public final void testGetMessage() {
 		exception = new ExceptionNullEntity();
 		exception.setResourceBundle(Resources.getResourceBundleError());
-		assertEquals(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL), 
+		assertEquals(TestResources.getResourceBundleError(USER_SHOULD_NOT_BE_NULL.getKey()), 
 				exception.getMessage());
 	}
 	
 	/**
 	 * Generate a mocked {@link ExceptionNullEntity} usable for tests which
-	 * method <code>getMessage()</code> returns {@link Constants#USER_SHOULD_NOT_BE_NULL}.
+	 * method <code>getMessage()</code> returns {@link BundleErrorKey#USER_SHOULD_NOT_BE_NULL}.
 	 * @return the {@link ExceptionNullEntity}.
 	 */
 	public static ExceptionNullEntity createMockedException() {
-		return createException(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL));
+		return createException(TestResources.getResourceBundleError(USER_SHOULD_NOT_BE_NULL.getKey()));
 	}
 	
 	/**

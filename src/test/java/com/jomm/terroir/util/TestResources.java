@@ -1,5 +1,8 @@
 package com.jomm.terroir.util;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleFileName.ERROR;
+import static com.jomm.terroir.util.Constants.ResourceBundleFileName.LABEL;
+import static com.jomm.terroir.util.Constants.ResourceBundleFileName.MESSAGE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -59,7 +62,7 @@ public class TestResources {
 	 */
 	@Test
 	public final void testGetResourceBundleMessage() {
-		assertEquals(ResourceBundle.getBundle(Constants.BUNDLE_MESSAGE, Locale.getDefault()), 
+		assertEquals(ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()), 
 				Resources.getResourceBundleMessage());
 	}
 
@@ -68,7 +71,7 @@ public class TestResources {
 	 */
 	@Test
 	public final void testGetResourceBundleError() {
-		assertEquals(ResourceBundle.getBundle(Constants.BUNDLE_ERROR, Locale.getDefault()), 
+		assertEquals(ResourceBundle.getBundle(ERROR.getFileName(), Locale.getDefault()), 
 				Resources.getResourceBundleError());
 	}
 
@@ -77,7 +80,7 @@ public class TestResources {
 	 */
 	@Test
 	public final void testGetResourceBundleLabel() {
-		assertEquals(ResourceBundle.getBundle(Constants.BUNDLE_LABEL, Locale.getDefault()), 
+		assertEquals(ResourceBundle.getBundle(LABEL.getFileName(), Locale.getDefault()), 
 				Resources.getResourceBundleLabel());
 	}
 	

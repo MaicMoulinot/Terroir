@@ -1,5 +1,10 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.USER_REGISTRED;
+import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
+
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,7 +18,6 @@ import javax.inject.Inject;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
 import com.jomm.terroir.util.exception.ExceptionNullEntity;
 
@@ -63,7 +67,7 @@ public abstract class ViewUser {
 		FacesMessage message = null;
 		try {
 			userService.create(convertIntoEntity());
-			message = new FacesMessage(resource.getString(Constants.USER_REGISTRED), null);
+			message = new FacesMessage(resource.getString(USER_REGISTRED.getKey()), null);
 		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
 			String problem = exception.getMessage();
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
@@ -79,9 +83,9 @@ public abstract class ViewUser {
 	 */
 	public void passwordTooltip() {
 		FacesMessage message = new FacesMessage(
-				resource.getString(Constants.PASSWORD_TITLE), 
-				resource.getString(Constants.PASSWORD_RULES));
-		facesContext.addMessage(Constants.CLIENT_ID_GROWL, message);
+				resource.getString(PASSWORD_TITLE.getKey()), 
+				resource.getString(PASSWORD_RULES.getKey()));
+		facesContext.addMessage(CLIENT_ID_GROWL.getId(), message);
 	}
 
 	/**

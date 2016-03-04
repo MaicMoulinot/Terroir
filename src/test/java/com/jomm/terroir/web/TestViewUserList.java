@@ -1,5 +1,11 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -26,7 +32,6 @@ import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionInvalidId;
@@ -80,7 +85,7 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL), 
+        assertEquals(TestResources.getResourceBundleError(USER_SHOULD_NOT_BE_NULL.getKey()), 
         		message.getSummary());
 	}
 	
@@ -107,7 +112,7 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleError(Constants.ID_SHOULD_NOT_BE_NULL), 
+        assertEquals(TestResources.getResourceBundleError(ID_SHOULD_NOT_BE_NULL.getKey()), 
         		message.getSummary());
 	}
 	
@@ -132,9 +137,9 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resource.getString(Constants.UPDATE_OK), message.getSummary());
+        assertEquals(view.resource.getString(UPDATE_OK.getKey()), message.getSummary());
         Object[] argument = {viewUser.getUserName()};
-        assertEquals(MessageFormat.format(view.resource.getString(Constants.UPDATE_USER), argument), 
+        assertEquals(MessageFormat.format(view.resource.getString(UPDATE_USER.getKey()), argument), 
         		message.getDetail());
 	}
 	
@@ -175,7 +180,7 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleError(Constants.USER_SHOULD_NOT_BE_NULL), 
+        assertEquals(TestResources.getResourceBundleError(USER_SHOULD_NOT_BE_NULL.getKey()), 
         		message.getSummary());
 	}
 	
@@ -201,7 +206,7 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleError(Constants.ID_SHOULD_NOT_BE_NULL), 
+        assertEquals(TestResources.getResourceBundleError(ID_SHOULD_NOT_BE_NULL.getKey()), 
         		message.getSummary());
 	}
 	
@@ -225,9 +230,9 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resource.getString(Constants.DELETE_OK), message.getSummary());
+        assertEquals(view.resource.getString(DELETE_OK.getKey()), message.getSummary());
         Object[] argument = {viewUser.getUserName()};
-        assertEquals(MessageFormat.format(view.resource.getString(Constants.DELETE_USER), argument), 
+        assertEquals(MessageFormat.format(view.resource.getString(DELETE_USER.getKey()), argument), 
         		message.getDetail());
 	}
 

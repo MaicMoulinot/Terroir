@@ -1,11 +1,12 @@
 package com.jomm.terroir.util.exception;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_SHOULD_NOT_BE_NULL;
+
 import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
 import com.jomm.terroir.util.BundleError;
-import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is an Exception.
@@ -24,7 +25,7 @@ public class ExceptionNullEntity extends Exception {
 	
 	@Override
 	public String getMessage() {
-		return resource.getString(Constants.USER_SHOULD_NOT_BE_NULL);
+		return resource.getString(USER_SHOULD_NOT_BE_NULL.getKey());
 	}
 	
 	/**

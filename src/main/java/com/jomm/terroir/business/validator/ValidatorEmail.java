@@ -1,5 +1,8 @@
 package com.jomm.terroir.business.validator;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_EXISTING;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_UNVALID;
+
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
@@ -14,7 +17,6 @@ import javax.inject.Named;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.util.BundleError;
-import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is the Validator relating to an email.
@@ -51,10 +53,10 @@ public class ValidatorEmail implements Validator {
 					// Email address is unvalid
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-									resource.getString(Constants.EMAIL_UNVALID), null));
+									resource.getString(EMAIL_UNVALID.getKey()), null));
 				} else if (userService.isExistingEmail(email)) {
 					Object[] argument = {email};
-					String detail = MessageFormat.format(resource.getString(Constants.EMAIL_EXISTING), argument);
+					String detail = MessageFormat.format(resource.getString(EMAIL_EXISTING.getKey()), argument);
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
 				}

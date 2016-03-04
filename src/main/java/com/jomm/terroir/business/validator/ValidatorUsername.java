@@ -1,5 +1,8 @@
 package com.jomm.terroir.business.validator;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.LENGTH_AT_LEAST_6_CHARACTERS;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_NAME_EXISTING;
+
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
@@ -12,8 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.ServiceUser;
-import com.jomm.terroir.util.BundleError;
-import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.BundleError;;
 
 /**
  * This Class is the Validator relating to an user name.
@@ -45,12 +47,12 @@ public class ValidatorUsername implements Validator {
 				if (userName.length() < 6) {
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-									resource.getString(Constants.LENGTH_AT_LEAST_6_CHARACTERS), null));
+									resource.getString(LENGTH_AT_LEAST_6_CHARACTERS.getKey()), null));
 				}
 				// Existing in database
 				if (userService.isExistingUserName(userName)) {
 					Object[] argument = {userName};
-					String detail = MessageFormat.format(resource.getString(Constants.USER_NAME_EXISTING), argument);
+					String detail = MessageFormat.format(resource.getString(USER_NAME_EXISTING.getKey()), argument);
 					throw new ValidatorException(
 							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
 				}

@@ -1,5 +1,7 @@
 package com.jomm.terroir.util.converter;
 
+import static com.jomm.terroir.util.Constants.ConverterPattern.LOCAL_DATE;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,8 +9,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
-import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is a Converter.
@@ -27,7 +27,7 @@ public final class ConverterLocalDate implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		LocalDate dateAsLocalDate = null;
 		if (value != null) {
-			dateAsLocalDate = LocalDate.parse(value, DateTimeFormatter.ofPattern(Constants.LOCAL_DATE_PATTERN));
+			dateAsLocalDate = LocalDate.parse(value, DateTimeFormatter.ofPattern(LOCAL_DATE.getPattern()));
 		}
 		return dateAsLocalDate;
 	}
@@ -37,7 +37,7 @@ public final class ConverterLocalDate implements Converter {
 		String dateAsString = null;
 		if (value != null) {
 			LocalDate dateValue = (LocalDate) value;
-			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(Constants.LOCAL_DATE_PATTERN));
+			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(LOCAL_DATE.getPattern()));
 		}
 		return dateAsString;
 	}

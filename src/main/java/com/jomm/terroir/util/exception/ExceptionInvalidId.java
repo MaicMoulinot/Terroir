@@ -1,11 +1,13 @@
 package com.jomm.terroir.util.exception;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
+
 import java.util.ResourceBundle;
 
 import javax.inject.Inject;
 
 import com.jomm.terroir.util.BundleError;
-import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is an Exception.
@@ -35,9 +37,9 @@ public class ExceptionInvalidId extends Exception {
 
 	@Override
 	public String getMessage() {
-		String message = resource.getString(Constants.ID_SHOULD_NOT_BE_NULL);;
+		String message = resource.getString(ID_SHOULD_NOT_BE_NULL.getKey());
 		if (idShouldBeNull) {
-			message = resource.getString(Constants.ID_SHOULD_BE_NULL);
+			message = resource.getString(ID_SHOULD_BE_NULL.getKey());
 		}
 		return message;
 	}

@@ -1,5 +1,12 @@
 package com.jomm.terroir.business.validator;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_TOO_SIMPLE;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
+import static com.jomm.terroir.util.Constants.View.PASSWORD_PARAMETER;
+
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -13,7 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.util.BundleError;
-import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.BundleMessage;
 
 /**
  * This Class is the Validator relating to a password.
@@ -31,7 +38,11 @@ public class ValidatorPassword implements Validator {
 
 	@Inject
 	@BundleError
-	private ResourceBundle resource;
+	private ResourceBundle resourceError;
+	
+	@Inject
+	@BundleMessage
+	private ResourceBundle resourceMessage;
 
 	// Pattern for password
 	static final Pattern PASSWORD_PATTERN = 
@@ -54,18 +65,18 @@ public class ValidatorPassword implements Validator {
 			// One password at least is lacking
 			throw new ValidatorException(
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-							resource.getString(Constants.FIELD_MANDATORY), null));
-		} else if (!password2.matches(password1)) {
+							resourceError.getString(FIELD_MANDATORY.getKey()), null));
+		} else if (!Objects.equals(password1, password2)) {
 			// Passwords don't match
 			throw new ValidatorException(
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-							resource.getString(Constants.PASSWORDS_DONT_MATCH), null));
+							resourceError.getString(PASSWORDS_DONT_MATCH.getKey()), null));
 		} else if (!PASSWORD_PATTERN.matcher(password1).matches()) {
 			// Password doesn't match pattern
 			throw new ValidatorException(
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-							resource.getString(Constants.PASSWORD_TOO_SIMPLE), 
-							resource.getString(Constants.PASSWORD_RULES)));
+							resourceError.getString(PASSWORD_TOO_SIMPLE.getKey()), 
+							resourceMessage.getString(PASSWORD_RULES.getKey())));
 		}
 	}
 	
@@ -85,17 +96,25 @@ public class ValidatorPassword implements Validator {
 	 */
 	private String retrieveValueFromComponent(UIComponent component) {
 		String value = null;
-		if (component != null && component.getAttributes().get(Constants.PASSWORD_PARAMETER) != null) {
-			value = (String) ((UIInput) component.getAttributes().get(Constants.PASSWORD_PARAMETER)).getValue();
+		if (component != null && component.getAttributes().get(PASSWORD_PARAMETER.getId()) != null) {
+			value = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER.getId())).getValue();
 		}
 		return value;
 	}
 	
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param resource the resource to set.
+	 * @param resourceError the resourceError to set.
 	 */
-	void setResourceBundle(ResourceBundle resource) {
-		this.resource = resource;
+	void setResourceBundleError(ResourceBundle resourceError) {
+		this.resourceError = resourceError;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param resourceMessage the resourceMessage to set.
+	 */
+	void setResourceBundleMessage(ResourceBundle resourceMessage) {
+		this.resourceMessage = resourceMessage;
 	}
 }

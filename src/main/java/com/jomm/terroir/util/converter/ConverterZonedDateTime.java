@@ -1,5 +1,7 @@
 package com.jomm.terroir.util.converter;
 
+import static com.jomm.terroir.util.Constants.ConverterPattern.ZONED_DATE_TIME;
+
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,8 +9,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
-import com.jomm.terroir.util.Constants;
 
 /**
  * This Class is a Converter.
@@ -28,7 +28,7 @@ public final class ConverterZonedDateTime implements Converter {
 		ZonedDateTime dateAsZonedDateTime = null;
 		if (value != null) {
 			dateAsZonedDateTime = ZonedDateTime.parse(value, 
-					DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN));
+					DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern()));
 		}
 		return dateAsZonedDateTime;
 	}
@@ -38,7 +38,7 @@ public final class ConverterZonedDateTime implements Converter {
 		String dateAsString = null;
 		if (value != null) {
 			ZonedDateTime dateValue = (ZonedDateTime) value;
-			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(Constants.ZONED_DATE_TIME_PATTERN));
+			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern()));
 		}
 		return dateAsString;
 	}
