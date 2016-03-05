@@ -141,9 +141,9 @@ public class TestServiceEnterprise {
 	/**
 	 * Reference a list of all {@link ServiceEnterprise}'s implementation to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.
-	 * @return {@code Iterable<Object[]>}.
+	 * @return {@code Iterable<Object[]>} with the parameter.
 	 */
-	@Parameters(name= "{index}: {0}")
+	@Parameters
 	public static Iterable<Object[]> implementationToTest() {
 		return Arrays.asList(new Object[][] {
 			{generateMockedEnterpriseServiceImpl()}});

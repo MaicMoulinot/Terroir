@@ -226,10 +226,13 @@ public class TestViewUser {
 	}
 	
 	/**
-	 * Reference a list of all {@link ViewUser}'s concrete children to be used as parameter on constructor.
-	 * @return {@code Iterable<Object[]>}.
+	 * Reference a list of all {@link ViewUser}'s concrete children, 
+	 * and the class of the associated child of {@link AbstractUser},
+	 * to be used as parameters on constructor.
+	 * Each iteration will be tested with all test methods.
+	 * @return {@code Iterable<Object[]>} with both parameters.
 	 */
-	@Parameters(name= "{index}: {0}")
+	@Parameters
 	public static Iterable<Object[]> childToTest() {
 		return Arrays.asList(new Object[][] {
 			{new ViewCustomer(), Customer.class},

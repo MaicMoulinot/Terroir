@@ -36,10 +36,11 @@ public class TestDaoUser extends TestDao<AbstractUser> {
 	}
     
 	/**
-	 * Reference a list of all {@link DaoUser}'s concrete children to be used as parameter on constructor.
-	 * @return {@code Iterable<Object[]>}.
+	 * Reference a list of all implementations of {@link DaoUser} to be used as parameter on constructor.
+	 * Each implementation will be tested with all test methods.
+	 * @return {@code Iterable<Object[]>} with the parameter.
 	 */
-	@Parameters(name= "{index}: {0}")
+	@Parameters
 	public static Iterable<Object[]> implementationToTest() {
 		return Arrays.asList(new Object[][] {
 			{new DaoUserJpa()}

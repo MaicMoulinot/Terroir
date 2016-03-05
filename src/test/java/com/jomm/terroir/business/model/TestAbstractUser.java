@@ -88,9 +88,10 @@ public class TestAbstractUser {
 	
 	/**
 	 * Reference a list of all {@link AbstractUser}'s concrete children to be used as parameter on constructor.
-	 * @return {@code Iterable<Object[]>}.
+	 * Each child will be tested with all test methods.
+	 * @return {@code Iterable<Object[]>} with the parameter.
 	 */
-	@Parameters(name= "{index}: {0}")
+	@Parameters
 	public static Iterable<Object[]> childToTest() {
 		return Arrays.asList(new Object[][] {
 			{new Admin()},
