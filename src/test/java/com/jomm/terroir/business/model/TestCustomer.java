@@ -52,11 +52,7 @@ public class TestCustomer {
 	 */
 	public static Customer generateCustomerWithIdNull() {
 		Customer customer = new Customer();
-		customer.setEmail("Email");
-		customer.setFirstName("FirstName");
-		customer.setLastName("LastName");
-		customer.setUserName("UserName");
-		customer.setUserPassword("UserPassword");
+		TestAbstractUser.setDummyValuesWithIdNull(customer);
 		customer.setAddress(new Address());
 		customer.setBirthDate(LocalDate.now());
 		return customer;

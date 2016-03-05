@@ -39,11 +39,7 @@ public class TestSeller {
 	 */
 	public static Seller generateSellerWithIdNull() {
 		Seller seller = new Seller();
-		seller.setEmail("Email");
-		seller.setFirstName("FirstName");
-		seller.setLastName("LastName");
-		seller.setUserName("UserName");
-		seller.setUserPassword("UserPassword");
+		TestAbstractUser.setDummyValuesWithIdNull(seller);
 		seller.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		return seller;
 	}

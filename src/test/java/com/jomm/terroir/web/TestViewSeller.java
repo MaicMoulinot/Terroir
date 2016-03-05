@@ -77,7 +77,7 @@ public class TestViewSeller {
 		assertEquals(view.getFirstName(), entity.getFirstName());
 		assertEquals(view.getLastName(), entity.getLastName());
 		assertEquals(view.getUserName(), entity.getUserName());
-		assertEquals(view.getPassword(), entity.getUserPassword());
+		assertEquals(view.getPassword(), entity.getPassword());
 		assertEquals(view.getEmail(), entity.getEmail());
 		assertEquals(view.getEnterprise(), entity.getEnterprise());
 	}

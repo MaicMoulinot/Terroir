@@ -48,7 +48,7 @@ public class ViewSeller extends ViewUser {
 		userEntity.setLastName(getLastName());
 		userEntity.setUserName(getUserName());
 		userEntity.setEmail(getEmail());
-		userEntity.setUserPassword(getPassword());
+		userEntity.setPassword(getPassword());
 		userEntity.setEnterprise(getEnterprise());
 		return userEntity;
 	}
@@ -65,7 +65,7 @@ public class ViewSeller extends ViewUser {
 		sellerJsf.setLastName(seller.getLastName());
 		sellerJsf.setUserName(seller.getUserName());
 		sellerJsf.setEmail(seller.getEmail());
-		sellerJsf.setPassword(seller.getUserPassword());
+		sellerJsf.setPassword(seller.getPassword());
 		sellerJsf.setEnterprise(seller.getEnterprise());
 		return sellerJsf;
 	}

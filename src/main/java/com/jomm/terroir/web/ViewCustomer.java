@@ -61,7 +61,7 @@ public class ViewCustomer extends ViewUser {
 		userEntity.setLastName(getLastName());
 		userEntity.setUserName(getUserName());
 		userEntity.setEmail(getEmail());
-		userEntity.setUserPassword(getPassword());
+		userEntity.setPassword(getPassword());
 		userEntity.setBirthDate(getBirthDate());
 		userEntity.setSignUpDate(getSignUpDate());
 		return userEntity;
@@ -79,7 +79,7 @@ public class ViewCustomer extends ViewUser {
 		customerJsf.setLastName(customer.getLastName());
 		customerJsf.setUserName(customer.getUserName());
 		customerJsf.setEmail(customer.getEmail());
-		customerJsf.setPassword(customer.getUserPassword());
+		customerJsf.setPassword(customer.getPassword());
 		customerJsf.setBirthDate(customer.getBirthDate());
 		customerJsf.setSignUpDate(customer.getSignUpDate());
 		return customerJsf;

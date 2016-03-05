@@ -45,6 +45,7 @@ public class TestViewUser {
 
 	private ViewUser view;
 	private Class<AbstractUser> classUser;
+	private static final char[] PASSWORD = { 'Z', 'm', '@', 't', 'g', 'e', 'Q', 3 };
 	
 	/**
 	 * Constructor.
@@ -179,8 +180,8 @@ public class TestViewUser {
 		assertEquals("Email should be " + test, test, view.getEmail());
 		
 		// Password
-		view.setPassword(test);
-		assertEquals("Password should be " + test, test, view.getPassword());
+		view.setPassword(PASSWORD);
+		assertEquals("Password should be " + PASSWORD.toString(), PASSWORD, view.getPassword());
 	}
 	
 	/**
@@ -221,7 +222,7 @@ public class TestViewUser {
 		view.setLastName("LastName");
 		view.setUserName("UserName");
 		view.setEmail("email@email.com");
-		view.setPassword("Zqdvb35d@jhg");
+		view.setPassword(PASSWORD);
 	}
 	
 	/**

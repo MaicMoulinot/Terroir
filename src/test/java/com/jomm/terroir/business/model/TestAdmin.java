@@ -57,11 +57,7 @@ public class TestAdmin {
 	 */
 	public static Admin generateAdminWithIdNull() {
 		Admin admin = new Admin();
-		admin.setEmail("Email");
-		admin.setFirstName("FirstName");
-		admin.setLastName("LastName");
-		admin.setUserName("UserName");
-		admin.setUserPassword("UserPassword");
+		TestAbstractUser.setDummyValuesWithIdNull(admin);
 		return admin;
 	}
 }

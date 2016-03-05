@@ -52,7 +52,7 @@ public abstract class AbstractUser implements Serializable {
 
 	@Column(name = "user_password")
 	@NotNull
-	private String userPassword;
+	private char[] password;
 
 	// Getters and Setters
 	/**
@@ -128,14 +128,14 @@ public abstract class AbstractUser implements Serializable {
 	/**
 	 * @return the password
 	 */
-	public String getUserPassword() {
-		return userPassword;
+	public char[] getPassword() {
+		return password;
 	}
 	
 	/**
-	 * @param userPassword the password to set
+	 * @param password the password to set
 	 */
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setPassword(char[] password) {
+		this.password = password;
 	}
 }

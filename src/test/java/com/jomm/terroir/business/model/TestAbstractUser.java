@@ -9,11 +9,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.jomm.terroir.business.model.AbstractUser;
-import com.jomm.terroir.business.model.Admin;
-import com.jomm.terroir.business.model.Customer;
-import com.jomm.terroir.business.model.Seller;
-
 /**
  * This class is a Junit test case testing the methods of {@link AbstractUser}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
@@ -24,6 +19,7 @@ import com.jomm.terroir.business.model.Seller;
 public class TestAbstractUser {
 	
 	private AbstractUser user;
+	private static final char[] PASSWORD = { 'Z', 'm', '@', 't', 'g', 'e', 'Q', 3 };
 	
 	/**
 	 * Constructor.
@@ -62,9 +58,9 @@ public class TestAbstractUser {
 		user.setEmail(test);
 		assertEquals("Email should be " + test, test, user.getEmail());
 		
-		// UserPassword
-		user.setUserPassword(test);
-		assertEquals("UserPassword should be " + test, test, user.getUserPassword());
+		// Password
+		user.setPassword(PASSWORD);
+		assertEquals("Password should be " + PASSWORD.toString(), PASSWORD, user.getPassword());
 	}
 	
 	/**
@@ -72,13 +68,22 @@ public class TestAbstractUser {
 	 * @return a {@link AbstractUser}.
 	 */
 	public static AbstractUser generateAbstractUserWithIdNull() {
-		AbstractUser user = new Admin(); // AbstractUser is abstract so need to instantiate a child
+		// AbstractUser is abstract so need to instantiate a child (not so) randomly chosen
+		AbstractUser user = new Admin();
+		setDummyValuesWithIdNull(user);
+		return user;
+	}
+	
+	/**
+	 * Set values into the {@link AbstractUser} usable for tests.
+	 * @param user the {@link AbstractUser}
+	 */
+	public static void setDummyValuesWithIdNull(AbstractUser user) {
 		user.setEmail("Email");
 		user.setFirstName("FirstName");
 		user.setLastName("LastName");
 		user.setUserName("UserName");
-		user.setUserPassword("UserPassword");
-		return user;
+		user.setPassword(PASSWORD);
 	}
 	
 	/**
