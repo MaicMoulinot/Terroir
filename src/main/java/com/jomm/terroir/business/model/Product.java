@@ -41,7 +41,6 @@ public class Product implements Serializable {
 	private String title;
 	
 	@Column(name = "description")
-	@NotNull
 	private String description;
 	
 	@Column(name = "quantity")

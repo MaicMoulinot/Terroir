@@ -36,17 +36,17 @@ public abstract class AbstractUser implements Serializable {
 	@Column(name = "user_id")
 	private Long id;
 
-	@Column(name = "first_name")
+	@Column(name = "user_firstname")
 	private String firstName;
 
-	@Column(name = "last_name")
+	@Column(name = "user_lastname")
 	private String lastName;
 
-	@Column(unique = true, name = "user_name")
+	@Column(name = "user_name", unique = true)
 	@NotNull
 	private String userName;
 
-	@Column(unique=true)
+	@Column(name = "user_email", unique=true)
 	@NotNull
 	private String email;
 

@@ -44,6 +44,7 @@ public class Site implements Serializable {
 	private String siteName;
 	
 	@Column(name = "legal_identification")
+	@NotNull
 	private String legalIdentification;
 	
 	@Embedded

@@ -1,10 +1,10 @@
     create table tr_admin (
         user_id bigint not null,
-        email varchar(255) unique,
-        first_name varchar(255),
-        last_name varchar(255),
-        user_name varchar(255) unique,
-        user_password varchar(255),
+        user_email varchar(255) unique not null,
+        user_firstname varchar(255),
+        user_lastname varchar(255),
+        user_name varchar(255) unique not null,
+        user_password varchar(255) not null,
         can_delete int,
         can_read int,
         can_update int,
@@ -13,17 +13,17 @@
 
     create table tr_customer (
         user_id bigint not null,
-        email varchar(255) unique,
-        first_name varchar(255),
-        last_name varchar(255),
-        user_name varchar(255) unique,
-        user_password varchar(255),
+        user_email varchar(255) unique not null,
+        user_firstname varchar(255),
+        user_lastname varchar(255),
+        user_name varchar(255) unique not null,
+        user_password varchar(255) not null,
         address_complement varchar(255),
         address_coordinates varchar(255),
-        address_country varchar(255),
-        address_post_code varchar(255),
+        address_country varchar(255) not null,
+        address_post_code varchar(255) not null,
         address_street varchar(255),
-        address_town varchar(255),
+        address_town varchar(255) not null,
         date_birth date,
         date_signup timestamp,
         primary key (user_id)
@@ -33,34 +33,34 @@
         enterprise_id bigint not null,
         address_complement varchar(255),
         address_coordinates varchar(255),
-        address_country varchar(255),
-        address_post_code varchar(255),
+        address_country varchar(255) not null,
+        address_post_code varchar(255) not null,
         address_street varchar(255),
-        address_town varchar(255),
+        address_town varchar(255) not null,
         date_creation date,
-        legal_identification varchar(255),
-        legal_name varchar(255) unique,
+        legal_identification varchar(255) not null,
+        legal_name varchar(255) unique not null,
         number_employees bigint,
         date_signup timestamp,
-        trade_name varchar(255) unique,
+        trade_name varchar(255) unique not null,
         primary key (enterprise_id)
     );
 
     create table tr_image (
         image_id bigint not null,
-        title varchar(255),
+        title varchar(255) not null,
         description varchar(255),
-        image blob,
+        image_data blob not null,
         primary key (image_id)
     );
 
     create table tr_seller (
         user_id bigint not null,
-        email varchar(255) unique,
-        first_name varchar(255),
-        last_name varchar(255),
-        user_name varchar(255) unique,
-        user_password varchar(255),
+        user_email varchar(255) unique not null,
+        user_firstname varchar(255),
+        user_lastname varchar(255),
+        user_name varchar(255) unique not null,
+        user_password varchar(255) not null,
         enterprise_enterprise_id bigint CONSTRAINT fk_seller_enterprise REFERENCES tr_enterprise(enterprise_id),
         primary key (user_id)
     );
@@ -69,12 +69,12 @@
         site_id bigint not null,
         address_complement varchar(255),
         address_coordinates varchar(255),
-        address_country varchar(255),
-        address_post_code varchar(255),
+        address_country varchar(255) not null,
+        address_post_code varchar(255) not null,
         address_street varchar(255),
-        address_town varchar(255),
-        legal_identification varchar(255),
-        site_name varchar(255),
+        address_town varchar(255) not null,
+        legal_identification varchar(255) not null,
+        site_name varchar(255) not null,
         enterprise_enterprise_id bigint CONSTRAINT fk_site_enterprise REFERENCES tr_enterprise(enterprise_id),
         primary key (site_id)
     );
@@ -84,7 +84,7 @@
         description varchar(255),
         quantity bigint,
         registration_date timestamp,
-        title varchar(255),
+        title varchar(255) not null,
         site_site_id bigint CONSTRAINT fk_product_site REFERENCES tr_site(site_id),
         primary key (product_id)
     );
