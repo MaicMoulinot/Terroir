@@ -30,7 +30,6 @@ public class TestAttributeConverterLocalDate {
 	@Before
 	public void setUp() throws Exception {
 		converter = new AttributeConverterLocalDate();
-		converter.setZoneId(Resources.getZonedId());
 	}
 
 	/**
@@ -76,7 +75,7 @@ public class TestAttributeConverterLocalDate {
 	 * @return String the formatted date.
 	 */
 	private String formatDateIntoString(Date date) {
-		LocalDate localDate = LocalDateTime.ofInstant(date.toInstant(), converter.getZoneId()).toLocalDate();
+		LocalDate localDate = LocalDateTime.ofInstant(date.toInstant(), Resources.getZonedId()).toLocalDate();
 		return formatLocalDateIntoString(localDate);
 	}
 	

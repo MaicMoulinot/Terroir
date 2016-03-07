@@ -5,9 +5,10 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-import javax.inject.Inject;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import com.jomm.terroir.util.Resources;
 
 /**
  * This Class is a Converter.
@@ -23,8 +24,8 @@ import javax.persistence.Converter;
 @Converter(autoApply = true)
 public final class AttributeConverterLocalDate implements AttributeConverter<LocalDate, Date> {
 	
-	@Inject
-	private ZoneId zoneId;
+	// Cannot be injected in an AttributeConverter
+	private static final ZoneId zoneId = Resources.getZonedId();
 
 	@Override
 	public Date convertToDatabaseColumn(LocalDate entityDate) {
@@ -42,21 +43,5 @@ public final class AttributeConverterLocalDate implements AttributeConverter<Loc
 			entityDate = LocalDateTime.ofInstant(dbDate.toInstant(), zoneId).toLocalDate();
 		}
         return entityDate;
-	}
-
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @return the zoneId
-	 */
-	ZoneId getZoneId() {
-		return zoneId;
-	}
-
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param zoneId the zoneId to set
-	 */
-	void setZoneId(ZoneId zoneId) {
-		this.zoneId = zoneId;
 	}
 }

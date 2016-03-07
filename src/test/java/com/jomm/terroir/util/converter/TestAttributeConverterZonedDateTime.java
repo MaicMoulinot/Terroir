@@ -29,7 +29,6 @@ public class TestAttributeConverterZonedDateTime {
 	@Before
 	public void setUp() throws Exception {
 		converter = new AttributeConverterZonedDateTime();
-		converter.setZoneId(Resources.getZonedId());
 	}
 
 	/**
@@ -80,7 +79,7 @@ public class TestAttributeConverterZonedDateTime {
 	 * @return String the formatted date time.
 	 */
 	private String formatTimestampIntoString(Timestamp timestamp) {
-		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(timestamp.toInstant(), converter.getZoneId());
+		ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(timestamp.toInstant(), Resources.getZonedId());
 		return formatZonedDateTimeIntoString(zonedDateTime);
 	}
 
