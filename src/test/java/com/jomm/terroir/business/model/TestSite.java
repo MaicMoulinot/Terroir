@@ -76,7 +76,7 @@ public class TestSite {
 	 */
 	public static Site generateSiteWithIdNull() {
 		Site site = new Site();
-		site.setAddress(new Address());
+		site.setAddress(TestAddress.generateAddress());
 		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		site.setLegalIdentification("LegalIdentification");
 		site.setListProducts(new ArrayList<>());

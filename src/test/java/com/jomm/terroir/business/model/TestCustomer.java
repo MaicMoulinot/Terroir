@@ -53,7 +53,7 @@ public class TestCustomer {
 	public static Customer generateCustomerWithIdNull() {
 		Customer customer = new Customer();
 		TestAbstractUser.setDummyValuesWithIdNull(customer);
-		customer.setAddress(new Address());
+		customer.setAddress(TestAddress.generateAddress());
 		customer.setBirthDate(LocalDate.now());
 		return customer;
 	}

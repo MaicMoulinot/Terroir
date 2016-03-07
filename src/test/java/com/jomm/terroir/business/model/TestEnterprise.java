@@ -101,7 +101,7 @@ public class TestEnterprise {
 	 */
 	public static Enterprise generateEnterpriseWithIdNull() {
 		Enterprise enterprise = new Enterprise();
-		enterprise.setAddress(new Address());
+		enterprise.setAddress(TestAddress.generateAddress());
 		enterprise.setCreationDate(LocalDate.now());
 		enterprise.setLegalIdentification("LegalIdentification");
 		enterprise.setLegalName("LegalName");

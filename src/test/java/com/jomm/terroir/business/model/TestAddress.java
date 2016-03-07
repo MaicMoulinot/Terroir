@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.jomm.terroir.business.model.Address;
-
 /**
  * This class is a Junit test case testing the methods of {@link Address}.
  * @author Maic
@@ -43,5 +41,20 @@ public class TestAddress {
 		// Coordinates
 		address.setCoordinates(test);
 		assertEquals("Coordinates should be " + test, test, address.getCoordinates());
+	}
+	
+	/**
+	 * Generate a simple {@link Address} usable for tests.
+	 * @return a {@link Address}.
+	 */
+	public static Address generateAddress() {
+		Address address = new Address();
+		address.setStreet("Street");
+		address.setComplement("Complement");
+		address.setPostCode("PostCode");
+		address.setTown("Town");
+		address.setCountry("Country");
+		address.setCoordinates("Coordinates");
+		return address;
 	}
 }
