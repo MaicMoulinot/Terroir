@@ -11,8 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -30,12 +28,8 @@ import com.jomm.terroir.util.exception.ExceptionService;
  * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
  * to {@link FacesContext} to throw them to the view, 
  * and to {@link ServiceUser} to update or delete the {@link ViewUser}.
- * It is annotated {@link ManagedBean} for proper access from/to the view page,
- * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
-@ManagedBean
-@ViewScoped
 public abstract class ViewUserList {
 
 	// Injected fields
@@ -132,14 +126,14 @@ public abstract class ViewUserList {
 	/**
 	 * @return the currentUser
 	 */
-	ViewUser getCurrentUser() {
+	public ViewUser getCurrentUser() {
 		return currentUser;
 	}
 
 	/**
 	 * @param currentUser the currentUser to set
 	 */
-	void setCurrentUser(ViewUser currentUser) {
+	public void setCurrentUser(ViewUser currentUser) {
 		this.currentUser = currentUser;
 	}
 }

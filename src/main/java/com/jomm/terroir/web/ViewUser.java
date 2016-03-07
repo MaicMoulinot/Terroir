@@ -10,8 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -25,12 +23,8 @@ import com.jomm.terroir.util.exception.ExceptionService;
  * It defines common attributes shared among its children.
  * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
  * and to {@link FacesContext} to throw them to the view.
- * It is annotated {@link ManagedBean} for proper access from/to the view page,
- * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
-@ManagedBean
-@ViewScoped
 public abstract class ViewUser {
 	
 	// Injected fields
