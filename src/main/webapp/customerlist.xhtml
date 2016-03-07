@@ -146,15 +146,17 @@
 
 			</p:dataTable>
 
-			<p:confirmDialog id="deleteConfirmDialog"
-				header="#{label.confirmation}" severity="alert"
+			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
+				hideEffect="fade" header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
 				message="#{message.confirmdelete} #{viewCustomerList.currentUser.userName} ?"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
 					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"
 					action="#{viewCustomerList.delete()}" process="@this" />
 				<p:commandButton id="decline" value="#{label.cancel}"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
 					oncomplete="PF('deleteConfirmation').hide();" />
 			</p:confirmDialog>
 
