@@ -1,7 +1,7 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
@@ -34,10 +34,8 @@ import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
-import com.jomm.terroir.util.exception.TestExceptionInvalidId;
-import com.jomm.terroir.util.exception.TestExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
+import com.jomm.terroir.util.exception.TestExceptionService;
 
 /**
  * This class is a Junit test case testing the methods of {@link ViewUserList}.
@@ -71,7 +69,7 @@ public class TestViewUserList {
 		// initialization
 		setInjections();
 		// Simulate an exception thrown by service
-		ExceptionNullEntity exception = TestExceptionNullEntity.createMockedException();
+		ExceptionService exception = TestExceptionService.createMockedExceptionEntityShouldNotBeNull();
 		when(view.userService.update(any(classUser))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
 		when(event.getObject()).thenReturn(TestViewUser.generateDummyViewUser(classUser));
@@ -85,7 +83,7 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleError(USER_SHOULD_NOT_BE_NULL.getKey()), 
+        assertEquals(TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()), 
         		message.getSummary());
 	}
 	
@@ -98,7 +96,7 @@ public class TestViewUserList {
 		// initialization
 		setInjections();
 		// Simulate an exception thrown by service
-		ExceptionInvalidId exception = TestExceptionInvalidId.createMockedExceptionIdShouldNotBeNull();
+		ExceptionService exception = TestExceptionService.createMockedExceptionIdShouldNotBeNull();
 		when(view.userService.update(any(classUser))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
 		when(event.getObject()).thenReturn(TestViewUser.generateDummyViewUser(classUser));
@@ -168,7 +166,7 @@ public class TestViewUserList {
 		setInjections();
 		view.setCurrentUser(TestViewUser.generateDummyViewUser(classUser));
 		// Simulate an exception thrown by service
-		ExceptionNullEntity exception = TestExceptionNullEntity.createMockedException();
+		ExceptionService exception = TestExceptionService.createMockedExceptionEntityShouldNotBeNull();
 		doThrow(exception).when(view.userService).delete(any(classUser));
 		// call to delete()
 		view.delete();
@@ -180,7 +178,7 @@ public class TestViewUserList {
         // retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleError(USER_SHOULD_NOT_BE_NULL.getKey()), 
+        assertEquals(TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()), 
         		message.getSummary());
 	}
 	
@@ -194,7 +192,7 @@ public class TestViewUserList {
 		setInjections();
 		view.setCurrentUser(TestViewUser.generateDummyViewUser(classUser));
 		// Simulate an exception thrown by service
-		ExceptionInvalidId exception = TestExceptionInvalidId.createMockedExceptionIdShouldNotBeNull();
+		ExceptionService exception = TestExceptionService.createMockedExceptionIdShouldNotBeNull();
 		doThrow(exception).when(view.userService).delete(any(classUser));
 		// call to delete()
 		view.delete();

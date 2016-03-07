@@ -3,8 +3,7 @@ package com.jomm.terroir.business;
 import java.util.List;
 
 import com.jomm.terroir.business.model.Site;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Interface describes all logic operations for {@link Site}.
@@ -16,19 +15,17 @@ public interface ServiceSite {
 	 * Create a site.
 	 * @param site the {@link Site} to create.
 	 * @return the persisted site.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is not null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	Site create(Site site) throws ExceptionNullEntity, ExceptionInvalidId;
+	Site create(Site site) throws ExceptionService;
 	
 	/**
 	 * Update a site.
 	 * @param site the {@link Site} to update.
 	 * @return the updated site.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	Site update(Site site) throws ExceptionNullEntity, ExceptionInvalidId;
+	Site update(Site site) throws ExceptionService;
 	
 	/**
 	 * Fetch the list of all sites.
@@ -39,8 +36,7 @@ public interface ServiceSite {
 	/**
 	 * Delete a site.
 	 * @param site the {@link Site} to delete.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	void delete(Site site) throws ExceptionNullEntity, ExceptionInvalidId;
+	void delete(Site site) throws ExceptionService;
 }

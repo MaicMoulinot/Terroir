@@ -6,8 +6,7 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Admin;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Interface describes all logic operations for {@link AbstractUser}.
@@ -20,19 +19,17 @@ public interface ServiceUser {
 	 * If the user is a {@link Customer}, it generates its {@code signUpDate}.
 	 * @param user the {@link AbstractUser} to create.
 	 * @return the persisted AbstractUser.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is not null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	AbstractUser create(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId;
+	AbstractUser create(AbstractUser user) throws ExceptionService;
 	
 	/**
 	 * Update an user.
 	 * @param user the {@link AbstractUser} to update.
 	 * @return the updated AbstractUser.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	AbstractUser update(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId;
+	AbstractUser update(AbstractUser user) throws ExceptionService;
 	
 	/**
 	 * Fetch the list of all admins.
@@ -55,10 +52,9 @@ public interface ServiceUser {
 	/**
 	 * Delete an user.
 	 * @param user the {@link AbstractUser} to delete.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	void delete(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId;
+	void delete(AbstractUser user) throws ExceptionService;
 	
 	/**
 	 * Check if the user name already exists.

@@ -1,5 +1,9 @@
 package com.jomm.terroir.business;
 
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -9,8 +13,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.dao.DaoSite;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Class is the Service relating to {@link Site}.
@@ -25,21 +28,21 @@ public class ServiceSiteImpl implements ServiceSite {
 	private DaoSite daoSite;
 
 	@Override
-	public Site create(Site site) throws ExceptionNullEntity, ExceptionInvalidId {
+	public Site create(Site site) throws ExceptionService {
 		if (site == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (site.getId() != null) {
-			throw new ExceptionInvalidId(true);
+			throw new ExceptionService(ID_NOT_NULL);
 		}
 		return daoSite.create(site);
 	}
 	
 	@Override
-	public Site update(Site site) throws ExceptionNullEntity, ExceptionInvalidId {
+	public Site update(Site site) throws ExceptionService {
 		if (site == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (site.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		return daoSite.update(site);
 	}
@@ -51,11 +54,11 @@ public class ServiceSiteImpl implements ServiceSite {
 	}
 	
 	@Override
-	public void delete(Site site) throws ExceptionNullEntity, ExceptionInvalidId {
+	public void delete(Site site) throws ExceptionService {
 		if (site == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (site.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		daoSite.delete(site);
 	}

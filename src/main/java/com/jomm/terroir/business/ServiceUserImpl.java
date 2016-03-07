@@ -1,5 +1,9 @@
 package com.jomm.terroir.business;
 
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -16,8 +20,7 @@ import com.jomm.terroir.dao.DaoAdmin;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Class is the Service relating to {@link AbstractUser} and its children {@link Admin}, 
@@ -45,11 +48,11 @@ public class ServiceUserImpl implements ServiceUser {
 	private DaoSeller daoSeller;
 
 	@Override
-	public AbstractUser create(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId {
+	public AbstractUser create(AbstractUser user) throws ExceptionService {
 		if (user == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (user.getId() != null) {
-			throw new ExceptionInvalidId(true);
+			throw new ExceptionService(ID_NOT_NULL);
 		}
 		if (user instanceof Customer) {
 			((Customer) user).setSignUpDate(ZonedDateTime.now());
@@ -58,21 +61,21 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
-	public AbstractUser update(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId {
+	public AbstractUser update(AbstractUser user) throws ExceptionService {
 		if (user == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (user.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		return daoUser.update(user);
 	}
 	
 	@Override
-	public void delete(AbstractUser user) throws ExceptionNullEntity, ExceptionInvalidId {
+	public void delete(AbstractUser user) throws ExceptionService {
 		if (user == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (user.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		daoUser.delete(user);
 	}

@@ -16,8 +16,7 @@ import com.jomm.terroir.dao.DaoAdmin;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This class is a Junit test case testing the methods of {@link ServiceUserImpl}.
@@ -51,7 +50,7 @@ public class TestServiceUserImpl {
 		try {
 			service.create(TestAbstractUser.generateAbstractUserWithIdNull());
 			verify(dao).create(any(AbstractUser.class)); // validate that dao.create() was called
-		} catch (ExceptionInvalidId | ExceptionNullEntity unexpectedException) {
+		} catch (ExceptionService unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -66,7 +65,7 @@ public class TestServiceUserImpl {
 		try {
 			service.update(user);
 			verify(dao).update(any(AbstractUser.class)); // validate that dao.update() was called
-		} catch (ExceptionInvalidId | ExceptionNullEntity unexpectedException) {
+		} catch (ExceptionService unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}
@@ -81,7 +80,7 @@ public class TestServiceUserImpl {
 		try {
 			service.delete(user);
 			verify(dao).delete(any(AbstractUser.class)); // validate that dao.delete() was called
-		} catch (ExceptionNullEntity | ExceptionInvalidId unexpectedException) {
+		} catch (ExceptionService unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}
 	}

@@ -3,8 +3,7 @@ package com.jomm.terroir.business;
 import java.util.List;
 
 import com.jomm.terroir.business.model.Enterprise;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Interface describes all logic operations for {@link Enterprise}.
@@ -16,19 +15,17 @@ public interface ServiceEnterprise {
 	 * Create an enterprise and generate its {@code signUpDate}.
 	 * @param enterprise the {@link Enterprise} to create.
 	 * @return the persisted enterprise.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is not null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	Enterprise create(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId;
+	Enterprise create(Enterprise enterprise) throws ExceptionService;
 	
 	/**
 	 * Update an enterprise.
 	 * @param enterprise the {@link Enterprise} to update.
 	 * @return the updated enterprise.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	Enterprise update(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId;
+	Enterprise update(Enterprise enterprise) throws ExceptionService;
 	
 	/**
 	 * Fetch the list of all enterprises.
@@ -39,8 +36,7 @@ public interface ServiceEnterprise {
 	/**
 	 * Delete an enterprise.
 	 * @param enterprise the {@link Enterprise} to delete.
-	 * @throws ExceptionNullEntity if the entity is null.
-	 * @throws ExceptionInvalidId if the id is null.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	void delete(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId;
+	void delete(Enterprise enterprise) throws ExceptionService;
 }

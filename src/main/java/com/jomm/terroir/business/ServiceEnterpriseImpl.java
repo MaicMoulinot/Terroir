@@ -1,5 +1,9 @@
 package com.jomm.terroir.business;
 
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -10,8 +14,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.dao.DaoEnterprise;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Class is the Service relating to {@link Enterprise}.
@@ -26,22 +29,22 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	private DaoEnterprise daoEnterprise;
 
 	@Override
-	public Enterprise create(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId {
+	public Enterprise create(Enterprise enterprise) throws ExceptionService {
 		if (enterprise == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (enterprise.getId() != null) {
-			throw new ExceptionInvalidId(true);
+			throw new ExceptionService(ID_NOT_NULL);
 		}
 		enterprise.setSignUpDate(ZonedDateTime.now());
 		return daoEnterprise.create(enterprise);
 	}
 	
 	@Override
-	public Enterprise update(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId {
+	public Enterprise update(Enterprise enterprise) throws ExceptionService {
 		if (enterprise == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (enterprise.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		return daoEnterprise.update(enterprise);
 	}
@@ -53,11 +56,11 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
-	public void delete(Enterprise enterprise) throws ExceptionNullEntity, ExceptionInvalidId {
+	public void delete(Enterprise enterprise) throws ExceptionService {
 		if (enterprise == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (enterprise.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		daoEnterprise.delete(enterprise);
 	}

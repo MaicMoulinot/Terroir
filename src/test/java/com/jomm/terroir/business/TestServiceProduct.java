@@ -3,6 +3,8 @@ package com.jomm.terroir.business;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 
 import java.time.ZonedDateTime;
@@ -17,8 +19,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.TestProduct;
 import com.jomm.terroir.dao.DaoProduct;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceProduct}.
@@ -43,36 +44,35 @@ public class TestServiceProduct {
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#create(Product)} throws an {@link ExceptionNullEntity}
+	 * Test that {@link ServiceProduct#create(Product)} throws an {@link ExceptionService}
 	 * when entity is null.
-	 * @throws ExceptionNullEntity is expected.
-	 * @throws ExceptionInvalidId is not expected.
+	 * @throws ExceptionService is expected.
 	 */
-	@Test(expected = ExceptionNullEntity.class)
-	public final void testCreateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test(expected = ExceptionService.class)
+	public final void testCreateWithEntityNull() throws ExceptionService {
 		service.create(null);
+		fail("An ExceptionService should have been thrown");
 	}
 
 	/**
-	 * Test that {@link ServiceProduct#create(Product)} throws an {@link ExceptionInvalidId}
+	 * Test that {@link ServiceProduct#create(Product)} throws an {@link ExceptionService}
 	 * when entity's id is not null.
-	 * @throws ExceptionNullEntity is not expected.
-	 * @throws ExceptionInvalidId is expected.
+	 * @throws ExceptionService is expected.
 	 */
-	@Test(expected = ExceptionInvalidId.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test(expected = ExceptionService.class)
+	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		product.setId((long) 52);
 		service.create(product);
+		fail("An ExceptionService should have been thrown");
 	}
 	
 	/**
 	 * Test that {@link ServiceProduct#create(Product)} generate properly the sign up date.
-	 * @throws ExceptionNullEntity is not expected.
-	 * @throws ExceptionInvalidId is not expected.
+	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateProductGenerateRegistrationDate() throws ExceptionNullEntity, ExceptionInvalidId {
+	public final void testCreateProductGenerateRegistrationDate() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		assertNull("RegistrationDate should not yet be initialized", product.getRegistrationDate());
 		ZonedDateTime now = ZonedDateTime.now();
@@ -85,49 +85,75 @@ public class TestServiceProduct {
 	}
 
 	/**
-	 * Test that {@link ServiceProduct#update(Product)} throws an {@link ExceptionInvalidId}
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link ExceptionService}
 	 * when entity is null.
-	 * @throws ExceptionNullEntity is expected.
-	 * @throws ExceptionInvalidId is not expected.
+	 * @throws ExceptionService is expected.
 	 */
-	@Test(expected = ExceptionNullEntity.class)
-	public final void testUpdateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test(expected = ExceptionService.class)
+	public final void testUpdateWithEntityNull() throws ExceptionService {
 		service.update(null);
+		fail("An ExceptionService should have been thrown");
 	}
 
 	/**
-	 * Test that {@link ServiceProduct#update(Product)} throws an {@link ExceptionInvalidId}
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link ExceptionService}
 	 * when entity's id is null.
-	 * @throws ExceptionNullEntity is not expected.
-	 * @throws ExceptionInvalidId is expected.
+	 * @throws ExceptionService is expected.
 	 */
-	@Test(expected = ExceptionInvalidId.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test(expected = ExceptionService.class)
+	public final void testUpdateWithEntityIdNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		service.update(product);
-	}
-
-	/**
-	 * Test that {@link ServiceProduct#delete(Product)} throws an {@link ExceptionNullEntity}
-	 * when entity is null.
-	 * @throws ExceptionNullEntity is expected.
-	 * @throws ExceptionInvalidId is not expected.
-	 */
-	@Test(expected = ExceptionNullEntity.class)
-	public final void testDeleteWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
-		service.delete(null);
+		fail("An ExceptionService should have been thrown");
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#update(Product)} throws an {@link ExceptionInvalidId}
-	 * when entity's id is null.
-	 * @throws ExceptionNullEntity is not expected.
-	 * @throws ExceptionInvalidId is expected.
+	 * Test that {@link ServiceProduct#update(Product)} do not throw an {@link ExceptionService}
+	 * when entity's state is correct.
+	 * @throws ExceptionService is not expected.
 	 */
-	@Test(expected = ExceptionInvalidId.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test
+	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+		Product product = TestProduct.generateProductWithIdNull();
+		product.setId((long) 52);
+		service.update(product);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+
+	/**
+	 * Test that {@link ServiceProduct#delete(Product)} throws an {@link ExceptionService}
+	 * when entity is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testDeleteWithEntityNull() throws ExceptionService {
+		service.delete(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#update(Product)} throws an {@link ExceptionService}
+	 * when entity's id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testDeleteWithEntityIdNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		service.delete(product);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#delete(Product)} do not throw an {@link ExceptionService}
+	 * when entity's state is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+		Product product = TestProduct.generateProductWithIdNull();
+		product.setId((long) 52);
+		service.delete(product);
+		assertTrue("ExceptionService should not be thrown", true);
 	}
 
 	/**

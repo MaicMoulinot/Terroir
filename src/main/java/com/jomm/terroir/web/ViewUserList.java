@@ -22,8 +22,7 @@ import org.primefaces.event.RowEditEvent;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This abstract Class is the View linked to a list of {@link ViewUser}.
@@ -72,7 +71,7 @@ public abstract class ViewUserList {
 				Object[] argument = {view.getUserName()};
 				String detail = MessageFormat.format(resource.getString(UPDATE_USER.getKey()), argument);
 				message = new FacesMessage(resource.getString(UPDATE_OK.getKey()), detail);
-			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+			} catch (ExceptionService exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
 						"Username=" + view.getUserName() + ", UserId=" + view.getId());
@@ -104,7 +103,7 @@ public abstract class ViewUserList {
 				userService.delete(user);
 				String detail = MessageFormat.format(resource.getString(DELETE_USER.getKey()), argument);
 				message = new FacesMessage(resource.getString(DELETE_OK.getKey()), detail);
-			} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+			} catch (ExceptionService exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
 						"Username=" + user.getUserName() + ", UserId=" + user.getId());

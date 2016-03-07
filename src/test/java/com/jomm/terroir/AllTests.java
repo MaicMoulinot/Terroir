@@ -46,8 +46,7 @@ import com.jomm.terroir.util.converter.TestAttributeConverterLocalDate;
 import com.jomm.terroir.util.converter.TestAttributeConverterZonedDateTime;
 import com.jomm.terroir.util.converter.TestConverterLocalDate;
 import com.jomm.terroir.util.converter.TestConverterZonedDateTime;
-import com.jomm.terroir.util.exception.TestExceptionInvalidId;
-import com.jomm.terroir.util.exception.TestExceptionNullEntity;
+import com.jomm.terroir.util.exception.TestExceptionService;
 import com.jomm.terroir.web.TestViewCustomer;
 import com.jomm.terroir.web.TestViewCustomerList;
 import com.jomm.terroir.web.TestViewSeller;
@@ -84,7 +83,7 @@ import com.jomm.terroir.web.TestViewUserList;
 	TestAttributeConverterLocalDate.class, TestAttributeConverterZonedDateTime.class, 
 	TestConverterLocalDate.class, TestConverterZonedDateTime.class, 
 	// Exception
-	TestExceptionInvalidId.class, TestExceptionNullEntity.class, 
+	TestExceptionService.class, 
 	// Web
 	TestViewCustomer.class, TestViewCustomerList.class, TestViewSeller.class, TestViewSellerList.class,
 	TestViewUser.class, TestViewUserList.class

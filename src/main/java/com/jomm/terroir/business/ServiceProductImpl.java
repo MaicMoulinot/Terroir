@@ -1,5 +1,9 @@
 package com.jomm.terroir.business;
 
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
+import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -10,8 +14,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.dao.DaoProduct;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Class is the Service relating to {@link Product}.
@@ -26,22 +29,22 @@ public class ServiceProductImpl implements ServiceProduct {
 	private DaoProduct daoProduct;
 
 	@Override
-	public Product create(Product product) throws ExceptionNullEntity, ExceptionInvalidId {
+	public Product create(Product product) throws ExceptionService {
 		if (product == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (product.getId() != null) {
-			throw new ExceptionInvalidId(true);
+			throw new ExceptionService(ID_NOT_NULL);
 		}
 		product.setRegistrationDate(ZonedDateTime.now());
 		return daoProduct.create(product);
 	}
 	
 	@Override
-	public Product update(Product product) throws ExceptionNullEntity, ExceptionInvalidId {
+	public Product update(Product product) throws ExceptionService {
 		if (product == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (product.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		return daoProduct.update(product);
 	}
@@ -53,11 +56,11 @@ public class ServiceProductImpl implements ServiceProduct {
 	}
 	
 	@Override
-	public void delete(Product product) throws ExceptionNullEntity, ExceptionInvalidId {
+	public void delete(Product product) throws ExceptionService {
 		if (product == null) {
-			throw new ExceptionNullEntity();
+			throw new ExceptionService(ENTITY_NULL);
 		} else if (product.getId() == null) {
-			throw new ExceptionInvalidId(false);
+			throw new ExceptionService(ID_NULL);
 		}
 		daoProduct.delete(product);
 	}

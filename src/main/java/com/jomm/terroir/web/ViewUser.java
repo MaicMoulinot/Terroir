@@ -18,8 +18,7 @@ import javax.inject.Inject;
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This abstract Class is the View that creates a new {@link com.jomm.terroir.business.model.AbstractUser}.
@@ -68,7 +67,7 @@ public abstract class ViewUser {
 		try {
 			userService.create(convertIntoEntity());
 			message = new FacesMessage(resource.getString(USER_REGISTRED.getKey()), null);
-		} catch (ExceptionNullEntity | ExceptionInvalidId exception) {
+		} catch (ExceptionService exception) {
 			String problem = exception.getMessage();
 			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
 			logger.log(Level.FINE, problem, exception);

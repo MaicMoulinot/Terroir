@@ -1,7 +1,7 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.USER_REGISTRED;
@@ -29,10 +29,8 @@ import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
-import com.jomm.terroir.util.exception.TestExceptionInvalidId;
-import com.jomm.terroir.util.exception.TestExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
+import com.jomm.terroir.util.exception.TestExceptionService;
 
 /**
  * This class is a Junit test case testing the methods of {@link ViewUser}.
@@ -67,7 +65,7 @@ public class TestViewUser {
 		// initialization
 		setInjections();
 		// Simulate an exception thrown by service
-		ExceptionNullEntity exception = TestExceptionNullEntity.createMockedException();
+		ExceptionService exception = TestExceptionService.createMockedExceptionEntityShouldNotBeNull();
 		when(view.userService.create(any(classUser))).thenThrow(exception);
 		// call to create()
 		view.create();
@@ -79,7 +77,7 @@ public class TestViewUser {
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		assertEquals(TestResources.getResourceBundleError(USER_SHOULD_NOT_BE_NULL.getKey()), 
+		assertEquals(TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()), 
 				message.getSummary());
 	}
 
@@ -92,7 +90,7 @@ public class TestViewUser {
 		// initialization
 		setInjections();
 		// Simulate an exception thrown by service
-		ExceptionInvalidId exception = TestExceptionInvalidId.createMockedExceptionIdShouldBeNull();
+		ExceptionService exception = TestExceptionService.createMockedExceptionIdShouldBeNull();
 		when(view.userService.create(any(classUser))).thenThrow(exception);
 		// call to create()
 		view.create();

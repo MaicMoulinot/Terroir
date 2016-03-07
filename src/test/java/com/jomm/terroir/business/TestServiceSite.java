@@ -1,6 +1,8 @@
 package com.jomm.terroir.business;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
@@ -13,8 +15,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.business.model.TestSite;
 import com.jomm.terroir.dao.DaoSite;
-import com.jomm.terroir.util.exception.ExceptionInvalidId;
-import com.jomm.terroir.util.exception.ExceptionNullEntity;
+import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This class is a Junit test case testing the contract of {@link ServiceSite}.
@@ -39,73 +40,111 @@ public class TestServiceSite {
 	}
 
 	/**
-	 * Test that {@link ServiceSite#create(Site)} throws an {@link ExceptionNullEntity}
+	 * Test that {@link ServiceSite#create(Site)} throws an {@link ExceptionService}
 	 * when entity is null.
-	 * @throws ExceptionNullEntity is expected.
-	 * @throws ExceptionInvalidId is not expected.
+	 * @throws ExceptionService is expected.
 	 */
-	@Test(expected = ExceptionNullEntity.class)
-	public final void testCreateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test(expected = ExceptionService.class)
+	public final void testCreateWithEntityNull() throws ExceptionService {
 		service.create(null);
+		fail("An ExceptionService should have been thrown");
 	}
 
 	/**
-	 * Test that {@link ServiceSite#create(Site)} throws an {@link ExceptionInvalidId}
+	 * Test that {@link ServiceSite#create(Site)} throws an {@link ExceptionService}
 	 * when entity's id is not null.
-	 * @throws ExceptionNullEntity is not expected.
-	 * @throws ExceptionInvalidId is expected.
+	 * @throws ExceptionService is expected.
 	 */
-	@Test(expected = ExceptionInvalidId.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test(expected = ExceptionService.class)
+	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		site.setId((long) 52);
 		service.create(site);
-	}
-
-	/**
-	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionInvalidId}
-	 * when entity is null.
-	 * @throws ExceptionNullEntity is expected.
-	 * @throws ExceptionInvalidId is not expected.
-	 */
-	@Test(expected = ExceptionNullEntity.class)
-	public final void testUpdateWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
-		service.update(null);
-	}
-
-	/**
-	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionInvalidId}
-	 * when entity's id is null.
-	 * @throws ExceptionNullEntity is not expected.
-	 * @throws ExceptionInvalidId is expected.
-	 */
-	@Test(expected = ExceptionInvalidId.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
-		Site site = TestSite.generateSiteWithIdNull();
-		service.update(site);
-	}
-
-	/**
-	 * Test that {@link ServiceSite#delete(Site)} throws an {@link ExceptionNullEntity}
-	 * when entity is null.
-	 * @throws ExceptionNullEntity is expected.
-	 * @throws ExceptionInvalidId is not expected.
-	 */
-	@Test(expected = ExceptionNullEntity.class)
-	public final void testDeleteWithEntityNull() throws ExceptionNullEntity, ExceptionInvalidId {
-		service.delete(null);
+		fail("An ExceptionService should have been thrown");
 	}
 	
 	/**
-	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionInvalidId}
-	 * when entity's id is null.
-	 * @throws ExceptionNullEntity is not expected.
-	 * @throws ExceptionInvalidId is expected.
+	 * Test that {@link ServiceSite#create(Site)} do not throw an {@link ExceptionService}
+	 * when entity's state is correct.
+	 * @throws ExceptionService is not expected.
 	 */
-	@Test(expected = ExceptionInvalidId.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionNullEntity, ExceptionInvalidId {
+	@Test
+	public final void testCreateWithEntityNotNull() throws ExceptionService {
+		Site site = TestSite.generateSiteWithIdNull();
+		service.create(site);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+
+	/**
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionService}
+	 * when entity is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testUpdateWithEntityNull() throws ExceptionService {
+		service.update(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceSite#update(Site)} throws an {@link ExceptionService}
+	 * when entity's id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testUpdateWithEntityIdNull() throws ExceptionService {
+		Site site = TestSite.generateSiteWithIdNull();
+		service.update(site);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceSite#update(Site)} do not throw an {@link ExceptionService}
+	 * when entity's state is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+		Site site = TestSite.generateSiteWithIdNull();
+		site.setId((long) 52);
+		service.update(site);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+
+	/**
+	 * Test that {@link ServiceSite#delete(Site)} throws an {@link ExceptionService}
+	 * when entity is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testDeleteWithEntityNull() throws ExceptionService {
+		service.delete(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceSite#delete(Site)} throws an {@link ExceptionService}
+	 * when entity's id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testDeleteWithEntityIdNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		service.delete(site);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceSite#delete(Site)} do not throw an {@link ExceptionService}
+	 * when entity's state is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+		Site site = TestSite.generateSiteWithIdNull();
+		site.setId((long) 52);
+		service.delete(site);
+		assertTrue("ExceptionService should not be thrown", true);
 	}
 
 	/**
