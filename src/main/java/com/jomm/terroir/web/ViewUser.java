@@ -50,7 +50,7 @@ public abstract class ViewUser {
 	protected String lastName;
 	protected String userName;
 	protected String email;
-	protected char[] password;
+	protected String password;
 	
 	/**
 	 * Transform an {@link ViewUser} into {@link AbstractUser}.
@@ -160,14 +160,14 @@ public abstract class ViewUser {
 	/**
 	 * @return the password
 	 */
-	public char[] getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
 	/**
 	 * @param password the password to set
 	 */
-	public void setPassword(char[] password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }

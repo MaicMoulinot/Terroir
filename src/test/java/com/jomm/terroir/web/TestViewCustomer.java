@@ -97,7 +97,7 @@ public class TestViewCustomer {
 		assertEquals(view.getFirstName(), entity.getFirstName());
 		assertEquals(view.getLastName(), entity.getLastName());
 		assertEquals(view.getUserName(), entity.getUserName());
-		assertEquals(view.getPassword(), entity.getPassword());
+		assertEquals(view.getPassword(), String.valueOf(entity.getPassword()));
 		assertEquals(view.getEmail(), entity.getEmail());
 		assertEquals(view.getBirthDate(), entity.getBirthDate());
 		assertEquals(view.getSignUpDate(), entity.getSignUpDate());

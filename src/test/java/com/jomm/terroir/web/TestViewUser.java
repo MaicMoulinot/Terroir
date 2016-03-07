@@ -1,7 +1,7 @@
 package com.jomm.terroir.web;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.USER_REGISTRED;
@@ -43,7 +43,6 @@ public class TestViewUser {
 
 	private ViewUser view;
 	private Class<AbstractUser> classUser;
-	private static final char[] PASSWORD = { 'Z', 'm', '@', 't', 'g', 'e', 'Q', 3 };
 	
 	/**
 	 * Constructor.
@@ -178,8 +177,8 @@ public class TestViewUser {
 		assertEquals("Email should be " + test, test, view.getEmail());
 		
 		// Password
-		view.setPassword(PASSWORD);
-		assertEquals("Password should be " + PASSWORD.toString(), PASSWORD, view.getPassword());
+		view.setPassword(test);
+		assertEquals("Password should be " + test, test, view.getPassword());
 	}
 	
 	/**
@@ -220,7 +219,7 @@ public class TestViewUser {
 		view.setLastName("LastName");
 		view.setUserName("UserName");
 		view.setEmail("email@email.com");
-		view.setPassword(PASSWORD);
+		view.setPassword("Z@bf0sdfZnd");
 	}
 	
 	/**
