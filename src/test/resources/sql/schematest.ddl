@@ -61,7 +61,7 @@
         user_lastname varchar(255),
         user_name varchar(255) unique not null,
         user_password varchar(255) not null,
-        enterprise_enterprise_id bigint CONSTRAINT fk_seller_enterprise REFERENCES tr_enterprise(enterprise_id),
+        enterprise_enterprise_id bigint CONSTRAINT fk_seller_enterprise REFERENCES tr_enterprise(enterprise_id) not null,
         primary key (user_id)
     );
 
@@ -75,7 +75,7 @@
         address_town varchar(255) not null,
         legal_identification varchar(255) not null,
         site_name varchar(255) not null,
-        enterprise_enterprise_id bigint CONSTRAINT fk_site_enterprise REFERENCES tr_enterprise(enterprise_id),
+        enterprise_enterprise_id bigint CONSTRAINT fk_site_enterprise REFERENCES tr_enterprise(enterprise_id) not null,
         primary key (site_id)
     );
 
@@ -85,7 +85,7 @@
         quantity bigint,
         registration_date timestamp,
         title varchar(255) not null,
-        site_site_id bigint CONSTRAINT fk_product_site REFERENCES tr_site(site_id),
+        site_site_id bigint CONSTRAINT fk_product_site REFERENCES tr_site(site_id) not null,
         primary key (product_id)
     );
 

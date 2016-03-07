@@ -51,7 +51,7 @@ public class Site implements Serializable {
 	private Address address;
 	
 	@NotNull
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Enterprise enterprise;
 	
 	@OneToMany(targetEntity = Product.class, mappedBy = "site", cascade = CascadeType.ALL)

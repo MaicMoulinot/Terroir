@@ -50,7 +50,7 @@ public class Product implements Serializable {
 	private ZonedDateTime registrationDate;
 	
 	@NotNull
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Site site;
 	
 	// Getters and Setters

@@ -28,7 +28,7 @@ public class Seller extends AbstractUser implements Serializable {
 	
 	// Attributes
 	@NotNull
-	@ManyToOne
+	@ManyToOne(optional = false)
 	private Enterprise enterprise;
 
 	// Getters and Setters
