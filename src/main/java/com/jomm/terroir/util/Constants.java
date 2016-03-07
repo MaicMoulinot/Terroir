@@ -61,7 +61,7 @@ public final class Constants {
 		/** "usernameduplicate" */
 		USER_NAME_EXISTING("usernameduplicate"),
 		/** "entitynull" */
-		USER_SHOULD_NOT_BE_NULL("entitynull");
+		ENTITY_SHOULD_NOT_BE_NULL("entitynull");
 		
 		private String key;
 		
