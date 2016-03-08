@@ -44,7 +44,7 @@ public abstract class UtilData {
 					.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", "date_creation", 
 							"number_employees", "date_signup", 
 							"address_street", "address_complement", "address_post_code",
-							"address_town", "address_country", "address_coordinates")
+							"address_city", "address_country", "address_coordinates")
 					.values(111111, "Janichon&Sons", "GAEC Janichon", "XXDGQG", 
 							GENERATOR_LOCAL_DATE.nextValue(), 2, GENERATOR_ZONED_DATE_TIME.nextValue(), 
 							"Dagallier Haut", null, "01400", "Sulignat", "France", "46.182194, 4.970275")
@@ -54,7 +54,7 @@ public abstract class UtilData {
 					.build(),
 					insertInto("tr_site")
 					.columns("site_id", "site_name", "legal_identification", "address_street", "address_complement", 
-							"address_post_code", "address_town", "address_country", "address_coordinates", 
+							"address_post_code", "address_city", "address_country", "address_coordinates", 
 							"enterprise_enterprise_id")
 					.values(111111, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
 							"France", "46.182194, 4.970275", 111111)
