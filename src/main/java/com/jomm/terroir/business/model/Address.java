@@ -29,9 +29,9 @@ public class Address implements Serializable {
 	@NotNull
 	private String postCode;
 	
-	@Column(name = "address_town")
+	@Column(name = "address_city")
 	@NotNull
-	private String town;
+	private String city;
 	
 	@Column(name = "address_country")
 	@NotNull
@@ -84,17 +84,17 @@ public class Address implements Serializable {
 	}
 
 	/**
-	 * @return the town
+	 * @return the city
 	 */
-	public String getTown() {
-		return town;
+	public String getCity() {
+		return city;
 	}
 
 	/**
-	 * @param town the town to set
+	 * @param city the city to set
 	 */
-	public void setTown(String town) {
-		this.town = town;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	/**

@@ -30,9 +30,9 @@ public class TestAddress {
 		address.setPostCode(test);
 		assertEquals("PostCode should be " + test, test, address.getPostCode());
 		
-		// Town
-		address.setTown(test);
-		assertEquals("Town should be " + test, test, address.getTown());
+		// City
+		address.setCity(test);
+		assertEquals("Town should be " + test, test, address.getCity());
 		
 		// Country
 		address.setCountry(test);
@@ -52,7 +52,7 @@ public class TestAddress {
 		address.setStreet("Street");
 		address.setComplement("Complement");
 		address.setPostCode("PostCode");
-		address.setTown("Town");
+		address.setCity("City");
 		address.setCountry("Country");
 		address.setCoordinates("Coordinates");
 		return address;
