@@ -6,12 +6,9 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-
-import com.jomm.terroir.business.model.Address;
-import com.jomm.terroir.business.model.Enterprise;
-import com.jomm.terroir.business.model.Product;
-import com.jomm.terroir.business.model.Site;
 
 /**
  * This class is a Junit test case testing the methods of {@link Site}.
@@ -19,12 +16,39 @@ import com.jomm.terroir.business.model.Site;
  */
 public class TestSite {
 
+	private Site site;
+	
+	/**
+	 * Instantiate the {@link Site}.
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		site = new Site();
+	}
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		site = null; // Available for Garbage Collector
+	}
+	
+	/**
+	 * Test constructor for {@link Site}.
+	 */
+	@Test
+	public final void testConstructor() {
+		assertNotNull("Constructor should instantiate the Address", site.getAddress());
+		assertNotNull("Constructor should instantiate the Enterprise", site.getEnterprise());
+	}
+	
 	/**
 	 * Test method for all {@link Site}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Site site = new Site();
 		String test = "test";
 		Long nb = (long) 0;
 		
@@ -66,8 +90,6 @@ public class TestSite {
 		assertEquals("ListProducts' size should be 1", 1, site.getListProducts().size());
 		product = null; // Available for Garbage Collector
 		listProducts = null; // Available for Garbage Collector
-		
-		site = null; // Available for Garbage Collector
 	}
 	
 	/**

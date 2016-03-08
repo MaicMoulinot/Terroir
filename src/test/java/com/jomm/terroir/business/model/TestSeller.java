@@ -3,10 +3,9 @@ package com.jomm.terroir.business.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-
-import com.jomm.terroir.business.model.Enterprise;
-import com.jomm.terroir.business.model.Seller;
 
 /**
  * This class is a Junit test case testing the methods of {@link Seller}.
@@ -14,12 +13,38 @@ import com.jomm.terroir.business.model.Seller;
  */
 public class TestSeller {
 
+	private Seller seller;
+	
+	/**
+	 * Instantiate the {@link Seller}.
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		seller = new Seller();
+	}
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		seller = null; // Available for Garbage Collector
+	}
+	
+	/**
+	 * Test constructor for {@link Site}.
+	 */
+	@Test
+	public final void testConstructor() {
+		assertNotNull("Constructor should instantiate the Enterprise", seller.getEnterprise());
+	}
+	
 	/**
 	 * Test method for all {@link Seller}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Seller seller = new Seller();
 		String test = "test";
 		
 		// Enterprise
@@ -29,8 +54,6 @@ public class TestSeller {
 		assertNotNull("Enterprise should not be null", seller.getEnterprise());
 		assertEquals("Enterprise.LegalName should be " + test, test, seller.getEnterprise().getLegalName());
 		enterprise = null; // Available for Garbage Collector
-		
-		seller = null; // Available for Garbage Collector
 	}
 	
 	/**

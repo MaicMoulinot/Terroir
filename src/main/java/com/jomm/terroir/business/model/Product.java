@@ -53,6 +53,14 @@ public class Product implements Serializable {
 	@ManyToOne(optional = false)
 	private Site site;
 	
+	/**
+	 * Constructor with no parameter.
+	 * Instantiate the {@link Site}.
+	 */
+	public Product() {
+		setSite(new Site());
+	}
+	
 	// Getters and Setters
 	/**
 	 * @return the id

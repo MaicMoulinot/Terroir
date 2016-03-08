@@ -70,6 +70,14 @@ public class Enterprise implements Serializable {
 	@OneToMany(targetEntity = Site.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
 	private List<Site> listSites;
 	
+	/**
+	 * Constructor with no parameter.
+	 * Instantiate the {@link Address}.
+	 */
+	public Enterprise() {
+		setAddress(new Address());
+	}
+	
 	// Getters and Setters
 	/**
 	 * @return the id

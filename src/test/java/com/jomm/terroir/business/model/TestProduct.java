@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 
 import java.time.ZonedDateTime;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,13 +14,39 @@ import org.junit.Test;
  * @author Maic
  */
 public class TestProduct {
+	
+	private Product product;
+	
+	/**
+	 * Instantiate the {@link Product}.
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		product = new Product();
+	}
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		product = null; // Available for Garbage Collector
+	}
+	
+	/**
+	 * Test constructor for {@link Product}.
+	 */
+	@Test
+	public final void testConstructor() {
+		assertNotNull("Constructor should instantiate the Site", product.getSite());
+	}
 
 	/**
 	 * Test method for all {@link Product}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Product product = new Product();
 		String test = "test";
 		Long nb = (long) 0;
 		
@@ -51,8 +79,6 @@ public class TestProduct {
 		assertNotNull("Site should not be null", product.getSite());
 		assertEquals("Site's id should be " + nb, nb, product.getSite().getId());
 		site = null; // Available for Garbage Collector
-		
-		product = null; // Available for Garbage Collector
 	}
 	
 	/**

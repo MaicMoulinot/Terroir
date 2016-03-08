@@ -8,12 +8,9 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-
-import com.jomm.terroir.business.model.Address;
-import com.jomm.terroir.business.model.Enterprise;
-import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.business.model.Site;
 
 /**
  * This class is a Junit test case testing the methods of {@link Enterprise}.
@@ -21,12 +18,38 @@ import com.jomm.terroir.business.model.Site;
  */
 public class TestEnterprise {
 
+	private Enterprise enterprise;
+	
+	/**
+	 * Instantiate the {@link Enterprise}.
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		enterprise = new Enterprise();
+	}
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		enterprise = null; // Available for Garbage Collector
+	}
+	
+	/**
+	 * Test constructor for {@link Enterprise}.
+	 */
+	@Test
+	public final void testConstructor() {
+		assertNotNull("Constructor should instantiate the Address", enterprise.getAddress());
+	}
+	
 	/**
 	 * Test method for all {@link Enterprise}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Enterprise enterprise = new Enterprise();
 		String test = "test";
 		Long nb = (long) 0;
 		
@@ -90,8 +113,6 @@ public class TestEnterprise {
 		assertEquals("ListSites' size should be 1", 1, enterprise.getListSites().size());
 		site = null; // Available for Garbage Collector
 		listSites = null; // Available for Garbage Collector
-		
-		enterprise = null; // Available for Garbage Collector
 	}
 	
 	

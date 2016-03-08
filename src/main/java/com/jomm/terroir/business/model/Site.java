@@ -56,6 +56,15 @@ public class Site implements Serializable {
 	
 	@OneToMany(targetEntity = Product.class, mappedBy = "site", cascade = CascadeType.ALL)
 	private List<Product> listProducts;
+	
+	/**
+	 * Constructor with no parameter.
+	 * Instantiate the {@link Address} and the {@link Enterprise}.
+	 */
+	public Site() {
+		setAddress(new Address());
+		setEnterprise(new Enterprise());
+	}
 
 	// Getters and Setters
 	/**
