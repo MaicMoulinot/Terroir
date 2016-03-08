@@ -1,6 +1,7 @@
 package com.jomm.terroir.web;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -9,7 +10,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jomm.terroir.business.model.Address;
 import com.jomm.terroir.business.model.Customer;
+import com.jomm.terroir.business.model.TestAddress;
 import com.jomm.terroir.business.model.TestCustomer;
 
 /**
@@ -85,6 +88,15 @@ public class TestViewCustomer {
 		ZonedDateTime date = ZonedDateTime.now();
 		view.setSignUpDate(date);
 		assertEquals("SignUpDate should be " + date, date, view.getSignUpDate());
+		
+		// Address
+		Address address = new Address();
+		String test = "test";
+		address.setStreet(test);
+		view.setAddress(address);
+		assertNotNull("Address should not be null", address);
+		assertEquals("Address.Street should be " + test, test, view.getAddress().getStreet());
+		address = null; // Available for Garbage Collector
 	}	
 
 	/**
@@ -101,6 +113,7 @@ public class TestViewCustomer {
 		assertEquals(view.getEmail(), entity.getEmail());
 		assertEquals(view.getBirthDate(), entity.getBirthDate());
 		assertEquals(view.getSignUpDate(), entity.getSignUpDate());
+		assertEquals(view.getAddress(), entity.getAddress());
 	}
 
 	/**
@@ -111,6 +124,7 @@ public class TestViewCustomer {
 		ViewCustomer view  = new ViewCustomer();
 		TestViewUser.setDummyValues(view);
 		view.setBirthDate(LocalDate.now());
+		view.setAddress(TestAddress.generateAddress());
 		return view;
 	}
 }

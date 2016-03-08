@@ -105,6 +105,78 @@
 					</p:cellEditor>
 				</p:column>
 
+				<p:column headerText="#{label.street}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentCustomer.address.street}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentCustomer.address.street}"
+								label="#{label.street}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.complement}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentCustomer.address.complement}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentCustomer.address.complement}"
+								label="#{label.complement}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.postcode}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentCustomer.address.postCode}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentCustomer.address.postCode}"
+								label="#{label.postcode}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.city}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentCustomer.address.city}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentCustomer.address.city}"
+								label="#{label.city}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.country}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentCustomer.address.country}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentCustomer.address.country}"
+								label="#{label.country}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.coordinates}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentCustomer.address.coordinates}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentCustomer.address.coordinates}"
+								label="#{label.coordinates}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
 				<p:column headerText="#{label.birthdate}">
 					<p:cellEditor>
 						<f:facet name="output">

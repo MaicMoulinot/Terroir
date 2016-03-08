@@ -6,24 +6,48 @@ import static org.junit.Assert.assertNotNull;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-
-import com.jomm.terroir.business.model.Address;
-import com.jomm.terroir.business.model.Customer;
 
 /**
  * This class is a Junit test case testing the methods of {@link Customer}.
  * @author Maic
  */
 public class TestCustomer {
+	
+	private Customer customer;
+	
+	/**
+	 * Instantiate the {@link Customer}.
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		customer = new Customer();
+	}
+	
+	/**
+	 * @throws java.lang.Exception
+	 */
+	@After
+	public void tearDown() throws Exception {
+		customer = null; // Available for Garbage Collector
+	}
+	
+	/**
+	 * Test constructor for {@link Customer}.
+	 */
+	@Test
+	public final void testConstructor() {
+		assertNotNull("Constructor should instantiate the Address", customer.getAddress());
+	}
 
 	/**
 	 * Test method for all {@link Customer}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Customer customer = new Customer();
-		
 		// BirthDate
 		LocalDate birthdate = LocalDate.now();
 		customer.setBirthDate(birthdate);
@@ -42,8 +66,6 @@ public class TestCustomer {
 		assertNotNull("Address should not be null", address);
 		assertEquals("Address.Street should be " + test, test, customer.getAddress().getStreet());
 		address = null; // Available for Garbage Collector
-		
-		customer = null; // Available for Garbage Collector
 	}
 	
 	/**

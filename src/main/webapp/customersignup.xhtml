@@ -51,8 +51,8 @@
 
 				<p:outputLabel for="email" id="emailLabel" value="#{label.email}" />
 				<p:spacer />
-				<p:inputText id="email" value="#{viewCustomer.email}" required="true"
-					requiredMessage="#{error.mandatory}">
+				<p:inputText id="email" value="#{viewCustomer.email}"
+					required="true" requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{validatorEmail}" />
 					<p:ajax event="blur" execute="email" update="emailMessage" />
 				</p:inputText>
@@ -60,8 +60,8 @@
 
 				<p:outputLabel for="password1" id="password1Label"
 					value="#{label.password}" />
-				<p:commandLink id="help" title="#{message.passwordtitle}" 
-					process="@this" action="#{viewCustomer.passwordTooltip}" 
+				<p:commandLink id="help" title="#{message.passwordtitle}"
+					process="@this" action="#{viewCustomer.passwordTooltip}"
 					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
@@ -94,11 +94,62 @@
 				</p:password>
 				<p:message id="password2Message" for="password2" display="text" />
 
+				<p:outputLabel for="street" id="streetLabel"
+					value="#{label.street}" />
+				<p:spacer />
+				<p:inputText id="street" value="#{viewCustomer.address.street}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.length2}">
+					<f:validateLength minimum="2" />
+					<p:ajax event="blur" update="streetMessage" />
+				</p:inputText>
+				<p:message id="streetMessage" for="street" display="text" />
+
+				<p:outputLabel for="complement" id="complementLabel"
+					value="#{label.complement}" />
+				<p:spacer />
+				<p:inputText id="complement" value="#{viewCustomer.address.complement}" />
+				<p:message id="complementMessage" for="complement" display="text" />
+
+				<p:outputLabel for="postcode" id="postcodeLabel"
+					value="#{label.postcode}" />
+				<p:spacer />
+				<p:inputText id="postcode" value="#{viewCustomer.address.postCode}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.length2}">
+					<f:validateLength minimum="2" />
+					<p:ajax event="blur" update="postcodeMessage" />
+				</p:inputText>
+				<p:message id="postcodeMessage" for="postcode" display="text" />
+
+				<p:outputLabel for="city" id="cityLabel"
+					value="#{label.city}" />
+				<p:spacer />
+				<p:inputText id="town" value="#{viewCustomer.address.city}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.length2}">
+					<f:validateLength minimum="2" />
+					<p:ajax event="blur" update="cityMessage" />
+				</p:inputText>
+				<p:message id="cityMessage" for="city" display="text" />
+
+				<p:outputLabel for="country" id="countryLabel"
+					value="#{label.country}" />
+				<p:spacer />
+				<p:inputText id="country" value="#{viewCustomer.address.country}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.length2}">
+					<f:validateLength minimum="2" />
+					<p:ajax event="blur" update="countryMessage" />
+				</p:inputText>
+				<p:message id="countryMessage" for="country" display="text" />
+
 				<p:outputLabel for="birthdate" id="birthdateLabel"
 					value="#{label.birthdate}" />
 				<p:spacer />
 				<p:calendar id="birthdate" value="#{viewCustomer.birthDate}"
-					navigator="true" pattern="dd/MM/yyyy" converter="localDateConverter"
+					navigator="true" pattern="dd/MM/yyyy"
+					converter="localDateConverter"
 					yearRange="#{viewCustomer.generateYearRange()}" effect="slide"
 					required="true" requiredMessage="#{error.mandatory}">
 					<p:ajax event="dateSelect" update="birthdateMessage" />
@@ -113,10 +164,10 @@
 				action="#{viewCustomer.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
 			<p:commandButton id="reset" value="#{label.reset}" update="form"
-				 process="@this" icon="ui-icon-refresh">
+				process="@this" icon="ui-icon-refresh">
 				<p:resetInput target="@form" />
 			</p:commandButton>
-			
+
 		</h:form>
 		<p:spacer height="50" />
 	</ui:define>

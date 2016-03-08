@@ -9,6 +9,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import com.jomm.terroir.business.ServiceUser;
+import com.jomm.terroir.business.model.Address;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.util.BundleMessage;
 
@@ -29,7 +30,8 @@ public class ViewCustomer extends ViewUser {
 	//	Attributes
 	private LocalDate birthDate;
 	private ZonedDateTime signUpDate;
-	
+	private Address address;
+    
 	/**
 	 * Create and save a new Customer.
 	 * @return String for navigation.
@@ -64,6 +66,7 @@ public class ViewCustomer extends ViewUser {
 		userEntity.setPassword(getPassword() != null ? getPassword().toCharArray() : null);
 		userEntity.setBirthDate(getBirthDate());
 		userEntity.setSignUpDate(getSignUpDate());
+		userEntity.setAddress(getAddress());
 		return userEntity;
 	}
 	
@@ -82,6 +85,7 @@ public class ViewCustomer extends ViewUser {
 		customerJsf.setPassword(String.valueOf(customer.getPassword()));
 		customerJsf.setBirthDate(customer.getBirthDate());
 		customerJsf.setSignUpDate(customer.getSignUpDate());
+		customerJsf.setAddress(customer.getAddress());
 		return customerJsf;
 	}
 
@@ -111,5 +115,19 @@ public class ViewCustomer extends ViewUser {
 	 */
 	public void setSignUpDate(ZonedDateTime signUpDate) {
 		this.signUpDate = signUpDate;
+	}
+
+	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 }

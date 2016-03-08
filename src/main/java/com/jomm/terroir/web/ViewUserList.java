@@ -18,7 +18,6 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
-import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.exception.ExceptionService;
 
@@ -57,18 +56,18 @@ public abstract class ViewUserList {
 	 * @param event RowEditEvent the AJAX event.
 	 */
 	public void onRowEdit(RowEditEvent event) {
-		ViewUser view = (ViewUser) event.getObject();
-		if (view != null) {
+		currentUser = (ViewUser) event.getObject();
+		if (currentUser != null) {
 			FacesMessage message = null;
 			try {
-				userService.update(view.convertIntoEntity());
-				Object[] argument = {view.getUserName()};
+				userService.update(currentUser.convertIntoEntity());
+				Object[] argument = {currentUser.getUserName()};
 				String detail = MessageFormat.format(resource.getString(UPDATE_USER.getKey()), argument);
 				message = new FacesMessage(resource.getString(UPDATE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
-						"Username=" + view.getUserName() + ", UserId=" + view.getId());
+						"Username=" + currentUser.getUserName() + ", UserId=" + currentUser.getId());
 				logger.log(Level.FINE, problem, exception);
 			} finally {
 				facesContext.addMessage(null, message);
@@ -90,17 +89,16 @@ public abstract class ViewUserList {
 	 */
 	public String delete() {
 		if (currentUser != null) {
-			AbstractUser user = currentUser.convertIntoEntity();
 			FacesMessage message = null;
 			try {
-				Object[] argument = {user.getUserName()};
-				userService.delete(user);
+				userService.delete(currentUser.convertIntoEntity());
+				Object[] argument = {currentUser.getUserName()};
 				String detail = MessageFormat.format(resource.getString(DELETE_USER.getKey()), argument);
 				message = new FacesMessage(resource.getString(DELETE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
 				String problem = exception.getMessage();
 				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
-						"Username=" + user.getUserName() + ", UserId=" + user.getId());
+						"Username=" + currentUser.getUserName() + ", UserId=" + currentUser.getId());
 				logger.log(Level.FINE, problem, exception);
 			} finally {
 				facesContext.addMessage(null, message);
