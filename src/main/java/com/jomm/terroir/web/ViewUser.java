@@ -25,16 +25,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
  * and to {@link FacesContext} to throw them to the view.
  * @author Maic
  */
-public abstract class ViewUser {
+public abstract class ViewUser extends AbstractView {
 	
 	// Injected fields
 	@Inject
 	protected ServiceUser userService;
-	@Inject
-	protected FacesContext facesContext;
-	@Inject
-	@BundleMessage
-	protected ResourceBundle resource;
 	@Inject
 	protected Logger logger;
 
@@ -57,16 +52,14 @@ public abstract class ViewUser {
 	 * @return String for navigation.
 	 */
 	public String create() {
-		FacesMessage message = null;
+		AbstractUser entity = convertIntoEntity();
 		try {
-			userService.create(convertIntoEntity());
-			message = new FacesMessage(resource.getString(USER_REGISTRED.getKey()), null);
+			userService.create(entity);
+			addMessage(resourceBundleMessage.getString(USER_REGISTRED.getKey()));
 		} catch (ExceptionService exception) {
-			String problem = exception.getMessage();
-			message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, null);
+			String problem = generateExceptionMessage(exception, entity.getId(), entity);
+			addMessage(FacesMessage.SEVERITY_ERROR, problem, null);
 			logger.log(Level.FINE, problem, exception);
-		} finally {
-			facesContext.addMessage(null, message);
 		}
 		return null;
 	}
@@ -75,10 +68,8 @@ public abstract class ViewUser {
 	 * Generate tips to create a secured enough password into growl.
 	 */
 	public void passwordTooltip() {
-		FacesMessage message = new FacesMessage(
-				resource.getString(PASSWORD_TITLE.getKey()), 
-				resource.getString(PASSWORD_RULES.getKey()));
-		facesContext.addMessage(CLIENT_ID_GROWL.getId(), message);
+		addMessage(CLIENT_ID_GROWL.getId(), resourceBundleMessage.getString(PASSWORD_TITLE.getKey()), 
+				resourceBundleMessage.getString(PASSWORD_RULES.getKey()));
 	}
 
 	/**

@@ -32,6 +32,7 @@ public class ViewSeller extends ViewUser {
 	 * Create and save a new Seller.
 	 * @return String for navigation.
 	 */
+	@Override
 	public String create() {
 		super.create();
 		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
@@ -41,6 +42,7 @@ public class ViewSeller extends ViewUser {
 	 * Transform an {@link ViewSeller} into {@link Seller}.
 	 * @return Seller.
 	 */
+	@Override
 	public Seller convertIntoEntity() {
 		Seller userEntity = new Seller();
 		userEntity.setId(getId());

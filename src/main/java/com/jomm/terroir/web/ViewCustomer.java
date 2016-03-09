@@ -36,6 +36,7 @@ public class ViewCustomer extends ViewUser {
 	 * Create and save a new Customer.
 	 * @return String for navigation.
 	 */
+	@Override
 	public String create() {
 		super.create();
 		return "customerlist" + "?faces-redirect=true";	// Navigation case.
@@ -56,6 +57,7 @@ public class ViewCustomer extends ViewUser {
 	 * Transform an {@link ViewCustomer} into {@link Customer}.
 	 * @return {@link Customer}.
 	 */
+	@Override
 	public Customer convertIntoEntity() {
 		Customer userEntity = new Customer();
 		userEntity.setId(getId());

@@ -1,5 +1,6 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
@@ -18,6 +19,7 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
+import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.exception.ExceptionService;
 
@@ -29,16 +31,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
  * and to {@link ServiceUser} to update or delete the {@link ViewUser}.
  * @author Maic
  */
-public abstract class ViewUserList {
+public abstract class ViewUserList extends AbstractView {
 
 	// Injected fields
 	@Inject
 	protected ServiceUser userService;
-	@Inject
-	protected FacesContext facesContext;
-	@Inject
-	@BundleMessage
-	protected ResourceBundle resource;
 	@Inject
 	protected Logger logger;
 	
@@ -58,19 +55,16 @@ public abstract class ViewUserList {
 	public void onRowEdit(RowEditEvent event) {
 		currentUser = (ViewUser) event.getObject();
 		if (currentUser != null) {
-			FacesMessage message = null;
+			AbstractUser entity = currentUser.convertIntoEntity();
 			try {
-				userService.update(currentUser.convertIntoEntity());
-				Object[] argument = {currentUser.getUserName()};
-				String detail = MessageFormat.format(resource.getString(UPDATE_USER.getKey()), argument);
-				message = new FacesMessage(resource.getString(UPDATE_OK.getKey()), detail);
+				userService.update(entity);
+				Object[] argument = {entity.getUserName()};
+				String detail = MessageFormat.format(resourceBundleMessage.getString(UPDATE_USER.getKey()), argument);
+				addMessage(resourceBundleMessage.getString(UPDATE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
-				String problem = exception.getMessage();
-				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
-						"Username=" + currentUser.getUserName() + ", UserId=" + currentUser.getId());
+				String problem = generateExceptionMessage(exception, entity.getId(), entity);
+				addMessage(FacesMessage.SEVERITY_ERROR, resourceBundleError.getString(EXCEPTION.getKey()), problem);
 				logger.log(Level.FINE, problem, exception);
-			} finally {
-				facesContext.addMessage(null, message);
 			}
 		}
 	}
@@ -89,19 +83,16 @@ public abstract class ViewUserList {
 	 */
 	public String delete() {
 		if (currentUser != null) {
-			FacesMessage message = null;
+			AbstractUser entity = currentUser.convertIntoEntity();
 			try {
-				userService.delete(currentUser.convertIntoEntity());
-				Object[] argument = {currentUser.getUserName()};
-				String detail = MessageFormat.format(resource.getString(DELETE_USER.getKey()), argument);
-				message = new FacesMessage(resource.getString(DELETE_OK.getKey()), detail);
+				userService.delete(entity);
+				Object[] argument = {entity.getUserName()};
+				String detail = MessageFormat.format(resourceBundleMessage.getString(DELETE_USER.getKey()), argument);
+				addMessage(resourceBundleMessage.getString(DELETE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
-				String problem = exception.getMessage();
-				message = new FacesMessage(FacesMessage.SEVERITY_ERROR, problem, 
-						"Username=" + currentUser.getUserName() + ", UserId=" + currentUser.getId());
+				String problem = generateExceptionMessage(exception, entity.getId(), entity);
+				addMessage(FacesMessage.SEVERITY_ERROR, resourceBundleError.getString(EXCEPTION.getKey()), problem);
 				logger.log(Level.FINE, problem, exception);
-			} finally {
-				facesContext.addMessage(null, message);
 			}
 		}
 		return null;	// Navigation case.

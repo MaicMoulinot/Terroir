@@ -46,6 +46,8 @@ public final class Constants {
 		EMAIL_EXISTING("emailduplicate"),
 		/** "emailnonvalid" */
 		EMAIL_UNVALID("emailnonvalid"),
+		/** "exception" */
+		EXCEPTION("exception"),
 		/** "mandatory" */
 		FIELD_MANDATORY("mandatory"),
 		/** "idnotnull" */
