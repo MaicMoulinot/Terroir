@@ -7,6 +7,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TIT
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.USER_REGISTRED;
 import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -76,8 +77,8 @@ public class TestViewUser {
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		assertEquals(TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()), 
-				message.getSummary());
+		String exceptionMessage = TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey());
+		assertTrue(message.getSummary().contains(exceptionMessage));
 	}
 
 	/**
@@ -101,8 +102,8 @@ public class TestViewUser {
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		assertEquals(TestResources.getResourceBundleError(ID_SHOULD_BE_NULL.getKey()), 
-				message.getSummary());
+		String exceptionMessage = TestResources.getResourceBundleError(ID_SHOULD_BE_NULL.getKey());
+		assertTrue(message.getSummary().contains(exceptionMessage));
 	}
 
 	/**
@@ -123,7 +124,7 @@ public class TestViewUser {
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-		assertEquals(view.resource.getString(USER_REGISTRED.getKey()), message.getSummary());
+		assertEquals(TestResources.getResourceBundleMessage(USER_REGISTRED.getKey()), message.getSummary());
 	}
 
 	/**
@@ -144,8 +145,8 @@ public class TestViewUser {
         // retrieve the captured FacesMessage and check if it contains the expected values
         FacesMessage message = messageCaptor.getValue();
         assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(view.resource.getString(PASSWORD_TITLE.getKey()), message.getSummary());
-        assertEquals(view.resource.getString(PASSWORD_RULES.getKey()), message.getDetail());
+        assertEquals(TestResources.getResourceBundleMessage(PASSWORD_TITLE.getKey()), message.getSummary());
+        assertEquals(TestResources.getResourceBundleMessage(PASSWORD_RULES.getKey()), message.getDetail());
 	}
 
 	/**
@@ -189,7 +190,7 @@ public class TestViewUser {
 	private void setInjections() {
 		view.facesContext = mock(FacesContext.class);
 		view.userService = mock(ServiceUser.class);
-		view.resource = Resources.getResourceBundleMessage();
+		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
 		view.logger = TestResources.createLogger(view.getClass());
 	}
 	

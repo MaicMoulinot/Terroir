@@ -59,11 +59,11 @@ public abstract class ViewUserList extends AbstractView {
 			try {
 				userService.update(entity);
 				Object[] argument = {entity.getUserName()};
-				String detail = MessageFormat.format(resourceBundleMessage.getString(UPDATE_USER.getKey()), argument);
-				addMessage(resourceBundleMessage.getString(UPDATE_OK.getKey()), detail);
+				String detail = MessageFormat.format(getMessageFromResourceBundle(UPDATE_USER.getKey()), argument);
+				addMessage(getMessageFromResourceBundle(UPDATE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, entity.getId(), entity);
-				addMessage(FacesMessage.SEVERITY_ERROR, resourceBundleError.getString(EXCEPTION.getKey()), problem);
+				addMessage(FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), problem);
 				logger.log(Level.FINE, problem, exception);
 			}
 		}
@@ -87,11 +87,11 @@ public abstract class ViewUserList extends AbstractView {
 			try {
 				userService.delete(entity);
 				Object[] argument = {entity.getUserName()};
-				String detail = MessageFormat.format(resourceBundleMessage.getString(DELETE_USER.getKey()), argument);
-				addMessage(resourceBundleMessage.getString(DELETE_OK.getKey()), detail);
+				String detail = MessageFormat.format(getMessageFromResourceBundle(DELETE_USER.getKey()), argument);
+				addMessage(getMessageFromResourceBundle(DELETE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, entity.getId(), entity);
-				addMessage(FacesMessage.SEVERITY_ERROR, resourceBundleError.getString(EXCEPTION.getKey()), problem);
+				addMessage(FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), problem);
 				logger.log(Level.FINE, problem, exception);
 			}
 		}

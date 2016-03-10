@@ -22,13 +22,13 @@ public abstract class AbstractView {
 	
 	// Injected fields
 	@Inject
-	protected FacesContext facesContext;
+	private FacesContext facesContext;
 	@Inject
 	@BundleError
-	protected ResourceBundle resourceBundleError;
+	private ResourceBundle resourceBundleError;
 	@Inject
 	@BundleMessage
-	protected ResourceBundle resourceBundleMessage;
+	private ResourceBundle resourceBundleMessage;
 	
 	// Utility methods
 	/**
@@ -92,5 +92,46 @@ public abstract class AbstractView {
 	 */
 	public String generateExceptionMessage(Exception exception, Long id, Serializable entity) {
 		return exception.getMessage() + " on [id=" + id + ", class=" + entity.getClass().getName() + "]";
+	}
+	
+	/**
+	 * @return facesContext the {@link FacesContext}.
+	 */
+	protected FacesContext getFacesContext() {
+		return facesContext;
+	}
+	
+	/**
+	 * Retrieve the value associated with the key in the {@link ResourceBundle} qualified with {@link BundleMessage}.
+	 * @param key String the key provided.
+	 * @return value String the associated value.
+	 */
+	protected String getMessageFromResourceBundle(String key) {
+		return resourceBundleMessage.getString(key);
+	}
+	
+	/**
+	 * Retrieve the value associated with the key in the {@link ResourceBundle} qualified with {@link BundleError}.
+	 * @param key String the key provided.
+	 * @return value String the associated value.
+	 */
+	protected String getErrorFromResourceBundle(String key) {
+		return resourceBundleError.getString(key);
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param resourceBundle the {@link ResourceBundle} qualified with {@link BundleMessage}.
+	 */
+	void setResourceBundleMessage(ResourceBundle resourceBundle) {
+		this.resourceBundleMessage = resourceBundle;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param resourceBundle the {@link ResourceBundle} qualified with {@link BundleError}.
+	 */
+	void setResourceBundleError(ResourceBundle resourceBundle) {
+		this.resourceBundleError = resourceBundle;
 	}
 }

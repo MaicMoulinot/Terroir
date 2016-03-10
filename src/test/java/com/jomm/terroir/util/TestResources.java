@@ -86,12 +86,22 @@ public class TestResources {
 	
 	/**
 	 * When injection is not available (in testing environment), this method retrieve
-	 * the value from a {@link ResourceBundle}.
+	 * the value from the {@link ResourceBundle} with qualifier {@link BundleError}.
 	 * @param key String the key.
 	 * @return String the value.
 	 */
 	public static String getResourceBundleError(String key) {
 		return Resources.getResourceBundleError().getString(key);
+	}
+	
+	/**
+	 * When injection is not available (in testing environment), this method retrieve
+	 * the value from the {@link ResourceBundle} with qualifier {@link BundleMessage}.
+	 * @param key String the key.
+	 * @return String the value.
+	 */
+	public static String getResourceBundleMessage(String key) {
+		return Resources.getResourceBundleMessage().getString(key);
 	}
 	
 	/**
