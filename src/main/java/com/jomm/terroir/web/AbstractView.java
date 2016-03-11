@@ -102,6 +102,14 @@ public abstract class AbstractView {
 	}
 	
 	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param facesContext the {@link FacesContext}.
+	 */
+	void setFacesContext(FacesContext facesContext) {
+		this.facesContext = facesContext;
+	}
+	
+	/**
 	 * Retrieve the value associated with the key in the {@link ResourceBundle} qualified with {@link BundleMessage}.
 	 * @param key String the key provided.
 	 * @return value String the associated value.

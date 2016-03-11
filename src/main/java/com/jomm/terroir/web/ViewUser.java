@@ -1,5 +1,6 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.USER_REGISTRED;
@@ -58,7 +59,7 @@ public abstract class ViewUser extends AbstractView {
 			addMessage(getMessageFromResourceBundle(USER_REGISTRED.getKey()));
 		} catch (ExceptionService exception) {
 			String problem = generateExceptionMessage(exception, entity.getId(), entity);
-			addMessage(FacesMessage.SEVERITY_ERROR, problem, null);
+			addMessage(FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), problem);
 			logger.log(Level.FINE, problem, exception);
 		}
 		return null;

@@ -16,8 +16,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlDataTable;
@@ -81,7 +81,7 @@ public class TestViewUserList {
 		verify(view.userService).update(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
         // retrieve the captured FacesMessage and check if it contains the expected values
 		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()));
 	}
@@ -105,7 +105,7 @@ public class TestViewUserList {
 		verify(view.userService).update(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
         // retrieve the captured FacesMessage and check if it contains the expected values
 		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ID_SHOULD_NOT_BE_NULL.getKey()));
 	}
@@ -127,14 +127,10 @@ public class TestViewUserList {
 		verify(view.userService).update(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
         // retrieve the captured FacesMessage and check if it contains the expected values
-		FacesMessage message = messageCaptor.getValue();
-		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleMessage(UPDATE_OK.getKey()), message.getSummary());
-        Object[] argument = {viewUser.getUserName()};
-        assertEquals(MessageFormat.format(TestResources.getResourceBundleMessage(UPDATE_USER.getKey()), argument), 
-        		message.getDetail());
+		checkValidationMessage(messageCaptor.getValue(), TestResources.getResourceBundleMessage(UPDATE_OK.getKey()), 
+				TestResources.getResourceBundleMessage(UPDATE_USER.getKey()));
 	}
 	
 	/**
@@ -170,7 +166,7 @@ public class TestViewUserList {
 		verify(view.userService).delete(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
         // retrieve the captured FacesMessage and check if it contains the expected values
 		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()));
 	}
@@ -193,7 +189,7 @@ public class TestViewUserList {
 		verify(view.userService).delete(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
         // retrieve the captured FacesMessage and check if it contains the expected values
 		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ID_SHOULD_NOT_BE_NULL.getKey()));
 	}
@@ -214,16 +210,10 @@ public class TestViewUserList {
 		verify(view.userService).delete(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
         // retrieve the captured FacesMessage and check if it contains the expected values
 		checkValidationMessage(messageCaptor.getValue(), TestResources.getResourceBundleMessage(DELETE_OK.getKey()), 
 				TestResources.getResourceBundleMessage(DELETE_USER.getKey()));
-//		FacesMessage message = messageCaptor.getValue();
-//		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-//        assertEquals(TestResources.getResourceBundleMessage(DELETE_OK.getKey()), message.getSummary());
-//        Object[] argument = {viewUser.getUserName()};
-//        assertEquals(MessageFormat.format(TestResources.getResourceBundleMessage(DELETE_USER.getKey()), argument), 
-//        		message.getDetail());
 	}
 
 	/**
@@ -243,7 +233,7 @@ public class TestViewUserList {
 	 * Retrieve the {@link java.util.ResourceBundle} Message from {@link Resources}.
 	 */
 	private void setInjections() {
-		view.facesContext = mock(FacesContext.class);
+		view.setFacesContext(mock(FacesContext.class));
 		view.userService = mock(ServiceUser.class);
 		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
 		view.setResourceBundleError(Resources.getResourceBundleError());
@@ -251,9 +241,9 @@ public class TestViewUserList {
 	}
 	
 	/**
-	 * Check if the {@link FacesMessage} has correct values.
-	 * @param message the {@link FacesContext}.
-	 * @param detail String the detail.
+	 * Check if the thrown {@link FacesMessage} has correct values.
+	 * @param message the {@link FacesMessage}.
+	 * @param detail String the message's detail.
 	 */
 	private void checkExceptionMessage(FacesMessage message, String detail) {
 		// check severity
@@ -265,9 +255,10 @@ public class TestViewUserList {
 	}
 	
 	/**
-	 * Check if the {@link FacesMessage} has correct values.
-	 * @param message the {@link FacesContext}.
-	 * @param detail String the detail.
+	 * Check if the thrown {@link FacesMessage} has correct values.
+	 * @param message the {@link FacesMessage}.
+	 * @param summary String the message's summary.
+	 * @param detail String the message's detail.
 	 */
 	private void checkValidationMessage(FacesMessage message, String summary, String detail) {
 		// check severity
@@ -275,7 +266,9 @@ public class TestViewUserList {
 		// check summary
         assertEquals(summary, message.getSummary());
         // check detail
-		assertTrue(message.getDetail().contains(detail));iusfdq
+        String[] detailParts = detail.replace("''", "'").split(Pattern.quote(" {0} "));
+        assertTrue(message.getDetail().startsWith(detailParts[0]));
+        assertTrue(message.getDetail().endsWith(detailParts[1]));
 	}
 	
 	/**
