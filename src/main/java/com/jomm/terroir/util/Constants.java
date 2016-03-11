@@ -89,6 +89,10 @@ public final class Constants {
 	 * @author Maic
 	 */
 	public enum ResourceBundleMessage {
+		/** "createok" */
+		CREATE_OK("createok"),
+		/** "createuser" */
+		CREATE_USER("createuser"),
 		/** "deleteok" */
 		DELETE_OK("deleteok"),
 		/** "deleteuser" */
@@ -100,9 +104,7 @@ public final class Constants {
 		/** "updateok" */
 		UPDATE_OK("updateok"),
 		/** "updateuser" */
-		UPDATE_USER("updateuser"),
-		/** "usersaved" */
-		USER_REGISTRED("usersaved");
+		UPDATE_USER("updateuser");
 		
 		private String key;
 		
