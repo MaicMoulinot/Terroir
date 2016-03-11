@@ -3,9 +3,10 @@ package com.jomm.terroir.web;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.USER_REGISTRED;
 import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -118,9 +119,8 @@ public class TestViewUser {
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
 		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
 		// retrieve the captured FacesMessage and check if it contains the expected values
-		FacesMessage message = messageCaptor.getValue();
-		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-		assertEquals(TestResources.getResourceBundleMessage(USER_REGISTRED.getKey()), message.getSummary());
+		checkValidationMessage(messageCaptor.getValue(), TestResources.getResourceBundleMessage(CREATE_OK.getKey()), 
+				TestResources.getResourceBundleMessage(CREATE_USER.getKey()), true);
 	}
 
 	/**
@@ -139,10 +139,8 @@ public class TestViewUser {
         // retrieve the captured String and check if it contains the expected value
         assertEquals(CLIENT_ID_GROWL.getId(), stringCaptor.getValue());
         // retrieve the captured FacesMessage and check if it contains the expected values
-        FacesMessage message = messageCaptor.getValue();
-        assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-        assertEquals(TestResources.getResourceBundleMessage(PASSWORD_TITLE.getKey()), message.getSummary());
-        assertEquals(TestResources.getResourceBundleMessage(PASSWORD_RULES.getKey()), message.getDetail());
+        checkValidationMessage(messageCaptor.getValue(), TestResources.getResourceBundleMessage(PASSWORD_TITLE.getKey()), 
+				TestResources.getResourceBundleMessage(PASSWORD_RULES.getKey()), false);
 	}
 
 	/**
@@ -197,16 +195,21 @@ public class TestViewUser {
 	 * @param message the {@link FacesMessage}.
 	 * @param summary String the message's summary.
 	 * @param detail String the message's detail.
+	 * @param isParameterizedDetail boolean, true if the detail contains parameters, false otherwise.
 	 */
-	private void checkValidationMessage(FacesMessage message, String summary, String detail) {
+	private void checkValidationMessage(FacesMessage message, String summary, String detail, boolean isParameterizedDetail) {
 		// check severity
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
 		// check summary
         assertEquals(summary, message.getSummary());
         // check detail
-        String[] detailParts = detail.replace("''", "'").split(Pattern.quote(" {0} "));
-        assertTrue(message.getDetail().startsWith(detailParts[0]));
-        assertTrue(message.getDetail().endsWith(detailParts[1]));
+        if (isParameterizedDetail) {
+        	String[] detailParts = detail.replace("''", "'").split(Pattern.quote(" {0} "));
+        	assertTrue(message.getDetail().startsWith(detailParts[0]));
+        	assertTrue(message.getDetail().endsWith(detailParts[1]));
+        } else {
+        	assertEquals(detail, message.getDetail());
+        }
 	}
 	
 	/**
