@@ -1,5 +1,7 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
+
 import java.io.Serializable;
 import java.util.ResourceBundle;
 
@@ -32,38 +34,30 @@ public abstract class AbstractView {
 	
 	// Utility methods
 	/**
-	 * Add a {@link FacesMessage} to the {@link FacesContext}
-	 * with the {@link Severity} {@code FacesMessage.SEVERITY_INFO}.
-	 * @param summary String the message's summary.
+	 * This method is used when a exception occurred in a service.
+	 * It adds a {@link FacesMessage} to the {@link FacesContext}.
+	 * The {@link Severity} is set to {@code FacesMessage.SEVERITY_ERROR},
+	 * and the summary is the value obtained from {@code ResourceBundleError.EXCEPTION}.
+	 * @param detail String the message's detail.
 	 */
-	public void addMessage(String summary) {
-		addMessage(summary, null);
+	public void addMessageException(String detail) {
+		addMessage(null, FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), detail);
 	}
 	
 	/**
-	 * Add a {@link FacesMessage} to the {@link FacesContext}
-	 * with the {@link Severity} {@code FacesMessage.SEVERITY_INFO}.
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext}
+	 * with the {@link Severity} set to {@code FacesMessage.SEVERITY_INFO}.
 	 * @param summary String the message's summary.
 	 * @param detail String the message's detail.
 	 */
 	public void addMessage(String summary, String detail) {
-		addMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+		addMessage(null, FacesMessage.SEVERITY_INFO, summary, detail);
 	}
 	
 	/**
-	 * Add a {@link FacesMessage} to the {@link FacesContext}.
-	 * @param severity {@link Severity} the message's severity.
-	 * @param summary String the message's summary.
-	 * @param detail String the message's detail.
-	 */
-	public void addMessage(Severity severity, String summary, String detail) {
-		addMessage(null, severity, summary, detail);
-	}
-	
-	/**
-	 * Add a {@link FacesMessage} to the {@link FacesContext} 
-	 * with the {@link Severity} {@code FacesMessage.SEVERITY_INFO}.
-	 * @param idClient String the client identifier with which this message is associated (if any).
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext}
+	 * with the {@link Severity} set to {@code FacesMessage.SEVERITY_INFO}.
+	 * @param idClient String the client identifier with which this message is associated.
 	 * @param summary String the message's summary.
 	 * @param detail String the message's detail.
 	 */
@@ -72,9 +66,9 @@ public abstract class AbstractView {
 	}
 	
 	/**
-	 * Add a {@link FacesMessage} to the {@link FacesContext}.
-	 * @param idClient String the client identifier with which this message is associated (if any).
-	 * @param severity {@link Severity} the message's severity.
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext}.
+	 * @param idClient String the client identifier with which this message is associated.
+	 * @param severity {@link Severity} the message's severity, chosen from {@link FacesMessage}'s constants.
 	 * @param summary String the message's summary.
 	 * @param detail String the message's detail.
 	 */

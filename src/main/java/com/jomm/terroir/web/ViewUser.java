@@ -1,16 +1,16 @@
 package com.jomm.terroir.web;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.USER_REGISTRED;
 import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -56,10 +56,12 @@ public abstract class ViewUser extends AbstractView {
 		AbstractUser entity = convertIntoEntity();
 		try {
 			userService.create(entity);
-			addMessage(getMessageFromResourceBundle(USER_REGISTRED.getKey()));
+			Object[] argument = {entity.getUserName()};
+			String detail = MessageFormat.format(getMessageFromResourceBundle(CREATE_USER.getKey()), argument);
+			addMessage(getMessageFromResourceBundle(CREATE_OK.getKey()), detail);
 		} catch (ExceptionService exception) {
 			String problem = generateExceptionMessage(exception, entity.getId(), entity);
-			addMessage(FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), problem);
+			addMessageException(problem);
 			logger.log(Level.FINE, problem, exception);
 		}
 		return null;

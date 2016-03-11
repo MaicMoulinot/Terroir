@@ -1,6 +1,5 @@
 package com.jomm.terroir.web;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
@@ -11,7 +10,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlDataTable;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -63,7 +61,7 @@ public abstract class ViewUserList extends AbstractView {
 				addMessage(getMessageFromResourceBundle(UPDATE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, entity.getId(), entity);
-				addMessage(FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), problem);
+				addMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}
 		}
@@ -91,7 +89,7 @@ public abstract class ViewUserList extends AbstractView {
 				addMessage(getMessageFromResourceBundle(DELETE_OK.getKey()), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, entity.getId(), entity);
-				addMessage(FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), problem);
+				addMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}
 		}
