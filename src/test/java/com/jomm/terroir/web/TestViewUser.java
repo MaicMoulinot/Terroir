@@ -1,6 +1,7 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
@@ -14,6 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -73,12 +75,9 @@ public class TestViewUser {
 		verify(view.userService).create(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
 		// retrieve the captured FacesMessage and check if it contains the expected values
-		FacesMessage message = messageCaptor.getValue();
-		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		String exceptionMessage = TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey());
-		assertTrue(message.getSummary().contains(exceptionMessage));
+		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()));
 	}
 
 	/**
@@ -98,12 +97,9 @@ public class TestViewUser {
 		verify(view.userService).create(any(Customer.class));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
 		// retrieve the captured FacesMessage and check if it contains the expected values
-		FacesMessage message = messageCaptor.getValue();
-		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		String exceptionMessage = TestResources.getResourceBundleError(ID_SHOULD_BE_NULL.getKey());
-		assertTrue(message.getSummary().contains(exceptionMessage));
+		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ID_SHOULD_BE_NULL.getKey()));
 	}
 
 	/**
@@ -120,7 +116,7 @@ public class TestViewUser {
 		verify(view.userService).create(any(classUser));
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(any(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
 		// retrieve the captured FacesMessage and check if it contains the expected values
 		FacesMessage message = messageCaptor.getValue();
 		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
@@ -139,7 +135,7 @@ public class TestViewUser {
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.facesContext).addMessage(stringCaptor.capture(), messageCaptor.capture());
+		verify(view.getFacesContext()).addMessage(stringCaptor.capture(), messageCaptor.capture());
         // retrieve the captured String and check if it contains the expected value
         assertEquals(CLIENT_ID_GROWL.getId(), stringCaptor.getValue());
         // retrieve the captured FacesMessage and check if it contains the expected values
@@ -183,13 +179,45 @@ public class TestViewUser {
 	}
 	
 	/**
+	 * Check if the thrown {@link FacesMessage} has correct values.
+	 * @param message the {@link FacesMessage}.
+	 * @param detail String the message's detail.
+	 */
+	private void checkExceptionMessage(FacesMessage message, String detail) {
+		// check severity
+		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
+		// check summary
+        assertEquals(TestResources.getResourceBundleError(EXCEPTION.getKey()), message.getSummary());
+        // check detail
+		assertTrue(message.getDetail().contains(detail));
+	}
+	
+	/**
+	 * Check if the thrown {@link FacesMessage} has correct values.
+	 * @param message the {@link FacesMessage}.
+	 * @param summary String the message's summary.
+	 * @param detail String the message's detail.
+	 */
+	private void checkValidationMessage(FacesMessage message, String summary, String detail) {
+		// check severity
+		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
+		// check summary
+        assertEquals(summary, message.getSummary());
+        // check detail
+        String[] detailParts = detail.replace("''", "'").split(Pattern.quote(" {0} "));
+        assertTrue(message.getDetail().startsWith(detailParts[0]));
+        assertTrue(message.getDetail().endsWith(detailParts[1]));
+	}
+	
+	/**
 	 * Set mocked {@link FacesContext}, mocked {@link ServiceUser},
 	 * and a dummy {@link java.util.logging.Logger} into view.
 	 * Retrieve the {@link java.util.ResourceBundle} Message from {@link Resources}.
 	 */
 	private void setInjections() {
-		view.facesContext = mock(FacesContext.class);
+		view.setFacesContext(mock(FacesContext.class));
 		view.userService = mock(ServiceUser.class);
+		view.setResourceBundleError(Resources.getResourceBundleError());
 		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
 		view.logger = TestResources.createLogger(view.getClass());
 	}
