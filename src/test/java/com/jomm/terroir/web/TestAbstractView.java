@@ -246,8 +246,9 @@ public class TestAbstractView {
 	
 	/**
 	 * Set mocked {@link FacesContext} into view.
-	 * Retrieve the {@link java.util.ResourceBundle}s {@link com.jomm.terroir.util.BundleError} 
+	 * Retrieve the {@link java.util.ResourceBundle}s qualified with {@link com.jomm.terroir.util.BundleError} 
 	 * and {@link com.jomm.terroir.util.BundleMessage} from {@link Resources}.
+	 * @param view {@link AbstractView} the view to be set.
 	 */
 	static void setInjections(AbstractView view) {
 		view.setFacesContext(mock(FacesContext.class));
