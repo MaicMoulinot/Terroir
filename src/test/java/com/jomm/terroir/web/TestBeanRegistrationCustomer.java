@@ -15,30 +15,30 @@ import com.jomm.terroir.business.model.TestAddress;
 import com.jomm.terroir.business.model.TestCustomer;
 
 /**
- * This class is a Junit test case testing {@link ViewCustomer}.
+ * This class is a Junit test case testing {@link BeanRegistrationCustomer}.
  * @author Maic
  */
-public class TestViewCustomer {
+public class TestBeanRegistrationCustomer {
 
-	private ViewCustomer view;
+	private BeanRegistrationCustomer view;
 	
 	/**
-	 * Test method for {@link ViewCustomer#init()}.
+	 * Test method for {@link BeanRegistrationCustomer#init()}.
 	 */
 	@Test
 	public final void testInit() {
-		view = new ViewCustomer();
+		view = new BeanRegistrationCustomer();
 		assertNull(view.getAddress());
 		view.init();
 		assertNotNull(view.getAddress());
 	}
 
 	/**
-	 * Test method for {@link ViewCustomer#generateYearRange()}.
+	 * Test method for {@link BeanRegistrationCustomer#generateYearRange()}.
 	 */
 	@Test
 	public final void testGenerateYearRange() {
-		view = new ViewCustomer();
+		view = new BeanRegistrationCustomer();
 		// Build year range
 		StringBuilder yearRange = new StringBuilder();
 		yearRange.append(LocalDate.now().getYear() -97);
@@ -49,7 +49,7 @@ public class TestViewCustomer {
 	}
 
 	/**
-	 * Test method for {@link ViewCustomer#convertIntoEntity()}.
+	 * Test method for {@link BeanRegistrationCustomer#convertIntoEntity()}.
 	 */
 	@Test
 	public final void testConvertIntoEntity() {
@@ -60,22 +60,22 @@ public class TestViewCustomer {
 	}
 
 	/**
-	 * Test method for {@link ViewCustomer#convertIntoView(Customer)}.
+	 * Test method for {@link BeanRegistrationCustomer#convertIntoView(Customer)}.
 	 */
 	@Test
 	public final void testConvertIntoView() {
 		Customer entity = TestCustomer.generateCustomerWithIdNull();
 		entity.setId((long) 3333);
-		ViewCustomer view = ViewCustomer.convertIntoView(entity);
+		BeanRegistrationCustomer view = BeanRegistrationCustomer.convertIntoView(entity);
 		compareViewAndEntity(view, entity);
 	}
 
 	/**
-	 * Test method for {@link ViewCustomer}'s getters and setters.
+	 * Test method for {@link BeanRegistrationCustomer}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		view = new ViewCustomer();
+		view = new BeanRegistrationCustomer();
 		// BirthDate
 		LocalDate birthdate = LocalDate.now();
 		view.setBirthDate(birthdate);
@@ -100,10 +100,10 @@ public class TestViewCustomer {
 
 	/**
 	 * Compare a view and an entity.
-	 * @param view {@link ViewCustomer}.
+	 * @param view {@link BeanRegistrationCustomer}.
 	 * @param entity {@link Customer}.
 	 */
-	private void compareViewAndEntity(ViewCustomer view, Customer entity) {
+	private void compareViewAndEntity(BeanRegistrationCustomer view, Customer entity) {
 		assertEquals(view.getId(), entity.getId());
 		assertEquals(view.getFirstName(), entity.getFirstName());
 		assertEquals(view.getLastName(), entity.getLastName());
@@ -116,12 +116,12 @@ public class TestViewCustomer {
 	}
 
 	/**
-	 * Generate a dummy {@link ViewCustomer} usable for tests.
-	 * @return {@link ViewCustomer}.
+	 * Generate a dummy {@link BeanRegistrationCustomer} usable for tests.
+	 * @return {@link BeanRegistrationCustomer}.
 	 */
-	static ViewCustomer generateDummyViewCustomer() {
-		ViewCustomer view  = new ViewCustomer();
-		TestViewUser.setDummyValues(view);
+	static BeanRegistrationCustomer generateDummyViewCustomer() {
+		BeanRegistrationCustomer view  = new BeanRegistrationCustomer();
+		TestBeanRegistrationUser.setDummyValues(view);
 		view.setBirthDate(LocalDate.now());
 		view.setAddress(TestAddress.generateAddress());
 		return view;

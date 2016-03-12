@@ -17,19 +17,19 @@ import org.junit.Test;
 import com.jomm.terroir.business.ServiceUser;
 
 /**
- * This class is a Junit test case testing {@link ViewCustomerList}.
+ * This class is a Junit test case testing {@link BeanListSeller}.
  * @author Maic
  */
-public class TestViewCustomerList {
+public class TestBeanListSeller {
 	
-	private ViewCustomerList view;
+	private BeanListSeller view;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		view = new ViewCustomerList();
+		view = new BeanListSeller();
 	}
 
 	/**
@@ -41,36 +41,36 @@ public class TestViewCustomerList {
 	}
 
 	/**
-	 * Test method for {@link ViewCustomerList#init()}.
+	 * Test method for {@link BeanListSeller#init()}.
 	 */
 	@Test
 	public final void testInit() {
-		assertNull(view.getListCustomers());
+		assertNull(view.getListSellers());
 		view.userService = mock(ServiceUser.class);
 		view.init();
-		// verify Service.getAllCustomers() was called
-		verify(view.userService).getAllCustomers();
-		assertNotNull(view.getListCustomers());
+		// verify Service.getAllSellers() was called
+		verify(view.userService).getAllSellers();
+		assertNotNull(view.getListSellers());
 	}
 	
 	/**
-	 * Test method for {@link ViewCustomerList}'s getters and setters.
+	 * Test method for {@link BeanListSeller}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {		
-		// ViewCustomer
-		ViewCustomer current = TestViewCustomer.generateDummyViewCustomer();
+		// ViewSeller
+		BeanRegistrationSeller current = TestBeanRegistrationSeller.generateDummyViewSeller();
 		view.setCurrentUser(current);
-		assertEquals("ViewCustomer should be " + current, current, view.getCurrentUser());
+		assertEquals("ViewSeller should be " + current, current, view.getCurrentUser());
 		
 		// HtmlDataTable
 		HtmlDataTable dataTable = new HtmlDataTable();
 		view.setDataTable(dataTable);
 		assertEquals("HtmlDataTable should be " + dataTable, dataTable, view.getDataTable());
 		
-		// ListCustomers
-		LinkedList<ViewCustomer> listCustomers = new LinkedList<>();
-		view.setListCustomers(listCustomers);
-		assertEquals("ListCustomers should be " + listCustomers, listCustomers, view.getListCustomers());
+		// ListSellers
+		LinkedList<BeanRegistrationSeller> listSellers = new LinkedList<>();
+		view.setListSellers(listSellers);
+		assertEquals("ListSellers should be " + listSellers, listSellers, view.getListSellers());
 	}
 }

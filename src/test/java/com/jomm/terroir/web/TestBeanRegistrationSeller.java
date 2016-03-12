@@ -12,26 +12,26 @@ import com.jomm.terroir.business.model.TestEnterprise;
 import com.jomm.terroir.business.model.TestSeller;
 
 /**
- * This class is a Junit test case testing {@link ViewSeller}.
+ * This class is a Junit test case testing {@link BeanRegistrationSeller}.
  * @author Maic
  */
-public class TestViewSeller {
+public class TestBeanRegistrationSeller {
 
-	private ViewSeller view;
+	private BeanRegistrationSeller view;
 	
 	/**
-	 * Test method for {@link ViewSeller#init()}.
+	 * Test method for {@link BeanRegistrationSeller#init()}.
 	 */
 	@Test
 	public final void testInit() {
-		view = new ViewSeller();
+		view = new BeanRegistrationSeller();
 		assertNull(view.getEnterprise());
 		view.init();
 		assertNotNull(view.getEnterprise());
 	}
 
 	/**
-	 * Test method for {@link ViewSeller#convertIntoEntity()}.
+	 * Test method for {@link BeanRegistrationSeller#convertIntoEntity()}.
 	 */
 	@Test
 	public final void testConvertIntoEntity() {
@@ -42,22 +42,22 @@ public class TestViewSeller {
 	}
 
 	/**
-	 * Test method for {@link ViewSeller#convertIntoView(Seller)}.
+	 * Test method for {@link BeanRegistrationSeller#convertIntoView(Seller)}.
 	 */
 	@Test
 	public final void testConvertIntoView() {
 		Seller entity = TestSeller.generateSellerWithIdNull();
 		entity.setId((long) 3333);
-		ViewSeller view = ViewSeller.convertIntoView(entity);
+		BeanRegistrationSeller view = BeanRegistrationSeller.convertIntoView(entity);
 		compareViewAndEntity(view, entity);
 	}
 
 	/**
-	 * Test method for {@link ViewSeller}'s getters and setters.
+	 * Test method for {@link BeanRegistrationSeller}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		view = new ViewSeller();
+		view = new BeanRegistrationSeller();
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		view.setEnterprise(enterprise);
 		assertEquals("Enterprise should be " + enterprise, enterprise, view.getEnterprise());
@@ -65,10 +65,10 @@ public class TestViewSeller {
 
 	/**
 	 * Compare a view and an entity.
-	 * @param view {@link ViewSeller}.
+	 * @param view {@link BeanRegistrationSeller}.
 	 * @param entity {@link Seller}.
 	 */
-	private void compareViewAndEntity(ViewSeller view, Seller entity) {
+	private void compareViewAndEntity(BeanRegistrationSeller view, Seller entity) {
 		assertEquals(view.getId(), entity.getId());
 		assertEquals(view.getFirstName(), entity.getFirstName());
 		assertEquals(view.getLastName(), entity.getLastName());
@@ -79,12 +79,12 @@ public class TestViewSeller {
 	}
 
 	/**
-	 * Generate a dummy {@link ViewSeller} usable for tests.
-	 * @return {@link ViewSeller}.
+	 * Generate a dummy {@link BeanRegistrationSeller} usable for tests.
+	 * @return {@link BeanRegistrationSeller}.
 	 */
-	static ViewSeller generateDummyViewSeller() {
-		ViewSeller view = new ViewSeller();
-		TestViewUser.setDummyValues(view);
+	static BeanRegistrationSeller generateDummyViewSeller() {
+		BeanRegistrationSeller view = new BeanRegistrationSeller();
+		TestBeanRegistrationUser.setDummyValues(view);
 		view.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		return view;
 	}

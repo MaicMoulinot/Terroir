@@ -30,30 +30,30 @@ import com.jomm.terroir.util.exception.ExceptionService;
 import com.jomm.terroir.util.exception.TestExceptionService;
 
 /**
- * This class is a Junit test case testing the methods of {@link ViewUser}.
+ * This class is a Junit test case testing the methods of {@link BeanRegistrationUser}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
- * Here, the parameters are each child of {@link ViewUser} with its associated concrete child of {@link AbstractUser}.
+ * Here, the parameters are each child of {@link BeanRegistrationUser} with its associated concrete child of {@link AbstractUser}.
  * @author Maic
  */
 @RunWith(Parameterized.class)
-public class TestViewUser {
+public class TestBeanRegistrationUser {
 
-	private ViewUser view;
+	private BeanRegistrationUser view;
 	private AbstractUser user;
 	
 	/**
 	 * Constructor.
-	 * Its parameter comes from all values from {@link TestViewUser#childToTest()}.
-	 * @param view the concrete child of {@link ViewUser}.
+	 * Its parameter comes from all values from {@link TestBeanRegistrationUser#childToTest()}.
+	 * @param view the concrete child of {@link BeanRegistrationUser}.
 	 * @param user the concrete child of {@link AbstractUser}.
 	 */
-    public TestViewUser(ViewUser view, AbstractUser user) {
+    public TestBeanRegistrationUser(BeanRegistrationUser view, AbstractUser user) {
         this.view = view;
         this.user = user;
     }
     
 	/**
-	 * Test method for {@link ViewCustomer#create()} when entity is null.
+	 * Test method for {@link BeanRegistrationCustomer#create()} when entity is null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -68,13 +68,13 @@ public class TestViewUser {
 		// verify Service.create() was called
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getId(), user));
 	}
 
 	/**
-	 * Test method for {@link ViewCustomer#create()} with id not null.
+	 * Test method for {@link BeanRegistrationCustomer#create()} with id not null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -89,13 +89,13 @@ public class TestViewUser {
 		// verify Service.create() was called
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getId(), user));
 	}
 
 	/**
-	 * Test method for {@link ViewCustomer#create()} with id null.
+	 * Test method for {@link BeanRegistrationCustomer#create()} with id null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -107,13 +107,13 @@ public class TestViewUser {
 		// verify Service.create() was called
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractView.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
+		TestAbstractBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
 				TestResources.getValueFromResourceBundle(CREATE_OK), 
 				TestResources.getValueFromResourceBundle(CREATE_USER));
 	}
 
 	/**
-	 * Test method for {@link ViewUser#passwordTooltip()}.
+	 * Test method for {@link BeanRegistrationUser#passwordTooltip()}.
 	 */
 	@Test
 	public final void testPasswordTooltip() {
@@ -122,13 +122,13 @@ public class TestViewUser {
 		// call
 		view.passwordTooltip();
 		// check if a FacesMessage was correctly thrown
-		TestAbstractView.checkMessageWithPlainDetail(view, CLIENT_ID_GROWL.getId(), FacesMessage.SEVERITY_INFO, 
+		TestAbstractBean.checkMessageWithPlainDetail(view, CLIENT_ID_GROWL.getId(), FacesMessage.SEVERITY_INFO, 
 				TestResources.getValueFromResourceBundle(PASSWORD_TITLE), 
 				TestResources.getValueFromResourceBundle(PASSWORD_RULES));
 	}
 
 	/**
-	 * Test method for {@link ViewUser}'s getters and setters.
+	 * Test method for {@link BeanRegistrationUser}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
@@ -162,36 +162,36 @@ public class TestViewUser {
 	
 	/**
 	 * Set mocked {@link ServiceUser}, and a dummy {@link java.util.logging.Logger} into view.
-	 * Call {@link TestAbstractView#setInjections(AbstractView)}.
+	 * Call {@link TestAbstractBean#setInjections(AbstractView)}.
 	 */
 	private void setInjections() {
-		TestAbstractView.setInjections(view);
+		TestAbstractBean.setInjections(view);
 		view.userService = mock(ServiceUser.class);
 		view.logger = TestResources.createLogger(view.getClass());
 	}
 	
 	/**
-	 * Generate a dummy {@link ViewUser} usable for tests.
+	 * Generate a dummy {@link BeanRegistrationUser} usable for tests.
 	 * @param user the {@link AbstractUser} defining appropriate view.
-	 * @return {@link ViewUser}.
+	 * @return {@link BeanRegistrationUser}.
 	 */
-	static ViewUser generateDummyViewUser(AbstractUser user) {
-		ViewUser view = null;
+	static BeanRegistrationUser generateDummyViewUser(AbstractUser user) {
+		BeanRegistrationUser view = null;
 		if (user != null) {
 			if (user instanceof Seller) {
-				view = TestViewSeller.generateDummyViewSeller();
+				view = TestBeanRegistrationSeller.generateDummyViewSeller();
 			} else if (user instanceof Customer) {
-				view = TestViewCustomer.generateDummyViewCustomer();
+				view = TestBeanRegistrationCustomer.generateDummyViewCustomer();
 			}
 		}
 		return view;
 	}
 	
 	/**
-	 * Set dummy values to a {@link ViewUser} usable for tests.
-	 * @param view the {@link ViewUser} to be set.
+	 * Set dummy values to a {@link BeanRegistrationUser} usable for tests.
+	 * @param view the {@link BeanRegistrationUser} to be set.
 	 */
-	static void setDummyValues(ViewUser view) {
+	static void setDummyValues(BeanRegistrationUser view) {
 		view.setFirstName("FirstName");
 		view.setLastName("LastName");
 		view.setUserName("UserName");
@@ -200,7 +200,7 @@ public class TestViewUser {
 	}
 	
 	/**
-	 * Reference a list of all {@link ViewUser}'s concrete children, 
+	 * Reference a list of all {@link BeanRegistrationUser}'s concrete children, 
 	 * and the associated concrete child of {@link AbstractUser},
 	 * to be used as parameters on constructor.
 	 * Each iteration will be tested with all test methods.
@@ -209,8 +209,8 @@ public class TestViewUser {
 	@Parameters
 	public static Iterable<Object[]> childToTest() {
 		return Arrays.asList(new Object[][] {
-			{new ViewCustomer(), new Customer()},
-			{new ViewSeller(), new Seller()}
+			{new BeanRegistrationCustomer(), new Customer()},
+			{new BeanRegistrationSeller(), new Seller()}
 			}
 		);
 	}

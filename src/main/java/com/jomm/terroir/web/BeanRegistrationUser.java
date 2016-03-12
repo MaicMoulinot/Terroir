@@ -18,12 +18,12 @@ import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This abstract Class is used to register a new {@link AbstractUser}.
- * It extends {@link AbstractView} and defines common attributes shared among its children.
+ * It extends {@link AbstractBean} and defines common attributes shared among its children.
  * It relates to {@link ServiceUser} to save the {@link AbstractUser},
  * and to {@link Logger} to generate proper logging messages.
  * @author Maic
  */
-public abstract class ViewUser extends AbstractView {
+public abstract class BeanRegistrationUser extends AbstractBean {
 	
 	// Injected fields
 	@Inject
@@ -40,7 +40,7 @@ public abstract class ViewUser extends AbstractView {
 	protected String password;
 	
 	/**
-	 * Transform an {@link ViewUser} into {@link AbstractUser}.
+	 * Generate an {@link AbstractUser} using values from the {@link BeanRegistrationUser}.
 	 * @return {@link AbstractUser}.
 	 */
 	public abstract AbstractUser convertIntoEntity();

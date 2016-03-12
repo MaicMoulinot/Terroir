@@ -19,13 +19,13 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
- * This abstract Class is used to show the list of all {@link ViewUser}s.
- * It extends {@link AbstractView} and defines common attributes shared among its children.
+ * This abstract Class is used to show the list of all {@link BeanRegistrationUser}s.
+ * It extends {@link AbstractBean} and defines common attributes shared among its children.
  * It relates to {@link ServiceUser} to update or delete the {@link AbstractUser}s,
  * and to {@link Logger} to generate proper logging messages.
  * @author Maic
  */
-public abstract class ViewUserList extends AbstractView {
+public abstract class BeanListUser extends AbstractBean {
 
 	// Injected fields
 	@Inject
@@ -35,7 +35,7 @@ public abstract class ViewUserList extends AbstractView {
 	
 	// Attributes
 	protected HtmlDataTable dataTable;
-	protected ViewUser currentUser;
+	protected BeanRegistrationUser currentUser;
 	
 	/**
 	 * Initialize the list of all users.
@@ -47,7 +47,7 @@ public abstract class ViewUserList extends AbstractView {
 	 * @param event RowEditEvent the AJAX event.
 	 */
 	public void onRowEdit(RowEditEvent event) {
-		currentUser = (ViewUser) event.getObject();
+		currentUser = (BeanRegistrationUser) event.getObject();
 		if (currentUser != null) {
 			AbstractUser entity = currentUser.convertIntoEntity();
 			try {
@@ -109,14 +109,14 @@ public abstract class ViewUserList extends AbstractView {
 	/**
 	 * @return the currentUser
 	 */
-	public ViewUser getCurrentUser() {
+	public BeanRegistrationUser getCurrentUser() {
 		return currentUser;
 	}
 
 	/**
 	 * @param currentUser the currentUser to set
 	 */
-	public void setCurrentUser(ViewUser currentUser) {
+	public void setCurrentUser(BeanRegistrationUser currentUser) {
 		this.currentUser = currentUser;
 	}
 }

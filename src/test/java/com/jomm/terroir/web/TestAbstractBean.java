@@ -23,12 +23,12 @@ import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 
 /**
- * This class is a Junit test case testing {@link AbstractView}.
+ * This class is a Junit test case testing {@link AbstractBean}.
  * @author Maic
  */
-public class TestAbstractView {
+public class TestAbstractBean {
 
-	private AbstractView view;
+	private AbstractBean view;
 
 	/**
 	 * @throws java.lang.Exception
@@ -36,7 +36,7 @@ public class TestAbstractView {
 	@Before
 	public void setUp() throws Exception {
 		// Instantiate a concrete child
-		view = TestViewCustomer.generateDummyViewCustomer();
+		view = TestBeanRegistrationCustomer.generateDummyViewCustomer();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#addMessageException(String)}.
+	 * Test method for {@link AbstractBean#addMessageException(String)}.
 	 */
 	@Test
 	public final void testAddMessageException() {
@@ -63,7 +63,7 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#addMessage(String, String)}.
+	 * Test method for {@link AbstractBean#addMessage(String, String)}.
 	 */
 	@Test
 	public final void testAddMessageStringString() {
@@ -77,7 +77,7 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#addMessage(String, String, String)}.
+	 * Test method for {@link AbstractBean#addMessage(String, String, String)}.
 	 */
 	@Test
 	public final void testAddMessageStringStringString() {
@@ -92,7 +92,7 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#addMessage(String, FacesMessage.Severity, String, String)}.
+	 * Test method for {@link AbstractBean#addMessage(String, FacesMessage.Severity, String, String)}.
 	 */
 	@Test
 	public final void testAddMessageStringSeverityStringString() {
@@ -108,7 +108,7 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#generateExceptionMessage(Exception, Long, java.io.Serializable)}.
+	 * Test method for {@link AbstractBean#generateExceptionMessage(Exception, Long, java.io.Serializable)}.
 	 */
 	@Test
 	public final void testGenerateExceptionMessage() {
@@ -121,7 +121,7 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#getValueFromResourceBundle(String)}.
+	 * Test method for {@link AbstractBean#getValueFromResourceBundle(String)}.
 	 */
 	@Test
 	public final void testGetMessageFromResourceBundle() {
@@ -130,7 +130,7 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#getValueFromResourceBundle(String)}.
+	 * Test method for {@link AbstractBean#getValueFromResourceBundle(String)}.
 	 */
 	@Test
 	public final void testGetErrorFromResourceBundle() {
@@ -139,7 +139,7 @@ public class TestAbstractView {
 	}
 	
 	/**
-	 * Test method for {@link AbstractView#setResourceBundleMessage(java.util.ResourceBundle)}.
+	 * Test method for {@link AbstractBean#setResourceBundleMessage(java.util.ResourceBundle)}.
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testBeforeSetResourceBundleMessage() {
@@ -148,7 +148,7 @@ public class TestAbstractView {
 	}
 	
 	/**
-	 * Test method for {@link AbstractView#setResourceBundleMessage(java.util.ResourceBundle)}.
+	 * Test method for {@link AbstractBean#setResourceBundleMessage(java.util.ResourceBundle)}.
 	 */
 	@Test
 	public final void testAfterSetResourceBundleMessage() {
@@ -159,7 +159,7 @@ public class TestAbstractView {
 	}
 	
 	/**
-	 * Test method for {@link AbstractView#setResourceBundleError(java.util.ResourceBundle)}.
+	 * Test method for {@link AbstractBean#setResourceBundleError(java.util.ResourceBundle)}.
 	 */
 	@Test(expected = NullPointerException.class)
 	public final void testBeforeSetResourceBundleError() {
@@ -168,7 +168,7 @@ public class TestAbstractView {
 	}
 	
 	/**
-	 * Test method for {@link AbstractView#setResourceBundleError(java.util.ResourceBundle)}.
+	 * Test method for {@link AbstractBean#setResourceBundleError(java.util.ResourceBundle)}.
 	 */
 	@Test
 	public final void testAfterSetResourceBundleError() {
@@ -179,7 +179,7 @@ public class TestAbstractView {
 	}
 	
 	/**
-	 * Test method for {@link AbstractView#getFacesContext()} and {@link AbstractView#setFacesContext(FacesContext)}.
+	 * Test method for {@link AbstractBean#getFacesContext()} and {@link AbstractBean#setFacesContext(FacesContext)}.
 	 */
 	@Test
 	public final void testFacesContextGetterSetter() {
@@ -191,13 +191,13 @@ public class TestAbstractView {
 	
 	/**
 	 * Verify if a {@link FacesMessage} was thrown with correct values.
-	 * @param view {@link AbstractView} the view sending the {@link FacesMessage}.
+	 * @param view {@link AbstractBean} the view sending the {@link FacesMessage}.
 	 * @param idClient String the identifier of the client.
 	 * @param severity {@link Severity} the message's severity.
 	 * @param summary String the message's summary.
 	 * @param detail String the message's detail, with no parameter.
 	 */
-	public static void checkMessageWithPlainDetail(AbstractView view, String idClient, Severity severity, 
+	public static void checkMessageWithPlainDetail(AbstractBean view, String idClient, Severity severity, 
 			String summary, String detail) {
 		FacesMessage message = retrieveAndCheckFacesMessage(view, idClient, severity, summary);
 		assertEquals(detail, message.getDetail());
@@ -205,13 +205,13 @@ public class TestAbstractView {
 	
 	/**
 	 * Verify if a {@link FacesMessage} was thrown with correct values.
-	 * @param view {@link AbstractView} the view sending the {@link FacesMessage}.
+	 * @param view {@link AbstractBean} the view sending the {@link FacesMessage}.
 	 * @param idClient String the identifier of the client.
 	 * @param severity {@link Severity} the message's severity.
 	 * @param summary String the message's summary.
 	 * @param detail String the message's detail, with parameter "{0}".
 	 */
-	public static void checkMessageWithParametrizedDetail(AbstractView view, String idClient, Severity severity, 
+	public static void checkMessageWithParametrizedDetail(AbstractBean view, String idClient, Severity severity, 
 			String summary, String detail) {
 		FacesMessage message = retrieveAndCheckFacesMessage(view, idClient, severity, summary);
     	String[] detailParts = detail.replace("''", "'").split(Pattern.quote(" {0} "));
@@ -222,12 +222,12 @@ public class TestAbstractView {
 	/**
 	 * Verify if a {@link FacesMessage} was thrown with correct values.
 	 * It does not check the message's detail.
-	 * @param view {@link AbstractView} the view sending the {@link FacesMessage}.
+	 * @param view {@link AbstractBean} the view sending the {@link FacesMessage}.
 	 * @param idClient String the identifier of the client.
 	 * @param severity {@link Severity} the message's severity.
 	 * @param summary String the message's summary.
 	 */
-	private static FacesMessage retrieveAndCheckFacesMessage(AbstractView view, String idClient, 
+	private static FacesMessage retrieveAndCheckFacesMessage(AbstractBean view, String idClient, 
 			Severity severity, String summary) {
 		// verify FacesContext.addMessage() was called
 		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
@@ -246,9 +246,9 @@ public class TestAbstractView {
 	 * Set mocked {@link FacesContext} into view.
 	 * Retrieve the {@link java.util.ResourceBundle}s qualified with {@link com.jomm.terroir.util.BundleError} 
 	 * and {@link com.jomm.terroir.util.BundleMessage} from {@link Resources}.
-	 * @param view {@link AbstractView} the view to be set.
+	 * @param view {@link AbstractBean} the view to be set.
 	 */
-	static void setInjections(AbstractView view) {
+	static void setInjections(AbstractBean view) {
 		view.setFacesContext(mock(FacesContext.class));
 		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
 		view.setResourceBundleError(Resources.getResourceBundleError());

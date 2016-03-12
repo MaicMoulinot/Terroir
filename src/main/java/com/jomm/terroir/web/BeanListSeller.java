@@ -11,8 +11,8 @@ import javax.inject.Named;
 import com.jomm.terroir.business.model.Seller;
 
 /**
- * This Class is the Bean linked to {@code sellerlist.xhtml}, displaying the list of {@link ViewSeller}s.
- * It extends {@link ViewUserList} and defines specific attributes.
+ * This Class is the Bean linked to {@code listseller.xhtml}, displaying the list of {@link BeanRegistrationSeller}s.
+ * It extends {@link BeanListUser} and defines specific attributes.
  * It implements {@link Serializable} and has a generated serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
@@ -20,40 +20,40 @@ import com.jomm.terroir.business.model.Seller;
  */
 @Named
 @ViewScoped
-public class ViewSellerList extends ViewUserList implements Serializable {
+public class BeanListSeller extends BeanListUser implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = 2234745264902170386L;
 	
 	// Attributes
-	private List<ViewSeller> listSellers;
+	private List<BeanRegistrationSeller> listSellers;
 
 	@Override
 	@PostConstruct 
 	public void init() {
 		listSellers = new LinkedList<>();
 		for (Seller seller : userService.getAllSellers()) {
-			listSellers.add(ViewSeller.convertIntoView(seller));
+			listSellers.add(BeanRegistrationSeller.convertIntoView(seller));
 		}
 	}
 
 	@Override
 	public String delete() {
 		super.delete();
-		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
+		return "listseller" + "?faces-redirect=true";	// Navigation case.
 	}
 
 	/**
 	 * @return the listSellers
 	 */
-	public List<ViewSeller> getListSellers() {
+	public List<BeanRegistrationSeller> getListSellers() {
 		return listSellers;	// Return the already-prepared model.
 	}
 
 	/**
 	 * @param listSellers the listSellers to set
 	 */
-	public void setListSellers(List<ViewSeller> listSellers) {
+	public void setListSellers(List<BeanRegistrationSeller> listSellers) {
 		this.listSellers = listSellers;
 	}
 }

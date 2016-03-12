@@ -10,8 +10,8 @@ import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Seller;
 
 /**
- * This Class is the Bean linked to {@code sellersignup.xhtml}, used to register a new {@link Seller}.
- * It extends {@link ViewUser} and defines an additional attribute {@link Enterprise}.
+ * This Class is the Bean linked to {@code registrationseller.xhtml}, used to register a new {@link Seller}.
+ * It extends {@link BeanRegistrationUser} and defines an additional attribute {@link Enterprise}.
  * It implements {@link Serializable} and has a generated serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
@@ -19,7 +19,7 @@ import com.jomm.terroir.business.model.Seller;
  */
 @Named
 @ViewScoped
-public class ViewSeller extends ViewUser implements Serializable {
+public class BeanRegistrationSeller extends BeanRegistrationUser implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = -2265655677962237885L;
@@ -44,11 +44,11 @@ public class ViewSeller extends ViewUser implements Serializable {
 	@Override
 	public String create() {
 		super.create();
-		return "sellerlist" + "?faces-redirect=true";	// Navigation case.
+		return "listseller" + "?faces-redirect=true";	// Navigation case.
 	}
 
 	/**
-	 * Transform an {@link ViewSeller} into {@link Seller}.
+	 * Transform an {@link BeanRegistrationSeller} into {@link Seller}.
 	 * @return Seller.
 	 */
 	@Override
@@ -65,12 +65,12 @@ public class ViewSeller extends ViewUser implements Serializable {
 	}
 	
 	/**
-	 * Transform a {@link Seller} into a {@link ViewSeller}.
+	 * Transform a {@link Seller} into a {@link BeanRegistrationSeller}.
 	 * @param seller a {@link Seller}.
-	 * @return {@link ViewSeller}.
+	 * @return {@link BeanRegistrationSeller}.
 	 */
-	public static ViewSeller convertIntoView(Seller seller) {
-		ViewSeller sellerJsf = new ViewSeller();
+	public static BeanRegistrationSeller convertIntoView(Seller seller) {
+		BeanRegistrationSeller sellerJsf = new BeanRegistrationSeller();
 		sellerJsf.setId(seller.getId());
 		sellerJsf.setFirstName(seller.getFirstName());
 		sellerJsf.setLastName(seller.getLastName());

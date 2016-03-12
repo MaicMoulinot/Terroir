@@ -19,7 +19,7 @@
 				<p:outputLabel for="firstname" id="firstnameLabel"
 					value="#{label.firstname}" />
 				<p:spacer />
-				<p:inputText id="firstname" value="#{viewCustomer.firstName}"
+				<p:inputText id="firstname" value="#{beanRegistrationCustomer.firstName}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -30,7 +30,7 @@
 				<p:outputLabel for="lastname" id="lastnameLabel"
 					value="#{label.lastname}" />
 				<p:spacer />
-				<p:inputText id="lastname" value="#{viewCustomer.lastName}"
+				<p:inputText id="lastname" value="#{beanRegistrationCustomer.lastName}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -42,7 +42,7 @@
 					value="#{label.username}" />
 				<p:tooltip id="usertooltip" for="username"
 					value="#{label.usernametooltip}" />
-				<p:inputText id="username" value="#{viewCustomer.userName}"
+				<p:inputText id="username" value="#{beanRegistrationCustomer.userName}"
 					required="true" requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{validatorUsername}" />
 					<p:ajax event="blur" update="usernameMessage" />
@@ -51,7 +51,7 @@
 
 				<p:outputLabel for="email" id="emailLabel" value="#{label.email}" />
 				<p:spacer />
-				<p:inputText id="email" value="#{viewCustomer.email}"
+				<p:inputText id="email" value="#{beanRegistrationCustomer.email}"
 					required="true" requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{validatorEmail}" />
 					<p:ajax event="blur" execute="email" update="emailMessage" />
@@ -61,11 +61,11 @@
 				<p:outputLabel for="password1" id="password1Label"
 					value="#{label.password}" />
 				<p:commandLink id="help" title="#{message.passwordtitle}"
-					process="@this" action="#{viewCustomer.passwordTooltip}"
+					process="@this" action="#{beanRegistrationCustomer.passwordTooltip}"
 					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
-				<p:password id="password1" value="#{viewCustomer.password}"
+				<p:password id="password1" value="#{beanRegistrationCustomer.password}"
 					feedback="true" binding="#{passwordParam}" required="true"
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
@@ -78,11 +78,11 @@
 				<p:outputLabel for="password2" id="password2Label"
 					value="#{label.password2}" />
 				<p:commandLink id="help2" title="#{message.passwordtitle}"
-					process="@this" action="#{viewCustomer.passwordTooltip}"
+					process="@this" action="#{beanRegistrationCustomer.passwordTooltip}"
 					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
-				<p:password id="password2" value="#{viewCustomer.password}"
+				<p:password id="password2" value="#{beanRegistrationCustomer.password}"
 					feedback="true" required="true"
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
@@ -97,7 +97,7 @@
 				<p:outputLabel for="street" id="streetLabel"
 					value="#{label.street}" />
 				<p:spacer />
-				<p:inputText id="street" value="#{viewCustomer.address.street}"
+				<p:inputText id="street" value="#{beanRegistrationCustomer.address.street}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -108,13 +108,13 @@
 				<p:outputLabel for="complement" id="complementLabel"
 					value="#{label.complement}" />
 				<p:spacer />
-				<p:inputText id="complement" value="#{viewCustomer.address.complement}" />
+				<p:inputText id="complement" value="#{beanRegistrationCustomer.address.complement}" />
 				<p:message id="complementMessage" for="complement" display="text" />
 
 				<p:outputLabel for="postcode" id="postcodeLabel"
 					value="#{label.postcode}" />
 				<p:spacer />
-				<p:inputText id="postcode" value="#{viewCustomer.address.postCode}"
+				<p:inputText id="postcode" value="#{beanRegistrationCustomer.address.postCode}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -125,7 +125,7 @@
 				<p:outputLabel for="city" id="cityLabel"
 					value="#{label.city}" />
 				<p:spacer />
-				<p:inputText id="city" value="#{viewCustomer.address.city}"
+				<p:inputText id="city" value="#{beanRegistrationCustomer.address.city}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -136,7 +136,7 @@
 				<p:outputLabel for="country" id="countryLabel"
 					value="#{label.country}" />
 				<p:spacer />
-				<p:inputText id="country" value="#{viewCustomer.address.country}"
+				<p:inputText id="country" value="#{beanRegistrationCustomer.address.country}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -147,10 +147,10 @@
 				<p:outputLabel for="birthdate" id="birthdateLabel"
 					value="#{label.birthdate}" />
 				<p:spacer />
-				<p:calendar id="birthdate" value="#{viewCustomer.birthDate}"
+				<p:calendar id="birthdate" value="#{beanRegistrationCustomer.birthDate}"
 					navigator="true" pattern="dd/MM/yyyy"
 					converter="localDateConverter"
-					yearRange="#{viewCustomer.generateYearRange()}" effect="slide"
+					yearRange="#{beanRegistrationCustomer.generateYearRange()}" effect="slide"
 					required="true" requiredMessage="#{error.mandatory}">
 					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
@@ -161,7 +161,7 @@
 
 			<p:spacer height="100" />
 			<p:commandButton id="create" value="#{label.save}" update="form"
-				action="#{viewCustomer.create}" icon="ui-icon-check" />
+				action="#{beanRegistrationCustomer.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
 			<p:commandButton id="reset" value="#{label.reset}" update="form"
 				process="@this" icon="ui-icon-refresh">

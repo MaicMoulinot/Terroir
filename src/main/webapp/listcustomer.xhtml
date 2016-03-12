@@ -15,20 +15,20 @@
 			<p:growl id="growl" showDetail="true" />
 
 			<h:outputLabel value="#{error.userempty}"
-				rendered="#{empty viewCustomerList.listCustomers}"
+				rendered="#{empty beanListCustomer.listCustomers}"
 				styleClass="messages" />
 
 			<p:dataTable id="users" var="currentCustomer"
-				value="#{viewCustomerList.listCustomers}" editable="true"
-				rendered="#{not empty viewCustomerList.listCustomers}" rows="5"
+				value="#{beanListCustomer.listCustomers}" editable="true"
+				rendered="#{not empty beanListCustomer.listCustomers}" rows="5"
 				scrollable="true" scrollRows="2" stickyHeader="true"
 				paginator="true" paginatorPosition="top"
 				paginatorAlwaysVisible="false">
 
-				<p:ajax event="rowEdit" listener="#{viewCustomerList.onRowEdit}"
+				<p:ajax event="rowEdit" listener="#{beanListCustomer.onRowEdit}"
 					update=":form:growl" />
 				<p:ajax event="rowEditCancel"
-					listener="#{viewCustomerList.onRowCancel}" update=":form:growl"
+					listener="#{beanListCustomer.onRowCancel}" update=":form:growl"
 					resetValues="true" />
 
 				<f:facet name="header">#{label.userlist}</f:facet>
@@ -212,7 +212,7 @@
 					<p:commandLink styleClass="ui-icon ui-icon-trash"
 						update=":form:deleteConfirmDialog"
 						oncomplete="PF('deleteConfirmation').show();"
-						action="#{viewCustomerList.setCurrentUser(currentCustomer)}">
+						action="#{beanListCustomer.setCurrentUser(currentCustomer)}">
 					</p:commandLink>
 				</p:column>
 
@@ -221,12 +221,12 @@
 			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
 				hideEffect="fade" header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
-				message="#{message.confirmdelete} #{viewCustomerList.currentUser.userName} ?"
+				message="#{message.confirmdelete} #{beanListCustomer.currentUser.userName} ?"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
 					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"
-					action="#{viewCustomerList.delete()}" process="@this" />
+					action="#{beanListCustomer.delete()}" process="@this" />
 				<p:commandButton id="decline" value="#{label.cancel}"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
 					oncomplete="PF('deleteConfirmation').hide();" />
@@ -239,7 +239,7 @@
 					<h:outputText id="createLabel" value="#{label.newuser}" />
 				</h:outputLabel>
 				<h:commandButton id="create" value="#{label.ok}"
-					action="customersignup?faces-redirect=true" />
+					action="registrationcustomer?faces-redirect=true" />
 			</h:panelGrid>
 			<p:spacer height="50" />
 		</h:form>

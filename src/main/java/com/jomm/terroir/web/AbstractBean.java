@@ -22,7 +22,7 @@ import com.jomm.terroir.util.Constants.ResourceBundleMessage;
  * and to {@link FacesContext} to throw appropriate {@link FacesMessage} to the view.
  * @author Maic
  */
-public abstract class AbstractView {
+public abstract class AbstractBean {
 	
 	// Injected fields
 	@Inject

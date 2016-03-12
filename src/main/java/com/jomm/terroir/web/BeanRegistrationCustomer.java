@@ -12,8 +12,8 @@ import com.jomm.terroir.business.model.Address;
 import com.jomm.terroir.business.model.Customer;
 
 /**
- * This Class is the Bean linked to {@code customersignup.xhtml}, used to register a new {@link Customer}.
- * It extends {@link ViewUser} and defines customer specific attributes.
+ * This Class is the Bean linked to {@code registrationcustomer.xhtml}, used to register a new {@link Customer}.
+ * It extends {@link BeanRegistrationUser} and defines customer specific attributes.
  * It implements {@link Serializable} and has a generated serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
@@ -21,7 +21,7 @@ import com.jomm.terroir.business.model.Customer;
  */
 @Named
 @ViewScoped
-public class ViewCustomer extends ViewUser implements Serializable {
+public class BeanRegistrationCustomer extends BeanRegistrationUser implements Serializable {
 	
 	/** Generated serial version ID. Do not modify. */
 	private static final long serialVersionUID = -7963211049192627064L;
@@ -40,15 +40,12 @@ public class ViewCustomer extends ViewUser implements Serializable {
 	public void init() {
 		setAddress(new Address());
 	}
-
-	/**
-	 * Create and save a new Customer.
-	 * @return String for navigation.
-	 */
+	
 	@Override
 	public String create() {
+		addMessageException("email=" + getEmail());
 		super.create();
-		return "customerlist" + "?faces-redirect=true";	// Navigation case.
+		return "listcustomer" + "?faces-redirect=true";	// Navigation case.
 	}
 
 	/**
@@ -62,10 +59,6 @@ public class ViewCustomer extends ViewUser implements Serializable {
 		return minYear + ":" + maxYear;
 	}
 
-	/**
-	 * Transform an {@link ViewCustomer} into {@link Customer}.
-	 * @return {@link Customer}.
-	 */
 	@Override
 	public Customer convertIntoEntity() {
 		Customer userEntity = new Customer();
@@ -82,12 +75,12 @@ public class ViewCustomer extends ViewUser implements Serializable {
 	}
 	
 	/**
-	 * Transform a {@link Customer} into a {@link ViewCustomer}.
+	 * Transform a {@link Customer} into a {@link BeanRegistrationCustomer}.
 	 * @param customer a {@link Customer}.
-	 * @return {@link ViewCustomer}.
+	 * @return {@link BeanRegistrationCustomer}.
 	 */
-	public static ViewCustomer convertIntoView(Customer customer) {
-		ViewCustomer customerJsf = new ViewCustomer();
+	public static BeanRegistrationCustomer convertIntoView(Customer customer) {
+		BeanRegistrationCustomer customerJsf = new BeanRegistrationCustomer();
 		customerJsf.setId(customer.getId());
 		customerJsf.setFirstName(customer.getFirstName());
 		customerJsf.setLastName(customer.getLastName());
