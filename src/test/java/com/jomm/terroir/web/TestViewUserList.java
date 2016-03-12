@@ -1,14 +1,11 @@
 package com.jomm.terroir.web;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -17,24 +14,20 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
-import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.html.HtmlDataTable;
-import javax.faces.context.FacesContext;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
-import org.mockito.ArgumentCaptor;
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionService;
 import com.jomm.terroir.util.exception.TestExceptionService;
@@ -42,24 +35,25 @@ import com.jomm.terroir.util.exception.TestExceptionService;
 /**
  * This class is a Junit test case testing the methods of {@link ViewUserList}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
- * Here, the parameters are each child of {@link ViewUser}.
+ * Here, the parameters are each child of {@link ViewUserList} 
+ * with its associated concrete child of {@link AbstractUser}.
  * @author Maic
  */
 @RunWith(Parameterized.class)
 public class TestViewUserList {
 
 	private ViewUserList view;
-	private Class<AbstractUser> classUser;
+	private AbstractUser user;
 	
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestViewUserList#childToTest()}.
 	 * @param view the concrete child of {@link ViewUserList}.
-	 * @param classUser the class of {@link AbstractUser}.
+	 * @param user the concrete child of {@link AbstractUser}.
 	 */
-    public TestViewUserList(ViewUserList view, Class<AbstractUser> classUser) {
+    public TestViewUserList(ViewUserList view, AbstractUser user) {
         this.view = view;
-        this.classUser = classUser;
+        this.user = user;
     }
     
 	/**
@@ -72,18 +66,18 @@ public class TestViewUserList {
 		setInjections();
 		// Simulate an exception thrown by service
 		ExceptionService exception = TestExceptionService.createMockedExceptionEntityShouldNotBeNull();
-		when(view.userService.update(any(classUser))).thenThrow(exception);
+		when(view.userService.update(any(user.getClass()))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
-		when(event.getObject()).thenReturn(TestViewUser.generateDummyViewUser(classUser));
+		ViewUser currentUser = TestViewUser.generateDummyViewUser(user);
+		when(event.getObject()).thenReturn(currentUser);
 		// call to onRowEdit()
 		view.onRowEdit(event);
 		// verify Service.update() was called
-		verify(view.userService).update(any(classUser));
-		// verify FacesContext.addMessage() was called
-		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
-		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()));
+		verify(view.userService).update(any(user.getClass()));
+		// check if a FacesMessage was correctly thrown
+		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				view.generateExceptionMessage(exception, currentUser.getId(), user));
 	}
 	
 	/**
@@ -96,18 +90,18 @@ public class TestViewUserList {
 		setInjections();
 		// Simulate an exception thrown by service
 		ExceptionService exception = TestExceptionService.createMockedExceptionIdShouldNotBeNull();
-		when(view.userService.update(any(classUser))).thenThrow(exception);
+		when(view.userService.update(any(user.getClass()))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
-		when(event.getObject()).thenReturn(TestViewUser.generateDummyViewUser(classUser));
+		ViewUser currentUser = TestViewUser.generateDummyViewUser(user);
+		when(event.getObject()).thenReturn(currentUser);
 		// call to onRowEdit()
 		view.onRowEdit(event);
 		// verify Service.update() was called
-		verify(view.userService).update(any(classUser));
-		// verify FacesContext.addMessage() was called
-		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
-		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ID_SHOULD_NOT_BE_NULL.getKey()));
+		verify(view.userService).update(any(user.getClass()));
+		// check if a FacesMessage was correctly thrown
+		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				view.generateExceptionMessage(exception, currentUser.getId(), user));
 	}
 	
 	/**
@@ -119,17 +113,15 @@ public class TestViewUserList {
 		// initialization
 		setInjections();
 		RowEditEvent event = mock(RowEditEvent.class);
-		ViewUser viewUser = TestViewUser.generateDummyViewUser(classUser);
+		ViewUser viewUser = TestViewUser.generateDummyViewUser(user);
 		when(event.getObject()).thenReturn(viewUser);
 		// call to onRowEdit()
 		view.onRowEdit(event);
 		// verify Service.update() was called
-		verify(view.userService).update(any(classUser));
-		// verify FacesContext.addMessage() was called
-		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
-		checkValidationMessage(messageCaptor.getValue(), TestResources.getResourceBundleMessage(UPDATE_OK.getKey()), 
+		verify(view.userService).update(any(user.getClass()));
+		// check if a FacesMessage was correctly thrown
+		TestAbstractView.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
+				TestResources.getResourceBundleMessage(UPDATE_OK.getKey()), 
 				TestResources.getResourceBundleMessage(UPDATE_USER.getKey()));
 	}
 	
@@ -145,7 +137,7 @@ public class TestViewUserList {
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was not called
-		verify(view.userService, never()).delete(any(Seller.class));
+		verify(view.userService, never()).delete(any(user.getClass()));
 	}
 	
 	/**
@@ -156,19 +148,18 @@ public class TestViewUserList {
 	public final void testDeleteWithEntityNull() throws Exception {
 		// initialization
 		setInjections();
-		view.setCurrentUser(TestViewUser.generateDummyViewUser(classUser));
+		view.setCurrentUser(TestViewUser.generateDummyViewUser(user));
 		// Simulate an exception thrown by service
 		ExceptionService exception = TestExceptionService.createMockedExceptionEntityShouldNotBeNull();
-		doThrow(exception).when(view.userService).delete(any(classUser));
+		doThrow(exception).when(view.userService).delete(any(user.getClass()));
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called
-		verify(view.userService).delete(any(classUser));
-		// verify FacesContext.addMessage() was called
-		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
-		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ENTITY_SHOULD_NOT_BE_NULL.getKey()));
+		verify(view.userService).delete(any(user.getClass()));
+		// check if a FacesMessage was correctly thrown
+		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
 	}
 	
 	/**
@@ -179,19 +170,18 @@ public class TestViewUserList {
 	public final void testDeleteWithIdNull() throws Exception {
 		// initialization
 		setInjections();
-		view.setCurrentUser(TestViewUser.generateDummyViewUser(classUser));
+		view.setCurrentUser(TestViewUser.generateDummyViewUser(user));
 		// Simulate an exception thrown by service
 		ExceptionService exception = TestExceptionService.createMockedExceptionIdShouldNotBeNull();
-		doThrow(exception).when(view.userService).delete(any(classUser));
+		doThrow(exception).when(view.userService).delete(any(user.getClass()));
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called
-		verify(view.userService).delete(any(classUser));
-		// verify FacesContext.addMessage() was called
-		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
-		checkExceptionMessage(messageCaptor.getValue(), TestResources.getResourceBundleError(ID_SHOULD_NOT_BE_NULL.getKey()));
+		verify(view.userService).delete(any(user.getClass()));
+		// check if a FacesMessage was correctly thrown
+		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
 	}
 	
 	/**
@@ -202,17 +192,14 @@ public class TestViewUserList {
 	public final void testDeleteWithIdNotNull() throws Exception {
 		// initialization
 		setInjections();
-		ViewUser viewUser = TestViewUser.generateDummyViewUser(classUser);
-		view.setCurrentUser(viewUser);
+		view.setCurrentUser(TestViewUser.generateDummyViewUser(user));
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called
-		verify(view.userService).delete(any(classUser));
-		// verify FacesContext.addMessage() was called
-		ArgumentCaptor<FacesMessage> messageCaptor = ArgumentCaptor.forClass(FacesMessage.class);
-		verify(view.getFacesContext()).addMessage(any(), messageCaptor.capture());
-        // retrieve the captured FacesMessage and check if it contains the expected values
-		checkValidationMessage(messageCaptor.getValue(), TestResources.getResourceBundleMessage(DELETE_OK.getKey()), 
+		verify(view.userService).delete(any(user.getClass()));
+		// check if a FacesMessage was correctly thrown
+		TestAbstractView.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
+				TestResources.getResourceBundleMessage(DELETE_OK.getKey()), 
 				TestResources.getResourceBundleMessage(DELETE_USER.getKey()));
 	}
 
@@ -228,52 +215,18 @@ public class TestViewUserList {
 	}
 	
 	/**
-	 * Set mocked {@link FacesContext}, mocked {@link ServiceUser},
-	 * and a dummy {@link java.util.logging.Logger} into view.
-	 * Retrieve the {@link java.util.ResourceBundle} Message from {@link Resources}.
+	 * Set mocked {@link ServiceUser}, and a dummy {@link java.util.logging.Logger} into view.
+	 * Call {@link TestAbstractView#setInjections(AbstractView)}.
 	 */
 	private void setInjections() {
-		view.setFacesContext(mock(FacesContext.class));
+		TestAbstractView.setInjections(view);
 		view.userService = mock(ServiceUser.class);
-		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
-		view.setResourceBundleError(Resources.getResourceBundleError());
 		view.logger = TestResources.createLogger(view.getClass());
 	}
 	
 	/**
-	 * Check if the thrown {@link FacesMessage} has correct values.
-	 * @param message the {@link FacesMessage}.
-	 * @param detail String the message's detail.
-	 */
-	private void checkExceptionMessage(FacesMessage message, String detail) {
-		// check severity
-		assertEquals(FacesMessage.SEVERITY_ERROR, message.getSeverity());
-		// check summary
-        assertEquals(TestResources.getResourceBundleError(EXCEPTION.getKey()), message.getSummary());
-        // check detail
-		assertTrue(message.getDetail().contains(detail));
-	}
-	
-	/**
-	 * Check if the thrown {@link FacesMessage} has correct values.
-	 * @param message the {@link FacesMessage}.
-	 * @param summary String the message's summary.
-	 * @param detail String the message's detail.
-	 */
-	private void checkValidationMessage(FacesMessage message, String summary, String detail) {
-		// check severity
-		assertEquals(FacesMessage.SEVERITY_INFO, message.getSeverity());
-		// check summary
-        assertEquals(summary, message.getSummary());
-        // check detail
-        String[] detailParts = detail.replace("''", "'").split(Pattern.quote(" {0} "));
-        assertTrue(message.getDetail().startsWith(detailParts[0]));
-        assertTrue(message.getDetail().endsWith(detailParts[1]));
-	}
-	
-	/**
 	 * Reference a list of all {@link ViewUserList}'s concrete children, 
-	 * and the class of the associated child of {@link AbstractUser},
+	 * and the associated concrete child of {@link AbstractUser},
 	 * to be used as parameters on constructor.
 	 * Each iteration will be tested with all test methods.
 	 * @return {@code Iterable<Object[]>} with both parameters.
@@ -281,8 +234,8 @@ public class TestViewUserList {
 	@Parameters
 	public static Iterable<Object[]> childToTest() {
 		return Arrays.asList(new Object[][] {
-			{new ViewCustomerList(), Customer.class},
-			{new ViewSellerList(), Seller.class}
+			{new ViewCustomerList(), new Customer()},
+			{new ViewSellerList(), new Seller()}
 			}
 		);
 	}

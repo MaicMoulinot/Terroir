@@ -82,7 +82,7 @@ public abstract class AbstractView {
 	 * @param exception {@link Exception}.
 	 * @param id Long the identifier of the entity.
 	 * @param entity the {@link Serializable}.
-	 * @return
+	 * @return String the generated message.
 	 */
 	public String generateExceptionMessage(Exception exception, Long id, Serializable entity) {
 		return exception.getMessage() + " on [id=" + id + ", class=" + entity.getClass().getName() + "]";
