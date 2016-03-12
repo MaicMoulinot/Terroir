@@ -6,27 +6,23 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
 
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.faces.component.html.HtmlDataTable;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
-import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
- * This abstract Class is the View linked to a list of {@link ViewUser}.
- * It defines common attributes shared among its children.
- * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
- * to {@link FacesContext} to throw them to the view, 
- * and to {@link ServiceUser} to update or delete the {@link ViewUser}.
+ * This abstract Class is used to show the list of all {@link ViewUser}s.
+ * It extends {@link AbstractView} and defines common attributes shared among its children.
+ * It relates to {@link ServiceUser} to update or delete the {@link AbstractUser}s,
+ * and to {@link Logger} to generate proper logging messages.
  * @author Maic
  */
 public abstract class ViewUserList extends AbstractView {

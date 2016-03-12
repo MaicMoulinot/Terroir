@@ -1,31 +1,29 @@
 package com.jomm.terroir.web;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
-import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.util.BundleMessage;
 
 /**
- * This Class is the View linked to sellerlist.xhtml, that displays the list of {@link ViewSeller}.
+ * This Class is the Bean linked to {@code sellerlist.xhtml}, displaying the list of {@link ViewSeller}s.
  * It extends {@link ViewUserList} and defines specific attributes.
- * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
- * to {@link FacesContext} to throw them to the view, 
- * and to {@link ServiceUser} to update or delete the {@link Seller}.
- * It is annotated {@link ManagedBean} for proper access from/to the view page,
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class ViewSellerList extends ViewUserList {
+public class ViewSellerList extends ViewUserList implements Serializable {
+	
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = 2234745264902170386L;
 	
 	// Attributes
 	private List<ViewSeller> listSellers;

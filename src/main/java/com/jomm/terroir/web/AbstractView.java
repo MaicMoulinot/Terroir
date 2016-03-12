@@ -14,10 +14,10 @@ import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
 
 /**
- * This abstract Class is the View that creates a new {@link com.jomm.terroir.business.model.AbstractUser}.
- * It defines common attributes shared among its children.
- * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
- * and to {@link FacesContext} to throw them to the view.
+ * This abstract Class defines common attributes shared among all Beans.
+ * It relates to {@link ResourceBundle} to retrieve {@link BundleMessage} messages,
+ * to {@link ResourceBundle} to retrieve {@link BundleError} errors,
+ * and to {@link FacesContext} to throw appropriate {@link FacesMessage} to the view.
  * @author Maic
  */
 public abstract class AbstractView {

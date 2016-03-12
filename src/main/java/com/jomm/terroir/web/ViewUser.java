@@ -7,23 +7,20 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TIT
 import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
 
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
-import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
- * This abstract Class is the View that creates a new {@link com.jomm.terroir.business.model.AbstractUser}.
- * It defines common attributes shared among its children.
- * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
- * and to {@link FacesContext} to throw them to the view.
+ * This abstract Class is used to register a new {@link AbstractUser}.
+ * It extends {@link AbstractView} and defines common attributes shared among its children.
+ * It relates to {@link ServiceUser} to save the {@link AbstractUser},
+ * and to {@link Logger} to generate proper logging messages.
  * @author Maic
  */
 public abstract class ViewUser extends AbstractView {

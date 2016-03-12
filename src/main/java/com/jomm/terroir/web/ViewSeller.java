@@ -1,30 +1,28 @@
 package com.jomm.terroir.web;
 
-import java.util.ResourceBundle;
+import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
+import javax.inject.Named;
 
-import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.util.BundleMessage;
 
 /**
- * This Class is the View linked to sellersignup.xhtml, that creates a new {@link Seller}.
+ * This Class is the Bean linked to {@code sellersignup.xhtml}, used to register a new {@link Seller}.
  * It extends {@link ViewUser} and defines an additional attribute {@link Enterprise}.
- * It relates to {@link ResourceBundle} to generate proper {@link BundleMessage} messages,
- * to {@link FacesContext} to throw them to the view, 
- * and to {@link ServiceUser} to save the {@link Seller}.
- * It is annotated {@link ManagedBean} for proper access from/to the view page,
+ * It implements {@link Serializable} and has a generated serial version ID.
+ * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
-@ManagedBean
+@Named
 @ViewScoped
-public class ViewSeller extends ViewUser {
+public class ViewSeller extends ViewUser implements Serializable {
+	
+	/** Generated serial version ID. Do not modify. */
+	private static final long serialVersionUID = -2265655677962237885L;
 	
 	//	Attributes
 	private Enterprise enterprise;
