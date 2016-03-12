@@ -2,6 +2,7 @@ package com.jomm.terroir.web;
 
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -27,6 +28,16 @@ public class ViewSeller extends ViewUser {
 	
 	//	Attributes
 	private Enterprise enterprise;
+	
+	/**
+	 * This method instantiate all necessary attributes, such as the {@link Enterprise}.
+	 * It replaces the constructor and it is annotated {@link PostConstruct},
+	 * for proper call from the bean management framework which uses proxies, such as CDI.
+	 */
+	@PostConstruct 
+	public void init() {
+		setEnterprise(new Enterprise());
+	}
 
 	/**
 	 * Create and save a new Seller.

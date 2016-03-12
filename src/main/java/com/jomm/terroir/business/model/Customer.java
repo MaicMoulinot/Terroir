@@ -37,14 +37,6 @@ public class Customer extends AbstractUser implements Serializable {
 
 	@Embedded
 	private Address address;
-	
-	/**
-	 * Constructor with no parameter.
-	 * Instantiate the {@link Address}.
-	 */
-	public Customer() {
-		setAddress(new Address());
-	}
 
 	// Getters and Setters
 	/**

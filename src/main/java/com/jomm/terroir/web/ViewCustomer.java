@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -32,6 +33,16 @@ public class ViewCustomer extends ViewUser {
 	private ZonedDateTime signUpDate;
 	private Address address;
     
+	/**
+	 * This method instantiate all necessary attributes, such as the {@link Address}.
+	 * It replaces the constructor and it is annotated {@link PostConstruct},
+	 * for proper call from the bean management framework which uses proxies, such as CDI.
+	 */
+	@PostConstruct 
+	public void init() {
+		setAddress(new Address());
+	}
+
 	/**
 	 * Create and save a new Customer.
 	 * @return String for navigation.

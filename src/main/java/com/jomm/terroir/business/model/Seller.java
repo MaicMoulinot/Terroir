@@ -30,14 +30,6 @@ public class Seller extends AbstractUser implements Serializable {
 	@NotNull
 	@ManyToOne(optional = false)
 	private Enterprise enterprise;
-	
-	/**
-	 * Constructor with no parameter.
-	 * Instantiate the {@link Enterprise}.
-	 */
-	public Seller() {
-		setEnterprise(new Enterprise());
-	}
 
 	// Getters and Setters
 	/**
