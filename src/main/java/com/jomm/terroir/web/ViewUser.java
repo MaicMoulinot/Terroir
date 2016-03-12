@@ -54,8 +54,8 @@ public abstract class ViewUser extends AbstractView {
 		try {
 			userService.create(entity);
 			Object[] argument = {entity.getUserName()};
-			String detail = MessageFormat.format(getMessageFromResourceBundle(CREATE_USER.getKey()), argument);
-			addMessage(getMessageFromResourceBundle(CREATE_OK.getKey()), detail);
+			String detail = MessageFormat.format(getValueFromResourceBundle(CREATE_USER), argument);
+			addMessage(getValueFromResourceBundle(CREATE_OK), detail);
 		} catch (ExceptionService exception) {
 			String problem = generateExceptionMessage(exception, entity.getId(), entity);
 			addMessageException(problem);
@@ -68,8 +68,8 @@ public abstract class ViewUser extends AbstractView {
 	 * Generate tips to create a secured enough password into growl.
 	 */
 	public void passwordTooltip() {
-		addMessage(CLIENT_ID_GROWL.getId(), getMessageFromResourceBundle(PASSWORD_TITLE.getKey()), 
-				getMessageFromResourceBundle(PASSWORD_RULES.getKey()));
+		addMessage(CLIENT_ID_GROWL.getId(), getValueFromResourceBundle(PASSWORD_TITLE), 
+				getValueFromResourceBundle(PASSWORD_RULES));
 	}
 
 	/**

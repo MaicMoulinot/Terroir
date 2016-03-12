@@ -76,7 +76,7 @@ public class TestViewUserList {
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, currentUser.getId(), user));
 	}
 	
@@ -100,7 +100,7 @@ public class TestViewUserList {
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, currentUser.getId(), user));
 	}
 	
@@ -121,8 +121,8 @@ public class TestViewUserList {
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				TestResources.getResourceBundleMessage(UPDATE_OK.getKey()), 
-				TestResources.getResourceBundleMessage(UPDATE_USER.getKey()));
+				TestResources.getValueFromResourceBundle(UPDATE_OK), 
+				TestResources.getValueFromResourceBundle(UPDATE_USER));
 	}
 	
 	/**
@@ -158,7 +158,7 @@ public class TestViewUserList {
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
 	}
 	
@@ -180,7 +180,7 @@ public class TestViewUserList {
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
 	}
 	
@@ -199,8 +199,8 @@ public class TestViewUserList {
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				TestResources.getResourceBundleMessage(DELETE_OK.getKey()), 
-				TestResources.getResourceBundleMessage(DELETE_USER.getKey()));
+				TestResources.getValueFromResourceBundle(DELETE_OK), 
+				TestResources.getValueFromResourceBundle(DELETE_USER));
 	}
 
 	/**

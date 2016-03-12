@@ -84,7 +84,7 @@ public class TestValidatorEmail {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with email non valid");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(EMAIL_UNVALID.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(EMAIL_UNVALID), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

@@ -49,7 +49,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(FIELD_MANDATORY.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -65,7 +65,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(FIELD_MANDATORY.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -81,7 +81,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(FIELD_MANDATORY.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -97,7 +97,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(FIELD_MANDATORY.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -113,7 +113,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 and password2 different");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(PASSWORDS_DONT_MATCH.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(PASSWORDS_DONT_MATCH), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
@@ -130,7 +130,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have password not matching the pattern");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(PASSWORD_TOO_SIMPLE.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(PASSWORD_TOO_SIMPLE), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

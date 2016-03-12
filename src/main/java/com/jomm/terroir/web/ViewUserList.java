@@ -53,8 +53,8 @@ public abstract class ViewUserList extends AbstractView {
 			try {
 				userService.update(entity);
 				Object[] argument = {entity.getUserName()};
-				String detail = MessageFormat.format(getMessageFromResourceBundle(UPDATE_USER.getKey()), argument);
-				addMessage(getMessageFromResourceBundle(UPDATE_OK.getKey()), detail);
+				String detail = MessageFormat.format(getValueFromResourceBundle(UPDATE_USER), argument);
+				addMessage(getValueFromResourceBundle(UPDATE_OK), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, entity.getId(), entity);
 				addMessageException(problem);
@@ -81,8 +81,8 @@ public abstract class ViewUserList extends AbstractView {
 			try {
 				userService.delete(entity);
 				Object[] argument = {entity.getUserName()};
-				String detail = MessageFormat.format(getMessageFromResourceBundle(DELETE_USER.getKey()), argument);
-				addMessage(getMessageFromResourceBundle(DELETE_OK.getKey()), detail);
+				String detail = MessageFormat.format(getValueFromResourceBundle(DELETE_USER), argument);
+				addMessage(getValueFromResourceBundle(DELETE_OK), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, entity.getId(), entity);
 				addMessageException(problem);

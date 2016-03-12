@@ -1,6 +1,7 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -18,7 +19,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import com.jomm.terroir.business.model.Enterprise;
-import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Resources;
 import com.jomm.terroir.util.TestResources;
 
@@ -59,7 +59,7 @@ public class TestAbstractView {
 		String detail = "detail";
 		view.addMessageException(detail);
 		checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getResourceBundleError(EXCEPTION.getKey()), detail);
+				TestResources.getValueFromResourceBundle(EXCEPTION), detail);
 	}
 
 	/**
@@ -121,23 +121,21 @@ public class TestAbstractView {
 	}
 
 	/**
-	 * Test method for {@link AbstractView#getMessageFromResourceBundle(String)}.
+	 * Test method for {@link AbstractView#getValueFromResourceBundle(String)}.
 	 */
 	@Test
 	public final void testGetMessageFromResourceBundle() {
 		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
-		String key = Constants.ResourceBundleMessage.CREATE_OK.getKey();
-		assertEquals(TestResources.getResourceBundleMessage(key), view.getMessageFromResourceBundle(key));
+		assertEquals(TestResources.getValueFromResourceBundle(CREATE_OK), view.getValueFromResourceBundle(CREATE_OK));
 	}
 
 	/**
-	 * Test method for {@link AbstractView#getErrorFromResourceBundle(String)}.
+	 * Test method for {@link AbstractView#getValueFromResourceBundle(String)}.
 	 */
 	@Test
 	public final void testGetErrorFromResourceBundle() {
 		view.setResourceBundleError(Resources.getResourceBundleError());
-		String key = Constants.ResourceBundleError.EXCEPTION.getKey();
-		assertEquals(TestResources.getResourceBundleError(key), view.getErrorFromResourceBundle(key));
+		assertEquals(TestResources.getValueFromResourceBundle(EXCEPTION), view.getValueFromResourceBundle(EXCEPTION));
 	}
 	
 	/**
@@ -146,7 +144,7 @@ public class TestAbstractView {
 	@Test(expected = NullPointerException.class)
 	public final void testBeforeSetResourceBundleMessage() {
 		// Without any call to the setter, ResourceBundleMessage is null.
-		view.getMessageFromResourceBundle(Constants.ResourceBundleMessage.CREATE_OK.getKey());
+		view.getValueFromResourceBundle(CREATE_OK);
 	}
 	
 	/**
@@ -156,7 +154,7 @@ public class TestAbstractView {
 	public final void testAfterSetResourceBundleMessage() {
 		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
 		// After the call to the setter, ResourceBundleMessage is not null.
-		view.getMessageFromResourceBundle(Constants.ResourceBundleMessage.CREATE_OK.getKey());
+		view.getValueFromResourceBundle(CREATE_OK);
 		assertTrue(true); // NullPointerException was not thrown
 	}
 	
@@ -166,7 +164,7 @@ public class TestAbstractView {
 	@Test(expected = NullPointerException.class)
 	public final void testBeforeSetResourceBundleError() {
 		// Without any call to the setter, ResourceBundleError is null.
-		view.getErrorFromResourceBundle(Constants.ResourceBundleError.EXCEPTION.getKey());
+		view.getValueFromResourceBundle(EXCEPTION);
 	}
 	
 	/**
@@ -176,7 +174,7 @@ public class TestAbstractView {
 	public final void testAfterSetResourceBundleError() {
 		view.setResourceBundleError(Resources.getResourceBundleError());
 		// After the call to the setter, ResourceBundleError is not null.
-		view.getErrorFromResourceBundle(Constants.ResourceBundleError.EXCEPTION.getKey());
+		view.getValueFromResourceBundle(EXCEPTION);
 		assertTrue(true); // NullPointerException was not thrown
 	}
 	

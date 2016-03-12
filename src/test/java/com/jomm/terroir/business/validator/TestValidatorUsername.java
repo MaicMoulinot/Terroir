@@ -85,7 +85,7 @@ public class TestValidatorUsername {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with length < 6");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getResourceBundleError(LENGTH_AT_LEAST_6_CHARACTERS.getKey()), 
+			assertEquals(TestResources.getValueFromResourceBundle(LENGTH_AT_LEAST_6_CHARACTERS), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}

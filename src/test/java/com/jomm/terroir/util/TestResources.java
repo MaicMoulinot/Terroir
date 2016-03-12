@@ -23,6 +23,9 @@ import javax.faces.context.FacesContext;
 
 import org.junit.Test;
 
+import com.jomm.terroir.util.Constants.ResourceBundleError;
+import com.jomm.terroir.util.Constants.ResourceBundleMessage;
+
 /**
  * This Class is a Junit test case testing {@link Resources}.
  * @author Maic
@@ -87,21 +90,21 @@ public class TestResources {
 	/**
 	 * When injection is not available (in testing environment), this method retrieve
 	 * the value from the {@link ResourceBundle} with qualifier {@link BundleError}.
-	 * @param key String the key.
+	 * @param key {@link ResourceBundleError} the key.
 	 * @return String the value.
 	 */
-	public static String getResourceBundleError(String key) {
-		return Resources.getResourceBundleError().getString(key);
+	public static String getValueFromResourceBundle(ResourceBundleError key) {
+		return Resources.getResourceBundleError().getString(key.getKey());
 	}
 	
 	/**
 	 * When injection is not available (in testing environment), this method retrieve
 	 * the value from the {@link ResourceBundle} with qualifier {@link BundleMessage}.
-	 * @param key String the key.
+	 * @param key {@link ResourceBundleMessage} the key.
 	 * @return String the value.
 	 */
-	public static String getResourceBundleMessage(String key) {
-		return Resources.getResourceBundleMessage().getString(key);
+	public static String getValueFromResourceBundle(ResourceBundleMessage key) {
+		return Resources.getResourceBundleMessage().getString(key.getKey());
 	}
 	
 	/**

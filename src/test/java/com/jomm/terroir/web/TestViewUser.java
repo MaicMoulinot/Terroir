@@ -69,7 +69,7 @@ public class TestViewUser {
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getId(), user));
 	}
 
@@ -90,7 +90,7 @@ public class TestViewUser {
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getResourceBundleError(EXCEPTION.getKey()), 
+				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getId(), user));
 	}
 
@@ -108,8 +108,8 @@ public class TestViewUser {
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				TestResources.getResourceBundleMessage(CREATE_OK.getKey()), 
-				TestResources.getResourceBundleMessage(CREATE_USER.getKey()));
+				TestResources.getValueFromResourceBundle(CREATE_OK), 
+				TestResources.getValueFromResourceBundle(CREATE_USER));
 	}
 
 	/**
@@ -123,8 +123,8 @@ public class TestViewUser {
 		view.passwordTooltip();
 		// check if a FacesMessage was correctly thrown
 		TestAbstractView.checkMessageWithPlainDetail(view, CLIENT_ID_GROWL.getId(), FacesMessage.SEVERITY_INFO, 
-				TestResources.getResourceBundleMessage(PASSWORD_TITLE.getKey()), 
-				TestResources.getResourceBundleMessage(PASSWORD_RULES.getKey()));
+				TestResources.getValueFromResourceBundle(PASSWORD_TITLE), 
+				TestResources.getValueFromResourceBundle(PASSWORD_RULES));
 	}
 
 	/**

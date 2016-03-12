@@ -12,6 +12,8 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
+import com.jomm.terroir.util.Constants.ResourceBundleError;
+import com.jomm.terroir.util.Constants.ResourceBundleMessage;
 
 /**
  * This abstract Class defines common attributes shared among all Beans.
@@ -41,7 +43,7 @@ public abstract class AbstractView {
 	 * @param detail String the message's detail.
 	 */
 	public void addMessageException(String detail) {
-		addMessage(null, FacesMessage.SEVERITY_ERROR, getErrorFromResourceBundle(EXCEPTION.getKey()), detail);
+		addMessage(null, FacesMessage.SEVERITY_ERROR, getValueFromResourceBundle(EXCEPTION), detail);
 	}
 	
 	/**
@@ -105,20 +107,20 @@ public abstract class AbstractView {
 	
 	/**
 	 * Retrieve the value associated with the key in the {@link ResourceBundle} qualified with {@link BundleMessage}.
-	 * @param key String the key provided.
+	 * @param key {@link ResourceBundleMessage} the key provided.
 	 * @return value String the associated value.
 	 */
-	protected String getMessageFromResourceBundle(String key) {
-		return resourceBundleMessage.getString(key);
+	protected String getValueFromResourceBundle(ResourceBundleMessage key) {
+		return resourceBundleMessage.getString(key.getKey());
 	}
 	
 	/**
 	 * Retrieve the value associated with the key in the {@link ResourceBundle} qualified with {@link BundleError}.
-	 * @param key String the key provided.
+	 * @param key {@link ResourceBundleError} the key provided.
 	 * @return value String the associated value.
 	 */
-	protected String getErrorFromResourceBundle(String key) {
-		return resourceBundleError.getString(key);
+	protected String getValueFromResourceBundle(ResourceBundleError key) {
+		return resourceBundleError.getString(key.getKey());
 	}
 	
 	/**
