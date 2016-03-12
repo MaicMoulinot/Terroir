@@ -33,14 +33,6 @@ public class TestProduct {
 	public void tearDown() throws Exception {
 		product = null; // Available for Garbage Collector
 	}
-	
-	/**
-	 * Test constructor for {@link Product}.
-	 */
-	@Test
-	public final void testConstructor() {
-		assertNotNull("Constructor should instantiate the Site", product.getSite());
-	}
 
 	/**
 	 * Test method for all {@link Product}'s getters and setters.

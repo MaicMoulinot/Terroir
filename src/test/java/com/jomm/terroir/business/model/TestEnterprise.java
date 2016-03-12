@@ -38,14 +38,6 @@ public class TestEnterprise {
 	}
 	
 	/**
-	 * Test constructor for {@link Enterprise}.
-	 */
-	@Test
-	public final void testConstructor() {
-		assertNotNull("Constructor should instantiate the Address", enterprise.getAddress());
-	}
-	
-	/**
 	 * Test method for all {@link Enterprise}'s getters and setters.
 	 */
 	@Test

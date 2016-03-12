@@ -33,14 +33,6 @@ public class TestSeller {
 	}
 	
 	/**
-	 * Test constructor for {@link Site}.
-	 */
-	@Test
-	public final void testConstructor() {
-		assertNotNull("Constructor should instantiate the Enterprise", seller.getEnterprise());
-	}
-	
-	/**
 	 * Test method for all {@link Seller}'s getters and setters.
 	 */
 	@Test

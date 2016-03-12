@@ -2,12 +2,11 @@ package com.jomm.terroir.web;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.jomm.terroir.business.model.Address;
@@ -22,21 +21,16 @@ import com.jomm.terroir.business.model.TestCustomer;
 public class TestViewCustomer {
 
 	private ViewCustomer view;
-
+	
 	/**
-	 * @throws java.lang.Exception
+	 * Test method for {@link ViewCustomer#init()}.
 	 */
-	@Before
-	public void setUp() throws Exception {
-		view = generateDummyViewCustomer();
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		view = null; // Available for Garbage Collector
+	@Test
+	public final void testInit() {
+		view = new ViewCustomer();
+		assertNull(view.getAddress());
+		view.init();
+		assertNotNull(view.getAddress());
 	}
 
 	/**
@@ -44,6 +38,7 @@ public class TestViewCustomer {
 	 */
 	@Test
 	public final void testGenerateYearRange() {
+		view = new ViewCustomer();
 		// Build year range
 		StringBuilder yearRange = new StringBuilder();
 		yearRange.append(LocalDate.now().getYear() -97);
@@ -58,6 +53,7 @@ public class TestViewCustomer {
 	 */
 	@Test
 	public final void testConvertIntoEntity() {
+		view = generateDummyViewCustomer();
 		view.setId((long) 3333);
 		Customer entity = view.convertIntoEntity();
 		compareViewAndEntity(view, entity);
@@ -78,7 +74,8 @@ public class TestViewCustomer {
 	 * Test method for {@link ViewCustomer}'s getters and setters.
 	 */
 	@Test
-	public final void testGetterSetter() {		
+	public final void testGetterSetter() {
+		view = new ViewCustomer();
 		// BirthDate
 		LocalDate birthdate = LocalDate.now();
 		view.setBirthDate(birthdate);
@@ -97,6 +94,8 @@ public class TestViewCustomer {
 		assertNotNull("Address should not be null", address);
 		assertEquals("Address.Street should be " + test, test, view.getAddress().getStreet());
 		address = null; // Available for Garbage Collector
+		
+		view = null; // Available for Garbage Collector
 	}	
 
 	/**

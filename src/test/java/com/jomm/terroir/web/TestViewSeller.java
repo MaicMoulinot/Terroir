@@ -1,9 +1,9 @@
 package com.jomm.terroir.web;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.jomm.terroir.business.model.Enterprise;
@@ -18,21 +18,16 @@ import com.jomm.terroir.business.model.TestSeller;
 public class TestViewSeller {
 
 	private ViewSeller view;
-
+	
 	/**
-	 * @throws java.lang.Exception
+	 * Test method for {@link ViewSeller#init()}.
 	 */
-	@Before
-	public void setUp() throws Exception {
-		view = generateDummyViewSeller();
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@After
-	public void tearDown() throws Exception {
-		view = null; // Available for Garbage Collector
+	@Test
+	public final void testInit() {
+		view = new ViewSeller();
+		assertNull(view.getEnterprise());
+		view.init();
+		assertNotNull(view.getEnterprise());
 	}
 
 	/**
@@ -40,6 +35,7 @@ public class TestViewSeller {
 	 */
 	@Test
 	public final void testConvertIntoEntity() {
+		view = generateDummyViewSeller();
 		view.setId((long) 3333);
 		Seller entity = view.convertIntoEntity();
 		compareViewAndEntity(view, entity);
@@ -60,8 +56,8 @@ public class TestViewSeller {
 	 * Test method for {@link ViewSeller}'s getters and setters.
 	 */
 	@Test
-	public final void testGetterSetter() {		
-		// Enterprise
+	public final void testGetterSetter() {
+		view = new ViewSeller();
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		view.setEnterprise(enterprise);
 		assertEquals("Enterprise should be " + enterprise, enterprise, view.getEnterprise());

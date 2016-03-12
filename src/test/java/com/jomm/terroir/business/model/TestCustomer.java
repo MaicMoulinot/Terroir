@@ -34,14 +34,6 @@ public class TestCustomer {
 	public void tearDown() throws Exception {
 		customer = null; // Available for Garbage Collector
 	}
-	
-	/**
-	 * Test constructor for {@link Customer}.
-	 */
-	@Test
-	public final void testConstructor() {
-		assertNotNull("Constructor should instantiate the Address", customer.getAddress());
-	}
 
 	/**
 	 * Test method for all {@link Customer}'s getters and setters.
