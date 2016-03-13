@@ -39,6 +39,7 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser implements Se
 	@PostConstruct 
 	public void init() {
 		setAddress(new Address());
+		addMessage("test", "email=" + getEmail());
 	}
 	
 	@Override
