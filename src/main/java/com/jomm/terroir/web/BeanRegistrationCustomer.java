@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.model.Address;
@@ -28,7 +28,7 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser implements Se
 
 	//	Attributes
 	private LocalDate birthDate;
-	private ZonedDateTime signUpDate;
+	private ZonedDateTime signUpDate;//TODO a virer si on passe une entity
 	private Address address;
     
 	/**
@@ -39,12 +39,10 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser implements Se
 	@PostConstruct 
 	public void init() {
 		setAddress(new Address());
-		addMessage("test", "email=" + getEmail());
 	}
 	
 	@Override
 	public String create() {
-		addMessageException("email=" + getEmail());
 		super.create();
 		return "listcustomer" + "?faces-redirect=true";	// Navigation case.
 	}
