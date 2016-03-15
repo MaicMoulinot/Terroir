@@ -21,7 +21,7 @@ import com.jomm.terroir.business.ServiceEnterprise;
 /**
  * This Class is an {@link Entity} representing an enterprise.
  * It uses {@link ServiceEnterprise} for all its logic operations.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It includes an {@link Address} among diverse specific attributes.
  * Its properties are persisted in table "tr_enterprise".
  * @author Maic
@@ -31,8 +31,8 @@ import com.jomm.terroir.business.ServiceEnterprise;
 @NamedQuery(name="Enterprise.findAll", query="SELECT e FROM Enterprise e")
 public class Enterprise implements Serializable {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = 3818285976250730794L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Id

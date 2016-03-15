@@ -20,7 +20,7 @@ import com.jomm.terroir.business.ServiceSite;
 /**
  * This Class is an {@link Entity} representing a site.
  * It uses {@link ServiceSite} for all its logic operations.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It includes a {@link Enterprise}, and an {@link Address} among other specific attributes.
  * Its properties are persisted in table "tr_site".
  * @author Maic
@@ -30,8 +30,8 @@ import com.jomm.terroir.business.ServiceSite;
 @NamedQuery(name="Site.findAll", query="SELECT s FROM Site s")
 public class Site implements Serializable {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = -8527072429035590099L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Id

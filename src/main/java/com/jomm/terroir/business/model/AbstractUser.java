@@ -17,7 +17,7 @@ import com.jomm.terroir.business.ServiceUser;
 /**
  * This Class is an abstract {@link Entity} representing an user.
  * It uses {@link ServiceUser} for all its logic operations.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It includes all common attributes shared among its child classes.
  * As the {@link Inheritance} strategy is TABLE_PER_CLASS, its properties are persisted in each concrete child's table.
  * @author Maic
@@ -27,8 +27,8 @@ import com.jomm.terroir.business.ServiceUser;
 @NamedQuery(name="AbstractUser.findAll", query="SELECT u FROM AbstractUser u")
 public abstract class AbstractUser implements Serializable {
 
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = -7643819675779152993L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Id

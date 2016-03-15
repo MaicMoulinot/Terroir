@@ -8,15 +8,15 @@ import javax.validation.constraints.NotNull;
 
 /**
  * This Class is an {@link Embeddable} representing a mailing address.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * Its properties are never persisted by themselves but only as part of an {@link javax.persistence.Entity}.
  * @author Maic
  */
 @Embeddable
 public class Address implements Serializable {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = -5588567172905081796L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Column(name = "address_street")

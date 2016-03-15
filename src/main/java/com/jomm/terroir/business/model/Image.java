@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 /**
  * This Class is an {@link Entity} representing an image.
  * It uses {@link ImageService} for all its logic operations.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It includes a {@link Blob}.
  * Its properties are persisted in table "tr_image".
  * @author Maic
@@ -26,8 +26,8 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
 public class Image implements Serializable {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = 1551346199307522787L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Id

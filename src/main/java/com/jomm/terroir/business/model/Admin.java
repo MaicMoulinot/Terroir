@@ -12,7 +12,7 @@ import com.jomm.terroir.business.ServiceUser;
 /**
  * This Class is an {@link Entity} representing an administrator of the system.
  * It is a child of {@link AbstractUser}, so it uses {@link ServiceUser} for all its logic operations.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It includes administrative abilities that are invalid by default.
  * Its properties and those from its parent {@link AbstractUser} are persisted in table "tr_admin".
  * @author Maic
@@ -22,8 +22,8 @@ import com.jomm.terroir.business.ServiceUser;
 @NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
 public class Admin extends AbstractUser implements Serializable {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = -5225752296197017138L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Column(name = "can_read")

@@ -17,7 +17,7 @@ import com.jomm.terroir.business.ServiceProduct;
 /**
  * This Class is an {@link Entity} representing a product.
  * It uses {@link ServiceProduct} for all its logic operations.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It includes a {@link Site} among other specific attributes.
  * Its properties are persisted in table "tr_product".
  * @author Maic
@@ -27,8 +27,8 @@ import com.jomm.terroir.business.ServiceProduct;
 @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
 public class Product implements Serializable {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = 1864985598416003134L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Id

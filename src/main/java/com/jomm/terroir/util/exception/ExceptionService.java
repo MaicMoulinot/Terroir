@@ -4,6 +4,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_N
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 
+import java.io.Serializable;
 import java.util.ResourceBundle;
 
 import javax.inject.Inject;
@@ -15,12 +16,13 @@ import com.jomm.terroir.util.Resources;
  * This Class is an Exception.
  * All Services throw an {@code ExceptionService} when working with an entity in an invalid state at that stage.
  * It extends {@link Exception} and overrides its method {@code getMessage()}, sending an appropriate message.
+ * It implements {@link Serializable} and has a default serial version ID.
  * @author Maic
  */
 public class ExceptionService extends Exception {
 
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = -9046790551328167438L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * This {@link java.util.Enumeration} describes the {@link ExceptionService}.

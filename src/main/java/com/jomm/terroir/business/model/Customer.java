@@ -15,7 +15,7 @@ import com.jomm.terroir.business.ServiceUser;
 /**
  * This Class is an {@link Entity} representing a customer.
  * It is a child of {@link AbstractUser}, so it uses {@link ServiceUser} for all its logic operations.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It includes an {@link Address} and other specific attributes.
  * Its properties and those from its parent {@link AbstractUser} are persisted in table "tr_customer".
  * @author Maic
@@ -25,8 +25,8 @@ import com.jomm.terroir.business.ServiceUser;
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
 public class Customer extends AbstractUser implements Serializable {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = 5245050836890561932L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Attributes
 	@Column(name = "date_birth", columnDefinition = "date")
