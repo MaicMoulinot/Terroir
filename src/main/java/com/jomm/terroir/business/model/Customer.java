@@ -1,6 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
@@ -14,8 +13,9 @@ import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is an {@link Entity} representing a customer.
- * It is a child of {@link AbstractUser}, so it uses {@link ServiceUser} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractUser}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ServiceUser} for all its business operations.
  * It includes an {@link Address} and other specific attributes.
  * Its properties and those from its parent {@link AbstractUser} are persisted in table {@code tr_customer}.
  * @author Maic
@@ -23,7 +23,7 @@ import com.jomm.terroir.business.ServiceUser;
 @Entity
 @Table(name="tr_customer")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
-public class Customer extends AbstractUser implements Serializable {
+public class Customer extends AbstractUser {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;

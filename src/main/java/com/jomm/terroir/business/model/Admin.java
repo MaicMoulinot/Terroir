@@ -1,7 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
@@ -11,8 +9,9 @@ import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is an {@link Entity} representing an administrator of the system.
- * It is a child of {@link AbstractUser}, so it uses {@link ServiceUser} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractUser}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ServiceUser} for all its business operations.
  * It includes administrative abilities that are invalid by default.
  * Its properties and those from its parent {@link AbstractUser} are persisted in table {@code tr_admin}.
  * @author Maic
@@ -20,7 +19,7 @@ import com.jomm.terroir.business.ServiceUser;
 @Entity
 @Table(name="tr_admin")
 @NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
-public class Admin extends AbstractUser implements Serializable {
+public class Admin extends AbstractUser {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;

@@ -1,6 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -20,8 +19,9 @@ import com.jomm.terroir.business.ServiceEnterprise;
 
 /**
  * This Class is an {@link Entity} representing an enterprise.
- * It uses {@link ServiceEnterprise} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractEntity}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ServiceEnterprise} for all its business operations.
  * It includes an {@link Address} among diverse specific attributes.
  * Its properties are persisted in table {@code tr_enterprise}.
  * @author Maic
@@ -29,7 +29,7 @@ import com.jomm.terroir.business.ServiceEnterprise;
 @Entity
 @Table(name="tr_enterprise")
 @NamedQuery(name="Enterprise.findAll", query="SELECT e FROM Enterprise e")
-public class Enterprise implements Serializable {
+public class Enterprise extends AbstractEntity {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
@@ -71,9 +71,7 @@ public class Enterprise implements Serializable {
 	private List<Site> listSites;
 	
 	// Getters and Setters
-	/**
-	 * @return the id
-	 */
+	@Override
 	public Long getId() {
 		return id;
 	}

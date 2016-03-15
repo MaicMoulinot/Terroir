@@ -1,6 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -19,8 +18,9 @@ import com.jomm.terroir.business.ServiceSite;
 
 /**
  * This Class is an {@link Entity} representing a site.
- * It uses {@link ServiceSite} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractEntity}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ServiceSite} for all its business operations.
  * It includes a {@link Enterprise}, and an {@link Address} among other specific attributes.
  * Its properties are persisted in table {@code tr_site}.
  * @author Maic
@@ -28,7 +28,7 @@ import com.jomm.terroir.business.ServiceSite;
 @Entity
 @Table(name="tr_site")
 @NamedQuery(name="Site.findAll", query="SELECT s FROM Site s")
-public class Site implements Serializable {
+public class Site extends AbstractEntity {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
@@ -58,9 +58,7 @@ public class Site implements Serializable {
 	private List<Product> listProducts;
 
 	// Getters and Setters
-	/**
-	 * @return the id
-	 */
+	@Override
 	public Long getId() {
 		return id;
 	}

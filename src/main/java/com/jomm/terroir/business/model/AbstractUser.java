@@ -1,7 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +14,9 @@ import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is an abstract {@link Entity} representing an user.
- * It uses {@link ServiceUser} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractEntity}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ServiceUser} for all its business operations.
  * It includes all common attributes shared among its child classes.
  * As the {@link Inheritance} strategy is {@link InheritanceType#TABLE_PER_CLASS}, 
  * its properties are persisted in each concrete child's table.
@@ -26,7 +25,7 @@ import com.jomm.terroir.business.ServiceUser;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQuery(name="AbstractUser.findAll", query="SELECT u FROM AbstractUser u")
-public abstract class AbstractUser implements Serializable {
+public abstract class AbstractUser extends AbstractEntity {
 
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
@@ -56,9 +55,7 @@ public abstract class AbstractUser implements Serializable {
 	private char[] password;
 
 	// Getters and Setters
-	/**
-	 * @return the id
-	 */
+	@Override
 	public Long getId() {
 		return id;
 	}

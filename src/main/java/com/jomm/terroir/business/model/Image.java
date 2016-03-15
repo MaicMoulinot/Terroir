@@ -1,7 +1,6 @@
 package com.jomm.terroir.business.model;
 
 import java.awt.image.BufferedImage;
-import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +13,9 @@ import javax.validation.constraints.NotNull;
 
 /**
  * This Class is an {@link Entity} representing an image.
- * It uses {@link ImageService} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractEntity}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ImageService} for all its business operations.
  * It includes a {@link BufferedImage} persisted as a {@link Lob}.
  * Its properties are persisted in table {@code tr_image}.
  * @author Maic
@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="tr_image")
 @NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
-public class Image implements Serializable {
+public class Image extends AbstractEntity {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
@@ -45,9 +45,7 @@ public class Image implements Serializable {
 	private BufferedImage imageData;
 	
 	// Getters and Setters
-	/**
-	 * @return the id
-	 */
+	@Override
 	public Long getId() {
 		return id;
 	}

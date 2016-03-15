@@ -1,6 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
@@ -16,8 +15,9 @@ import com.jomm.terroir.business.ServiceProduct;
 
 /**
  * This Class is an {@link Entity} representing a product.
- * It uses {@link ServiceProduct} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractEntity}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ServiceProduct} for all its business operations.
  * It includes a {@link Site} among other specific attributes.
  * Its properties are persisted in table {@code tr_product}.
  * @author Maic
@@ -25,7 +25,7 @@ import com.jomm.terroir.business.ServiceProduct;
 @Entity
 @Table(name="tr_product")
 @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
-public class Product implements Serializable {
+public class Product extends AbstractEntity {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
@@ -54,9 +54,7 @@ public class Product implements Serializable {
 	private Site site;
 	
 	// Getters and Setters
-	/**
-	 * @return the id
-	 */
+	@Override
 	public Long getId() {
 		return id;
 	}

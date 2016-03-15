@@ -1,7 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -12,8 +10,9 @@ import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is an {@link Entity} representing a seller.
- * It is a child of {@link AbstractUser}, so it uses {@link ServiceUser} for all its logic operations.
- * It implements {@link Serializable} and has a default serial version ID.
+ * It extends {@link AbstractUser}, thus it indirectly implements 
+ * {@link java.io.Serializable} and has a default serial version ID.
+ * It uses {@link ServiceUser} for all its business operations.
  * It includes an {@link Enterprise}.
  * Its properties and those from its parent {@link AbstractUser} are persisted in table {@code tr_seller}.
  * @author Maic
@@ -21,7 +20,7 @@ import com.jomm.terroir.business.ServiceUser;
 @Entity
 @Table(name="tr_seller")
 @NamedQuery(name="Seller.findAll", query="SELECT s FROM Seller s")
-public class Seller extends AbstractUser implements Serializable {
+public class Seller extends AbstractUser {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
