@@ -37,7 +37,7 @@ public abstract class BeanListUser extends BackingBean {
 	protected Logger logger;
 	
 	// Attributes
-	protected BeanRegistrationUser currentUser;
+	protected AbstractUser currentUser;
 	
 	/**
 	 * Initialize the list of all users.
@@ -49,16 +49,15 @@ public abstract class BeanListUser extends BackingBean {
 	 * @param event RowEditEvent the AJAX event.
 	 */
 	public void onRowEdit(RowEditEvent event) {
-		currentUser = (BeanRegistrationUser) event.getObject();
+		currentUser = (AbstractUser) event.getObject();
 		if (currentUser != null) {
-			AbstractUser entity = currentUser.convertIntoEntity();
 			try {
-				userService.update(entity);
-				Object[] argument = {entity.getUserName()};
+				userService.update(currentUser);
+				Object[] argument = {currentUser.getUserName()};
 				String detail = MessageFormat.format(getValueFromResourceBundle(UPDATE_USER), argument);
 				addMessage(getValueFromResourceBundle(UPDATE_OK), detail);
 			} catch (ExceptionService exception) {
-				String problem = generateExceptionMessage(exception, entity.getId(), entity);
+				String problem = generateExceptionMessage(exception, currentUser.getId(), currentUser);
 				addMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}
@@ -79,14 +78,13 @@ public abstract class BeanListUser extends BackingBean {
 	 */
 	public String delete() {
 		if (currentUser != null) {
-			AbstractUser entity = currentUser.convertIntoEntity();
 			try {
-				userService.delete(entity);
-				Object[] argument = {entity.getUserName()};
+				userService.delete(currentUser);
+				Object[] argument = {currentUser.getUserName()};
 				String detail = MessageFormat.format(getValueFromResourceBundle(DELETE_USER), argument);
 				addMessage(getValueFromResourceBundle(DELETE_OK), detail);
 			} catch (ExceptionService exception) {
-				String problem = generateExceptionMessage(exception, entity.getId(), entity);
+				String problem = generateExceptionMessage(exception, currentUser.getId(), currentUser);
 				addMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}
@@ -97,14 +95,14 @@ public abstract class BeanListUser extends BackingBean {
 	/**
 	 * @return the currentUser
 	 */
-	public BeanRegistrationUser getCurrentUser() {
+	public AbstractUser getCurrentUser() {
 		return currentUser;
 	}
 
 	/**
 	 * @param currentUser the currentUser to set
 	 */
-	public void setCurrentUser(BeanRegistrationUser currentUser) {
+	public void setCurrentUser(AbstractUser currentUser) {
 		this.currentUser = currentUser;
 	}
 }

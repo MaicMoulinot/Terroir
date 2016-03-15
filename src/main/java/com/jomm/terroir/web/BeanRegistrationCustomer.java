@@ -1,7 +1,6 @@
 package com.jomm.terroir.web;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -27,7 +26,6 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser {
 
 	//	Attributes
 	private LocalDate birthDate;
-	private ZonedDateTime signUpDate;//TODO a virer si on passe une entity
 	private Address address;
     
 	/**
@@ -67,28 +65,8 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser {
 		userEntity.setEmail(getEmail());
 		userEntity.setPassword(getPassword() != null ? getPassword().toCharArray() : null);
 		userEntity.setBirthDate(getBirthDate());
-		userEntity.setSignUpDate(getSignUpDate());
 		userEntity.setAddress(getAddress());
 		return userEntity;
-	}
-	
-	/**
-	 * Transform a {@link Customer} into a {@link BeanRegistrationCustomer}.
-	 * @param customer a {@link Customer}.
-	 * @return {@link BeanRegistrationCustomer}.
-	 */
-	public static BeanRegistrationCustomer convertIntoView(Customer customer) {
-		BeanRegistrationCustomer customerJsf = new BeanRegistrationCustomer();
-		customerJsf.setId(customer.getId());
-		customerJsf.setFirstName(customer.getFirstName());
-		customerJsf.setLastName(customer.getLastName());
-		customerJsf.setUserName(customer.getUserName());
-		customerJsf.setEmail(customer.getEmail());
-		customerJsf.setPassword(String.valueOf(customer.getPassword()));
-		customerJsf.setBirthDate(customer.getBirthDate());
-		customerJsf.setSignUpDate(customer.getSignUpDate());
-		customerJsf.setAddress(customer.getAddress());
-		return customerJsf;
 	}
 
 	/**
@@ -103,20 +81,6 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser {
 	 */
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	/**
-	 * @return the signUpDate
-	 */
-	public ZonedDateTime getSignUpDate() {
-		return signUpDate;
-	}
-
-	/**
-	 * @param signUpDate the signUpDate to set
-	 */
-	public void setSignUpDate(ZonedDateTime signUpDate) {
-		this.signUpDate = signUpDate;
 	}
 
 	/**

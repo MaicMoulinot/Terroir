@@ -13,6 +13,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jomm.terroir.business.ServiceUser;
+import com.jomm.terroir.business.model.Customer;
+import com.jomm.terroir.business.model.TestCustomer;
 
 /**
  * This class is a Junit test case testing {@link BeanListCustomer}.
@@ -57,12 +59,12 @@ public class TestBeanListCustomer {
 	@Test
 	public final void testGetterSetter() {		
 		// ViewCustomer
-		BeanRegistrationCustomer current = TestBeanRegistrationCustomer.generateDummyViewCustomer();
+		Customer current = TestCustomer.generateCustomerWithIdNull();
 		view.setCurrentUser(current);
 		assertEquals("ViewCustomer should be " + current, current, view.getCurrentUser());
 		
 		// ListCustomers
-		LinkedList<BeanRegistrationCustomer> listCustomers = new LinkedList<>();
+		LinkedList<Customer> listCustomers = new LinkedList<>();
 		view.setListCustomers(listCustomers);
 		assertEquals("ListCustomers should be " + listCustomers, listCustomers, view.getListCustomers());
 	}

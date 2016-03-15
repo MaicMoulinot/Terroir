@@ -5,14 +5,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 
 import org.junit.Test;
 
 import com.jomm.terroir.business.model.Address;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.TestAddress;
-import com.jomm.terroir.business.model.TestCustomer;
 
 /**
  * This class is a Junit test case testing {@link BeanRegistrationCustomer}.
@@ -60,17 +58,6 @@ public class TestBeanRegistrationCustomer {
 	}
 
 	/**
-	 * Test method for {@link BeanRegistrationCustomer#convertIntoView(Customer)}.
-	 */
-	@Test
-	public final void testConvertIntoView() {
-		Customer entity = TestCustomer.generateCustomerWithIdNull();
-		entity.setId((long) 3333);
-		BeanRegistrationCustomer view = BeanRegistrationCustomer.convertIntoView(entity);
-		compareViewAndEntity(view, entity);
-	}
-
-	/**
 	 * Test method for {@link BeanRegistrationCustomer}'s getters and setters.
 	 */
 	@Test
@@ -80,11 +67,6 @@ public class TestBeanRegistrationCustomer {
 		LocalDate birthdate = LocalDate.now();
 		view.setBirthDate(birthdate);
 		assertEquals("BirthDate should be " + birthdate, birthdate, view.getBirthDate());
-
-		// SignUpDate
-		ZonedDateTime date = ZonedDateTime.now();
-		view.setSignUpDate(date);
-		assertEquals("SignUpDate should be " + date, date, view.getSignUpDate());
 		
 		// Address
 		Address address = new Address();
@@ -111,7 +93,6 @@ public class TestBeanRegistrationCustomer {
 		assertEquals(view.getPassword(), String.valueOf(entity.getPassword()));
 		assertEquals(view.getEmail(), entity.getEmail());
 		assertEquals(view.getBirthDate(), entity.getBirthDate());
-		assertEquals(view.getSignUpDate(), entity.getSignUpDate());
 		assertEquals(view.getAddress(), entity.getAddress());
 	}
 

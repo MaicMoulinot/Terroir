@@ -1,6 +1,5 @@
 package com.jomm.terroir.web;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -25,15 +24,12 @@ public class BeanListSeller extends BeanListUser {
 	private static final long serialVersionUID = 1L;
 	
 	// Attributes
-	private List<BeanRegistrationSeller> listSellers;
+	private List<Seller> listSellers;
 
 	@Override
 	@PostConstruct 
 	public void init() {
-		listSellers = new LinkedList<>();
-		for (Seller seller : userService.getAllSellers()) {
-			listSellers.add(BeanRegistrationSeller.convertIntoView(seller));
-		}
+		listSellers = userService.getAllSellers();
 	}
 
 	@Override
@@ -45,14 +41,14 @@ public class BeanListSeller extends BeanListUser {
 	/**
 	 * @return the listSellers
 	 */
-	public List<BeanRegistrationSeller> getListSellers() {
+	public List<Seller> getListSellers() {
 		return listSellers;	// Return the already-prepared model.
 	}
 
 	/**
 	 * @param listSellers the listSellers to set
 	 */
-	public void setListSellers(List<BeanRegistrationSeller> listSellers) {
+	public void setListSellers(List<Seller> listSellers) {
 		this.listSellers = listSellers;
 	}
 }

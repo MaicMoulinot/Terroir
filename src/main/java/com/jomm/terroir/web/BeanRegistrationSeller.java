@@ -61,23 +61,6 @@ public class BeanRegistrationSeller extends BeanRegistrationUser {
 		userEntity.setEnterprise(getEnterprise());
 		return userEntity;
 	}
-	
-	/**
-	 * Transform a {@link Seller} into a {@link BeanRegistrationSeller}.
-	 * @param seller a {@link Seller}.
-	 * @return {@link BeanRegistrationSeller}.
-	 */
-	public static BeanRegistrationSeller convertIntoView(Seller seller) {
-		BeanRegistrationSeller sellerJsf = new BeanRegistrationSeller();
-		sellerJsf.setId(seller.getId());
-		sellerJsf.setFirstName(seller.getFirstName());
-		sellerJsf.setLastName(seller.getLastName());
-		sellerJsf.setUserName(seller.getUserName());
-		sellerJsf.setEmail(seller.getEmail());
-		sellerJsf.setPassword(String.valueOf(seller.getPassword()));
-		sellerJsf.setEnterprise(seller.getEnterprise());
-		return sellerJsf;
-	}
 
 	/**
 	 * @return the enterprise

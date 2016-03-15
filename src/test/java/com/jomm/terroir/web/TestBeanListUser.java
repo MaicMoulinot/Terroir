@@ -67,8 +67,7 @@ public class TestBeanListUser {
 		ExceptionService exception = TestExceptionService.createMockedExceptionEntityShouldNotBeNull();
 		when(view.userService.update(any(user.getClass()))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
-		BeanRegistrationUser currentUser = TestBeanRegistrationUser.generateDummyViewUser(user);
-		when(event.getObject()).thenReturn(currentUser);
+		when(event.getObject()).thenReturn(user);
 		// call to onRowEdit()
 		view.onRowEdit(event);
 		// verify Service.update() was called
@@ -76,7 +75,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, currentUser.getId(), user));
+				view.generateExceptionMessage(exception, user.getId(), user));
 	}
 	
 	/**
@@ -91,8 +90,7 @@ public class TestBeanListUser {
 		ExceptionService exception = TestExceptionService.createMockedExceptionIdShouldNotBeNull();
 		when(view.userService.update(any(user.getClass()))).thenThrow(exception);
 		RowEditEvent event = mock(RowEditEvent.class);
-		BeanRegistrationUser currentUser = TestBeanRegistrationUser.generateDummyViewUser(user);
-		when(event.getObject()).thenReturn(currentUser);
+		when(event.getObject()).thenReturn(user);
 		// call to onRowEdit()
 		view.onRowEdit(event);
 		// verify Service.update() was called
@@ -100,7 +98,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, currentUser.getId(), user));
+				view.generateExceptionMessage(exception, user.getId(), user));
 	}
 	
 	/**
@@ -112,8 +110,7 @@ public class TestBeanListUser {
 		// initialization
 		setInjections();
 		RowEditEvent event = mock(RowEditEvent.class);
-		BeanRegistrationUser viewUser = TestBeanRegistrationUser.generateDummyViewUser(user);
-		when(event.getObject()).thenReturn(viewUser);
+		when(event.getObject()).thenReturn(user);
 		// call to onRowEdit()
 		view.onRowEdit(event);
 		// verify Service.update() was called
@@ -147,7 +144,7 @@ public class TestBeanListUser {
 	public final void testDeleteWithEntityNull() throws Exception {
 		// initialization
 		setInjections();
-		view.setCurrentUser(TestBeanRegistrationUser.generateDummyViewUser(user));
+		view.setCurrentUser(user);
 		// Simulate an exception thrown by service
 		ExceptionService exception = TestExceptionService.createMockedExceptionEntityShouldNotBeNull();
 		doThrow(exception).when(view.userService).delete(any(user.getClass()));
@@ -169,7 +166,7 @@ public class TestBeanListUser {
 	public final void testDeleteWithIdNull() throws Exception {
 		// initialization
 		setInjections();
-		view.setCurrentUser(TestBeanRegistrationUser.generateDummyViewUser(user));
+		view.setCurrentUser(user);
 		// Simulate an exception thrown by service
 		ExceptionService exception = TestExceptionService.createMockedExceptionIdShouldNotBeNull();
 		doThrow(exception).when(view.userService).delete(any(user.getClass()));
@@ -191,7 +188,7 @@ public class TestBeanListUser {
 	public final void testDeleteWithIdNotNull() throws Exception {
 		// initialization
 		setInjections();
-		view.setCurrentUser(TestBeanRegistrationUser.generateDummyViewUser(user));
+		view.setCurrentUser(user);
 		// call to delete()
 		view.delete();
 		// verify Service.delete() was called

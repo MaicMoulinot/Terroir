@@ -9,7 +9,6 @@ import org.junit.Test;
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.business.model.TestEnterprise;
-import com.jomm.terroir.business.model.TestSeller;
 
 /**
  * This class is a Junit test case testing {@link BeanRegistrationSeller}.
@@ -38,17 +37,6 @@ public class TestBeanRegistrationSeller {
 		view = generateDummyViewSeller();
 		view.setId((long) 3333);
 		Seller entity = view.convertIntoEntity();
-		compareViewAndEntity(view, entity);
-	}
-
-	/**
-	 * Test method for {@link BeanRegistrationSeller#convertIntoView(Seller)}.
-	 */
-	@Test
-	public final void testConvertIntoView() {
-		Seller entity = TestSeller.generateSellerWithIdNull();
-		entity.setId((long) 3333);
-		BeanRegistrationSeller view = BeanRegistrationSeller.convertIntoView(entity);
 		compareViewAndEntity(view, entity);
 	}
 
