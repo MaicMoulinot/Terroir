@@ -17,7 +17,7 @@ import com.jomm.terroir.business.ServiceUser;
  * It is a child of {@link AbstractUser}, so it uses {@link ServiceUser} for all its logic operations.
  * It implements {@link Serializable} and has a default serial version ID.
  * It includes an {@link Address} and other specific attributes.
- * Its properties and those from its parent {@link AbstractUser} are persisted in table "tr_customer".
+ * Its properties and those from its parent {@link AbstractUser} are persisted in table {@code tr_customer}.
  * @author Maic
  */
 @Entity

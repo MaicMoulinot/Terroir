@@ -2,7 +2,6 @@ package com.jomm.terroir.business.model;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
-import java.sql.Blob;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,8 @@ import javax.validation.constraints.NotNull;
  * This Class is an {@link Entity} representing an image.
  * It uses {@link ImageService} for all its logic operations.
  * It implements {@link Serializable} and has a default serial version ID.
- * It includes a {@link Blob}.
- * Its properties are persisted in table "tr_image".
+ * It includes a {@link BufferedImage} persisted as a {@link Lob}.
+ * Its properties are persisted in table {@code tr_image}.
  * @author Maic
  */
 @Entity

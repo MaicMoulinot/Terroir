@@ -23,7 +23,7 @@ import com.jomm.terroir.business.ServiceEnterprise;
  * It uses {@link ServiceEnterprise} for all its logic operations.
  * It implements {@link Serializable} and has a default serial version ID.
  * It includes an {@link Address} among diverse specific attributes.
- * Its properties are persisted in table "tr_enterprise".
+ * Its properties are persisted in table {@code tr_enterprise}.
  * @author Maic
  */
 @Entity

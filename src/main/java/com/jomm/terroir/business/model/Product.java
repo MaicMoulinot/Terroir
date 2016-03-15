@@ -19,7 +19,7 @@ import com.jomm.terroir.business.ServiceProduct;
  * It uses {@link ServiceProduct} for all its logic operations.
  * It implements {@link Serializable} and has a default serial version ID.
  * It includes a {@link Site} among other specific attributes.
- * Its properties are persisted in table "tr_product".
+ * Its properties are persisted in table {@code tr_product}.
  * @author Maic
  */
 @Entity

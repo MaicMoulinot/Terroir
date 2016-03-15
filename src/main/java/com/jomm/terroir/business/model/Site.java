@@ -22,7 +22,7 @@ import com.jomm.terroir.business.ServiceSite;
  * It uses {@link ServiceSite} for all its logic operations.
  * It implements {@link Serializable} and has a default serial version ID.
  * It includes a {@link Enterprise}, and an {@link Address} among other specific attributes.
- * Its properties are persisted in table "tr_site".
+ * Its properties are persisted in table {@code tr_site}.
  * @author Maic
  */
 @Entity

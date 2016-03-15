@@ -19,7 +19,8 @@ import com.jomm.terroir.business.ServiceUser;
  * It uses {@link ServiceUser} for all its logic operations.
  * It implements {@link Serializable} and has a default serial version ID.
  * It includes all common attributes shared among its child classes.
- * As the {@link Inheritance} strategy is TABLE_PER_CLASS, its properties are persisted in each concrete child's table.
+ * As the {@link Inheritance} strategy is {@link InheritanceType#TABLE_PER_CLASS}, 
+ * its properties are persisted in each concrete child's table.
  * @author Maic
  */
 @Entity
