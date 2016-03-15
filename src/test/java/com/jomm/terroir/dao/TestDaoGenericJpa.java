@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.jomm.terroir.business.model.AbstractEntity;
+
 /**
  * This abstract Class defines the contract of {@link DaoGenericJpa}.
  * It extends {@link UtilData} and thus has access to its {@code dbSetupTracker.skipNextLaunch()} method.
@@ -25,14 +27,14 @@ import org.mockito.runners.MockitoJUnitRunner;
  * Each System Under Test (SUT) should extends this class implementing the methods 
  * {@code testState()} and {@code testBehavior()}.
  * @author Maic
- * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link Serializable}.
+ * @param <E> {@link javax.persistence.Entity} is the Entity's type, which extends {@link AbstractEntity}.
  */
 @RunWith(MockitoJUnitRunner.class)
-public abstract class TestDaoGenericJpa<E extends Serializable> extends UtilData {
+public abstract class TestDaoGenericJpa<E extends AbstractEntity> extends UtilData {
 
 	/** An implementation of {@link DaoGenericJpa}. */
 	protected DaoGenericJpa<E> dao;
-	/** An {@link javax.persistence.Entity} that extends {@link Serializable}. */
+	/** An {@link javax.persistence.Entity} that extends {@link AbstractEntity}. */
 	protected E entity;
 	@Mock
 	protected TypedQuery<E> mockedQuery;

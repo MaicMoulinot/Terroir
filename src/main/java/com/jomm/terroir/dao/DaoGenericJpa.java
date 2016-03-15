@@ -1,30 +1,25 @@
 package com.jomm.terroir.dao;
 
-import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
+ import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
-import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import com.jomm.terroir.business.model.AbstractEntity;
+
 /**
- * This abstract Class defines all CRUD operations involving a {@link Entity}.
+ * This abstract Class defines all CRUD operations involving a {@link AbstractEntity}.
  * It implements {@link Dao} and defines all its methods using JPA.
- * The no-arg constructor sets the attribute entityClass with the appropriate {@link Class}.
- * <br />It requires 3 conditions from any {@link Entity} :
- * <ul><li>the entity must declare a {@link NamedQuery} named "entityName.findAll",</li>
- * <li>the entity's id must be a {@link Long},</li>
- * <li>and the entity should implement {@link Serializable}.</li></ul>
+ * The no-arg constructor sets the attribute {@code entityClass} with the appropriate {@link Class}.
  * @author Maic
  *
- * @param <E> {@link Entity} is the Entity's type, which extends {@link Serializable}.
+ * @param <E> {@link javax.persistence.Entity} is the entity's type, which extends {@link AbstractEntity}.
  */
-public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
+public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> {
 
 	protected Class<E> entityClass;
 	
@@ -34,7 +29,7 @@ public abstract class DaoGenericJpa<E extends Serializable> implements Dao<E> {
 
 	/**
 	 * Constructor with no argument.
-	 * Set the attribute entityClass dynamically.
+	 * Set the {@code entityClass} dynamically.
 	 */
 	@SuppressWarnings("unchecked")
 	public DaoGenericJpa() {
