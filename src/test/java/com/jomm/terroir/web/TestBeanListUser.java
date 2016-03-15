@@ -75,7 +75,7 @@ public class TestBeanListUser {
 		// verify Service.update() was called
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, currentUser.getId(), user));
 	}
@@ -99,7 +99,7 @@ public class TestBeanListUser {
 		// verify Service.update() was called
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, currentUser.getId(), user));
 	}
@@ -120,7 +120,7 @@ public class TestBeanListUser {
 		// verify Service.update() was called
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
+		TestBackingBeanBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
 				TestResources.getValueFromResourceBundle(UPDATE_OK), 
 				TestResources.getValueFromResourceBundle(UPDATE_USER));
 	}
@@ -157,7 +157,7 @@ public class TestBeanListUser {
 		// verify Service.delete() was called
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
 	}
@@ -179,7 +179,7 @@ public class TestBeanListUser {
 		// verify Service.delete() was called
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
 	}
@@ -198,7 +198,7 @@ public class TestBeanListUser {
 		// verify Service.delete() was called
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
+		TestBackingBeanBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
 				TestResources.getValueFromResourceBundle(DELETE_OK), 
 				TestResources.getValueFromResourceBundle(DELETE_USER));
 	}
@@ -216,10 +216,10 @@ public class TestBeanListUser {
 	
 	/**
 	 * Set mocked {@link ServiceUser}, and a dummy {@link java.util.logging.Logger} into view.
-	 * Call {@link TestAbstractBean#setInjections(AbstractView)}.
+	 * Call {@link TestBackingBeanBean#setInjections(AbstractView)}.
 	 */
 	private void setInjections() {
-		TestAbstractBean.setInjections(view);
+		TestBackingBeanBean.setInjections(view);
 		view.userService = mock(ServiceUser.class);
 		view.logger = TestResources.createLogger(view.getClass());
 	}

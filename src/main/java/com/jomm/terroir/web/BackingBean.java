@@ -23,7 +23,7 @@ import com.jomm.terroir.util.Constants.ResourceBundleMessage;
  * and to {@link FacesContext} to throw appropriate {@link FacesMessage} to the view.
  * @author Maic
  */
-public abstract class AbstractBean implements Serializable {
+public abstract class BackingBean implements Serializable {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;

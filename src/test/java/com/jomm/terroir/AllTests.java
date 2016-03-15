@@ -47,7 +47,7 @@ import com.jomm.terroir.util.converter.TestAttributeConverterZonedDateTime;
 import com.jomm.terroir.util.converter.TestConverterLocalDate;
 import com.jomm.terroir.util.converter.TestConverterZonedDateTime;
 import com.jomm.terroir.util.exception.TestExceptionService;
-import com.jomm.terroir.web.TestAbstractBean;
+import com.jomm.terroir.web.TestBackingBeanBean;
 import com.jomm.terroir.web.TestBeanRegistrationCustomer;
 import com.jomm.terroir.web.TestBeanListCustomer;
 import com.jomm.terroir.web.TestBeanRegistrationSeller;
@@ -86,7 +86,7 @@ import com.jomm.terroir.web.TestBeanListUser;
 	// Exception
 	TestExceptionService.class, 
 	// Web
-	TestAbstractBean.class, 
+	TestBackingBeanBean.class, 
 	TestBeanRegistrationCustomer.class, TestBeanListCustomer.class, TestBeanRegistrationSeller.class, TestBeanListSeller.class,
 	TestBeanRegistrationUser.class, TestBeanListUser.class
 	})

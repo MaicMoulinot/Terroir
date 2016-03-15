@@ -68,7 +68,7 @@ public class TestBeanRegistrationUser {
 		// verify Service.create() was called
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getId(), user));
 	}
@@ -89,7 +89,7 @@ public class TestBeanRegistrationUser {
 		// verify Service.create() was called
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
+		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
 				view.generateExceptionMessage(exception, view.getId(), user));
 	}
@@ -107,7 +107,7 @@ public class TestBeanRegistrationUser {
 		// verify Service.create() was called
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
+		TestBackingBeanBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
 				TestResources.getValueFromResourceBundle(CREATE_OK), 
 				TestResources.getValueFromResourceBundle(CREATE_USER));
 	}
@@ -122,7 +122,7 @@ public class TestBeanRegistrationUser {
 		// call
 		view.passwordTooltip();
 		// check if a FacesMessage was correctly thrown
-		TestAbstractBean.checkMessageWithPlainDetail(view, CLIENT_ID_GROWL.getId(), FacesMessage.SEVERITY_INFO, 
+		TestBackingBeanBean.checkMessageWithPlainDetail(view, CLIENT_ID_GROWL.getId(), FacesMessage.SEVERITY_INFO, 
 				TestResources.getValueFromResourceBundle(PASSWORD_TITLE), 
 				TestResources.getValueFromResourceBundle(PASSWORD_RULES));
 	}
@@ -162,10 +162,10 @@ public class TestBeanRegistrationUser {
 	
 	/**
 	 * Set mocked {@link ServiceUser}, and a dummy {@link java.util.logging.Logger} into view.
-	 * Call {@link TestAbstractBean#setInjections(AbstractView)}.
+	 * Call {@link TestBackingBeanBean#setInjections(AbstractView)}.
 	 */
 	private void setInjections() {
-		TestAbstractBean.setInjections(view);
+		TestBackingBeanBean.setInjections(view);
 		view.userService = mock(ServiceUser.class);
 		view.logger = TestResources.createLogger(view.getClass());
 	}
