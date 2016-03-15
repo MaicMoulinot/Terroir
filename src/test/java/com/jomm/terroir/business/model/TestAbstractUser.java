@@ -20,6 +20,8 @@ public class TestAbstractUser {
 	
 	private AbstractUser user;
 	private static final char[] PASSWORD = { 'Z', 'm', '@', 't', 'g', 'e', 'Q', 3 };
+	public static final Long USER_ID = (long) 33;
+	
 	
 	/**
 	 * Constructor.
@@ -35,12 +37,11 @@ public class TestAbstractUser {
 	 */
 	@Test
 	public final void testGettersSetters() {
-		Long nb = (long) 0;
 		String test = "test";
 		
 		// Id
-		user.setId(nb);
-		assertEquals("Id should be " + nb, nb, user.getId());
+		user.setId(USER_ID);
+		assertEquals("Id should be " + USER_ID, USER_ID, user.getId());
 		
 		// FirstName
 		user.setFirstName(test);
@@ -75,8 +76,8 @@ public class TestAbstractUser {
 	}
 	
 	/**
-	 * Set values into the {@link AbstractUser} usable for tests.
-	 * @param user the {@link AbstractUser}
+	 * Set values into the {@link AbstractUser} usable for tests, with the identifier {@code null}.
+	 * @param user the {@link AbstractUser} to be set.
 	 */
 	public static void setDummyValuesWithIdNull(AbstractUser user) {
 		user.setEmail("Email");

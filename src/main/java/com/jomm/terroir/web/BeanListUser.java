@@ -57,7 +57,7 @@ public abstract class BeanListUser extends BackingBean {
 				String detail = MessageFormat.format(getValueFromResourceBundle(UPDATE_USER), argument);
 				addMessage(getValueFromResourceBundle(UPDATE_OK), detail);
 			} catch (ExceptionService exception) {
-				String problem = generateExceptionMessage(exception, currentUser.getId(), currentUser);
+				String problem = generateExceptionMessage(exception, currentUser);
 				addMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}
@@ -84,7 +84,7 @@ public abstract class BeanListUser extends BackingBean {
 				String detail = MessageFormat.format(getValueFromResourceBundle(DELETE_USER), argument);
 				addMessage(getValueFromResourceBundle(DELETE_OK), detail);
 			} catch (ExceptionService exception) {
-				String problem = generateExceptionMessage(exception, currentUser.getId(), currentUser);
+				String problem = generateExceptionMessage(exception, currentUser);
 				addMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}

@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
+import com.jomm.terroir.business.model.AbstractEntity;
 import com.jomm.terroir.util.BundleError;
 import com.jomm.terroir.util.BundleMessage;
 import com.jomm.terroir.util.Constants.ResourceBundleError;
@@ -86,12 +87,15 @@ public abstract class BackingBean implements Serializable {
 	/**
 	 * Generate a readable message about an exception.
 	 * @param exception {@link Exception}.
-	 * @param id Long the identifier of the entity.
-	 * @param entity the {@link Serializable}.
+	 * @param entity the {@link AbstractEntity}.
 	 * @return String the generated message.
 	 */
-	public String generateExceptionMessage(Exception exception, Long id, Serializable entity) {
-		return exception.getMessage() + " on [id=" + id + ", class=" + entity.getClass().getName() + "]";
+	public String generateExceptionMessage(Exception exception, AbstractEntity entity) {
+		String message = exception.getMessage();
+		if (entity != null) {
+			message += " on [id=" + entity.getId() + ", class=" + entity.getClass().getName() + "]";
+		}
+		return message;
 	}
 	
 	/**

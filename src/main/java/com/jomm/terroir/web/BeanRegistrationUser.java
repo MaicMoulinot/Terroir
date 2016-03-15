@@ -61,7 +61,7 @@ public abstract class BeanRegistrationUser extends BackingBean {
 			String detail = MessageFormat.format(getValueFromResourceBundle(CREATE_USER), argument);
 			addMessage(getValueFromResourceBundle(CREATE_OK), detail);
 		} catch (ExceptionService exception) {
-			String problem = generateExceptionMessage(exception, entity.getId(), entity);
+			String problem = generateExceptionMessage(exception, entity);
 			addMessageException(problem);
 			logger.log(Level.FINE, problem, exception);
 		}

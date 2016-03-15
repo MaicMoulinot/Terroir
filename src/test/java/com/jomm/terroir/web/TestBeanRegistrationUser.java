@@ -20,11 +20,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
+import org.w3c.dom.views.AbstractView;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
+import com.jomm.terroir.business.model.TestAbstractUser;
 import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionService;
 import com.jomm.terroir.util.exception.TestExceptionService;
@@ -50,6 +52,8 @@ public class TestBeanRegistrationUser {
     public TestBeanRegistrationUser(BeanRegistrationUser view, AbstractUser user) {
         this.view = view;
         this.user = user;
+        this.view.setId(TestAbstractUser.USER_ID);
+        this.user.setId(TestAbstractUser.USER_ID);
     }
     
 	/**
@@ -70,7 +74,7 @@ public class TestBeanRegistrationUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, view.getId(), user));
+				view.generateExceptionMessage(exception, user));
 	}
 
 	/**
@@ -91,7 +95,7 @@ public class TestBeanRegistrationUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, view.getId(), user));
+				view.generateExceptionMessage(exception, user));
 	}
 
 	/**

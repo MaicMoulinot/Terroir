@@ -108,16 +108,17 @@ public class TestBackingBeanBean {
 	}
 
 	/**
-	 * Test method for {@link BackingBean#generateExceptionMessage(Exception, Long, java.io.Serializable)}.
+	 * Test method for {@link BackingBean#generateExceptionMessage(Exception, com.jomm.terroir.business.model.AbstractEntity)}.
 	 */
 	@Test
 	public final void testGenerateExceptionMessage() {
 		Enterprise entity = new Enterprise();
 		Long id = (long) 33;
+		entity.setId(id);
 		String messageException = "test";
 		Exception exception = new Exception(messageException);
 		assertEquals(messageException + " on [id=" + id + ", class=" + entity.getClass().getName() + "]", 
-				view.generateExceptionMessage(exception, id, entity));
+				view.generateExceptionMessage(exception, entity));
 	}
 
 	/**

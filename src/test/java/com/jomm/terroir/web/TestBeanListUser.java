@@ -75,7 +75,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, user.getId(), user));
+				view.generateExceptionMessage(exception, user));
 	}
 	
 	/**
@@ -98,7 +98,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, user.getId(), user));
+				view.generateExceptionMessage(exception, user));
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
+				view.generateExceptionMessage(exception, user));
 	}
 	
 	/**
@@ -177,7 +177,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBeanBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				TestResources.getValueFromResourceBundle(EXCEPTION), 
-				view.generateExceptionMessage(exception, view.getCurrentUser().getId(), user));
+				view.generateExceptionMessage(exception, user));
 	}
 	
 	/**
