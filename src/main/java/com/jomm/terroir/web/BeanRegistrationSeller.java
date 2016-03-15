@@ -1,7 +1,5 @@
 package com.jomm.terroir.web;
 
-import java.io.Serializable;
-
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -12,17 +10,17 @@ import com.jomm.terroir.business.model.Seller;
 /**
  * This Class is the Bean linked to {@code registrationseller.xhtml}, used to register a new {@link Seller}.
  * It extends {@link BeanRegistrationUser} and defines an additional attribute {@link Enterprise}.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
 @Named
 @ViewScoped
-public class BeanRegistrationSeller extends BeanRegistrationUser implements Serializable {
+public class BeanRegistrationSeller extends BeanRegistrationUser {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = -2265655677962237885L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 	
 	//	Attributes
 	private Enterprise enterprise;

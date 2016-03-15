@@ -1,6 +1,5 @@
 package com.jomm.terroir.web;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
@@ -14,17 +13,17 @@ import com.jomm.terroir.business.model.Customer;
 /**
  * This Class is the Bean linked to {@code registrationcustomer.xhtml}, used to register a new {@link Customer}.
  * It extends {@link BeanRegistrationUser} and defines customer specific attributes.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
 @Named
 @ViewScoped
-public class BeanRegistrationCustomer extends BeanRegistrationUser implements Serializable {
+public class BeanRegistrationCustomer extends BeanRegistrationUser {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = -7963211049192627064L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	//	Attributes
 	private LocalDate birthDate;

@@ -20,12 +20,16 @@ import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This abstract Class is used to show the list of all {@link BeanRegistrationUser}s.
- * It extends {@link AbstractBean} and defines common attributes shared among its children.
+ * It extends {@link AbstractBean} and defines common attributes shared among its concrete children.
+ * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It relates to {@link ServiceUser} to update or delete the {@link AbstractUser}s,
  * and to {@link Logger} to generate proper logging messages.
  * @author Maic
  */
 public abstract class BeanListUser extends AbstractBean {
+	
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 
 	// Injected fields
 	@Inject

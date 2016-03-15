@@ -1,6 +1,5 @@
 package com.jomm.terroir.web;
 
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,17 +12,17 @@ import com.jomm.terroir.business.model.Customer;
 /**
  * This Class is the Bean linked to {@code listcustomer.xhtml}, displaying the list of {@link BeanRegistrationCustomer}s.
  * It extends {@link BeanListUser} and defines specific attributes.
- * It implements {@link Serializable} and has a generated serial version ID.
+ * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
 @Named
 @ViewScoped
-public class BeanListCustomer extends BeanListUser implements Serializable {
+public class BeanListCustomer extends BeanListUser {
 	
-	/** Generated serial version ID. Do not modify. */
-	private static final long serialVersionUID = 8628417548186329266L;
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 	
 	// Attributes
 	private List<BeanRegistrationCustomer> listCustomers;

@@ -17,22 +17,26 @@ import com.jomm.terroir.util.Constants.ResourceBundleMessage;
 
 /**
  * This abstract Class defines common attributes shared among all Beans.
+ * It implements {@link Serializable} and has a default serial version ID.
  * It relates to {@link ResourceBundle} to retrieve {@link BundleMessage} messages,
  * to {@link ResourceBundle} to retrieve {@link BundleError} errors,
  * and to {@link FacesContext} to throw appropriate {@link FacesMessage} to the view.
  * @author Maic
  */
-public abstract class AbstractBean {
+public abstract class AbstractBean implements Serializable {
+	
+	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
+	private static final long serialVersionUID = 1L;
 	
 	// Injected fields
 	@Inject
 	private FacesContext facesContext;
 	@Inject
 	@BundleError
-	private ResourceBundle resourceBundleError;
+	private transient ResourceBundle resourceBundleError;
 	@Inject
 	@BundleMessage
-	private ResourceBundle resourceBundleMessage;
+	private transient ResourceBundle resourceBundleMessage;
 	
 	// Utility methods
 	/**
