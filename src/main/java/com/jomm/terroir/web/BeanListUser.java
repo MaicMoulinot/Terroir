@@ -9,7 +9,6 @@ import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.faces.component.html.HtmlDataTable;
 import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
@@ -38,7 +37,6 @@ public abstract class BeanListUser extends BackingBean {
 	protected Logger logger;
 	
 	// Attributes
-	protected HtmlDataTable dataTable;
 	protected BeanRegistrationUser currentUser;
 	
 	/**
@@ -94,20 +92,6 @@ public abstract class BeanListUser extends BackingBean {
 			}
 		}
 		return null;	// Navigation case.
-	}
-	
-	/**
-	 * @return the dataTable
-	 */
-	public HtmlDataTable getDataTable() {
-		return dataTable;
-	}
-
-	/**
-	 * @param dataTable the dataTable to set
-	 */
-	public void setDataTable(HtmlDataTable dataTable) {
-		this.dataTable = dataTable;
 	}
 
 	/**

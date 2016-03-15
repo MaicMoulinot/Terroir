@@ -8,8 +8,6 @@ import static org.mockito.Mockito.verify;
 
 import java.util.LinkedList;
 
-import javax.faces.component.html.HtmlDataTable;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,11 +60,6 @@ public class TestBeanListCustomer {
 		BeanRegistrationCustomer current = TestBeanRegistrationCustomer.generateDummyViewCustomer();
 		view.setCurrentUser(current);
 		assertEquals("ViewCustomer should be " + current, current, view.getCurrentUser());
-		
-		// HtmlDataTable
-		HtmlDataTable dataTable = new HtmlDataTable();
-		view.setDataTable(dataTable);
-		assertEquals("HtmlDataTable should be " + dataTable, dataTable, view.getDataTable());
 		
 		// ListCustomers
 		LinkedList<BeanRegistrationCustomer> listCustomers = new LinkedList<>();

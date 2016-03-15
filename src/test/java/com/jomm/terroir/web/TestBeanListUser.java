@@ -5,7 +5,6 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -16,13 +15,13 @@ import static org.mockito.Mockito.when;
 import java.util.Arrays;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.component.html.HtmlDataTable;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.primefaces.event.RowEditEvent;
+import org.w3c.dom.views.AbstractView;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
@@ -201,17 +200,6 @@ public class TestBeanListUser {
 		TestBackingBeanBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
 				TestResources.getValueFromResourceBundle(DELETE_OK), 
 				TestResources.getValueFromResourceBundle(DELETE_USER));
-	}
-
-	/**
-	 * Test method for {@link BeanListSeller}'s getters and setters.
-	 */
-	@Test
-	public final void testGetterSetter() {		
-		// HtmlDataTable
-		HtmlDataTable dataTable = new HtmlDataTable();
-		view.setDataTable(dataTable);
-		assertEquals("HtmlDataTable should be " + dataTable, dataTable, view.getDataTable());
 	}
 	
 	/**
