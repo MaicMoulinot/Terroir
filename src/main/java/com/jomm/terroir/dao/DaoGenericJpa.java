@@ -1,6 +1,6 @@
 package com.jomm.terroir.dao;
 
- import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
 
