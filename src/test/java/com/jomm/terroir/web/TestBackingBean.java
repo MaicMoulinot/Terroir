@@ -26,7 +26,7 @@ import com.jomm.terroir.util.TestResources;
  * This class is a Junit test case testing {@link BackingBean}.
  * @author Maic
  */
-public class TestBackingBeanBean {
+public class TestBackingBean {
 
 	private BackingBean view;
 

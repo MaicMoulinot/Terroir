@@ -14,6 +14,7 @@ import com.jomm.terroir.business.TestServiceSite;
 import com.jomm.terroir.business.TestServiceSiteImpl;
 import com.jomm.terroir.business.TestServiceUser;
 import com.jomm.terroir.business.TestServiceUserImpl;
+import com.jomm.terroir.business.model.TestAbstractEntity;
 import com.jomm.terroir.business.model.TestAbstractUser;
 import com.jomm.terroir.business.model.TestAddress;
 import com.jomm.terroir.business.model.TestAdmin;
@@ -47,7 +48,7 @@ import com.jomm.terroir.util.converter.TestAttributeConverterZonedDateTime;
 import com.jomm.terroir.util.converter.TestConverterLocalDate;
 import com.jomm.terroir.util.converter.TestConverterZonedDateTime;
 import com.jomm.terroir.util.exception.TestExceptionService;
-import com.jomm.terroir.web.TestBackingBeanBean;
+import com.jomm.terroir.web.TestBackingBean;
 import com.jomm.terroir.web.TestBeanRegistrationCustomer;
 import com.jomm.terroir.web.TestBeanListCustomer;
 import com.jomm.terroir.web.TestBeanRegistrationSeller;
@@ -64,7 +65,7 @@ import com.jomm.terroir.web.TestBeanListUser;
 @RunWith(Suite.class)
 @SuiteClasses({
 	// Model
-	TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
+	TestAbstractEntity.class, TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
 	TestEnterprise.class, TestImage.class, TestProduct.class, TestSeller.class, TestSite.class, 
 	// Service
 	TestServiceEnterprise.class, TestServiceEnterpriseImpl.class, 
@@ -86,8 +87,9 @@ import com.jomm.terroir.web.TestBeanListUser;
 	// Exception
 	TestExceptionService.class, 
 	// Web
-	TestBackingBeanBean.class, 
-	TestBeanRegistrationCustomer.class, TestBeanListCustomer.class, TestBeanRegistrationSeller.class, TestBeanListSeller.class,
+	TestBackingBean.class, 
+	TestBeanRegistrationCustomer.class, TestBeanListCustomer.class, 
+	TestBeanRegistrationSeller.class, TestBeanListSeller.class,
 	TestBeanRegistrationUser.class, TestBeanListUser.class
 	})
 public class AllTests {
