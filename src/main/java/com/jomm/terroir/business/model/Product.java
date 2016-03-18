@@ -1,11 +1,13 @@
 package com.jomm.terroir.business.model;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -52,6 +54,9 @@ public class Product extends AbstractEntity {
 	@NotNull
 	@ManyToOne(optional = false)
 	private Site site;
+	
+	@ManyToMany
+	private List<Label> listLabels;
 	
 	// Getters and Setters
 	@Override
@@ -134,5 +139,19 @@ public class Product extends AbstractEntity {
 	 */
 	public void setSite(Site site) {
 		this.site = site;
+	}
+
+	/**
+	 * @return the listLabels
+	 */
+	public List<Label> getListLabels() {
+		return listLabels;
+	}
+
+	/**
+	 * @param listLabels the listLabels to set
+	 */
+	public void setListLabels(List<Label> listLabels) {
+		this.listLabels = listLabels;
 	}
 }
