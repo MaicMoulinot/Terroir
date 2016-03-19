@@ -1,15 +1,16 @@
 package com.jomm.terroir.business.model;
 
-import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -17,13 +18,13 @@ import javax.validation.constraints.NotNull;
  * This Class is an {@link Entity} representing a label.
  * It extends {@link AbstractUser}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link LabelUser} for all its business operations.
- * It includes an {@link Address} and other specific attributes.
- * Its properties are persisted in table {@code tr_label}.
+ * It uses {@link com.jomm.terroir.business.ServiceLabel} for all its business operations.
+ * It includes an {@link Image} and other specific attributes.
+ * Its properties are persisted in the {@link Table} named {@code qualitylabel}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_label")
+@Table(name="qualitylabel")
 @NamedQuery(name="Label.findAll", query="SELECT l FROM Label l")
 public class Label extends AbstractEntity {
 
@@ -33,22 +34,25 @@ public class Label extends AbstractEntity {
 	// Attributes
 	@Id
 	@GeneratedValue
-	@Column(name = "label_id")
+	@Column(name = "qualitylabel_id")
 	private Long id;
 	
 	@NotNull
+	@Column(name = "official_name", unique = true)
 	private String name;
+	
+	@NotNull
+	@Column(unique = true)
+	private String acronym;
 	
 	private String definition;
 	
-	@Column(name = "creation_date", columnDefinition = "date")
-	private LocalDate creationDate;
+	@OneToOne
+	@JoinColumn(name="fk_image_id")
+	private Image logo;
 	
-	@Embedded
-	private Address address;
-	
-	@ManyToMany(mappedBy="listLabels")
-	private List<Product> listProducts;
+	@OneToMany(mappedBy = "label", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Designation> designations;
 	
 	// Getters and Setters
 	@Override
@@ -78,6 +82,20 @@ public class Label extends AbstractEntity {
 	}
 
 	/**
+	 * @return the acronym
+	 */
+	public String getAcronym() {
+		return acronym;
+	}
+
+	/**
+	 * @param sigle the acronym to set
+	 */
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
+	}
+
+	/**
 	 * @return the definition
 	 */
 	public String getDefinition() {
@@ -92,44 +110,30 @@ public class Label extends AbstractEntity {
 	}
 
 	/**
-	 * @return the creationDate
+	 * @return the logo
 	 */
-	public LocalDate getCreationDate() {
-		return creationDate;
+	public Image getLogo() {
+		return logo;
 	}
 
 	/**
-	 * @param creationDate the creationDate to set
+	 * @param logo the logo to set
 	 */
-	public void setCreationDate(LocalDate creationDate) {
-		this.creationDate = creationDate;
+	public void setLogo(Image logo) {
+		this.logo = logo;
 	}
 
 	/**
-	 * @return the address
+	 * @return the designations
 	 */
-	public Address getAddress() {
-		return address;
+	public List<Designation> getDesignations() {
+		return designations;
 	}
 
 	/**
-	 * @param address the address to set
+	 * @param designations the designations to set
 	 */
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	/**
-	 * @return the listProducts
-	 */
-	public List<Product> getListProducts() {
-		return listProducts;
-	}
-
-	/**
-	 * @param listProducts the listProducts to set
-	 */
-	public void setListProducts(List<Product> listProducts) {
-		this.listProducts = listProducts;
+	public void setDesignations(List<Designation> designations) {
+		this.designations = designations;
 	}
 }

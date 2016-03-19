@@ -1,31 +1,26 @@
 package com.jomm.terroir.business.model;
 
 import java.time.ZonedDateTime;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.jomm.terroir.business.ServiceProduct;
 
 /**
  * This Class is an {@link Entity} representing a product.
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ServiceProduct} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceProduct} for all its business operations.
  * It includes a {@link Site} among other specific attributes.
- * Its properties are persisted in table {@code tr_product}.
+ * Its properties are persisted in the {@link javax.persistence.Table} named {@code product}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_product")
 @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
 public class Product extends AbstractEntity {
 	
@@ -38,25 +33,26 @@ public class Product extends AbstractEntity {
 	@Column(name = "product_id")
 	private Long id;
 	
-	@Column(name = "title")
 	@NotNull
 	private String title;
 	
-	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "quantity")
 	private int quantity;
 	
-	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
-	private ZonedDateTime registrationDate;
+	private Double price;
+	
+	@Column(name = "last_update", columnDefinition = "timestamp with time zone")
+	private ZonedDateTime lastUpdate;
 	
 	@NotNull
 	@ManyToOne(optional = false)
+	@JoinColumn(name="fk_site_id")
 	private Site site;
 	
-	@ManyToMany
-	private List<Label> listLabels;
+	@ManyToOne
+	@JoinColumn(name="fk_designation_id")
+	private Designation designation;
 	
 	// Getters and Setters
 	@Override
@@ -114,17 +110,31 @@ public class Product extends AbstractEntity {
 	}
 
 	/**
-	 * @return the registrationDate
+	 * @return the price
 	 */
-	public ZonedDateTime getRegistrationDate() {
-		return registrationDate;
+	public Double getPrice() {
+		return price;
 	}
 
 	/**
-	 * @param registrationDate the registrationDate to set
+	 * @param price the price to set
 	 */
-	public void setRegistrationDate(ZonedDateTime registrationDate) {
-		this.registrationDate = registrationDate;
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	/**
+	 * @return the lastUpdate
+	 */
+	public ZonedDateTime getLastUpdate() {
+		return lastUpdate;
+	}
+
+	/**
+	 * @param lastUpdate the lastUpdate to set
+	 */
+	public void setLastUpdate(ZonedDateTime lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	/**
@@ -142,16 +152,16 @@ public class Product extends AbstractEntity {
 	}
 
 	/**
-	 * @return the listLabels
+	 * @return the designation
 	 */
-	public List<Label> getListLabels() {
-		return listLabels;
+	public Designation getDesignation() {
+		return designation;
 	}
 
 	/**
-	 * @param listLabels the listLabels to set
+	 * @param designation the designation to set
 	 */
-	public void setListLabels(List<Label> listLabels) {
-		this.listLabels = listLabels;
+	public void setDesignation(Designation designation) {
+		this.designation = designation;
 	}
 }
