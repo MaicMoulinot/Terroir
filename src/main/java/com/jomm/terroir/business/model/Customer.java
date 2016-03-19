@@ -7,21 +7,18 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-
-import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is an {@link Entity} representing a customer.
  * It extends {@link AbstractUser}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ServiceUser} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceUser} for all its business operations.
  * It includes an {@link Address} and other specific attributes.
- * Its properties and those from its parent {@link AbstractUser} are persisted in table {@code tr_customer}.
+ * Its properties and those from its parent {@link AbstractUser} 
+ * are persisted in the {@link javax.persistence.Table} named {@code customer}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_customer")
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
 public class Customer extends AbstractUser {
 	
@@ -29,11 +26,11 @@ public class Customer extends AbstractUser {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes
-	@Column(name = "date_birth", columnDefinition = "date")
+	@Column(name = "birth_date", columnDefinition = "date")
 	private LocalDate birthDate;
 	
-	@Column(name = "date_signup", columnDefinition = "timestamp with time zone")
-	private ZonedDateTime signUpDate;
+	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
+	private ZonedDateTime registrationDate;
 
 	@Embedded
 	private Address address;
@@ -54,17 +51,17 @@ public class Customer extends AbstractUser {
 	}
 
 	/**
-	 * @return the signUpDate
+	 * @return the registrationDate
 	 */
-	public ZonedDateTime getSignUpDate() {
-		return signUpDate;
+	public ZonedDateTime getRegistrationDate() {
+		return registrationDate;
 	}
 
 	/**
-	 * @param signUpDate the signUpDate to set
+	 * @param registrationDate the registrationDate to set
 	 */
-	public void setSignUpDate(ZonedDateTime signUpDate) {
-		this.signUpDate = signUpDate;
+	public void setRegistrationDate(ZonedDateTime signUpDate) {
+		this.registrationDate = signUpDate;
 	}
 
 	/**
