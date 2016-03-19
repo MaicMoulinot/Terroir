@@ -10,8 +10,8 @@ import java.io.Serializable;
  * <ul><li>it must declare a {@link javax.persistence.NamedQuery} 
  * whose parameter {@code name} is the concatenation of the entity's name and {@code .findAll}
  * (e.g. {@code Admin.findAll}, or {@code Product.findAll}),
- * and whose parameter {@code query} is a selection of all entities
- * (e.g. {@code SELECT a FROM Admin a}, or {@code SELECT p FROM Product p}).</li>
+ * and whose parameter {@code query} is a selection from all the entity
+ * (e.g. {@code "SELECT a FROM Admin a"}, or {@code "SELECT p FROM Product p"}).</li>
  * <li>its identifier must be a {@link Long}.</li></ul>
  * @author Maic
  */
