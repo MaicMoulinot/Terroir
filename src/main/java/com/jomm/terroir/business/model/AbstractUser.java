@@ -10,13 +10,11 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
-import com.jomm.terroir.business.ServiceUser;
-
 /**
  * This Class is an abstract {@link Entity} representing an user.
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ServiceUser} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceUser} for all its business operations.
  * It includes all common attributes shared among its child classes.
  * As the {@link Inheritance} strategy is {@link InheritanceType#TABLE_PER_CLASS}, 
  * its properties are persisted in each concrete child's table.

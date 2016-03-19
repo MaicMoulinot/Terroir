@@ -47,9 +47,9 @@ public class TestSite {
 		site.setId(nb);
 		assertEquals("Id should be " + nb, nb, site.getId());
 		
-		// SiteName
-		site.setSiteName(test);
-		assertEquals("SiteName should be " + test, test, site.getSiteName());
+		// Name
+		site.setName(test);
+		assertEquals("SiteName should be " + test, test, site.getName());
 		
 		// LegalIdentification
 		site.setLegalIdentification(test);
@@ -71,14 +71,14 @@ public class TestSite {
 		assertEquals("Enterprise.LegalName should be " + test, test, site.getEnterprise().getLegalName());
 		enterprise = null; // Available for Garbage Collector
 		
-		// ListProducts
+		// List of products
 		ArrayList<Product> listProducts = new ArrayList<>();
 		Product product = new Product();
 		listProducts.add(product);
-		site.setListProducts(listProducts);
-		assertNotNull("ListProducts should not be null", site.getListProducts());
-		assertFalse("ListProducts should not be empty", site.getListProducts().isEmpty());
-		assertEquals("ListProducts' size should be 1", 1, site.getListProducts().size());
+		site.setProducts(listProducts);
+		assertNotNull("List of products should not be null", site.getProducts());
+		assertFalse("List of products should not be empty", site.getProducts().isEmpty());
+		assertEquals("List of products size should be 1", 1, site.getProducts().size());
 		product = null; // Available for Garbage Collector
 		listProducts = null; // Available for Garbage Collector
 	}
@@ -92,8 +92,8 @@ public class TestSite {
 		site.setAddress(TestAddress.generateAddress());
 		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		site.setLegalIdentification("LegalIdentification");
-		site.setListProducts(new ArrayList<>());
-		site.setSiteName("SiteName");
+		site.setProducts(new ArrayList<>());
+		site.setName("SiteName");
 		return site;
 	}
 }

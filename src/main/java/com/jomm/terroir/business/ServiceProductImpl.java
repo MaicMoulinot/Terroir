@@ -35,7 +35,7 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() != null) {
 			throw new ExceptionService(ID_NOT_NULL);
 		}
-		product.setRegistrationDate(ZonedDateTime.now());
+		product.setLastUpdate(ZonedDateTime.now());
 		return daoProduct.create(product);
 	}
 	

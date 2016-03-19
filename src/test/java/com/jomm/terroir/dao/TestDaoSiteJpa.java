@@ -79,13 +79,13 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			// FindById
 			Site persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
-			assertEquals("After persistence, properties should be equal", entity.getSiteName(), persistedEntity.getSiteName());
+			assertEquals("After persistence, properties should be equal", entity.getName(), persistedEntity.getName());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
 
 			// Update
-			String initialValue = persistedEntity.getSiteName();
-			persistedEntity.setSiteName("UpdatedValue");
-			String updatedValue = dao.update(persistedEntity).getSiteName();
+			String initialValue = persistedEntity.getName();
+			persistedEntity.setName("UpdatedValue");
+			String updatedValue = dao.update(persistedEntity).getName();
 			assertNotEquals("Values should not match", initialValue, updatedValue);
 
 			// DeleteById

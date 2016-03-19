@@ -183,12 +183,12 @@
 				<p:column headerText="#{label.signupdate}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<p:outputLabel value="#{currentCustomer.signUpDate}">
+							<p:outputLabel value="#{currentCustomer.registrationDate}">
 								<f:converter converterId="zonedDateTimeConverter" />
 							</p:outputLabel>
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentCustomer.signUpDate}">
+							<p:inputText value="#{currentCustomer.registrationDate}">
 								<f:converter converterId="zonedDateTimeConverter" />
 							</p:inputText>
 						</f:facet>

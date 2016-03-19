@@ -79,10 +79,10 @@ public class TestServiceUser {
 	@Test
 	public final void testCreateCustomerGenerateSignUpDate() throws ExceptionService {
 		Customer customer = TestCustomer.generateCustomerWithIdNull();
-		assertNull("Sign Up Date should not yet be initialized", customer.getSignUpDate());
+		assertNull("Sign Up Date should not yet be initialized", customer.getRegistrationDate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.create(customer);
-		ZonedDateTime entityDate = customer.getSignUpDate();
+		ZonedDateTime entityDate = customer.getRegistrationDate();
 		assertNotNull("Sign Up Date should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
 		assertEquals("Sign Up Date should be like ZonedDateTime.now()", now.format(formatter), 

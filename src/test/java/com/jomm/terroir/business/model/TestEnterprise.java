@@ -79,30 +79,30 @@ public class TestEnterprise {
 		enterprise.setNbEmployees(employees);
 		assertEquals("NbEmployees should be " + employees, employees, enterprise.getNbEmployees());
 		
-		// SignUpDate
+		// RegistrationDate
 		ZonedDateTime zonedDate = ZonedDateTime.now();
-		enterprise.setSignUpDate(zonedDate);
-		assertEquals("SignUpDate should be " + zonedDate, zonedDate, enterprise.getSignUpDate());
+		enterprise.setRegistrationDate(zonedDate);
+		assertEquals("RegistrationDate should be " + zonedDate, zonedDate, enterprise.getRegistrationDate());
 		
-		// ListSellers
+		// List of sellers
 		ArrayList<Seller> listSellers = new ArrayList<>();
 		Seller seller = new Seller();
 		listSellers.add(seller);
-		enterprise.setListSellers(listSellers);
-		assertNotNull("ListSellers should not be null", enterprise.getListSellers());
-		assertFalse("ListSellers should not be empty", enterprise.getListSellers().isEmpty());
-		assertEquals("ListSellers' size should be 1", 1, enterprise.getListSellers().size());
+		enterprise.setSellers(listSellers);
+		assertNotNull("List of sellers should not be null", enterprise.getSellers());
+		assertFalse("List of sellers should not be empty", enterprise.getSellers().isEmpty());
+		assertEquals("List of sellers size should be 1", 1, enterprise.getSellers().size());
 		seller = null; // Available for Garbage Collector
 		listSellers = null; // Available for Garbage Collector
 		
-		// ListSites
+		// List of sites
 		ArrayList<Site> listSites = new ArrayList<>();
 		Site site = new Site();
 		listSites.add(site);
-		enterprise.setListSites(listSites);
-		assertNotNull("ListSites should not be null", enterprise.getListSites());
-		assertFalse("ListSites should not be empty", enterprise.getListSites().isEmpty());
-		assertEquals("ListSites' size should be 1", 1, enterprise.getListSites().size());
+		enterprise.setSites(listSites);
+		assertNotNull("List of sites should not be null", enterprise.getSites());
+		assertFalse("List of sites should not be empty", enterprise.getSites().isEmpty());
+		assertEquals("List of sites size should be 1", 1, enterprise.getSites().size());
 		site = null; // Available for Garbage Collector
 		listSites = null; // Available for Garbage Collector
 	}
@@ -118,8 +118,8 @@ public class TestEnterprise {
 		enterprise.setCreationDate(LocalDate.now());
 		enterprise.setLegalIdentification("LegalIdentification");
 		enterprise.setLegalName("LegalName");
-		enterprise.setListSellers(new ArrayList<>());
-		enterprise.setListSites(new ArrayList<>());
+		enterprise.setSellers(new ArrayList<>());
+		enterprise.setSites(new ArrayList<>());
 		enterprise.setNbEmployees(10);
 		enterprise.setTradeName("TradeName");		
 		return enterprise;

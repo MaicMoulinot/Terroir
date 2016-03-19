@@ -74,10 +74,10 @@ public class TestServiceProduct {
 	@Test
 	public final void testCreateProductGenerateRegistrationDate() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		assertNull("RegistrationDate should not yet be initialized", product.getRegistrationDate());
+		assertNull("RegistrationDate should not yet be initialized", product.getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.create(product);
-		ZonedDateTime entityDate = product.getRegistrationDate();
+		ZonedDateTime entityDate = product.getLastUpdate();
 		assertNotNull("RegistrationDate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
 		assertEquals("RegistrationDate should be like ZonedDateTime.now()", now.format(formatter), 

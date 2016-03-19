@@ -19,25 +19,25 @@ public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes
-	@Column(name = "address_street")
+	@Column(name = "addr_street")
 	private String street;
 	
-	@Column(name = "address_complement")
+	@Column(name = "addr_complement")
 	private String complement;
 	
-	@Column(name = "address_post_code")
 	@NotNull
+	@Column(name = "addr_post_code")
 	private String postCode;
 	
-	@Column(name = "address_city")
 	@NotNull
+	@Column(name = "addr_city")
 	private String city;
 	
-	@Column(name = "address_country")
 	@NotNull
+	@Column(name = "addr_country")
 	private String country;
 	
-	@Column(name = "address_coordinates")
+	@Column(name = "addr_coordinates")
 	private String coordinates;
 
 	// Getters and Setters

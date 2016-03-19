@@ -36,15 +36,15 @@ public abstract class UtilData {
 	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
 			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
 	
-	private static final Operation DELETE_ALL_DATA = deleteAllFrom("tr_admin", "tr_product", "tr_site", "tr_seller", 
-			"tr_enterprise", "tr_customer", "tr_image");
+	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", 
+			"product", "site", "seller", "enterprise", "designation", "qualitylabel", "image");
 	private static final Operation INSERT_BASIC_DATA =
 			sequenceOf(
-					insertInto("tr_enterprise")
-					.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", "date_creation", 
-							"number_employees", "date_signup", 
-							"address_street", "address_complement", "address_post_code",
-							"address_city", "address_country", "address_coordinates")
+					insertInto("enterprise")
+					.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", "creation_date", 
+							"number_employees", "registration_date", 
+							"addr_street", "addr_complement", "addr_post_code",
+							"addr_city", "addr_country", "addr_coordinates")
 					.values(111111, "Janichon&Sons", "GAEC Janichon", "XXDGQG", 
 							GENERATOR_LOCAL_DATE.nextValue(), 2, GENERATOR_ZONED_DATE_TIME.nextValue(), 
 							"Dagallier Haut", null, "01400", "Sulignat", "France", "46.182194, 4.970275")
@@ -52,10 +52,10 @@ public abstract class UtilData {
 							GENERATOR_LOCAL_DATE.nextValue(), 4, GENERATOR_ZONED_DATE_TIME.nextValue(), 
 							"Allée Pioch Redon", null, "34430", "St Jean de Védas", "France", "43.589423, 3.827251")
 					.build(),
-					insertInto("tr_site")
-					.columns("site_id", "site_name", "legal_identification", "address_street", "address_complement", 
-							"address_post_code", "address_city", "address_country", "address_coordinates", 
-							"enterprise_enterprise_id")
+					insertInto("site")
+					.columns("site_id", "site_name", "legal_identification", "addr_street", "addr_complement", 
+							"addr_post_code", "addr_city", "addr_country", "addr_coordinates", 
+							"fk_enterprise_id")
 					.values(111111, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
 							"France", "46.182194, 4.970275", 111111)
 					.values(222222, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 

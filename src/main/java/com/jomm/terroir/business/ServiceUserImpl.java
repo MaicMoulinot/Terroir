@@ -55,7 +55,7 @@ public class ServiceUserImpl implements ServiceUser {
 			throw new ExceptionService(ID_NOT_NULL);
 		}
 		if (user instanceof Customer) {
-			((Customer) user).setSignUpDate(ZonedDateTime.now());
+			((Customer) user).setRegistrationDate(ZonedDateTime.now());
 		}
 		return daoUser.create(user);
 	}

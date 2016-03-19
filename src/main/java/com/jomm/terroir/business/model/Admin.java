@@ -5,19 +5,18 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.jomm.terroir.business.ServiceUser;
-
 /**
  * This Class is an {@link Entity} representing an administrator of the system.
  * It extends {@link AbstractUser}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ServiceUser} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceUser} for all its business operations.
  * It includes administrative abilities that are invalid by default.
- * Its properties and those from its parent {@link AbstractUser} are persisted in table {@code tr_admin}.
+ * Its properties and those from its parent {@link AbstractUser} 
+ * are persisted in the {@link Table} named {@code administrator}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_admin")
+@Table(name="administrator")
 @NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
 public class Admin extends AbstractUser {
 	

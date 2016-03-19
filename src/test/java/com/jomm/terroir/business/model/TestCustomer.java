@@ -45,10 +45,10 @@ public class TestCustomer {
 		customer.setBirthDate(birthdate);
 		assertEquals("BirthDate should be " + birthdate, birthdate, customer.getBirthDate());
 		
-		// SignUpDate
+		// RegistrationDate
 		ZonedDateTime date = ZonedDateTime.now();
-		customer.setSignUpDate(date);
-		assertEquals("SignUpDate should be " + date, date, customer.getSignUpDate());
+		customer.setRegistrationDate(date);
+		assertEquals("SignUpDate should be " + date, date, customer.getRegistrationDate());
 		
 		// Address
 		Address address = new Address();

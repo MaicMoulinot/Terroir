@@ -59,10 +59,15 @@ public class TestProduct {
 		product.setQuantity(qty);
 		assertEquals("Quantity should be " + qty, qty, product.getQuantity());
 		
-		// RegistrationDate
+		// Price
+		Double price = 1.23;
+		product.setPrice(price);
+		assertEquals("Price should be " + price, price, product.getPrice());
+		
+		// LastUpdate
 		ZonedDateTime zonedDate = ZonedDateTime.now();
-		product.setRegistrationDate(zonedDate);
-		assertEquals("RegistrationDate should be " + zonedDate, zonedDate, product.getRegistrationDate());
+		product.setLastUpdate(zonedDate);
+		assertEquals("RegistrationDate should be " + zonedDate, zonedDate, product.getLastUpdate());
 		
 		// Site
 		Site site = new Site();
@@ -71,6 +76,14 @@ public class TestProduct {
 		assertNotNull("Site should not be null", product.getSite());
 		assertEquals("Site's id should be " + nb, nb, product.getSite().getId());
 		site = null; // Available for Garbage Collector
+		
+		// Designation
+		Designation designation = new Designation();
+		designation.setId(nb);
+		product.setDesignation(designation);
+		assertNotNull("Designation should not be null", product.getDesignation());
+		assertEquals("Designation's id should be " + nb, nb, product.getDesignation().getId());
+		designation = null; // Available for Garbage Collector
 	}
 	
 	/**

@@ -35,7 +35,7 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 		} else if (enterprise.getId() != null) {
 			throw new ExceptionService(ID_NOT_NULL);
 		}
-		enterprise.setSignUpDate(ZonedDateTime.now());
+		enterprise.setRegistrationDate(ZonedDateTime.now());
 		return daoEnterprise.create(enterprise);
 	}
 	

@@ -8,20 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
  * This Class is an {@link Entity} representing an image.
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ImageService} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceImage} for all its business operations.
  * It includes a {@link BufferedImage} persisted as a {@link Lob}.
- * Its properties are persisted in table {@code tr_image}.
+ * Its properties are persisted in the {@link javax.persistence.Table} named {@code image}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_image")
 @NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
 public class Image extends AbstractEntity {
 	
@@ -35,13 +33,15 @@ public class Image extends AbstractEntity {
 	private Long id;
 	
 	@NotNull
+	@Column(name = "imag_title")
 	private String title;
 	
+	@Column(name = "imag_description")
 	private String description;
 	
 	@Lob
 	@NotNull
-	@Column(name = "image_data")
+	@Column(name = "imag_data")
 	private BufferedImage imageData;
 	
 	// Getters and Setters

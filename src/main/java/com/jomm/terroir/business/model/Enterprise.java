@@ -12,22 +12,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.jomm.terroir.business.ServiceEnterprise;
 
 /**
  * This Class is an {@link Entity} representing an enterprise.
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ServiceEnterprise} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceEnterprise} for all its business operations.
  * It includes an {@link Address} among diverse specific attributes.
- * Its properties are persisted in table {@code tr_enterprise}.
+ * Its properties are persisted in the {@link javax.persistence.Table} named {@code enterprise}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_enterprise")
 @NamedQuery(name="Enterprise.findAll", query="SELECT e FROM Enterprise e")
 public class Enterprise extends AbstractEntity {
 	
@@ -40,35 +36,35 @@ public class Enterprise extends AbstractEntity {
 	@Column(name = "enterprise_id")
 	private Long id;
 	
-	@Column(unique = true, name = "trade_name")
 	@NotNull
+	@Column(name = "trade_name", unique = true)
 	private String tradeName;
 	
-	@Column(unique = true, name = "legal_name")
 	@NotNull
+	@Column(name = "legal_name", unique = true)
 	private String legalName;
 	
-	@Column(name = "legal_identification")
 	@NotNull
+	@Column(name = "legal_identification", unique = true)
 	private String legalIdentification;
 	
 	@Embedded
 	private Address address;
 	
-	@Column(name = "date_creation", columnDefinition = "date")
-	private LocalDate creationDate;
-	
 	@Column(name = "number_employees")
 	private int nbEmployees;
 	
-	@Column(name = "date_signup", columnDefinition = "timestamp with time zone")
-	private ZonedDateTime signUpDate;
+	@Column(name = "creation_date", columnDefinition = "date")
+	private LocalDate creationDate;
 	
-	@OneToMany(targetEntity = Seller.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
-	private List<Seller> listSellers;
+	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
+	private ZonedDateTime registrationDate;
 	
-	@OneToMany(targetEntity = Site.class, mappedBy = "enterprise", cascade = CascadeType.ALL)
-	private List<Site> listSites;
+	@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Seller> sellers;
+	
+	@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Site> sites;
 	
 	// Getters and Setters
 	@Override
@@ -138,6 +134,20 @@ public class Enterprise extends AbstractEntity {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+	
+	/**
+	 * @return the nbEmployees
+	 */
+	public int getNbEmployees() {
+		return nbEmployees;
+	}
+	
+	/**
+	 * @param nbEmployees the nbEmployees to set
+	 */
+	public void setNbEmployees(int nbEmployees) {
+		this.nbEmployees = nbEmployees;
+	}
 
 	/**
 	 * @return the creationDate
@@ -154,58 +164,44 @@ public class Enterprise extends AbstractEntity {
 	}
 
 	/**
-	 * @return the nbEmployees
+	 * @return the registrationDate
 	 */
-	public int getNbEmployees() {
-		return nbEmployees;
+	public ZonedDateTime getRegistrationDate() {
+		return registrationDate;
 	}
 
 	/**
-	 * @param nbEmployees the nbEmployees to set
+	 * @param registrationDate the registrationDate to set
 	 */
-	public void setNbEmployees(int nbEmployees) {
-		this.nbEmployees = nbEmployees;
+	public void setRegistrationDate(ZonedDateTime registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	/**
-	 * @return the signUpDate
+	 * @return the sellers
 	 */
-	public ZonedDateTime getSignUpDate() {
-		return signUpDate;
+	public List<Seller> getSellers() {
+		return sellers;
 	}
 
 	/**
-	 * @param signUpDate the signUpDate to set
+	 * @param sellers the sellers to set
 	 */
-	public void setSignUpDate(ZonedDateTime signUpDate) {
-		this.signUpDate = signUpDate;
-	}
-
-	/**
-	 * @return the listSellers
-	 */
-	public List<Seller> getListSellers() {
-		return listSellers;
-	}
-
-	/**
-	 * @param listSellers the listSellers to set
-	 */
-	public void setListSellers(List<Seller> listSellers) {
-		this.listSellers = listSellers;
+	public void setSellers(List<Seller> sellers) {
+		this.sellers = sellers;
 	}
 
 	/**
 	 * @return the listSites
 	 */
-	public List<Site> getListSites() {
-		return listSites;
+	public List<Site> getSites() {
+		return sites;
 	}
 
 	/**
 	 * @param listSites the listSites to set
 	 */
-	public void setListSites(List<Site> listSites) {
-		this.listSites = listSites;
+	public void setSites(List<Site> listSites) {
+		this.sites = listSites;
 	}
 }

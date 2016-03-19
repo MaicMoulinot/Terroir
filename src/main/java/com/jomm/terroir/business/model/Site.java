@@ -8,25 +8,22 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.jomm.terroir.business.ServiceSite;
 
 /**
  * This Class is an {@link Entity} representing a site.
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ServiceSite} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceSite} for all its business operations.
  * It includes a {@link Enterprise}, and an {@link Address} among other specific attributes.
- * Its properties are persisted in table {@code tr_site}.
+ * Its properties are persisted in the {@link javax.persistence.Table} named {@code site}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_site")
 @NamedQuery(name="Site.findAll", query="SELECT s FROM Site s")
 public class Site extends AbstractEntity {
 	
@@ -39,12 +36,12 @@ public class Site extends AbstractEntity {
 	@Column(name = "site_id")
 	private Long id;
 	
+	@NotNull
 	@Column(name = "site_name")
-	@NotNull
-	private String siteName;
+	private String name;
 	
-	@Column(name = "legal_identification")
 	@NotNull
+	@Column(name = "legal_identification")
 	private String legalIdentification;
 	
 	@Embedded
@@ -52,10 +49,11 @@ public class Site extends AbstractEntity {
 	
 	@NotNull
 	@ManyToOne(optional = false)
+	@JoinColumn(name="fk_enterprise_id")
 	private Enterprise enterprise;
 	
-	@OneToMany(targetEntity = Product.class, mappedBy = "site", cascade = CascadeType.ALL)
-	private List<Product> listProducts;
+	@OneToMany(mappedBy = "site", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Product> products;
 
 	// Getters and Setters
 	@Override
@@ -71,17 +69,17 @@ public class Site extends AbstractEntity {
 	}
 
 	/**
-	 * @return the siteName
+	 * @return the name
 	 */
-	public String getSiteName() {
-		return siteName;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param siteName the siteName to set
+	 * @param name the name to set
 	 */
-	public void setSiteName(String siteName) {
-		this.siteName = siteName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -127,17 +125,16 @@ public class Site extends AbstractEntity {
 	}
 
 	/**
-	 * @return the listProducts
+	 * @return the products
 	 */
-	public List<Product> getListProducts() {
-		return listProducts;
+	public List<Product> getProducts() {
+		return products;
 	}
 
 	/**
-	 * @param listProducts the listProducts to set
+	 * @param products the products to set
 	 */
-	public void setListProducts(List<Product> listProducts) {
-		this.listProducts = listProducts;
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
-	
 }

@@ -1,24 +1,22 @@
 package com.jomm.terroir.business.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is an {@link Entity} representing a seller.
  * It extends {@link AbstractUser}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
- * It uses {@link ServiceUser} for all its business operations.
+ * It uses {@link com.jomm.terroir.business.ServiceUser} for all its business operations.
  * It includes an {@link Enterprise}.
- * Its properties and those from its parent {@link AbstractUser} are persisted in table {@code tr_seller}.
+ * Its properties and those from its parent {@link AbstractUser} 
+ * are persisted in the {@link javax.persistence.Table} named {@code seller}.
  * @author Maic
  */
 @Entity
-@Table(name="tr_seller")
 @NamedQuery(name="Seller.findAll", query="SELECT s FROM Seller s")
 public class Seller extends AbstractUser {
 	
@@ -28,6 +26,7 @@ public class Seller extends AbstractUser {
 	// Attributes
 	@NotNull
 	@ManyToOne(optional = false)
+	@JoinColumn(name="fk_enterprise_id")
 	private Enterprise enterprise;
 
 	// Getters and Setters
