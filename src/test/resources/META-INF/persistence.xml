@@ -6,8 +6,10 @@
 		<class>com.jomm.terroir.business.model.AbstractUser</class>
 		<class>com.jomm.terroir.business.model.Admin</class>
 		<class>com.jomm.terroir.business.model.Customer</class>
+		<class>com.jomm.terroir.business.model.Designation</class>
 		<class>com.jomm.terroir.business.model.Enterprise</class>
 		<class>com.jomm.terroir.business.model.Image</class>
+		<class>com.jomm.terroir.business.model.Label</class>
 		<class>com.jomm.terroir.business.model.Product</class>
 		<class>com.jomm.terroir.business.model.Seller</class>
 		<class>com.jomm.terroir.business.model.Site</class>
