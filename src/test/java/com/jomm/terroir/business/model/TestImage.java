@@ -41,4 +41,16 @@ public class TestImage {
 		
 		image = null; // Available for Garbage Collector
 	}
+	
+	/**
+	 * Generate a simple {@link Image} usable for tests.
+	 * @return a {@link Image}.
+	 */
+	public static Image generateImageWithIdNull() {
+		Image image = new Image();
+		image.setTitle("Title");
+		image.setDescription("Description");
+		image.setBufferedImage(new BufferedImage(10, 10, BufferedImage.TRANSLUCENT));
+		return image;
+	}
 }

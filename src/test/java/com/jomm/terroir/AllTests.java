@@ -19,8 +19,10 @@ import com.jomm.terroir.business.model.TestAbstractUser;
 import com.jomm.terroir.business.model.TestAddress;
 import com.jomm.terroir.business.model.TestAdmin;
 import com.jomm.terroir.business.model.TestCustomer;
+import com.jomm.terroir.business.model.TestDesignation;
 import com.jomm.terroir.business.model.TestEnterprise;
 import com.jomm.terroir.business.model.TestImage;
+import com.jomm.terroir.business.model.TestLabel;
 import com.jomm.terroir.business.model.TestProduct;
 import com.jomm.terroir.business.model.TestSeller;
 import com.jomm.terroir.business.model.TestSite;
@@ -49,12 +51,12 @@ import com.jomm.terroir.util.converter.TestConverterLocalDate;
 import com.jomm.terroir.util.converter.TestConverterZonedDateTime;
 import com.jomm.terroir.util.exception.TestExceptionService;
 import com.jomm.terroir.web.TestBackingBean;
-import com.jomm.terroir.web.TestBeanRegistrationCustomer;
 import com.jomm.terroir.web.TestBeanListCustomer;
-import com.jomm.terroir.web.TestBeanRegistrationSeller;
 import com.jomm.terroir.web.TestBeanListSeller;
-import com.jomm.terroir.web.TestBeanRegistrationUser;
 import com.jomm.terroir.web.TestBeanListUser;
+import com.jomm.terroir.web.TestBeanRegistrationCustomer;
+import com.jomm.terroir.web.TestBeanRegistrationSeller;
+import com.jomm.terroir.web.TestBeanRegistrationUser;
 
 /**
  * This Class is a Junit Suite Case launching all Junit test cases.
@@ -66,7 +68,8 @@ import com.jomm.terroir.web.TestBeanListUser;
 @SuiteClasses({
 	// Model
 	TestAbstractEntity.class, TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
-	TestEnterprise.class, TestImage.class, TestProduct.class, TestSeller.class, TestSite.class, 
+	TestDesignation.class, TestEnterprise.class, TestImage.class, TestLabel.class, 
+	TestProduct.class, TestSeller.class, TestSite.class, 
 	// Service
 	TestServiceEnterprise.class, TestServiceEnterpriseImpl.class, 
 	TestServiceProduct.class, TestServiceProductImpl.class, 
