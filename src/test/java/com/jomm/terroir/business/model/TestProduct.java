@@ -3,6 +3,7 @@ package com.jomm.terroir.business.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 import org.junit.After;
@@ -60,9 +61,9 @@ public class TestProduct {
 		assertEquals("Quantity should be " + qty, qty, product.getQuantity());
 		
 		// Price
-		Double price = 1.23;
+		BigDecimal price = new BigDecimal("1.23");
 		product.setPrice(price);
-		assertEquals("Price should be " + price, price, product.getPrice());
+		assertEquals("Price should be " + price.toString(), price, product.getPrice());
 		
 		// LastUpdate
 		ZonedDateTime zonedDate = ZonedDateTime.now();
@@ -93,9 +94,11 @@ public class TestProduct {
 	public static Product generateProductWithIdNull() {
 		Product product = new Product();
 		product.setDescription("Description");
-		product.setQuantity(10);
-		product.setSite(TestSite.generateSiteWithIdNull());
 		product.setTitle("Title");
+		product.setQuantity(10);
+		product.setPrice(new BigDecimal("1.2345"));
+		product.setSite(TestSite.generateSiteWithIdNull());
+		product.setDesignation(TestDesignation.generateDesignationWithIdNull());
 		return product;
 	}
 }

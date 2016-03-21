@@ -1,5 +1,6 @@
 package com.jomm.terroir.business.model;
 
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
@@ -41,7 +42,7 @@ public class Product extends AbstractEntity {
 	
 	private int quantity;
 	
-	private Double price;
+	private BigDecimal price;
 	
 	@Column(name = "last_update", columnDefinition = "timestamp with time zone")
 	private ZonedDateTime lastUpdate;
@@ -113,14 +114,14 @@ public class Product extends AbstractEntity {
 	/**
 	 * @return the price
 	 */
-	public Double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(Double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 
