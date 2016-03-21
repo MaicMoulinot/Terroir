@@ -64,7 +64,7 @@ public class TestServiceSite {
 	}
 	
 	/**
-	 * Test that {@link ServiceSite#create(Site)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceSite#create(Site)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -99,7 +99,7 @@ public class TestServiceSite {
 	}
 	
 	/**
-	 * Test that {@link ServiceSite#update(Site)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceSite#update(Site)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -135,7 +135,7 @@ public class TestServiceSite {
 	}
 	
 	/**
-	 * Test that {@link ServiceSite#delete(Site)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceSite#delete(Site)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */

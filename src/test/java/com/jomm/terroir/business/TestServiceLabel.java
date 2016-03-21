@@ -64,7 +64,7 @@ public class TestServiceLabel {
 	}
 	
 	/**
-	 * Test that {@link ServiceLabel#create(Label)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceLabel#create(Label)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -99,7 +99,7 @@ public class TestServiceLabel {
 	}
 	
 	/**
-	 * Test that {@link ServiceLabel#update(Label)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceLabel#update(Label)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -135,7 +135,7 @@ public class TestServiceLabel {
 	}
 	
 	/**
-	 * Test that {@link ServiceLabel#delete(Label)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceLabel#delete(Label)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */

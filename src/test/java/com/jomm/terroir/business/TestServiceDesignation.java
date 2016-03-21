@@ -64,7 +64,7 @@ public class TestServiceDesignation {
 	}
 	
 	/**
-	 * Test that {@link ServiceDesignation#create(Designation)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceDesignation#create(Designation)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -99,7 +99,7 @@ public class TestServiceDesignation {
 	}
 	
 	/**
-	 * Test that {@link ServiceDesignation#update(Designation)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceDesignation#update(Designation)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -135,7 +135,7 @@ public class TestServiceDesignation {
 	}
 	
 	/**
-	 * Test that {@link ServiceDesignation#delete(Designation)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceDesignation#delete(Designation)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
