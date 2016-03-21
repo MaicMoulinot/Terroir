@@ -1,124 +1,124 @@
-    create table administrator (
-        user_id bigint not null,
-        user_email varchar(255) unique not null,
-        user_firstname varchar(255),
-        user_lastname varchar(255),
-        user_name varchar(255) unique not null,
-        user_password varchar(255) not null,
-        can_delete int,
-        can_read int,
-        can_update int,
-        primary key (user_id)
+    CREATE TABLE administrator (
+        user_id BIGINT NOT NULL,
+        user_email VARCHAR(255) UNIQUE NOT NULL,
+        user_firstname VARCHAR(255),
+        user_lastname VARCHAR(255),
+        user_name VARCHAR(255) UNIQUE NOT NULL,
+        user_password VARCHAR(255) NOT NULL,
+        can_delete INT,
+        can_read INT,
+        can_update INT,
+        PRIMARY KEY (user_id)
     );
 
-    create table customer (
-        user_id bigint not null,
-        user_email varchar(255) unique not null,
-        user_firstname varchar(255),
-        user_lastname varchar(255),
-        user_name varchar(255) unique not null,
-        user_password varchar(255) not null,
-        addr_complement varchar(255),
-        addr_coordinates varchar(255),
-        addr_country varchar(255) not null,
-        addr_post_code varchar(255) not null,
-        addr_street varchar(255),
-        addr_city varchar(255) not null,
-        birth_date date,
-        registration_date timestamp,
-        primary key (user_id)
+    CREATE TABLE customer (
+        user_id BIGINT NOT NULL,
+        user_email VARCHAR(255) UNIQUE NOT NULL,
+        user_firstname VARCHAR(255),
+        user_lastname VARCHAR(255),
+        user_name VARCHAR(255) UNIQUE NOT NULL,
+        user_password VARCHAR(255) NOT NULL,
+        addr_complement VARCHAR(255),
+        addr_coordinates VARCHAR(255),
+        addr_country VARCHAR(255) NOT NULL,
+        addr_post_code VARCHAR(255) NOT NULL,
+        addr_street VARCHAR(255),
+        addr_city VARCHAR(255) NOT NULL,
+        birth_date DATE,
+        registration_date TIMESTAMP,
+        PRIMARY KEY (user_id)
     );
     
-    create table image (
-        image_id bigint not null,
-        imag_title varchar(255) not null,
-        imag_description varchar(255),
-        imag_data blob not null,
-        primary key (image_id)
+    CREATE TABLE image (
+        image_id BIGINT NOT NULL,
+        imag_title VARCHAR(255) NOT NULL,
+        imag_description LONG VARCHAR,
+        imag_data BLOB NOT NULL,
+        PRIMARY KEY (image_id)
     );
     
-    create table qualitylabel (
-        qualitylabel_id bigint not null,
-        official_name varchar(255) unique not null,
-        acronym varchar(255) unique not null,
-        definition varchar(255),
-        fk_image_id bigint CONSTRAINT fk_qualitylabel_image REFERENCES image(image_id),
-        primary key (qualitylabel_id)
+    CREATE TABLE qualitylabel (
+        qualitylabel_id BIGINT NOT NULL,
+        official_name VARCHAR(255) UNIQUE NOT NULL,
+        acronym VARCHAR(255) UNIQUE NOT NULL,
+        definition LONG VARCHAR,
+        fk_image_id BIGINT CONSTRAINT fk_qualitylabel_image REFERENCES image(image_id),
+        PRIMARY KEY (qualitylabel_id)
     );
     
-    create table designation (
-        designation_id bigint not null,
-        addr_complement varchar(255),
-        addr_coordinates varchar(255),
-        addr_country varchar(255) not null,
-        addr_post_code varchar(255) not null,
-        addr_street varchar(255),
-        addr_city varchar(255) not null,
-        legal_act varchar(255),
-        registered_name varchar(255) unique not null,
-        transcripted_name varchar(255),
-        fk_qualitylabel_id bigint CONSTRAINT fk_designation_qualitylabel REFERENCES qualitylabel(qualitylabel_id) not null,
-        fk_image_id bigint CONSTRAINT fk_designation_image REFERENCES image(image_id),
-        primary key (designation_id)
+    CREATE TABLE designation (
+        designation_id BIGINT NOT NULL,
+        addr_complement VARCHAR(255),
+        addr_coordinates VARCHAR(255),
+        addr_country VARCHAR(255) NOT NULL,
+        addr_post_code VARCHAR(255) NOT NULL,
+        addr_street VARCHAR(255),
+        addr_city VARCHAR(255) NOT NULL,
+        legal_act VARCHAR(255),
+        registered_name VARCHAR(255) UNIQUE NOT NULL,
+        transcripted_name VARCHAR(255),
+        fk_qualitylabel_id BIGINT CONSTRAINT fk_designation_qualitylabel REFERENCES qualitylabel(qualitylabel_id) NOT NULL,
+        fk_image_id BIGINT CONSTRAINT fk_designation_image REFERENCES image(image_id),
+        PRIMARY KEY (designation_id)
     );
 
-    create table enterprise (
-        enterprise_id bigint not null,
-        addr_complement varchar(255),
-        addr_coordinates varchar(255),
-        addr_country varchar(255) not null,
-        addr_post_code varchar(255) not null,
-        addr_street varchar(255),
-        addr_city varchar(255) not null,
-        creation_date date,
-        legal_identification varchar(255) not null,
-        legal_name varchar(255) unique not null,
-        number_employees bigint,
-        registration_date timestamp,
-        trade_name varchar(255) unique not null,
-        primary key (enterprise_id)
+    CREATE TABLE enterprise (
+        enterprise_id BIGINT NOT NULL,
+        addr_complement VARCHAR(255),
+        addr_coordinates VARCHAR(255),
+        addr_country VARCHAR(255) NOT NULL,
+        addr_post_code VARCHAR(255) NOT NULL,
+        addr_street VARCHAR(255),
+        addr_city VARCHAR(255) NOT NULL,
+        creation_date DATE,
+        legal_identification VARCHAR(255) NOT NULL,
+        legal_name VARCHAR(255) UNIQUE NOT NULL,
+        number_employees BIGINT,
+        registration_date TIMESTAMP,
+        trade_name VARCHAR(255) UNIQUE NOT NULL,
+        PRIMARY KEY (enterprise_id)
     );
 
-    create table seller (
-        user_id bigint not null,
-        user_email varchar(255) unique not null,
-        user_firstname varchar(255),
-        user_lastname varchar(255),
-        user_name varchar(255) unique not null,
-        user_password varchar(255) not null,
-        fk_enterprise_id bigint CONSTRAINT fk_seller_enterprise REFERENCES enterprise(enterprise_id) not null,
-        primary key (user_id)
+    CREATE TABLE seller (
+        user_id BIGINT NOT NULL,
+        user_email VARCHAR(255) UNIQUE NOT NULL,
+        user_firstname VARCHAR(255),
+        user_lastname VARCHAR(255),
+        user_name VARCHAR(255) UNIQUE NOT NULL,
+        user_password VARCHAR(255) NOT NULL,
+        fk_enterprise_id BIGINT CONSTRAINT fk_seller_enterprise REFERENCES enterprise(enterprise_id) NOT NULL,
+        PRIMARY KEY (user_id)
     );
 
-    create table site (
-        site_id bigint not null,
-        addr_complement varchar(255),
-        addr_coordinates varchar(255),
-        addr_country varchar(255) not null,
-        addr_post_code varchar(255) not null,
-        addr_street varchar(255),
-        addr_city varchar(255) not null,
-        legal_identification varchar(255) not null,
-        site_name varchar(255) not null,
-        fk_enterprise_id bigint CONSTRAINT fk_site_enterprise REFERENCES enterprise(enterprise_id) not null,
-        primary key (site_id)
+    CREATE TABLE site (
+        site_id BIGINT NOT NULL,
+        addr_complement VARCHAR(255),
+        addr_coordinates VARCHAR(255),
+        addr_country VARCHAR(255) NOT NULL,
+        addr_post_code VARCHAR(255) NOT NULL,
+        addr_street VARCHAR(255),
+        addr_city VARCHAR(255) NOT NULL,
+        legal_identification VARCHAR(255) NOT NULL,
+        site_name VARCHAR(255) NOT NULL,
+        fk_enterprise_id BIGINT CONSTRAINT fk_site_enterprise REFERENCES enterprise(enterprise_id) NOT NULL,
+        PRIMARY KEY (site_id)
     );
 
-    create table product (
-        product_id bigint not null,
-        description varchar(255),
-        quantity bigint,
-        price double,
-        last_update timestamp,
-        title varchar(255) not null,
-        fk_site_id bigint CONSTRAINT fk_product_site REFERENCES site(site_id) not null,
-        fk_designation_id bigint CONSTRAINT fk_product_designation REFERENCES designation(designation_id),
-        primary key (product_id)
+    CREATE TABLE product (
+        product_id BIGINT NOT NULL,
+        description LONG VARCHAR,
+        quantity INTEGER,
+        price DOUBLE,
+        last_update TIMESTAMP,
+        title VARCHAR(255) NOT NULL,
+        fk_site_id BIGINT CONSTRAINT fk_product_site REFERENCES site(site_id) NOT NULL,
+        fk_designation_id BIGINT CONSTRAINT fk_product_designation REFERENCES designation(designation_id),
+        PRIMARY KEY (product_id)
     );
 
-    create sequence hibernate_sequence as bigint start with 1;
-
-    create table hibernate_sequences (
-         sequence_name varchar(255),
-         next_val bigint
+    CREATE TABLE hibernate_sequences (
+         sequence_name VARCHAR(255),
+         next_val BIGINT
     );
+
+    CREATE SEQUENCE hibernate_sequence AS BIGINT START WITH 1;
