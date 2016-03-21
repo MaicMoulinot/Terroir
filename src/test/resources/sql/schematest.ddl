@@ -1,9 +1,10 @@
 /*
- * The query creates all tables in Derby dialect to be used in tests.
+ * The query in Derby dialect creates all the tables of the model 
+ * so the memory database can be used in tests.
  * It should be updated each time a change is made to an entity.
  */
 
-	-- Table administrator
+	-- Entity administrator
     CREATE TABLE administrator (
         user_id BIGINT NOT NULL,
         user_email VARCHAR(255) UNIQUE NOT NULL,
@@ -17,7 +18,7 @@
         PRIMARY KEY (user_id)
     );
 
-    -- Table customer
+    -- Entity customer
     CREATE TABLE customer (
         user_id BIGINT NOT NULL,
         user_email VARCHAR(255) UNIQUE NOT NULL,
@@ -36,7 +37,7 @@
         PRIMARY KEY (user_id)
     );
     
-    -- Table image
+    -- Entity image
     CREATE TABLE image (
         image_id BIGINT NOT NULL,
         imag_title VARCHAR(255) NOT NULL,
@@ -45,7 +46,7 @@
         PRIMARY KEY (image_id)
     );
     
-    -- Table qualitylabel
+    -- Entity qualitylabel
     CREATE TABLE qualitylabel (
         qualitylabel_id BIGINT NOT NULL,
         official_name VARCHAR(255) UNIQUE NOT NULL,
@@ -55,7 +56,7 @@
         PRIMARY KEY (qualitylabel_id)
     );
     
-    -- Table designation
+    -- Entity designation
     CREATE TABLE designation (
         designation_id BIGINT NOT NULL,
         addr_complement VARCHAR(255),
@@ -73,7 +74,7 @@
         PRIMARY KEY (designation_id)
     );
 
-    -- Table enterprise
+    -- Entity enterprise
     CREATE TABLE enterprise (
         enterprise_id BIGINT NOT NULL,
         addr_complement VARCHAR(255),
@@ -92,7 +93,7 @@
         PRIMARY KEY (enterprise_id)
     );
 
-    -- Table seller
+    -- Entity seller
     CREATE TABLE seller (
         user_id BIGINT NOT NULL,
         user_email VARCHAR(255) UNIQUE NOT NULL,
@@ -104,7 +105,7 @@
         PRIMARY KEY (user_id)
     );
 
-    -- Table site
+    -- Entity site
     CREATE TABLE site (
         site_id BIGINT NOT NULL,
         addr_complement VARCHAR(255),
@@ -120,7 +121,7 @@
         PRIMARY KEY (site_id)
     );
 
-    -- Table product
+    -- Entity product
     CREATE TABLE product (
         product_id BIGINT NOT NULL,
         description LONG VARCHAR,
@@ -133,11 +134,11 @@
         PRIMARY KEY (product_id)
     );
 
-    -- Table hibernate_sequences
+    -- Table hibernate_sequences (hibernate)
     CREATE TABLE hibernate_sequences (
          sequence_name VARCHAR(255),
          next_val BIGINT
     );
 
-    -- Sequence hibernate_sequence
+    -- Sequence hibernate_sequence (hibernate)
     CREATE SEQUENCE hibernate_sequence AS BIGINT START WITH 1;
