@@ -23,11 +23,11 @@ import com.ninja_squad.dbsetup.operation.Operation;
  * @author Maic
  */
 public abstract class UtilData {
-	
+
 	// Protected constants
 	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
 	protected static final long NON_EXISTING_ENTITY_ID = 999999;
-	
+
 	// Private constants
 	private static final String DESTINATION_URL = "jdbc:derby:memory:testDB";
 	private static final String DESTINATION_USER = "";
@@ -35,11 +35,10 @@ public abstract class UtilData {
 	private static final DateSequenceValueGenerator GENERATOR_LOCAL_DATE = ValueGenerators.dateSequence();
 	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
 			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
-	
+
 	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", 
 			"product", "site", "seller", "enterprise", "designation", "qualitylabel", "image");
-	private static final Operation INSERT_BASIC_DATA =
-			sequenceOf(
+	private static final Operation INSERT_BASIC_DATA = sequenceOf(
 					insertInto("enterprise")
 					.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", "creation_date", 
 							"number_employees", "registration_date", 
@@ -62,6 +61,15 @@ public abstract class UtilData {
 							"France", "43.589423, 3.827251", 222222)
 					.values(333333, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
 							"France", "43.577740, 3.816562", 222222)
+					.build(),
+					insertInto("qualitylabel")
+					.columns("qualitylabel_id", "official_name", "acronym", "definition", "fk_image_id")
+					.values(111111, "Appellation d'origine contrôlée", "AOC", "L'appellation d'origine contrôlée (AOC) "
+//							+ "est un label officiel français identifiant un produit dont les étapes de fabrication "
+//							+ "(production et transformation) sont réalisées dans une même zone géographique et "
+//							+ "selon un savoir-faire reconnu. C'est la combinaison d'un milieu physique et biologique "
+							+ "avec une communauté humaine traditionnelle qui fonde la spécificité d'un produit AOC.", 
+							null)
 					.build());
 
 	/**

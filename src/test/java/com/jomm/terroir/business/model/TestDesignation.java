@@ -105,7 +105,7 @@ public class TestDesignation {
 		designation.setLegalAct("LegalAct");
 		designation.setAddress(TestAddress.generateAddress());
 		designation.setLabel(TestLabel.generateLabelWithIdNull());
-		designation.setLogo(TestImage.generateImageWithIdNull());
+		designation.setLogo(null);
 		designation.setProducts(new ArrayList<Product>());
 		return designation;
 	}

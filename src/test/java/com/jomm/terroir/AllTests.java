@@ -33,8 +33,12 @@ import com.jomm.terroir.dao.TestDaoAdmin;
 import com.jomm.terroir.dao.TestDaoAdminJpa;
 import com.jomm.terroir.dao.TestDaoCustomer;
 import com.jomm.terroir.dao.TestDaoCustomerJpa;
+import com.jomm.terroir.dao.TestDaoDesignation;
+import com.jomm.terroir.dao.TestDaoDesignationJpa;
 import com.jomm.terroir.dao.TestDaoEnterprise;
 import com.jomm.terroir.dao.TestDaoEnterpriseJpa;
+import com.jomm.terroir.dao.TestDaoLabel;
+import com.jomm.terroir.dao.TestDaoLabelJpa;
 import com.jomm.terroir.dao.TestDaoProduct;
 import com.jomm.terroir.dao.TestDaoProductJpa;
 import com.jomm.terroir.dao.TestDaoSeller;
@@ -78,8 +82,9 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	// Validator
 	TestValidatorEmail.class, TestValidatorPassword.class, TestValidatorUsername.class, 
 	// DAO
-	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoCustomerJpa.class, TestDaoCustomer.class,
-	TestDaoEnterpriseJpa.class, TestDaoEnterprise.class, TestDaoProductJpa.class, TestDaoProduct.class, 
+	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoCustomerJpa.class, TestDaoCustomer.class, 
+	TestDaoDesignationJpa.class, TestDaoDesignation.class, TestDaoEnterpriseJpa.class, TestDaoEnterprise.class, 
+	TestDaoLabelJpa.class, TestDaoLabel.class, TestDaoProductJpa.class, TestDaoProduct.class, 
 	TestDaoSiteJpa.class, TestDaoSite.class, TestDaoSellerJpa.class, TestDaoSeller.class,
 	TestDaoUserJpa.class, TestDaoUser.class,
 	// Util
