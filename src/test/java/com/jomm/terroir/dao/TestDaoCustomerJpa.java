@@ -23,8 +23,6 @@ import com.jomm.terroir.business.model.TestCustomer;
  * @author Maic
  */
 public class TestDaoCustomerJpa extends TestDaoGenericJpa<Customer> {
-	
-	private static final int LIST_INITIAL_SIZE = 0; // From UtilData.INSERT_BASIC_DATA
 
 	/**
 	 * @throws java.lang.Exception
@@ -56,7 +54,7 @@ public class TestDaoCustomerJpa extends TestDaoGenericJpa<Customer> {
 			// FindAll
 			List<Customer> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
-			assertEquals("Before persistence, the list's size should be", LIST_INITIAL_SIZE, list.size());
+			int listInitialSize = list.size();
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -66,7 +64,7 @@ public class TestDaoCustomerJpa extends TestDaoGenericJpa<Customer> {
 			assertNotNull("After persistence, id should not be null", persistedId);
 			
 			// FindAll
-			assertEquals("After persistence, the list's size should be", LIST_INITIAL_SIZE+1, dao.findAll().size());
+			assertEquals("After persistence, the list's size should be", listInitialSize+1, dao.findAll().size());
 
 			// FindById
 			Customer persistedEntity = dao.find(persistedId);
@@ -100,7 +98,7 @@ public class TestDaoCustomerJpa extends TestDaoGenericJpa<Customer> {
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
 			
 			// FindAll
-			assertEquals("After Delete, the list's size should be", LIST_INITIAL_SIZE, dao.findAll().size());
+			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

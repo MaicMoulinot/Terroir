@@ -24,9 +24,6 @@ import com.jomm.terroir.business.model.TestProduct;
  * @author Maic
  */
 public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
-
-	private static final int LIST_INITIAL_SIZE = 0; // From UtilData.INSERT_BASIC_DATA
-	private static final long EXISTING_SITE_ID = 333333; // From UtilData.INSERT_BASIC_DATA
 	
 	/**
 	 * @throws java.lang.Exception
@@ -59,7 +56,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			// FindAll
 			List<Product> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
-			assertEquals("Before persistence, the list's size should be", LIST_INITIAL_SIZE, list.size());
+			int listInitialSize = list.size();
 			
 			// Retrieve a Site from DataBase
 			Site site = findSiteFromDataBase(entityManager);
@@ -74,12 +71,13 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			assertNotNull("After persistence, id should not be null", persistedId);
 			
 			// FindAll
-			assertEquals("After persistence, the list's size should be", LIST_INITIAL_SIZE+1, dao.findAll().size());
+			assertEquals("After persistence, the list's size should be", listInitialSize+1, dao.findAll().size());
 
 			// FindById
 			Product persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
-			assertEquals("After persistence, properties should be equal", entity.getDescription(), persistedEntity.getDescription());
+			assertEquals("After persistence, properties should be equal", entity.getDescription(), 
+					persistedEntity.getDescription());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
 
 			// Update
@@ -109,7 +107,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
 			
 			// FindAll
-			assertEquals("After Delete, the list's size should be", LIST_INITIAL_SIZE, dao.findAll().size());
+			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}
@@ -118,7 +116,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 	/**
 	 * Private method to retrieve an {@link Site} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Site} with {@link TestDaoProductJpa#EXISTING_SITE_ID}.
+	 * @return the {@link Site} with {@link UtilData#EXISTING_SITE_ID}.
 	 */
 	private Site findSiteFromDataBase(EntityManager entityManager) {
 		DaoSiteJpa dao = new DaoSiteJpa();

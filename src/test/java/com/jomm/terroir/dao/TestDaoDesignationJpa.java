@@ -24,9 +24,6 @@ import com.jomm.terroir.business.model.TestDesignation;
  * @author Maic
  */
 public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
-	
-	private static final int LIST_INITIAL_SIZE = 0; // From UtilData.INSERT_BASIC_DATA
-	private static final long EXISTING_LABEL_ID = 111111; // From UtilData.INSERT_BASIC_DATA
 
 	/**
 	 * @throws java.lang.Exception
@@ -59,7 +56,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			// FindAll
 			List<Designation> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
-			assertEquals("Before persistence, the list's size should be", LIST_INITIAL_SIZE, list.size());
+			int listInitialSize = list.size();
 			
 			// Retrieve a label from DataBase
 			Label label = findLabelFromDataBase(entityManager);
@@ -74,7 +71,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			assertNotNull("After persistence, id should not be null", persistedId);
 			
 			// FindAll
-			assertEquals("After persistence, the list's size should be", LIST_INITIAL_SIZE+1, dao.findAll().size());
+			assertEquals("After persistence, the list's size should be", listInitialSize+1, dao.findAll().size());
 
 			// FindById
 			Designation persistedEntity = dao.find(persistedId);
@@ -110,7 +107,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
 			
 			// FindAll
-			assertEquals("After Delete, the list's size should be", LIST_INITIAL_SIZE, dao.findAll().size());
+			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

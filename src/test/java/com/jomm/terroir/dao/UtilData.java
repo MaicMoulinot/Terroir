@@ -27,6 +27,9 @@ public abstract class UtilData {
 	// Protected constants
 	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
 	protected static final long NON_EXISTING_ENTITY_ID = 999999;
+	protected static final long EXISTING_SITE_ID = 333333;
+	protected static final long EXISTING_ENTERPRISE_ID = 111111;
+	protected static final long EXISTING_LABEL_ID = 111111;
 
 	// Private constants
 	private static final String DESTINATION_URL = "jdbc:derby:memory:testDB";
@@ -44,7 +47,7 @@ public abstract class UtilData {
 							"number_employees", "registration_date", 
 							"addr_street", "addr_complement", "addr_post_code",
 							"addr_city", "addr_country", "addr_coordinates")
-					.values(111111, "Janichon&Sons", "GAEC Janichon", "XXDGQG", 
+					.values(EXISTING_ENTERPRISE_ID, "Janichon&Sons", "GAEC Janichon", "XXDGQG", 
 							GENERATOR_LOCAL_DATE.nextValue(), 2, GENERATOR_ZONED_DATE_TIME.nextValue(), 
 							"Dagallier Haut", null, "01400", "Sulignat", "France", "46.182194, 4.970275")
 					.values(222222, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", 
@@ -56,15 +59,15 @@ public abstract class UtilData {
 							"addr_post_code", "addr_city", "addr_country", "addr_coordinates", 
 							"fk_enterprise_id")
 					.values(111111, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
-							"France", "46.182194, 4.970275", 111111)
+							"France", "46.182194, 4.970275", EXISTING_ENTERPRISE_ID)
 					.values(222222, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 
 							"France", "43.589423, 3.827251", 222222)
-					.values(333333, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
+					.values(EXISTING_SITE_ID, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
 							"France", "43.577740, 3.816562", 222222)
 					.build(),
 					insertInto("qualitylabel")
 					.columns("qualitylabel_id", "official_name", "acronym", "definition", "fk_image_id")
-					.values(111111, "Appellation d'origine contrôlée", "AOC", "L'appellation d'origine contrôlée (AOC) "
+					.values(EXISTING_LABEL_ID, "Appellation d'origine contrôlée", "AOC", "L'appellation d'origine contrôlée (AOC) "
 //							+ "est un label officiel français identifiant un produit dont les étapes de fabrication "
 //							+ "(production et transformation) sont réalisées dans une même zone géographique et "
 //							+ "selon un savoir-faire reconnu. C'est la combinaison d'un milieu physique et biologique "
