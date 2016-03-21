@@ -55,6 +55,10 @@ public class TestSite {
 		site.setLegalIdentification(test);
 		assertEquals("LegalIdentification should be " + test, test, site.getLegalIdentification());
 		
+		// Description
+		site.setDescription(test);
+		assertEquals("Description should be " + test, test, site.getDescription());
+		
 		// Address
 		Address address = new Address();
 		address.setStreet(test);
@@ -92,6 +96,7 @@ public class TestSite {
 		site.setAddress(TestAddress.generateAddress());
 		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		site.setLegalIdentification("LegalIdentification");
+		site.setDescription("Description");
 		site.setProducts(new ArrayList<>());
 		site.setName("SiteName");
 		return site;

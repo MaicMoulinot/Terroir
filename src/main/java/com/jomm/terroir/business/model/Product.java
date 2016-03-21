@@ -36,6 +36,7 @@ public class Product extends AbstractEntity {
 	@NotNull
 	private String title;
 	
+	@Column(columnDefinition = "text")
 	private String description;
 	
 	private int quantity;

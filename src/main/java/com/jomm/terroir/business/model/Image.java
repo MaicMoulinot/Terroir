@@ -36,7 +36,7 @@ public class Image extends AbstractEntity {
 	@Column(name = "imag_title")
 	private String title;
 	
-	@Column(name = "imag_description")
+	@Column(name = "imag_description", columnDefinition = "text")
 	private String description;
 	
 	@Lob

@@ -47,6 +47,9 @@ public class Designation extends AbstractEntity {
 	@Column(name = "legal_act")
 	private String legalAct;
 	
+	@Column(columnDefinition = "text")
+	private String definition;
+	
 	@Embedded
 	private Address address;
 	
@@ -115,6 +118,20 @@ public class Designation extends AbstractEntity {
 	 */
 	public void setLegalAct(String legalAct) {
 		this.legalAct = legalAct;
+	}
+
+	/**
+	 * @return the definition
+	 */
+	public String getDefinition() {
+		return definition;
+	}
+
+	/**
+	 * @param definition the definition to set
+	 */
+	public void setDefinition(String definition) {
+		this.definition = definition;
 	}
 
 	/**

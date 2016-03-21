@@ -47,6 +47,9 @@ public class Site extends AbstractEntity {
 	@Embedded
 	private Address address;
 	
+	@Column(columnDefinition = "text")
+	private String description;
+	
 	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_enterprise_id")
@@ -108,6 +111,20 @@ public class Site extends AbstractEntity {
 	 */
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**

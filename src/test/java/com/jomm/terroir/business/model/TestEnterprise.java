@@ -61,6 +61,10 @@ public class TestEnterprise {
 		enterprise.setLegalIdentification(test);
 		assertEquals("LegalIdentification should be " + test, test, enterprise.getLegalIdentification());
 		
+		// Description
+		enterprise.setDescription(test);
+		assertEquals("Description should be " + test, test, enterprise.getDescription());
+		
 		// Address
 		Address address = new Address();
 		address.setStreet(test);
@@ -118,6 +122,7 @@ public class TestEnterprise {
 		enterprise.setCreationDate(LocalDate.now());
 		enterprise.setLegalIdentification("LegalIdentification");
 		enterprise.setLegalName("LegalName");
+		enterprise.setDescription("Description");
 		enterprise.setSellers(new ArrayList<>());
 		enterprise.setSites(new ArrayList<>());
 		enterprise.setNbEmployees(10);

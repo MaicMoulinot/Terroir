@@ -45,6 +45,7 @@ public class Label extends AbstractEntity {
 	@Column(unique = true)
 	private String acronym;
 	
+	@Column(columnDefinition = "text")
 	private String definition;
 	
 	@OneToOne

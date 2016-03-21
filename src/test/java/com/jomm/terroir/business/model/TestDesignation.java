@@ -58,6 +58,10 @@ public class TestDesignation {
 		designation.setLegalAct(test);
 		assertEquals("LegalAct should be " + test, test, designation.getLegalAct());
 		
+		// Definition
+		designation.setDefinition(test);
+		assertEquals("Definition should be " + test, test, designation.getDefinition());
+		
 		// Address
 		Address address = new Address();
 		address.setStreet(test);
@@ -103,6 +107,7 @@ public class TestDesignation {
 		designation.setRegisteredName("RegisteredName");
 		designation.setTranscriptedName("TranscriptedName");
 		designation.setLegalAct("LegalAct");
+		designation.setDefinition("Definition");
 		designation.setAddress(TestAddress.generateAddress());
 		designation.setLabel(TestLabel.generateLabelWithIdNull());
 		designation.setLogo(null);
