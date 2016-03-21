@@ -20,7 +20,7 @@ public interface ServiceProduct {
 	Product create(Product product) throws ExceptionService;
 	
 	/**
-	 * Update a product.
+	 * Update a product and calls {@link Product#setLastUpdate(java.time.ZonedDateTime)}.
 	 * @param product the {@link Product} to update.
 	 * @return the updated product.
 	 * @throws ExceptionService when the entity is not in a valid state.

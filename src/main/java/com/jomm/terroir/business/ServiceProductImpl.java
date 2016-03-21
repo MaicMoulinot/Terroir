@@ -46,6 +46,7 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() == null) {
 			throw new ExceptionService(ID_NULL);
 		}
+		product.setLastUpdate(ZonedDateTime.now());
 		return daoProduct.update(product);
 	}
 
