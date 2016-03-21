@@ -6,8 +6,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import com.jomm.terroir.business.TestServiceDesignation;
+import com.jomm.terroir.business.TestServiceDesignationImpl;
 import com.jomm.terroir.business.TestServiceEnterprise;
 import com.jomm.terroir.business.TestServiceEnterpriseImpl;
+import com.jomm.terroir.business.TestServiceLabel;
+import com.jomm.terroir.business.TestServiceLabelImpl;
 import com.jomm.terroir.business.TestServiceProduct;
 import com.jomm.terroir.business.TestServiceProductImpl;
 import com.jomm.terroir.business.TestServiceSite;
@@ -75,7 +79,9 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	TestDesignation.class, TestEnterprise.class, TestImage.class, TestLabel.class, 
 	TestProduct.class, TestSeller.class, TestSite.class, 
 	// Service
+	TestServiceDesignation.class, TestServiceDesignationImpl.class, 
 	TestServiceEnterprise.class, TestServiceEnterpriseImpl.class, 
+	TestServiceLabel.class, TestServiceLabelImpl.class, 
 	TestServiceProduct.class, TestServiceProductImpl.class, 
 	TestServiceSite.class, TestServiceSiteImpl.class, 
 	TestServiceUser.class, TestServiceUserImpl.class,
