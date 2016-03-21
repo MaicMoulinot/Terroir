@@ -12,7 +12,7 @@ import com.jomm.terroir.util.exception.ExceptionService;
 public interface ServiceEnterprise {
 	
 	/**
-	 * Create an enterprise and generate its {@code signUpDate}.
+	 * Create an enterprise and calls {@link Enterprise#setRegistrationDate(java.time.ZonedDateTime)}.
 	 * @param enterprise the {@link Enterprise} to create.
 	 * @return the persisted enterprise.
 	 * @throws ExceptionService when the entity is not in a valid state.

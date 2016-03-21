@@ -12,7 +12,7 @@ import com.jomm.terroir.util.exception.ExceptionService;
 public interface ServiceProduct {
 	
 	/**
-	 * Create a product and generate its {@code registrationDate}.
+	 * Create a product and calls {@link Product#setLastUpdate(java.time.ZonedDateTime)}.
 	 * @param product the {@link Product} to create.
 	 * @return the persisted product.
 	 * @throws ExceptionService when the entity is not in a valid state.
