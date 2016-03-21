@@ -12,12 +12,12 @@ import javax.persistence.TypedQuery;
 import com.jomm.terroir.business.model.AbstractEntity;
 
 /**
- * This abstract Class defines all CRUD operations involving a {@link AbstractEntity}.
+ * This abstract Class defines all CRUD operations involving an {@link AbstractEntity}.
  * It implements {@link Dao} and defines all its methods using JPA.
- * The no-arg constructor sets the attribute {@code entityClass} with the appropriate {@link Class}.
+ * The no-arg constructor sets the attribute {@link DaoGenericJpa#entityClass} with the appropriate {@link Class}.
  * @author Maic
  *
- * @param <E> {@link javax.persistence.Entity} is the entity's type, which extends {@link AbstractEntity}.
+ * @param <E> the entity's type extending {@link AbstractEntity}.
  */
 public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> {
 
