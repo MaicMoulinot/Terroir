@@ -33,6 +33,7 @@ public abstract class UtilData {
 	protected static final long NON_EXISTING_ENTITY_ID = 999999;
 	protected static final long EXISTING_SITE_ID = 333333;
 	protected static final long EXISTING_ENTERPRISE_ID = 111111;
+	protected static final long EXISTING_DESIGNATION_ID = 111111;
 	protected static final long EXISTING_LABEL_ID = 111111;
 
 	// DBSetup attributes
@@ -43,6 +44,7 @@ public abstract class UtilData {
 	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", 
 			"product", "site", "seller", "enterprise", "designation", "qualitylabel", "image");
 	private static final Operation INSERT_BASIC_DATA = sequenceOf(
+			// table enterprise
 			insertInto("enterprise")
 			.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", 
 					"description", "creation_date", "number_employees", "registration_date", 
@@ -63,6 +65,7 @@ public abstract class UtilData {
 					GENERATOR_LOCAL_DATE.nextValue(), 4, GENERATOR_ZONED_DATE_TIME.nextValue(), 
 					"Allée Pioch Redon", null, "34430", "St Jean de Védas", "France", "43.589423, 3.827251")
 			.build(),
+			// table site
 			insertInto("site")
 			.columns("site_id", "site_name", "legal_identification", "addr_street", "addr_complement", 
 					"addr_post_code", "addr_city", "addr_country", "addr_coordinates", 
@@ -85,6 +88,7 @@ public abstract class UtilData {
 					+ "Reine des Reinettes, Golden, Fuji, Chantecler, Pinova, Patte de Loup,.... Toutes produites "
 					+ "avec le plus grand soin et ")
 			.build(),
+			// table qualitylabel
 			insertInto("qualitylabel")
 			.columns("qualitylabel_id", "official_name", "acronym", "fk_image_id", "definition")
 			.values(EXISTING_LABEL_ID, "Appellation d'origine contrôlée", "AOC", null, 
@@ -92,6 +96,24 @@ public abstract class UtilData {
 					+ "dont les étapes de fabrication (production et transformation) sont réalisées dans une même "
 					+ "zone géographique et selon un savoir-faire reconnu. C'est la combinaison d'un milieu physique "
 					+ "et biologique avec une communauté humaine traditionnelle qui fonde la spécificité d'un produit AOC.")
+			.build(),
+			// table designation
+			insertInto("designation")
+			.columns("designation_id", "registered_name", "transcripted_name", "legal_act", 
+					"addr_street", "addr_complement", "addr_post_code",
+					"addr_city", "addr_country", "addr_coordinates",
+					"fk_qualitylabel_id", "fk_image_id", "definition")
+			.values(EXISTING_DESIGNATION_ID, "Roquefort", null, " Décret du 22 janvier 2001 relatif à l'appellation "
+					+ "d'origine contrôlée 'Roquefort' NOR: AGRP0001838D Version consolidée au 21 mars 2016", 
+					null, null, "12250", "Roquefort-sur-Soulzon", "France", "43.973724, 2.991373", 
+					EXISTING_LABEL_ID, null, 
+					"Le fromage bénéficiant de l'appellation d'origine contrôlée 'Roquefort' est un fromage fabriqué "
+					+ "exclusivement avec du lait de brebis mis en oeuvre à l'état cru et emprésuré, de forme "
+					+ "cylindrique de 19 à 20 cm de diamètre et de 8,5 à 11,5 cm de hauteur, d'un poids de 2,5 à 3 kg, "
+					+ "à pâte persillée, ensemencée avec des spores de Penicillium roqueforti, non pressée, non cuite, "
+					+ "fermentée et salée, à croûte humide, renfermant au minimum 52 g de matière grasse pour 100 g de "
+					+ "fromage après complète dessiccation et dont la teneur en matière sèche ne doit pas être "
+					+ "inférieure à 55 g pour 100 g de fromage.")
 			.build());
 
 	/**

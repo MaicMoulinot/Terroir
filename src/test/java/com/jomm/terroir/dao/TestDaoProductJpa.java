@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.Site;
 import com.jomm.terroir.business.model.TestProduct;
@@ -60,8 +61,13 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			
 			// Retrieve a Site from DataBase
 			Site site = findSiteFromDataBase(entityManager);
-			assertNotNull("Enterprise should not be null", site);
+			assertNotNull("Site should not be null", site);
 			entity.setSite(site);
+			
+			// Retrieve a Designation from DataBase
+			Designation designation = findDesignationFromDataBase(entityManager);
+			assertNotNull("Designation should not be null", designation);
+			entity.setDesignation(designation);
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -122,5 +128,16 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 		DaoSiteJpa dao = new DaoSiteJpa();
 		dao.entityManager = entityManager;
 		return dao.find(EXISTING_SITE_ID);
+	}
+	
+	/**
+	 * Private method to retrieve an {@link Designation} from database filled with basic test data.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Designation} with {@link UtilData#EXISTING_DESIGNATION_ID}.
+	 */
+	private Designation findDesignationFromDataBase(EntityManager entityManager) {
+		DaoDesignationJpa dao = new DaoDesignationJpa();
+		dao.entityManager = entityManager;
+		return dao.find(EXISTING_DESIGNATION_ID);
 	}
 }
