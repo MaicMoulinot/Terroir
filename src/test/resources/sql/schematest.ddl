@@ -1,3 +1,9 @@
+/*
+ * The query creates all tables in Derby dialect to be used in tests.
+ * It should be updated each time a change is made to an entity.
+ */
+
+	-- Table administrator
     CREATE TABLE administrator (
         user_id BIGINT NOT NULL,
         user_email VARCHAR(255) UNIQUE NOT NULL,
@@ -11,6 +17,7 @@
         PRIMARY KEY (user_id)
     );
 
+    -- Table customer
     CREATE TABLE customer (
         user_id BIGINT NOT NULL,
         user_email VARCHAR(255) UNIQUE NOT NULL,
@@ -29,6 +36,7 @@
         PRIMARY KEY (user_id)
     );
     
+    -- Table image
     CREATE TABLE image (
         image_id BIGINT NOT NULL,
         imag_title VARCHAR(255) NOT NULL,
@@ -37,6 +45,7 @@
         PRIMARY KEY (image_id)
     );
     
+    -- Table qualitylabel
     CREATE TABLE qualitylabel (
         qualitylabel_id BIGINT NOT NULL,
         official_name VARCHAR(255) UNIQUE NOT NULL,
@@ -46,6 +55,7 @@
         PRIMARY KEY (qualitylabel_id)
     );
     
+    -- Table designation
     CREATE TABLE designation (
         designation_id BIGINT NOT NULL,
         addr_complement VARCHAR(255),
@@ -63,6 +73,7 @@
         PRIMARY KEY (designation_id)
     );
 
+    -- Table enterprise
     CREATE TABLE enterprise (
         enterprise_id BIGINT NOT NULL,
         addr_complement VARCHAR(255),
@@ -81,6 +92,7 @@
         PRIMARY KEY (enterprise_id)
     );
 
+    -- Table seller
     CREATE TABLE seller (
         user_id BIGINT NOT NULL,
         user_email VARCHAR(255) UNIQUE NOT NULL,
@@ -92,6 +104,7 @@
         PRIMARY KEY (user_id)
     );
 
+    -- Table site
     CREATE TABLE site (
         site_id BIGINT NOT NULL,
         addr_complement VARCHAR(255),
@@ -107,11 +120,12 @@
         PRIMARY KEY (site_id)
     );
 
+    -- Table product
     CREATE TABLE product (
         product_id BIGINT NOT NULL,
         description LONG VARCHAR,
         quantity INTEGER,
-        price DOUBLE,
+        price NUMERIC(19,2),
         last_update TIMESTAMP,
         title VARCHAR(255) NOT NULL,
         fk_site_id BIGINT CONSTRAINT fk_product_site REFERENCES site(site_id) NOT NULL,
@@ -119,9 +133,11 @@
         PRIMARY KEY (product_id)
     );
 
+    -- Table hibernate_sequences
     CREATE TABLE hibernate_sequences (
          sequence_name VARCHAR(255),
          next_val BIGINT
     );
 
+    -- Sequence hibernate_sequence
     CREATE SEQUENCE hibernate_sequence AS BIGINT START WITH 1;
