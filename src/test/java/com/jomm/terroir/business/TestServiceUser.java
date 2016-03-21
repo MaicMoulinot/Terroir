@@ -17,8 +17,10 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.model.AbstractUser;
+import com.jomm.terroir.business.model.Admin;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.TestAbstractUser;
+import com.jomm.terroir.business.model.TestAdmin;
 import com.jomm.terroir.business.model.TestCustomer;
 import com.jomm.terroir.dao.DaoAdmin;
 import com.jomm.terroir.dao.DaoCustomer;
@@ -73,19 +75,32 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#create(Customer)} generate properly the sign up date.
+	 * Test that {@link ServiceUser#create(Admin)} does not throw an {@link ExceptionService}
+	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateCustomerGenerateSignUpDate() throws ExceptionService {
+	public final void testCreateEntityNotCustomer() throws ExceptionService {
+		Admin admin = TestAdmin.generateAdminWithIdNull();
+		service.create(admin);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+	
+	/**
+	 * Test that {@link ServiceUser#create(Customer)} does not throw an {@link ExceptionService}
+	 * when entity's state is correct, and properly generates the RegistrationDate.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testCreateCustomerSetRegistrationDate() throws ExceptionService {
 		Customer customer = TestCustomer.generateCustomerWithIdNull();
-		assertNull("Sign Up Date should not yet be initialized", customer.getRegistrationDate());
+		assertNull("RegistrationDate should not yet be initialized", customer.getRegistrationDate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.create(customer);
 		ZonedDateTime entityDate = customer.getRegistrationDate();
-		assertNotNull("Sign Up Date should be initialized", entityDate);
+		assertNotNull("RegistrationDate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
-		assertEquals("Sign Up Date should be like ZonedDateTime.now()", now.format(formatter), 
+		assertEquals("RegistrationDate should be like ZonedDateTime.now()", now.format(formatter), 
 				entityDate.format(formatter));
 	}
 
@@ -101,7 +116,7 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#update(AbstractUser)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceUser#update(AbstractUser)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -137,7 +152,7 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#delete(AbstractUser)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceUser#delete(AbstractUser)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -196,7 +211,7 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#isExistingUserName(String)} do not throw an {@link NullPointerException}
+	 * Test that {@link ServiceUser#isExistingUserName(String)} does not throw an {@link NullPointerException}
 	 * when user name is not null.
 	 */
 	@Test
@@ -221,7 +236,7 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#isExistingEmail(String)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceUser#isExistingEmail(String)} does not throw an {@link ExceptionService}
 	 * when email is not null.
 	 */
 	@Test

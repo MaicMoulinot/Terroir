@@ -68,19 +68,20 @@ public class TestServiceEnterprise {
 	}
 
 	/**
-	 * Test that {@link ServiceEnterprise#create(Enterprise)} generate properly the sign up date.
+	 * Test that {@link ServiceEnterprise#create(Enterprise)} does not throw an {@link ExceptionService}
+	 * when entity's state is correct, and properly generates the RegistrationDate.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateEnterpriseGenerateSignUpDate() throws ExceptionService {
+	public final void testCreateEnterpriseSetRegistrationDate() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
-		assertNull("Sign Up Date should not yet be initialized", enterprise.getRegistrationDate());
+		assertNull("RegistrationDate should not yet be initialized", enterprise.getRegistrationDate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.create(enterprise);
 		ZonedDateTime entityDate = enterprise.getRegistrationDate();
-		assertNotNull("Sign Up Date should be initialized", entityDate);
+		assertNotNull("RegistrationDate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
-		assertEquals("Sign Up Date should be like ZonedDateTime.now()", now.format(formatter), 
+		assertEquals("RegistrationDate should be like ZonedDateTime.now()", now.format(formatter), 
 				entityDate.format(formatter));
 	}
 
@@ -108,7 +109,7 @@ public class TestServiceEnterprise {
 	}
 	
 	/**
-	 * Test that {@link ServiceEnterprise#update(Enterprise)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceEnterprise#update(Enterprise)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -144,7 +145,7 @@ public class TestServiceEnterprise {
 	}
 	
 	/**
-	 * Test that {@link ServiceEnterprise#delete(Enterprise)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceEnterprise#delete(Enterprise)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */

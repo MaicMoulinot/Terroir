@@ -68,19 +68,20 @@ public class TestServiceProduct {
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#create(Product)} generate properly the sign up date.
+	 * Test that {@link ServiceProduct#create(Product)} does not throw an {@link ExceptionService}
+	 * when entity's state is correct, and properly generates the LastUpdate date.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateProductGenerateRegistrationDate() throws ExceptionService {
+	public final void testCreateProductSetLastUpdate() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		assertNull("RegistrationDate should not yet be initialized", product.getLastUpdate());
+		assertNull("LastUpdate should not yet be initialized", product.getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.create(product);
 		ZonedDateTime entityDate = product.getLastUpdate();
-		assertNotNull("RegistrationDate should be initialized", entityDate);
+		assertNotNull("LastUpdate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
-		assertEquals("RegistrationDate should be like ZonedDateTime.now()", now.format(formatter), 
+		assertEquals("LastUpdate should be like ZonedDateTime.now()", now.format(formatter), 
 				entityDate.format(formatter));
 	}
 
@@ -108,16 +109,22 @@ public class TestServiceProduct {
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#update(Product)} do not throw an {@link ExceptionService}
-	 * when entity's state is correct.
+	 * Test that {@link ServiceProduct#update(Product)} does not throw an {@link ExceptionService}
+	 * when entity's state is correct, and properly generates the LastUpdate date.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+	public final void testUpdateProductSetLastUpdate() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		product.setId((long) 52);
+		assertNull("LastUpdate should not yet be initialized", product.getLastUpdate());
+		ZonedDateTime now = ZonedDateTime.now();
 		service.update(product);
-		assertTrue("ExceptionService should not be thrown", true);
+		ZonedDateTime entityDate = product.getLastUpdate();
+		assertNotNull("LastUpdate should be initialized", entityDate);
+		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
+		assertEquals("LastUpdate should be like ZonedDateTime.now()", now.format(formatter), 
+				entityDate.format(formatter));
 	}
 
 	/**
@@ -144,7 +151,7 @@ public class TestServiceProduct {
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#delete(Product)} do not throw an {@link ExceptionService}
+	 * Test that {@link ServiceProduct#delete(Product)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
