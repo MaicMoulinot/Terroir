@@ -7,26 +7,26 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.jomm.terroir.business.model.Admin;
+import com.jomm.terroir.business.model.Administrator;
 
 /**
- * This Class is a Junit test case testing the contract of {@link DaoAdmin}.
- * It extends {@link TestDao} with the parameter {@link Admin}, and implements {@code testEntityClassMatch()}.
+ * This Class is a Junit test case testing the contract of {@link DaoAdministrator}.
+ * It extends {@link TestDao} with the parameter {@link Administrator}, and implements {@code testEntityClassMatch()}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
- * Here, the parameters are each implementation of {@link DaoAdmin}.
+ * Here, the parameters are each implementation of {@link DaoAdministrator}.
  * @author Maic
  */
 @RunWith(Parameterized.class)
-public class TestDaoAdmin extends TestDao<Admin> {
+public class TestDaoAdministrator extends TestDao<Administrator> {
 	
 	/**
 	 * Constructor.
-	 * Its parameter comes from all values from {@link TestDaoAdmin#implementationToTest()}.
-	 * @param dao the implementation of {@link DaoAdmin}.
+	 * Its parameter comes from all values from {@link TestDaoAdministrator#implementationToTest()}.
+	 * @param dao the implementation of {@link DaoAdministrator}.
 	 */
-    public TestDaoAdmin(DaoAdmin dao) {
+    public TestDaoAdministrator(DaoAdministrator dao) {
         this.dao = dao;
-        entityClass = Admin.class;
+        entityClass = Administrator.class;
     }
     
 	@Override
@@ -36,14 +36,14 @@ public class TestDaoAdmin extends TestDao<Admin> {
 	}
     
 	/**
-	 * Reference a list of all implementations of {@link DaoAdmin} to be used as parameter on constructor.
+	 * Reference a list of all implementations of {@link DaoAdministrator} to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.
 	 * @return {@code Iterable<Object[]>} with the parameter.
 	 */
 	@Parameters
 	public static Iterable<Object[]> implementationToTest() {
 		return Arrays.asList(new Object[][] {
-			{new DaoAdminJpa()}
+			{new DaoAdministratorJpa()}
 			}
 		);
 	}

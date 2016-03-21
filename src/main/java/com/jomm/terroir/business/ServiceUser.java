@@ -3,7 +3,7 @@ package com.jomm.terroir.business;
 import java.util.List;
 
 import com.jomm.terroir.business.model.AbstractUser;
-import com.jomm.terroir.business.model.Admin;
+import com.jomm.terroir.business.model.Administrator;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.exception.ExceptionService;
@@ -33,9 +33,9 @@ public interface ServiceUser {
 	
 	/**
 	 * Fetch the list of all admins.
-	 * @return a list of {@link Admin}.
+	 * @return a list of {@link Administrator}.
 	 */
-	List<Admin> getAllAdmins();
+	List<Administrator> getAllAdmins();
 	
 	/**
 	 * Fetch the list of all customers.

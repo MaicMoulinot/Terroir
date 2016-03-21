@@ -21,7 +21,7 @@ import com.jomm.terroir.business.TestServiceUserImpl;
 import com.jomm.terroir.business.model.TestAbstractEntity;
 import com.jomm.terroir.business.model.TestAbstractUser;
 import com.jomm.terroir.business.model.TestAddress;
-import com.jomm.terroir.business.model.TestAdmin;
+import com.jomm.terroir.business.model.TestAdministrator;
 import com.jomm.terroir.business.model.TestCustomer;
 import com.jomm.terroir.business.model.TestDesignation;
 import com.jomm.terroir.business.model.TestEnterprise;
@@ -33,8 +33,8 @@ import com.jomm.terroir.business.model.TestSite;
 import com.jomm.terroir.business.validator.TestValidatorEmail;
 import com.jomm.terroir.business.validator.TestValidatorPassword;
 import com.jomm.terroir.business.validator.TestValidatorUsername;
-import com.jomm.terroir.dao.TestDaoAdmin;
-import com.jomm.terroir.dao.TestDaoAdminJpa;
+import com.jomm.terroir.dao.TestDaoAdministrator;
+import com.jomm.terroir.dao.TestDaoAdministratorJpa;
 import com.jomm.terroir.dao.TestDaoCustomer;
 import com.jomm.terroir.dao.TestDaoCustomerJpa;
 import com.jomm.terroir.dao.TestDaoDesignation;
@@ -75,7 +75,7 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 @RunWith(Suite.class)
 @SuiteClasses({
 	// Model
-	TestAbstractEntity.class, TestAbstractUser.class, TestAddress.class, TestAdmin.class, TestCustomer.class, 
+	TestAbstractEntity.class, TestAbstractUser.class, TestAddress.class, TestAdministrator.class, TestCustomer.class, 
 	TestDesignation.class, TestEnterprise.class, TestImage.class, TestLabel.class, 
 	TestProduct.class, TestSeller.class, TestSite.class, 
 	// Service
@@ -88,7 +88,7 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	// Validator
 	TestValidatorEmail.class, TestValidatorPassword.class, TestValidatorUsername.class, 
 	// DAO
-	TestDaoAdminJpa.class, TestDaoAdmin.class, TestDaoCustomerJpa.class, TestDaoCustomer.class, 
+	TestDaoAdministratorJpa.class, TestDaoAdministrator.class, TestDaoCustomerJpa.class, TestDaoCustomer.class, 
 	TestDaoDesignationJpa.class, TestDaoDesignation.class, TestDaoEnterpriseJpa.class, TestDaoEnterprise.class, 
 	TestDaoLabelJpa.class, TestDaoLabel.class, TestDaoProductJpa.class, TestDaoProduct.class, 
 	TestDaoSiteJpa.class, TestDaoSite.class, TestDaoSellerJpa.class, TestDaoSeller.class,

@@ -18,9 +18,9 @@ public class TestAbstractEntity {
 	@Test
 	public final void testGetId() {
 		Long id = (long) 33;
-		AbstractEntity entity = TestAdmin.generateAdminWithIdNull(); // a concrete child of AbstractEntity
+		AbstractEntity entity = TestAdministrator.generateAdministratorWithIdNull(); // a concrete child of AbstractEntity
 		assertNull(entity.getId());
-		((Admin) entity).setId(id);
+		((Administrator) entity).setId(id);
 		assertNotNull(entity.getId());
 		assertEquals(id, entity.getId());
 	}

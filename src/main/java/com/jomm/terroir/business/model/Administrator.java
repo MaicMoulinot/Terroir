@@ -17,8 +17,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="administrator")
-@NamedQuery(name="Admin.findAll", query="SELECT a FROM Admin a")
-public class Admin extends AbstractUser {
+@NamedQuery(name="Administrator.findAll", query="SELECT a FROM Administrator a")
+public class Administrator extends AbstractUser {
 	
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
@@ -37,7 +37,7 @@ public class Admin extends AbstractUser {
 	 * No-arg constructor.
 	 * Default is no special power.
 	 */
-	public Admin() {
+	public Administrator() {
 		super();
 		canReadData = false;
 		canUpdateData = false;

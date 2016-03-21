@@ -12,7 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.TestAbstractUser;
-import com.jomm.terroir.dao.DaoAdmin;
+import com.jomm.terroir.dao.DaoAdministrator;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
@@ -31,7 +31,7 @@ public class TestServiceUserImpl {
 	private DaoUser dao;
 	
 	@Mock(name = "daoAdmin")
-	private DaoAdmin daoAdmin;
+	private DaoAdministrator daoAdmin;
 	
 	@Mock(name = "daoCustomer")
 	private DaoCustomer daoCustomer;

@@ -13,23 +13,23 @@ import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jomm.terroir.business.model.Admin;
-import com.jomm.terroir.business.model.TestAdmin;
+import com.jomm.terroir.business.model.Administrator;
+import com.jomm.terroir.business.model.TestAdministrator;
 
 /**
- * This Class is a Junit test case testing {@link DaoAdminJpa}.
- * It extends {@link TestDaoGenericJpa} with {@link Admin} as parameter, 
+ * This Class is a Junit test case testing {@link DaoAdministratorJpa}.
+ * It extends {@link TestDaoGenericJpa} with {@link Administrator} as parameter, 
  * and implements {@code testBehavior()} and {@code testState()}.
  * @author Maic
  */
-public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
+public class TestDaoAdministratorJpa extends TestDaoGenericJpa<Administrator> {
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		dao = new DaoAdminJpa();
+		dao = new DaoAdministratorJpa();
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
 			dao.entityManager = UtilEntityManager.prepareEntityManager();
-			entity = TestAdmin.generateAdminWithIdNull();
+			entity = TestAdministrator.generateAdministratorWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
 
 			// FindAll
-			List<Admin> list = dao.findAll();
+			List<Administrator> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
 			int listInitialSize = list.size();
 			
@@ -67,7 +67,7 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 			assertEquals("After persistence, the list's size should be", listInitialSize+1, dao.findAll().size());
 
 			// FindById
-			Admin persistedEntity = dao.find(persistedId);
+			Administrator persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
 			assertEquals("After persistence, properties should be equal", entity.getEmail(), persistedEntity.getEmail());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
@@ -85,7 +85,7 @@ public class TestDaoAdminJpa extends TestDaoGenericJpa<Admin> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Create
-			entity = TestAdmin.generateAdminWithIdNull();
+			entity = TestAdministrator.generateAdministratorWithIdNull();
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);

@@ -17,12 +17,12 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.model.AbstractUser;
-import com.jomm.terroir.business.model.Admin;
+import com.jomm.terroir.business.model.Administrator;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.TestAbstractUser;
-import com.jomm.terroir.business.model.TestAdmin;
+import com.jomm.terroir.business.model.TestAdministrator;
 import com.jomm.terroir.business.model.TestCustomer;
-import com.jomm.terroir.dao.DaoAdmin;
+import com.jomm.terroir.dao.DaoAdministrator;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
@@ -75,13 +75,13 @@ public class TestServiceUser {
 	}
 	
 	/**
-	 * Test that {@link ServiceUser#create(Admin)} does not throw an {@link ExceptionService}
+	 * Test that {@link ServiceUser#create(Administrator)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
 	public final void testCreateEntityNotCustomer() throws ExceptionService {
-		Admin admin = TestAdmin.generateAdminWithIdNull();
+		Administrator admin = TestAdministrator.generateAdministratorWithIdNull();
 		service.create(admin);
 		assertTrue("ExceptionService should not be thrown", true);
 	}
@@ -269,7 +269,7 @@ public class TestServiceUser {
 	 */
 	private static ServiceUserImpl generateMockedUserServiceImpl() {
 		ServiceUserImpl impl = new ServiceUserImpl();
-		impl.setDaoAdmin(mock(DaoAdmin.class));
+		impl.setDaoAdmin(mock(DaoAdministrator.class));
 		impl.setDaoCustomer(mock(DaoCustomer.class));
 		impl.setDaoSeller(mock(DaoSeller.class));
 		impl.setDaoUser(mock(DaoUser.class));

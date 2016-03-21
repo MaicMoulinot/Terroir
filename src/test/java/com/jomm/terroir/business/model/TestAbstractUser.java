@@ -70,7 +70,7 @@ public class TestAbstractUser {
 	 */
 	public static AbstractUser generateAbstractUserWithIdNull() {
 		// AbstractUser is abstract so need to instantiate a child (not so) randomly chosen
-		AbstractUser user = new Admin();
+		AbstractUser user = new Administrator();
 		setDummyValuesWithIdNull(user);
 		return user;
 	}
@@ -95,7 +95,7 @@ public class TestAbstractUser {
 	@Parameters
 	public static Iterable<Object[]> childToTest() {
 		return Arrays.asList(new Object[][] {
-			{new Admin()},
+			{new Administrator()},
 			{new Customer()},
 			{new Seller()}
 			}

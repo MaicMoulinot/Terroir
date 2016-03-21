@@ -13,21 +13,21 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.AbstractUser;
-import com.jomm.terroir.business.model.Admin;
+import com.jomm.terroir.business.model.Administrator;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.dao.DaoAdmin;
+import com.jomm.terroir.dao.DaoAdministrator;
 import com.jomm.terroir.dao.DaoCustomer;
 import com.jomm.terroir.dao.DaoSeller;
 import com.jomm.terroir.dao.DaoUser;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
- * This Class is the Service relating to {@link AbstractUser} and its children {@link Admin}, 
+ * This Class is the Service relating to {@link AbstractUser} and its children {@link Administrator}, 
  * {@link Customer} and {@link Seller}.
  * It implements {@link ServiceUser} and defines all its business methods.
  * It relates to {@link DaoUser} for general persistence operation on {@link AbstractUser},
- * to {@link DaoAdmin} for persistence operation on {@link Admin},
+ * to {@link DaoAdministrator} for persistence operation on {@link Administrator},
  * to {@link DaoCustomer} for persistence operation on {@link Customer},
  * and to {@link DaoSeller} for persistence operation on {@link Seller}.
  * @author Maic
@@ -39,7 +39,7 @@ public class ServiceUserImpl implements ServiceUser {
 	private DaoUser daoUser;
 	
 	@Inject
-	private DaoAdmin daoAdmin;
+	private DaoAdministrator daoAdmin;
 	
 	@Inject
 	private DaoCustomer daoCustomer;
@@ -82,7 +82,7 @@ public class ServiceUserImpl implements ServiceUser {
 	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public List<Admin> getAllAdmins() {
+	public List<Administrator> getAllAdmins() {
 		return daoAdmin.findAll();
 	}
 
@@ -118,7 +118,7 @@ public class ServiceUserImpl implements ServiceUser {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoAdmin the daoAdmin to set.
 	 */
-	void setDaoAdmin(DaoAdmin daoAdmin) {
+	void setDaoAdmin(DaoAdministrator daoAdmin) {
 		this.daoAdmin = daoAdmin;
 	}
 	

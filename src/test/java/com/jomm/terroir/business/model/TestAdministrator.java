@@ -6,20 +6,20 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.jomm.terroir.business.model.Admin;
+import com.jomm.terroir.business.model.Administrator;
 
 /**
- * This class is a Junit test case testing the methods of {@link Admin}.
+ * This class is a Junit test case testing the methods of {@link Administrator}.
  * @author Maic
  */
-public class TestAdmin {
+public class TestAdministrator {
 
 	/**
-	 * Test method for the {@link Admin}'s constructor with no arg.
+	 * Test method for the {@link Administrator}'s constructor with no arg.
 	 */
 	@Test
 	public final void testConstructor() {
-		Admin admin = new Admin();
+		Administrator admin = new Administrator();
 		assertNotNull(admin);
 		assertFalse("CanReadData should be false", admin.canReadData());
 		assertFalse("CanUpdateData should be false", admin.canUpdateData());
@@ -29,11 +29,11 @@ public class TestAdmin {
 	}
 	
 	/**
-	 * Test method for all {@link Admin}'s getters and setters.
+	 * Test method for all {@link Administrator}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Admin admin = new Admin();
+		Administrator admin = new Administrator();
 		boolean test = true;
 		
 		// CanReadData
@@ -52,11 +52,11 @@ public class TestAdmin {
 	}
 	
 	/**
-	 * Generate a simple {@link Admin} usable for tests.
-	 * @return a {@link Admin}.
+	 * Generate a simple {@link Administrator} usable for tests.
+	 * @return a {@link Administrator}.
 	 */
-	public static Admin generateAdminWithIdNull() {
-		Admin admin = new Admin();
+	public static Administrator generateAdministratorWithIdNull() {
+		Administrator admin = new Administrator();
 		TestAbstractUser.setDummyValuesWithIdNull(admin);
 		return admin;
 	}
