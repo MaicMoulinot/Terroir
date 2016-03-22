@@ -41,8 +41,8 @@ public abstract class UtilData {
 	private static final DateSequenceValueGenerator GENERATOR_LOCAL_DATE = ValueGenerators.dateSequence();
 	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
 			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
-	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", 
-			"product", "site", "seller", "enterprise", "designation", "qualitylabel", "image");
+	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", "product", 
+			"site", "seller", "enterprise", "designationlabel", "designation", "qualitylabel", "image");
 	private static final Operation INSERT_BASIC_DATA = sequenceOf(
 			// table enterprise
 			insertInto("enterprise")
@@ -102,18 +102,22 @@ public abstract class UtilData {
 			.columns("designation_id", "registered_name", "transcripted_name", "legal_act", 
 					"addr_street", "addr_complement", "addr_post_code",
 					"addr_city", "addr_country", "addr_coordinates",
-					"fk_qualitylabel_id", "fk_image_id", "definition")
+					"fk_image_id", "definition")
 			.values(EXISTING_DESIGNATION_ID, "Roquefort", null, " Décret du 22 janvier 2001 relatif à l'appellation "
 					+ "d'origine contrôlée 'Roquefort' NOR: AGRP0001838D Version consolidée au 21 mars 2016", 
-					null, null, "12250", "Roquefort-sur-Soulzon", "France", "43.973724, 2.991373", 
-					EXISTING_LABEL_ID, null, 
+					null, null, "12250", "Roquefort-sur-Soulzon", "France", "43.973724, 2.991373", null, 
 					"Le fromage bénéficiant de l'appellation d'origine contrôlée 'Roquefort' est un fromage fabriqué "
-					+ "exclusivement avec du lait de brebis mis en oeuvre à l'état cru et emprésuré, de forme "
-					+ "cylindrique de 19 à 20 cm de diamètre et de 8,5 à 11,5 cm de hauteur, d'un poids de 2,5 à 3 kg, "
-					+ "à pâte persillée, ensemencée avec des spores de Penicillium roqueforti, non pressée, non cuite, "
-					+ "fermentée et salée, à croûte humide, renfermant au minimum 52 g de matière grasse pour 100 g de "
-					+ "fromage après complète dessiccation et dont la teneur en matière sèche ne doit pas être "
-					+ "inférieure à 55 g pour 100 g de fromage.")
+							+ "exclusivement avec du lait de brebis mis en oeuvre à l'état cru et emprésuré, de forme "
+							+ "cylindrique de 19 à 20 cm de diamètre et de 8,5 à 11,5 cm de hauteur, d'un poids de 2,5 à 3 kg, "
+							+ "à pâte persillée, ensemencée avec des spores de Penicillium roqueforti, non pressée, non cuite, "
+							+ "fermentée et salée, à croûte humide, renfermant au minimum 52 g de matière grasse pour 100 g de "
+							+ "fromage après complète dessiccation et dont la teneur en matière sèche ne doit pas être "
+							+ "inférieure à 55 g pour 100 g de fromage.")
+			.build(),
+			// table designationlabel
+			insertInto("designationlabel")
+			.columns("fk_designation_id", "fk_qualitylabel_id")
+			.values(EXISTING_DESIGNATION_ID, EXISTING_LABEL_ID)
 			.build());
 
 	/**

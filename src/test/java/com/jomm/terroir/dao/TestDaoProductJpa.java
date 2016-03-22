@@ -60,12 +60,12 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			int listInitialSize = list.size();
 			
 			// Retrieve a Site from DataBase
-			Site site = findSiteFromDataBase(entityManager);
+			Site site = TestDaoSiteJpa.findSiteFromDataBase(entityManager);
 			assertNotNull("Site should not be null", site);
 			entity.setSite(site);
 			
 			// Retrieve a Designation from DataBase
-			Designation designation = findDesignationFromDataBase(entityManager);
+			Designation designation = TestDaoDesignationJpa.findDesignationFromDataBase(entityManager);
 			assertNotNull("Designation should not be null", designation);
 			entity.setDesignation(designation);
 			
@@ -117,27 +117,5 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}
-	}
-	
-	/**
-	 * Private method to retrieve an {@link Site} from database filled with basic test data.
-	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Site} with {@link UtilData#EXISTING_SITE_ID}.
-	 */
-	private Site findSiteFromDataBase(EntityManager entityManager) {
-		DaoSiteJpa dao = new DaoSiteJpa();
-		dao.entityManager = entityManager;
-		return dao.find(EXISTING_SITE_ID);
-	}
-	
-	/**
-	 * Private method to retrieve an {@link Designation} from database filled with basic test data.
-	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Designation} with {@link UtilData#EXISTING_DESIGNATION_ID}.
-	 */
-	private Designation findDesignationFromDataBase(EntityManager entityManager) {
-		DaoDesignationJpa dao = new DaoDesignationJpa();
-		dao.entityManager = entityManager;
-		return dao.find(EXISTING_DESIGNATION_ID);
 	}
 }

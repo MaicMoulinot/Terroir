@@ -103,4 +103,34 @@ public class TestDaoLabelJpa extends TestDaoGenericJpa<Label> {
 			UtilEntityManager.closeEntityManager();
 		}
 	}
+	
+	/**
+	 * Test the {@link javax.persistence.ManyToMany} relationship between 
+	 * {@link com.jomm.terroir.business.model.Designation} and {@link Label}.
+	 */
+	@Test
+	public final void testManyToManyWithDesignation() {
+		try {
+			// EntityManager is working with test-specific Persistence Unit
+			entity = findLabelFromDataBase(UtilEntityManager.prepareEntityManager());
+			assertNotNull("List of designations should not be null", entity.getDesignations());
+			assertEquals("List of designations size should be", 1, entity.getDesignations().size());
+			assertEquals("Designation's id should be", EXISTING_DESIGNATION_ID, 
+					entity.getDesignations().get(0).getId().longValue());
+			
+		} finally {
+			UtilEntityManager.closeEntityManager();
+		}
+	}
+	
+	/**
+	 * Retrieve a {@link Label} from database filled with basic test data.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Label} with {@link UtilData#EXISTING_LABEL_ID}.
+	 */
+	public static Label findLabelFromDataBase(EntityManager entityManager) {
+		DaoLabelJpa dao = new DaoLabelJpa();
+		dao.entityManager = entityManager;
+		return dao.find(EXISTING_LABEL_ID);
+	}
 }

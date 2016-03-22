@@ -59,7 +59,7 @@ public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
 			int listInitialSize = list.size();
 			
 			// Retrieve an Enterprise from DataBase
-			Enterprise enterprise = findEnterpriseFromDataBase(entityManager);
+			Enterprise enterprise = TestDaoEnterpriseJpa.findEnterpriseFromDataBase(entityManager);
 			assertNotNull("Enterprise should not be null", enterprise);
 			entity.setEnterprise(enterprise);
 			
@@ -110,16 +110,5 @@ public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}
-	}
-	
-	/**
-	 * Private method to retrieve an {@link Enterprise} from database filled with basic test data.
-	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Enterprise} with {@link TestDaoSellerJpa#EXISTING_ENTERPRISE_ID}.
-	 */
-	private Enterprise findEnterpriseFromDataBase(EntityManager entityManager) {
-		DaoEnterpriseJpa dao = new DaoEnterpriseJpa();
-		dao.entityManager = entityManager;
-		return dao.find(EXISTING_ENTERPRISE_ID);
 	}
 }

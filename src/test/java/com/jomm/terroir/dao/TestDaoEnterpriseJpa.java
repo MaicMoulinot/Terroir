@@ -104,4 +104,15 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			UtilEntityManager.closeEntityManager();
 		}
 	}
+	
+	/**
+	 * Retrieve an {@link Enterprise} from database filled with basic test data.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Enterprise} with {@link TestDaoSellerJpa#EXISTING_ENTERPRISE_ID}.
+	 */
+	public static Enterprise findEnterpriseFromDataBase(EntityManager entityManager) {
+		DaoEnterpriseJpa dao = new DaoEnterpriseJpa();
+		dao.entityManager = entityManager;
+		return dao.find(EXISTING_ENTERPRISE_ID);
+	}
 }
