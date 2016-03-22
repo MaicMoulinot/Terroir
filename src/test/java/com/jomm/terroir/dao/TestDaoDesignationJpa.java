@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jomm.terroir.business.model.Designation;
-import com.jomm.terroir.business.model.Label;
 import com.jomm.terroir.business.model.TestDesignation;
 
 /**
@@ -58,11 +57,6 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			assertNotNull("Before persistence, the list should not be null", list);
 			int listInitialSize = list.size();
 			
-			// Retrieve a label from DataBase
-			Label label = findLabelFromDataBase(entityManager);
-			assertNotNull("Enterprise should not be null", label);
-			entity.setLabel(label);
-			
 			// Create
 			UtilEntityManager.beginTransaction();
 			entity = dao.create(entity);
@@ -94,7 +88,6 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 
 			// Create
 			entity = TestDesignation.generateDesignationWithIdNull();
-			entity.setLabel(label);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
@@ -114,13 +107,31 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 	}
 	
 	/**
-	 * Private method to retrieve an {@link Label} from database filled with basic test data.
-	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Label} with {@link TestDaoDesignationJpa#EXISTING_LABEL_ID}.
+	 * Test the {@link javax.persistence.ManyToMany} relationship between {@link Designation} 
+	 * and {@link com.jomm.terroir.business.model.Label}.
 	 */
-	private Label findLabelFromDataBase(EntityManager entityManager) {
-		DaoLabelJpa dao = new DaoLabelJpa();
+	@Test
+	public final void testManyToManyWithLabel() {
+		try {
+			// EntityManager is working with test-specific Persistence Unit
+			entity = findDesignationFromDataBase(UtilEntityManager.prepareEntityManager());
+			assertNotNull("List of labels should not be null", entity.getLabels());
+			assertEquals("List of labels size should be", 1, entity.getLabels().size());
+			assertEquals("Label's id should be", EXISTING_LABEL_ID, entity.getLabels().get(0).getId().longValue());
+			
+		} finally {
+			UtilEntityManager.closeEntityManager();
+		}
+	}
+	
+	/**
+	 * Retrieve a {@link Designation} from database filled with basic test data.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Designation} with {@link UtilData#EXISTING_DESIGNATION_ID}.
+	 */
+	public static Designation findDesignationFromDataBase(EntityManager entityManager) {
+		DaoDesignationJpa dao = new DaoDesignationJpa();
 		dao.entityManager = entityManager;
-		return dao.find(EXISTING_LABEL_ID);
+		return dao.find(EXISTING_DESIGNATION_ID);
 	}
 }

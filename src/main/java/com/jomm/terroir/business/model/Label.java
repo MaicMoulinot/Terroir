@@ -5,18 +5,19 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
  * This Class is an {@link Entity} representing a label.
- * It extends {@link AbstractUser}, thus it indirectly implements 
+ * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
  * It uses {@link com.jomm.terroir.business.ServiceLabel} for all its business operations.
  * It includes an {@link Image} and other specific attributes.
@@ -52,7 +53,7 @@ public class Label extends AbstractEntity {
 	@JoinColumn(name="fk_image_id")
 	private Image logo;
 	
-	@OneToMany(mappedBy = "label", cascade = CascadeType.ALL, orphanRemoval = true)
+	@ManyToMany(mappedBy = "labels", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Designation> designations;
 	
 	// Getters and Setters

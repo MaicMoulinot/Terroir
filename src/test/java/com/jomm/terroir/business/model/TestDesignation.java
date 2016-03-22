@@ -70,14 +70,6 @@ public class TestDesignation {
 		assertEquals("Address.Street should be " + test, test, designation.getAddress().getStreet());
 		address = null; // Available for Garbage Collector
 		
-		// Label
-		Label label = new Label();
-		label.setId(nb);
-		designation.setLabel(label);
-		assertNotNull("Label should not be null", designation.getLabel());
-		assertEquals("Label's id should be " + nb, nb, designation.getLabel().getId());
-		label = null; // Available for Garbage Collector
-		
 		// Logo
 		Image logo = new Image();
 		logo.setId(nb);
@@ -85,6 +77,17 @@ public class TestDesignation {
 		assertNotNull("Logo should not be null", designation.getLogo());
 		assertEquals("Logo's id should be " + nb, nb, designation.getLogo().getId());
 		logo = null; // Available for Garbage Collector
+		
+		// List of labels
+		ArrayList<Label> listLabels = new ArrayList<>();
+		Label label = new Label();
+		listLabels.add(label);
+		designation.setLabels(listLabels);
+		assertNotNull("List of labels should not be null", designation.getLabels());
+		assertFalse("List of labels should not be empty", designation.getLabels().isEmpty());
+		assertEquals("List of labels size should be 1", 1, designation.getLabels().size());
+		label = null; // Available for Garbage Collector
+		listLabels = null; // Available for Garbage Collector
 		
 		// List of products
 		ArrayList<Product> listProducts = new ArrayList<>();
@@ -109,8 +112,8 @@ public class TestDesignation {
 		designation.setLegalAct("LegalAct");
 		designation.setDefinition("Definition");
 		designation.setAddress(TestAddress.generateAddress());
-		designation.setLabel(TestLabel.generateLabelWithIdNull());
 		designation.setLogo(null);
+		designation.setLabels(new ArrayList<Label>());
 		designation.setProducts(new ArrayList<Product>());
 		return designation;
 	}

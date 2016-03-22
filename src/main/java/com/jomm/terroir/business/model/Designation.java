@@ -9,7 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -20,14 +21,14 @@ import javax.validation.constraints.NotNull;
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
  * It uses {@link com.jomm.terroir.business.ServiceDesignation} for all its business operations.
- * It includes a {@link Label}, an {@link Address} and an {@link Image} among other attributes.
+ * It includes a list of {@link Label}s, an {@link Address} and an {@link Image} among other attributes.
  * Its properties are persisted in the {@link javax.persistence.Table} named {@code designation}.
  * @author Maic
  */
 @Entity
 @NamedQuery(name="Designation.findAll", query="SELECT d FROM Designation d")
 public class Designation extends AbstractEntity {
-	
+
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
@@ -36,35 +37,37 @@ public class Designation extends AbstractEntity {
 	@GeneratedValue
 	@Column(name = "designation_id")
 	private Long id;
-	
+
 	@NotNull
 	@Column(name = "registered_name")
 	private String registeredName;
-	
+
 	@Column(name = "transcripted_name")
 	private String transcriptedName;
-	
+
 	@Column(name = "legal_act")
 	private String legalAct;
-	
+
 	@Column(columnDefinition = "text")
 	private String definition;
-	
+
 	@Embedded
 	private Address address;
-	
-	@NotNull
-	@ManyToOne(optional = false)
-	@JoinColumn(name="fk_qualitylabel_id")
-	private Label label;
-	
+
 	@OneToOne
-	@JoinColumn(name="fk_image_id")
+	@JoinColumn(name = "fk_image_id")
 	private Image logo;
-	
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "designationlabel", 
+		joinColumns = {@JoinColumn(name = "fk_designation_id", nullable = false, updatable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_qualitylabel_id", nullable = false, updatable = false)}
+	)
+	private List<Label> labels;
+
 	@OneToMany(mappedBy = "designation", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Product> products;
-	
+
 	// Getters and Setters
 	@Override
 	public Long getId() {
@@ -135,20 +138,6 @@ public class Designation extends AbstractEntity {
 	}
 
 	/**
-	 * @return the label
-	 */
-	public Label getLabel() {
-		return label;
-	}
-
-	/**
-	 * @param label the label to set
-	 */
-	public void setLabel(Label label) {
-		this.label = label;
-	}
-
-	/**
 	 * @return the address
 	 */
 	public Address getAddress() {
@@ -174,6 +163,20 @@ public class Designation extends AbstractEntity {
 	 */
 	public void setLogo(Image logo) {
 		this.logo = logo;
+	}
+
+	/**
+	 * @return the labels
+	 */
+	public List<Label> getLabels() {
+		return labels;
+	}
+
+	/**
+	 * @param labels the labels to set
+	 */
+	public void setLabels(List<Label> labels) {
+		this.labels = labels;
 	}
 
 	/**
