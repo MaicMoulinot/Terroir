@@ -1,7 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_EXISTING;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_UNVALID;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_INVALID;
 
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
@@ -17,6 +17,7 @@ import javax.inject.Named;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.util.BundleError;
+import com.jomm.terroir.util.Resources;
 
 /**
  * This Class is the Validator relating to an email.
@@ -40,35 +41,29 @@ public class ValidatorEmail implements Validator {
 	@Inject
 	private ServiceUser userService;
 
-	@Inject
-	@BundleError
-	private ResourceBundle resource;
-
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if (value != null) {
 			String email = (String) value;
 			if (!email.isEmpty()) {
 				if (!EMAIL_PATTERN.matcher(email).matches()) {
-					// Email address is unvalid
-					throw new ValidatorException(
-							new FacesMessage(FacesMessage.SEVERITY_ERROR, 
-									resource.getString(EMAIL_UNVALID.getKey()), null));
+					// Email address is invalid
+					throw new ValidatorException(createFacesMessage(Resources.getValueFromKey(EMAIL_INVALID)));
 				} else if (userService.isExistingEmail(email)) {
 					Object[] argument = {email};
-					String detail = MessageFormat.format(resource.getString(EMAIL_EXISTING.getKey()), argument);
-					throw new ValidatorException(
-							new FacesMessage(FacesMessage.SEVERITY_ERROR, detail, null));
+					String summary = MessageFormat.format(Resources.getValueFromKey(EMAIL_EXISTING), argument);
+					throw new ValidatorException(createFacesMessage(summary));
 				}
 			}
 		}
 	}
 	
 	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param resource the resource to set.
+	 * Instantiate a new {@link FacesMessage} with severity {@link FacesMessage#SEVERITY_ERROR} and detail {@code null}.
+	 * @param summary String the message's summary.
+	 * @return {@link FacesMessage} the message.
 	 */
-	void setResourceBundle(ResourceBundle resource) {
-		this.resource = resource;
+	private FacesMessage createFacesMessage(String summary) {
+		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
 	}
 }

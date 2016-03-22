@@ -1,6 +1,6 @@
 package com.jomm.terroir.business.validator;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_UNVALID;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_INVALID;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -84,7 +84,7 @@ public class TestValidatorEmail {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with email non valid");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(EMAIL_UNVALID), 
+			assertEquals(TestResources.getValueFromResourceBundle(EMAIL_INVALID), 
 					expectedException.getFacesMessage().getSummary());
 		}
 	}
