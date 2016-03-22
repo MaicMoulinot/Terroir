@@ -16,6 +16,9 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.jomm.terroir.util.Constants.ResourceBundleError;
+import com.jomm.terroir.util.Constants.ResourceBundleMessage;
+
 /**
  * This Class is a Utility tool exposing resources using the resource producer pattern.
  * It relies on {@link Produces}.
@@ -70,12 +73,30 @@ public final class Resources {
 	}
 	
 	/**
+	 * Retrieve the value from the {@link ResourceBundle} with qualifier {@link BundleError}.
+	 * @param key {@link ResourceBundleError} the key.
+	 * @return String the value.
+	 */
+	public static String getValueFromKey(ResourceBundleError key) {
+		return getResourceBundleError().getString(key.getKey());
+	}
+	
+	/**
+	 * Retrieve the value from the {@link ResourceBundle} with qualifier {@link BundleMessage}.
+	 * @param key {@link ResourceBundleMessage} the key.
+	 * @return String the value.
+	 */
+	public static String getValueFromKey(ResourceBundleMessage key) {
+		return getResourceBundleMessage().getString(key.getKey());
+	}
+	
+	/**
 	 * Expose the ResourceBundle relating to messages.
 	 * @return ResourceBundle to use.
 	 */
 	@Produces
 	@BundleMessage
-	public static ResourceBundle getResourceBundleMessage() {
+	private static ResourceBundle getResourceBundleMessage() {
 		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault());
 	}
 	
@@ -85,7 +106,7 @@ public final class Resources {
 	 */
 	@Produces
 	@BundleError
-	public static ResourceBundle getResourceBundleError() {
+	private static ResourceBundle getResourceBundleError() {
 		return ResourceBundle.getBundle(ERROR.getFileName(), Locale.getDefault());
 	}
 	
@@ -95,7 +116,7 @@ public final class Resources {
 	 */
 	@Produces
 	@BundleLabel
-	public static ResourceBundle getResourceBundleLabel() {
+	private static ResourceBundle getResourceBundleLabel() {
 		return ResourceBundle.getBundle(LABEL.getFileName(), Locale.getDefault());
 	}
 }
