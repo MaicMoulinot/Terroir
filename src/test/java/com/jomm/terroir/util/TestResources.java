@@ -1,8 +1,10 @@
 package com.jomm.terroir.util;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.ERROR;
-import static com.jomm.terroir.util.Constants.ResourceBundleFileName.LABEL;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.MESSAGE;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -61,50 +63,23 @@ public class TestResources {
 	}
 
 	/**
-	 * Test method for {@link Resources#getResourceBundleMessage()}.
+	 * Test method for {@link Resources#getValueFromKey(ResourceBundleMessage)}.
 	 */
 	@Test
-	public final void testGetResourceBundleMessage() {
-		assertEquals(ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()), 
-				Resources.getResourceBundleMessage());
-	}
-
-	/**
-	 * Test method for {@link Resources#getResourceBundleError()}.
-	 */
-	@Test
-	public final void testGetResourceBundleError() {
-		assertEquals(ResourceBundle.getBundle(ERROR.getFileName(), Locale.getDefault()), 
-				Resources.getResourceBundleError());
-	}
-
-	/**
-	 * Test method for {@link Resources#getResourceBundleLabel()}.
-	 */
-	@Test
-	public final void testGetResourceBundleLabel() {
-		assertEquals(ResourceBundle.getBundle(LABEL.getFileName(), Locale.getDefault()), 
-				Resources.getResourceBundleLabel());
+	public final void testGetValueFromKeyResourceBundleMessage() {
+		assertEquals("ResourceBundleMessage", 
+				ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()).getString(CREATE_OK.getKey()), 
+				getValueFromKey(CREATE_OK));
 	}
 	
 	/**
-	 * When injection is not available (in testing environment), this method retrieve
-	 * the value from the {@link ResourceBundle} with qualifier {@link BundleError}.
-	 * @param key {@link ResourceBundleError} the key.
-	 * @return String the value.
+	 * Test method for {@link Resources#getValueFromKey(ResourceBundleError)}.
 	 */
-	public static String getValueFromResourceBundle(ResourceBundleError key) {
-		return Resources.getResourceBundleError().getString(key.getKey());
-	}
-	
-	/**
-	 * When injection is not available (in testing environment), this method retrieve
-	 * the value from the {@link ResourceBundle} with qualifier {@link BundleMessage}.
-	 * @param key {@link ResourceBundleMessage} the key.
-	 * @return String the value.
-	 */
-	public static String getValueFromResourceBundle(ResourceBundleMessage key) {
-		return Resources.getResourceBundleMessage().getString(key.getKey());
+	@Test
+	public final void testGetValueFromKeyResourceBundleError() {
+		assertEquals("ResourceBundleError", 
+				ResourceBundle.getBundle(ERROR.getFileName(), Locale.getDefault()).getString(EXCEPTION.getKey()), 
+				getValueFromKey(EXCEPTION));
 	}
 	
 	/**

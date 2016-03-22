@@ -1,7 +1,7 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -19,8 +19,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import com.jomm.terroir.business.model.Enterprise;
-import com.jomm.terroir.util.Resources;
-import com.jomm.terroir.util.TestResources;
 
 /**
  * This class is a Junit test case testing {@link BackingBean}.
@@ -54,12 +52,11 @@ public class TestBackingBean {
 	public final void testAddMessageException() {
 		// set mocked FacesContext
 		view.setFacesContext(mock(FacesContext.class));
-		view.setResourceBundleError(Resources.getResourceBundleError());
 		// call method
 		String detail = "detail";
 		view.addMessageException(detail);
 		checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getValueFromResourceBundle(EXCEPTION), detail);
+				getValueFromKey(EXCEPTION), detail);
 	}
 
 	/**
@@ -119,64 +116,6 @@ public class TestBackingBean {
 		Exception exception = new Exception(messageException);
 		assertEquals(messageException + " on [id=" + id + ", class=" + entity.getClass().getName() + "]", 
 				view.generateExceptionMessage(exception, entity));
-	}
-
-	/**
-	 * Test method for {@link BackingBean#getValueFromResourceBundle(String)}.
-	 */
-	@Test
-	public final void testGetMessageFromResourceBundle() {
-		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
-		assertEquals(TestResources.getValueFromResourceBundle(CREATE_OK), view.getValueFromResourceBundle(CREATE_OK));
-	}
-
-	/**
-	 * Test method for {@link BackingBean#getValueFromResourceBundle(String)}.
-	 */
-	@Test
-	public final void testGetErrorFromResourceBundle() {
-		view.setResourceBundleError(Resources.getResourceBundleError());
-		assertEquals(TestResources.getValueFromResourceBundle(EXCEPTION), view.getValueFromResourceBundle(EXCEPTION));
-	}
-	
-	/**
-	 * Test method for {@link BackingBean#setResourceBundleMessage(java.util.ResourceBundle)}.
-	 */
-	@Test(expected = NullPointerException.class)
-	public final void testBeforeSetResourceBundleMessage() {
-		// Without any call to the setter, ResourceBundleMessage is null.
-		view.getValueFromResourceBundle(CREATE_OK);
-	}
-	
-	/**
-	 * Test method for {@link BackingBean#setResourceBundleMessage(java.util.ResourceBundle)}.
-	 */
-	@Test
-	public final void testAfterSetResourceBundleMessage() {
-		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
-		// After the call to the setter, ResourceBundleMessage is not null.
-		view.getValueFromResourceBundle(CREATE_OK);
-		assertTrue(true); // NullPointerException was not thrown
-	}
-	
-	/**
-	 * Test method for {@link BackingBean#setResourceBundleError(java.util.ResourceBundle)}.
-	 */
-	@Test(expected = NullPointerException.class)
-	public final void testBeforeSetResourceBundleError() {
-		// Without any call to the setter, ResourceBundleError is null.
-		view.getValueFromResourceBundle(EXCEPTION);
-	}
-	
-	/**
-	 * Test method for {@link BackingBean#setResourceBundleError(java.util.ResourceBundle)}.
-	 */
-	@Test
-	public final void testAfterSetResourceBundleError() {
-		view.setResourceBundleError(Resources.getResourceBundleError());
-		// After the call to the setter, ResourceBundleError is not null.
-		view.getValueFromResourceBundle(EXCEPTION);
-		assertTrue(true); // NullPointerException was not thrown
 	}
 	
 	/**
@@ -245,13 +184,9 @@ public class TestBackingBean {
 	
 	/**
 	 * Set mocked {@link FacesContext} into view.
-	 * Retrieve the {@link java.util.ResourceBundle}s qualified with {@link com.jomm.terroir.util.BundleError} 
-	 * and {@link com.jomm.terroir.util.BundleMessage} from {@link Resources}.
 	 * @param view {@link BackingBean} the view to be set.
 	 */
 	static void setInjections(BackingBean view) {
 		view.setFacesContext(mock(FacesContext.class));
-		view.setResourceBundleMessage(Resources.getResourceBundleMessage());
-		view.setResourceBundleError(Resources.getResourceBundleError());
 	}
 }

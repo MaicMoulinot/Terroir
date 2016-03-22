@@ -1,6 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.LENGTH_AT_LEAST_6_CHARACTERS;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -10,7 +11,6 @@ import static org.mockito.Mockito.verify;
 
 import javax.faces.validator.ValidatorException;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,8 +18,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.business.ServiceUser;
-import com.jomm.terroir.util.Resources;
-import com.jomm.terroir.util.TestResources;
 
 /**
  * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorUsername}.
@@ -34,15 +32,6 @@ public class TestValidatorUsername {
 	
 	@InjectMocks
 	private ValidatorUsername validator;
-
-	/**
-	 * Set proper ResourceBundle for the validator
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		validator.setResourceBundle(Resources.getResourceBundleError());
-	}
 
 	/**
 	 * Test with Username null for {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
@@ -85,8 +74,7 @@ public class TestValidatorUsername {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with length < 6");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(LENGTH_AT_LEAST_6_CHARACTERS), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(LENGTH_AT_LEAST_6_CHARACTERS), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	

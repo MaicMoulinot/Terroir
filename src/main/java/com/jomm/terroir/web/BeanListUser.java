@@ -4,6 +4,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
 import java.util.logging.Level;
@@ -54,8 +55,8 @@ public abstract class BeanListUser extends BackingBean {
 			try {
 				userService.update(currentUser);
 				Object[] argument = {currentUser.getUserName()};
-				String detail = MessageFormat.format(getValueFromResourceBundle(UPDATE_USER), argument);
-				addMessage(getValueFromResourceBundle(UPDATE_OK), detail);
+				String detail = MessageFormat.format(getValueFromKey(UPDATE_USER), argument);
+				addMessage(getValueFromKey(UPDATE_OK), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, currentUser);
 				addMessageException(problem);
@@ -81,8 +82,8 @@ public abstract class BeanListUser extends BackingBean {
 			try {
 				userService.delete(currentUser);
 				Object[] argument = {currentUser.getUserName()};
-				String detail = MessageFormat.format(getValueFromResourceBundle(DELETE_USER), argument);
-				addMessage(getValueFromResourceBundle(DELETE_OK), detail);
+				String detail = MessageFormat.format(getValueFromKey(DELETE_USER), argument);
+				addMessage(getValueFromKey(DELETE_OK), detail);
 			} catch (ExceptionService exception) {
 				String problem = generateExceptionMessage(exception, currentUser);
 				addMessageException(problem);

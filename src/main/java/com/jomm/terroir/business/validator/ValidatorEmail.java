@@ -2,9 +2,9 @@ package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_EXISTING;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_INVALID;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
@@ -16,15 +16,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.ServiceUser;
-import com.jomm.terroir.util.BundleError;
-import com.jomm.terroir.util.Resources;
 
 /**
  * This Class is the Validator relating to an email.
  * It implements {@link Validator} and defines its method {@code validate()},
  * that throws an {@link ValidatorException} if validation fails.
- * It relates to {@link ResourceBundle} to get proper {@link BundleError} messages,
- * to {@link Pattern} to define a correct email pattern,
+ * It relates to {@link Pattern} to define a correct email pattern,
  * and to {@link ServiceUser} to check if the email is already in use.
  * It is annotated {@link Named} for proper access from/to the view pages, with
  * {@code f:validator binding="validatorEmail"}. It is not yet annotated 
@@ -48,11 +45,11 @@ public class ValidatorEmail implements Validator {
 			if (!email.isEmpty()) {
 				if (!EMAIL_PATTERN.matcher(email).matches()) {
 					// Email address is invalid
-					throw new ValidatorException(createFacesMessage(Resources.getValueFromKey(EMAIL_INVALID)));
+					throw new ValidatorException(createMessage(getValueFromKey(EMAIL_INVALID)));
 				} else if (userService.isExistingEmail(email)) {
 					Object[] argument = {email};
-					String summary = MessageFormat.format(Resources.getValueFromKey(EMAIL_EXISTING), argument);
-					throw new ValidatorException(createFacesMessage(summary));
+					String summary = MessageFormat.format(getValueFromKey(EMAIL_EXISTING), argument);
+					throw new ValidatorException(createMessage(summary));
 				}
 			}
 		}
@@ -63,7 +60,7 @@ public class ValidatorEmail implements Validator {
 	 * @param summary String the message's summary.
 	 * @return {@link FacesMessage} the message.
 	 */
-	private FacesMessage createFacesMessage(String summary) {
+	private FacesMessage createMessage(String summary) {
 		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
 	}
 }

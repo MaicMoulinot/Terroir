@@ -4,6 +4,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATOR
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_TOO_SIMPLE;
 import static com.jomm.terroir.util.Constants.View.PASSWORD_PARAMETER;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
@@ -15,9 +16,6 @@ import javax.faces.validator.ValidatorException;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.jomm.terroir.util.Resources;
-import com.jomm.terroir.util.TestResources;
 
 /**
  * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorPassword}.
@@ -34,8 +32,6 @@ public class TestValidatorPassword {
 	@Before
 	public void setUp() throws Exception {
 		validator = new ValidatorPassword();
-		validator.setResourceBundleError(Resources.getResourceBundleError());
-		validator.setResourceBundleMessage(Resources.getResourceBundleMessage());
 	}
 	
 	/**
@@ -49,8 +45,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(FIELD_MANDATORY), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	
@@ -65,8 +60,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(FIELD_MANDATORY), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	
@@ -81,8 +75,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 null");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(FIELD_MANDATORY), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	
@@ -97,8 +90,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password2 empty");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(FIELD_MANDATORY), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(FIELD_MANDATORY), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	
@@ -113,8 +105,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with password1 and password2 different");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(PASSWORDS_DONT_MATCH), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(PASSWORDS_DONT_MATCH), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	
@@ -130,8 +121,7 @@ public class TestValidatorPassword {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have password not matching the pattern");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(PASSWORD_TOO_SIMPLE), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(PASSWORD_TOO_SIMPLE), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	

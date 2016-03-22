@@ -1,6 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_INVALID;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -10,7 +11,6 @@ import static org.mockito.Mockito.verify;
 
 import javax.faces.validator.ValidatorException;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,8 +18,6 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.business.ServiceUser;
-import com.jomm.terroir.util.Resources;
-import com.jomm.terroir.util.TestResources;
 
 /**
  * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorEmail}.
@@ -34,15 +32,6 @@ public class TestValidatorEmail {
 	
 	@InjectMocks
 	private ValidatorEmail validator;
-
-	/**
-	 * Set proper ResourceBundle for the validator
-	 * @throws java.lang.Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		validator.setResourceBundle(Resources.getResourceBundleError());
-	}
 	
 	/**
 	 * Test with Email null for {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
@@ -84,8 +73,7 @@ public class TestValidatorEmail {
 			// Should throw a ValidatorException. If not fail the test
 			fail("ValidatorException was not thrown and should have with email non valid");
 		} catch (ValidatorException expectedException) {
-			assertEquals(TestResources.getValueFromResourceBundle(EMAIL_INVALID), 
-					expectedException.getFacesMessage().getSummary());
+			assertEquals(getValueFromKey(EMAIL_INVALID), expectedException.getFacesMessage().getSummary());
 		}
 	}
 	

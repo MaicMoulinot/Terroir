@@ -1,9 +1,9 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.io.Serializable;
-import java.util.ResourceBundle;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -11,17 +11,11 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.AbstractEntity;
-import com.jomm.terroir.util.BundleError;
-import com.jomm.terroir.util.BundleMessage;
-import com.jomm.terroir.util.Constants.ResourceBundleError;
-import com.jomm.terroir.util.Constants.ResourceBundleMessage;
 
 /**
  * This abstract Class defines common attributes shared among all Beans.
  * It implements {@link Serializable} and has a default serial version ID.
- * It relates to {@link ResourceBundle} to retrieve {@link BundleMessage} messages,
- * to {@link ResourceBundle} to retrieve {@link BundleError} errors,
- * and to {@link FacesContext} to throw appropriate {@link FacesMessage} to the view.
+ * It relates to {@link FacesContext} to throw appropriate {@link FacesMessage} to the view.
  * @author Maic
  */
 public abstract class BackingBean implements Serializable {
@@ -32,12 +26,6 @@ public abstract class BackingBean implements Serializable {
 	// Injected fields
 	@Inject
 	private FacesContext facesContext;
-	@Inject
-	@BundleError
-	private transient ResourceBundle resourceBundleError;
-	@Inject
-	@BundleMessage
-	private transient ResourceBundle resourceBundleMessage;
 	
 	// Utility methods
 	/**
@@ -48,7 +36,7 @@ public abstract class BackingBean implements Serializable {
 	 * @param detail String the message's detail.
 	 */
 	public void addMessageException(String detail) {
-		addMessage(null, FacesMessage.SEVERITY_ERROR, getValueFromResourceBundle(EXCEPTION), detail);
+		addMessage(null, FacesMessage.SEVERITY_ERROR, getValueFromKey(EXCEPTION), detail);
 	}
 	
 	/**
@@ -111,39 +99,5 @@ public abstract class BackingBean implements Serializable {
 	 */
 	void setFacesContext(FacesContext facesContext) {
 		this.facesContext = facesContext;
-	}
-	
-	/**
-	 * Retrieve the value associated with the key in the {@link ResourceBundle} qualified with {@link BundleMessage}.
-	 * @param key {@link ResourceBundleMessage} the key provided.
-	 * @return value String the associated value.
-	 */
-	protected String getValueFromResourceBundle(ResourceBundleMessage key) {
-		return resourceBundleMessage.getString(key.getKey());
-	}
-	
-	/**
-	 * Retrieve the value associated with the key in the {@link ResourceBundle} qualified with {@link BundleError}.
-	 * @param key {@link ResourceBundleError} the key provided.
-	 * @return value String the associated value.
-	 */
-	protected String getValueFromResourceBundle(ResourceBundleError key) {
-		return resourceBundleError.getString(key.getKey());
-	}
-	
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param resourceBundle the {@link ResourceBundle} qualified with {@link BundleMessage}.
-	 */
-	void setResourceBundleMessage(ResourceBundle resourceBundle) {
-		this.resourceBundleMessage = resourceBundle;
-	}
-	
-	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param resourceBundle the {@link ResourceBundle} qualified with {@link BundleError}.
-	 */
-	void setResourceBundleError(ResourceBundle resourceBundle) {
-		this.resourceBundleError = resourceBundle;
 	}
 }

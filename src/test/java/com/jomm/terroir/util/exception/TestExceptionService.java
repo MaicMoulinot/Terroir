@@ -3,13 +3,13 @@ package com.jomm.terroir.util.exception;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionService.TypeException;
 
 /**
@@ -27,7 +27,7 @@ public class TestExceptionService {
 	@Test
 	public final void testConstructorWithTypeExceptionEntityShouldNotBeNull() {
 		exception = new ExceptionService(TypeException.ENTITY_NULL);
-		assertEquals(TestResources.getValueFromResourceBundle(ENTITY_SHOULD_NOT_BE_NULL), exception.getMessage());
+		assertEquals(getValueFromKey(ENTITY_SHOULD_NOT_BE_NULL), exception.getMessage());
 	}
 	
 	/**
@@ -37,7 +37,7 @@ public class TestExceptionService {
 	@Test
 	public final void testConstructorWithTypeExceptionIdShouldNotBeNull() {
 		exception = new ExceptionService(TypeException.ID_NULL);
-		assertEquals(TestResources.getValueFromResourceBundle(ID_SHOULD_NOT_BE_NULL), exception.getMessage());
+		assertEquals(getValueFromKey(ID_SHOULD_NOT_BE_NULL), exception.getMessage());
 	}
 	
 	/**
@@ -47,7 +47,7 @@ public class TestExceptionService {
 	@Test
 	public final void testConstructorWithTypeExceptionIdShouldBeNull() {
 		exception = new ExceptionService(TypeException.ID_NOT_NULL);
-		assertEquals(TestResources.getValueFromResourceBundle(ID_SHOULD_BE_NULL), exception.getMessage());
+		assertEquals(getValueFromKey(ID_SHOULD_BE_NULL), exception.getMessage());
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public class TestExceptionService {
 	 * @return the {@link ExceptionService}.
 	 */
 	public static ExceptionService createMockedExceptionIdShouldBeNull() {
-		return createException(TestResources.getValueFromResourceBundle(ID_SHOULD_BE_NULL));
+		return createException(getValueFromKey(ID_SHOULD_BE_NULL));
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class TestExceptionService {
 	 * @return the {@link ExceptionService}.
 	 */
 	public static ExceptionService createMockedExceptionIdShouldNotBeNull() {
-		return createException(TestResources.getValueFromResourceBundle(ID_SHOULD_NOT_BE_NULL));
+		return createException(getValueFromKey(ID_SHOULD_NOT_BE_NULL));
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class TestExceptionService {
 	 * @return the {@link ExceptionService}.
 	 */
 	public static ExceptionService createMockedExceptionEntityShouldNotBeNull() {
-		return createException(TestResources.getValueFromResourceBundle(ENTITY_SHOULD_NOT_BE_NULL));
+		return createException(getValueFromKey(ENTITY_SHOULD_NOT_BE_NULL));
 	}
 	
 	/**

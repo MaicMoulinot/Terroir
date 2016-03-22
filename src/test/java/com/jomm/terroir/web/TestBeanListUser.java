@@ -5,6 +5,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -74,7 +75,7 @@ public class TestBeanListUser {
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getValueFromResourceBundle(EXCEPTION), 
+				getValueFromKey(EXCEPTION), 
 				view.generateExceptionMessage(exception, user));
 	}
 	
@@ -97,7 +98,7 @@ public class TestBeanListUser {
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getValueFromResourceBundle(EXCEPTION), 
+				getValueFromKey(EXCEPTION), 
 				view.generateExceptionMessage(exception, user));
 	}
 	
@@ -117,8 +118,8 @@ public class TestBeanListUser {
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				TestResources.getValueFromResourceBundle(UPDATE_OK), 
-				TestResources.getValueFromResourceBundle(UPDATE_USER));
+				getValueFromKey(UPDATE_OK), 
+				getValueFromKey(UPDATE_USER));
 	}
 	
 	/**
@@ -154,7 +155,7 @@ public class TestBeanListUser {
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getValueFromResourceBundle(EXCEPTION), 
+				getValueFromKey(EXCEPTION), 
 				view.generateExceptionMessage(exception, user));
 	}
 	
@@ -176,7 +177,7 @@ public class TestBeanListUser {
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getValueFromResourceBundle(EXCEPTION), 
+				getValueFromKey(EXCEPTION), 
 				view.generateExceptionMessage(exception, user));
 	}
 	
@@ -195,8 +196,8 @@ public class TestBeanListUser {
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				TestResources.getValueFromResourceBundle(DELETE_OK), 
-				TestResources.getValueFromResourceBundle(DELETE_USER));
+				getValueFromKey(DELETE_OK), 
+				getValueFromKey(DELETE_USER));
 	}
 	
 	/**

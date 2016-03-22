@@ -5,6 +5,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
 import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
 import java.util.logging.Level;
@@ -58,8 +59,8 @@ public abstract class BeanRegistrationUser extends BackingBean {
 		try {
 			userService.create(entity);
 			Object[] argument = {entity.getUserName()};
-			String detail = MessageFormat.format(getValueFromResourceBundle(CREATE_USER), argument);
-			addMessage(getValueFromResourceBundle(CREATE_OK), detail);
+			String detail = MessageFormat.format(getValueFromKey(CREATE_USER), argument);
+			addMessage(getValueFromKey(CREATE_OK), detail);
 		} catch (ExceptionService exception) {
 			String problem = generateExceptionMessage(exception, entity);
 			addMessageException(problem);
@@ -72,8 +73,8 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	 * Generate tips to create a secured enough password into growl.
 	 */
 	public void passwordTooltip() {
-		addMessage(CLIENT_ID_GROWL.getId(), getValueFromResourceBundle(PASSWORD_TITLE), 
-				getValueFromResourceBundle(PASSWORD_RULES));
+		addMessage(CLIENT_ID_GROWL.getId(), getValueFromKey(PASSWORD_TITLE), 
+				getValueFromKey(PASSWORD_RULES));
 	}
 
 	/**

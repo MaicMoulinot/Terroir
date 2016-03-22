@@ -1,7 +1,6 @@
 package com.jomm.terroir.util;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.ERROR;
-import static com.jomm.terroir.util.Constants.ResourceBundleFileName.LABEL;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.MESSAGE;
 
 import java.time.ZoneId;
@@ -73,50 +72,20 @@ public final class Resources {
 	}
 	
 	/**
-	 * Retrieve the value from the {@link ResourceBundle} with qualifier {@link BundleError}.
+	 * Retrieve the value from the {@link ResourceBundle} {@code error}.
 	 * @param key {@link ResourceBundleError} the key.
 	 * @return String the value.
 	 */
 	public static String getValueFromKey(ResourceBundleError key) {
-		return getResourceBundleError().getString(key.getKey());
+		return ResourceBundle.getBundle(ERROR.getFileName(), Locale.getDefault()).getString(key.getKey());
 	}
 	
 	/**
-	 * Retrieve the value from the {@link ResourceBundle} with qualifier {@link BundleMessage}.
+	 * Retrieve the value from the {@link ResourceBundle} {@code message}.
 	 * @param key {@link ResourceBundleMessage} the key.
 	 * @return String the value.
 	 */
 	public static String getValueFromKey(ResourceBundleMessage key) {
-		return getResourceBundleMessage().getString(key.getKey());
-	}
-	
-	/**
-	 * Expose the ResourceBundle relating to messages.
-	 * @return ResourceBundle to use.
-	 */
-	@Produces
-	@BundleMessage
-	private static ResourceBundle getResourceBundleMessage() {
-		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault());
-	}
-	
-	/**
-	 * Expose the ResourceBundle relating to errors.
-	 * @return ResourceBundle to use.
-	 */
-	@Produces
-	@BundleError
-	private static ResourceBundle getResourceBundleError() {
-		return ResourceBundle.getBundle(ERROR.getFileName(), Locale.getDefault());
-	}
-	
-	/**
-	 * Expose the ResourceBundle relating to labels.
-	 * @return ResourceBundle to use.
-	 */
-	@Produces
-	@BundleLabel
-	private static ResourceBundle getResourceBundleLabel() {
-		return ResourceBundle.getBundle(LABEL.getFileName(), Locale.getDefault());
+		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()).getString(key.getKey());
 	}
 }

@@ -6,6 +6,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
 import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -73,7 +74,7 @@ public class TestBeanRegistrationUser {
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getValueFromResourceBundle(EXCEPTION), 
+				getValueFromKey(EXCEPTION), 
 				view.generateExceptionMessage(exception, user));
 	}
 
@@ -94,7 +95,7 @@ public class TestBeanRegistrationUser {
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
-				TestResources.getValueFromResourceBundle(EXCEPTION), 
+				getValueFromKey(EXCEPTION), 
 				view.generateExceptionMessage(exception, user));
 	}
 
@@ -112,8 +113,8 @@ public class TestBeanRegistrationUser {
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				TestResources.getValueFromResourceBundle(CREATE_OK), 
-				TestResources.getValueFromResourceBundle(CREATE_USER));
+				getValueFromKey(CREATE_OK), 
+				getValueFromKey(CREATE_USER));
 	}
 
 	/**
@@ -127,8 +128,8 @@ public class TestBeanRegistrationUser {
 		view.passwordTooltip();
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, CLIENT_ID_GROWL.getId(), FacesMessage.SEVERITY_INFO, 
-				TestResources.getValueFromResourceBundle(PASSWORD_TITLE), 
-				TestResources.getValueFromResourceBundle(PASSWORD_RULES));
+				getValueFromKey(PASSWORD_TITLE), 
+				getValueFromKey(PASSWORD_RULES));
 	}
 
 	/**
