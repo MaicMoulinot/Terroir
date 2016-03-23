@@ -1,6 +1,6 @@
 package com.jomm.terroir.util.converter;
 
-import static com.jomm.terroir.util.Constants.ConverterPattern.ZONED_DATE_TIME;
+import static com.jomm.terroir.util.Constants.Pattern.ZONED_DATE_TIME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -56,7 +56,7 @@ public class TestConverterZonedDateTime {
 	public final void testGetAsObjectWithValueNotNull() {
 		String value = "27/02/2016 23:52:36 GMT";
 		assertEquals("This method should never fail because of rounding", 
-				ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern())), 
+				ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getRegex())), 
 				converter.getAsObject(context, component, value));
 	}
 	
@@ -75,7 +75,7 @@ public class TestConverterZonedDateTime {
 	public final void testGetAsStringWithValueNotNull() {
 		ZonedDateTime now = ZonedDateTime.now();
 		assertEquals("This method should never fail because of rounding", 
-				now.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern())), 
+				now.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getRegex())), 
 				converter.getAsString(context, component, now));
 	}
 }

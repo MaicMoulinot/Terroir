@@ -1,10 +1,13 @@
 package com.jomm.terroir.business.validator;
 
+import static com.jomm.terroir.util.Constants.Pattern.VALID_USERNAME;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.LENGTH_AT_LEAST_6_CHARACTERS;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_NAME_EXISTING;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_NAME_NOT_MATCHING_PATTERN;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -28,6 +31,9 @@ import com.jomm.terroir.business.ServiceUser;
  */
 @Named
 public class ValidatorUsername implements Validator {
+	
+	// Pattern for user name
+	static final Pattern USERNAME_PATTERN = Pattern.compile(VALID_USERNAME.getRegex());
 
 	@Inject
 	private ServiceUser userService;
@@ -40,6 +46,10 @@ public class ValidatorUsername implements Validator {
 				// Minimum length = 6
 				if (userName.length() < 6) {
 					throw new ValidatorException(createMessage(getValueFromKey(LENGTH_AT_LEAST_6_CHARACTERS)));
+				}
+				// Doesn't match pattern
+				if (!USERNAME_PATTERN.matcher(userName).matches()) {
+					throw new ValidatorException(createMessage(getValueFromKey(USER_NAME_NOT_MATCHING_PATTERN)));
 				}
 				// Existing in database
 				if (userService.isExistingUserName(userName)) {

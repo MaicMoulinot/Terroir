@@ -1,6 +1,6 @@
 package com.jomm.terroir.util.converter;
 
-import static com.jomm.terroir.util.Constants.ConverterPattern.LOCAL_DATE;
+import static com.jomm.terroir.util.Constants.Pattern.LOCAL_DATE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -85,6 +85,6 @@ public class TestAttributeConverterLocalDate {
 	 * @return String the formatted date.
 	 */
 	private String formatLocalDateIntoString(LocalDate localDate) {
-		return localDate.format(DateTimeFormatter.ofPattern(LOCAL_DATE.getPattern()));
+		return localDate.format(DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex()));
 	}
 }

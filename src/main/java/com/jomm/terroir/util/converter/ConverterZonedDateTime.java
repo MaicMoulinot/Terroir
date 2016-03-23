@@ -1,6 +1,6 @@
 package com.jomm.terroir.util.converter;
 
-import static com.jomm.terroir.util.Constants.ConverterPattern.ZONED_DATE_TIME;
+import static com.jomm.terroir.util.Constants.Pattern.ZONED_DATE_TIME;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +28,7 @@ public final class ConverterZonedDateTime implements Converter {
 		ZonedDateTime dateAsZonedDateTime = null;
 		if (value != null) {
 			dateAsZonedDateTime = ZonedDateTime.parse(value, 
-					DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern()));
+					DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getRegex()));
 		}
 		return dateAsZonedDateTime;
 	}
@@ -38,7 +38,7 @@ public final class ConverterZonedDateTime implements Converter {
 		String dateAsString = null;
 		if (value != null) {
 			ZonedDateTime dateValue = (ZonedDateTime) value;
-			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getPattern()));
+			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getRegex()));
 		}
 		return dateAsString;
 	}

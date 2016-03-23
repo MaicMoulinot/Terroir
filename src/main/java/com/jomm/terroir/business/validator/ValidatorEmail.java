@@ -1,7 +1,8 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_EXISTING;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_INVALID;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_NOT_MATCHING_PATTERN;
+import static com.jomm.terroir.util.Constants.Pattern.VALID_EMAIL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
@@ -32,8 +33,7 @@ import com.jomm.terroir.business.ServiceUser;
 public class ValidatorEmail implements Validator {
 
 	// Pattern for password
-	static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", 
-			Pattern.CASE_INSENSITIVE);
+	static final Pattern EMAIL_PATTERN = Pattern.compile(VALID_EMAIL.getRegex(), Pattern.CASE_INSENSITIVE);
 
 	@Inject
 	private ServiceUser userService;
@@ -45,7 +45,7 @@ public class ValidatorEmail implements Validator {
 			if (!email.isEmpty()) {
 				if (!EMAIL_PATTERN.matcher(email).matches()) {
 					// Email address is invalid
-					throw new ValidatorException(createMessage(getValueFromKey(EMAIL_INVALID)));
+					throw new ValidatorException(createMessage(getValueFromKey(EMAIL_NOT_MATCHING_PATTERN)));
 				} else if (userService.isExistingEmail(email)) {
 					Object[] argument = {email};
 					String summary = MessageFormat.format(getValueFromKey(EMAIL_EXISTING), argument);

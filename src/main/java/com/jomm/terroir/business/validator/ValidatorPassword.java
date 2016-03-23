@@ -1,8 +1,9 @@
 package com.jomm.terroir.business.validator;
 
+import static com.jomm.terroir.util.Constants.Pattern.VALID_PASSWORD;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_TOO_SIMPLE;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.View.PASSWORD_PARAMETER;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
@@ -32,14 +33,7 @@ import javax.inject.Named;
 public class ValidatorPassword implements Validator {
 
 	// Pattern for password
-	static final Pattern PASSWORD_PATTERN = 
-			Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
-	// (?=.*\d)		#   must contain one digit from 0-9
-	// (?=.*[a-z])	#   must contain one lowercase character
-	// (?=.*[A-Z])	#   must contain one uppercase character
-	// (?=.*[@#$%])	#   must contain one special symbol in the list "@#$%"
-	// .			#	match all previous conditions with
-	// {6,20}		#	length is minimum of 6 characters and maximum of 20 characters
+	static final Pattern PASSWORD_PATTERN = Pattern.compile(VALID_PASSWORD.getRegex());
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
@@ -56,7 +50,7 @@ public class ValidatorPassword implements Validator {
 			throw new ValidatorException(createMessage(getValueFromKey(PASSWORDS_DONT_MATCH), null));
 		} else if (!PASSWORD_PATTERN.matcher(password1).matches()) {
 			// Password doesn't match pattern
-			throw new ValidatorException(createMessage(getValueFromKey(PASSWORD_TOO_SIMPLE), 
+			throw new ValidatorException(createMessage(getValueFromKey(PASSWORD_NOT_MATCHING_PATTERN), 
 					getValueFromKey(PASSWORD_RULES)));
 		}
 	}
