@@ -8,12 +8,14 @@ import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.mock;
 
 import java.util.Arrays;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 import org.junit.Test;
@@ -71,7 +73,8 @@ public class TestValidatorPassword {
 	@Test
 	public final void testValidateWithDifferentValues() {
 		try {
-			validator.validate(null, buildPassword1Component(password1), password2); // here a ValidatorException can occur
+			// here a ValidatorException can occur
+			validator.validate(mock(FacesContext.class), buildPassword1Component(password1), password2);
 			switch (expectedResult) {
 			case SUCCESS: // This is expected
 				assertTrue("ValidatorException is not thrown, which is expected with password1=" + password1 

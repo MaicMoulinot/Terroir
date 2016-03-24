@@ -12,6 +12,8 @@ import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 
 import org.junit.Test;
@@ -58,9 +60,9 @@ public class TestValidatorUsername {
 		// Set the parameters for the test
 		this.username = username;
 		this.expectedResult = expectedResult;
-		// Initialize the validator
-		validator = new ValidatorUsername();
+		// Initialize the validator and mocked service
 		service = mock(ServiceUser.class);
+		validator = new ValidatorUsername();
 		validator.setServiceUser(service);
 	}
 
@@ -71,7 +73,8 @@ public class TestValidatorUsername {
 	@Test
 	public final void testValidateWithDifferentValues() {
 		try {
-			validator.validate(null, null, username); // here a ValidatorException can occur
+			// here a ValidatorException can occur
+			validator.validate(mock(FacesContext.class), mock(UIComponent.class), username);
 			switch (expectedResult) {
 			case NOTHING: // This is expected
 				assertTrue("ValidatorException is not thrown, which is expected with a pattern " + username, true);				
