@@ -1,7 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.Pattern.VALID_USERNAME;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.LENGTH_AT_LEAST_6_CHARACTERS;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.LENGTH_BETWEEN_5_AND_15;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_NAME_EXISTING;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_NAME_NOT_MATCHING_PATTERN;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
@@ -33,32 +33,38 @@ import com.jomm.terroir.business.ServiceUser;
 public class ValidatorUsername implements Validator {
 	
 	// Pattern for user name
-	static final Pattern USERNAME_PATTERN = Pattern.compile(VALID_USERNAME.getRegex());
+	private static final Pattern USERNAME_PATTERN = Pattern.compile(VALID_USERNAME.getRegex());
 
 	@Inject
-	private ServiceUser userService;
+	private ServiceUser serviceUser;
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if (value != null) {
 			String userName = (String) value;
 			if (!userName.isEmpty()) {
-				// Minimum length = 6
-				if (userName.length() < 6) {
-					throw new ValidatorException(createMessage(getValueFromKey(LENGTH_AT_LEAST_6_CHARACTERS)));
-				}
-				// Doesn't match pattern
-				if (!USERNAME_PATTERN.matcher(userName).matches()) {
+				if (userName.length() < 5 || userName.length() > 15) {
+					// Length too short or too long
+					throw new ValidatorException(createMessage(getValueFromKey(LENGTH_BETWEEN_5_AND_15)));
+				} else if (!USERNAME_PATTERN.matcher(userName).matches()) {
+					// Doesn't match pattern
 					throw new ValidatorException(createMessage(getValueFromKey(USER_NAME_NOT_MATCHING_PATTERN)));
-				}
-				// Existing in database
-				if (userService.isExistingUserName(userName)) {
+				} else if (serviceUser.isExistingUserName(userName)) {
+					// Existing in database
 					Object[] argument = {userName};
 					String summary = MessageFormat.format(getValueFromKey(USER_NAME_EXISTING), argument);
 					throw new ValidatorException(createMessage(summary));
 				}
 			}
 		}
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param serviceUser the serviceUser to set.
+	 */
+	void setServiceUser(ServiceUser serviceUser) {
+		this.serviceUser = serviceUser;
 	}
 	
 	/**

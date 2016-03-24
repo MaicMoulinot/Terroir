@@ -33,10 +33,10 @@ import com.jomm.terroir.business.ServiceUser;
 public class ValidatorEmail implements Validator {
 
 	// Pattern for password
-	static final Pattern EMAIL_PATTERN = Pattern.compile(VALID_EMAIL.getRegex(), Pattern.CASE_INSENSITIVE);
+	private static final Pattern EMAIL_PATTERN = Pattern.compile(VALID_EMAIL.getRegex(), Pattern.CASE_INSENSITIVE);
 
 	@Inject
-	private ServiceUser userService;
+	private ServiceUser serviceUser;
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
@@ -46,13 +46,21 @@ public class ValidatorEmail implements Validator {
 				if (!EMAIL_PATTERN.matcher(email).matches()) {
 					// Email address is invalid
 					throw new ValidatorException(createMessage(getValueFromKey(EMAIL_NOT_MATCHING_PATTERN)));
-				} else if (userService.isExistingEmail(email)) {
+				} else if (serviceUser.isExistingEmail(email)) {
 					Object[] argument = {email};
 					String summary = MessageFormat.format(getValueFromKey(EMAIL_EXISTING), argument);
 					throw new ValidatorException(createMessage(summary));
 				}
 			}
 		}
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param serviceUser the serviceUser to set.
+	 */
+	void setServiceUser(ServiceUser serviceUser) {
+		this.serviceUser = serviceUser;
 	}
 	
 	/**

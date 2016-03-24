@@ -33,7 +33,7 @@ import javax.inject.Named;
 public class ValidatorPassword implements Validator {
 
 	// Pattern for password
-	static final Pattern PASSWORD_PATTERN = Pattern.compile(VALID_PASSWORD.getRegex());
+	private static final Pattern PASSWORD_PATTERN = Pattern.compile(VALID_PASSWORD.getRegex());
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
