@@ -4,11 +4,15 @@ import static com.jomm.terroir.util.Constants.Pattern.LOCAL_DATE;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 /**
  * This Class is a Converter.
@@ -23,11 +27,20 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "localDateConverter")
 public final class ConverterLocalDate implements Converter {
 
+	@Inject
+	private Logger logger;
+	
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex());
+	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		LocalDate dateAsLocalDate = null;
 		if (value != null) {
-			dateAsLocalDate = LocalDate.parse(value, DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex()));
+			try {
+				dateAsLocalDate = LocalDate.parse(value, FORMATTER);
+			} catch (DateTimeParseException exception) {
+				logger.log(Level.FINER, "Value " + value + " could not be parsed into LocalDate", exception);
+			}
 		}
 		return dateAsLocalDate;
 	}
@@ -37,8 +50,16 @@ public final class ConverterLocalDate implements Converter {
 		String dateAsString = null;
 		if (value != null) {
 			LocalDate dateValue = (LocalDate) value;
-			dateAsString = dateValue.format(DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex()));
+			dateAsString = dateValue.format(FORMATTER);
 		}
 		return dateAsString;
+	}
+
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @return the formatter.
+	 */
+	static DateTimeFormatter getFormatter() {
+		return FORMATTER;
 	}
 }

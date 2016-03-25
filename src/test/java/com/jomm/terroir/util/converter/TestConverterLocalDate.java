@@ -1,11 +1,9 @@
 package com.jomm.terroir.util.converter;
 
-import static com.jomm.terroir.util.Constants.Pattern.LOCAL_DATE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -55,8 +53,7 @@ public class TestConverterLocalDate {
 	@Test
 	public final void testGetAsObjectWithValueNotNull() {
 		String value = "27/02/2016";
-		assertEquals("This should never fail because of rounding", 
-				LocalDate.parse(value, DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex())), 
+		assertEquals("This should never fail because of rounding", LocalDate.parse(value, ConverterLocalDate.getFormatter()), 
 				converter.getAsObject(context, component, value));
 	}
 	
@@ -74,8 +71,7 @@ public class TestConverterLocalDate {
 	@Test
 	public final void testGetAsStringWithValueNotNull() {
 		LocalDate now = LocalDate.now();
-		assertEquals("This method should never fail because of rounding", 
-				now.format(DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex())), 
+		assertEquals("This method should never fail because of rounding", now.format(ConverterLocalDate.getFormatter()), 
 				converter.getAsString(context, component, now));
 	}
 }
