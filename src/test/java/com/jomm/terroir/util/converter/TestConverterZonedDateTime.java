@@ -1,81 +1,133 @@
 package com.jomm.terroir.util.converter;
 
-import static com.jomm.terroir.util.Constants.Pattern.ZONED_DATE_TIME;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.mock;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.logging.Logger;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 /**
  * This class is a Junit test case testing the {@code getAsObject()} and {@code getAsString()} 
  * methods of {@link ConverterZonedDateTime}.
- * It is annotated {@link RunWith} {@link MockitoJUnitRunner} to explicit usage of Mockito annotations.
+ * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
+ * Here, the parameters are different values to be tested, and their expected results.
  * @author Maic
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(Parameterized.class)
 public class TestConverterZonedDateTime {
-	
-	@Mock
-    private FacesContext context;
-	
-	@Mock
-    private UIComponent component;
-	
+
+	/** Enumeration of different possible results for {@code getAsObject()} method of {@link ConverterZonedDateTime}. */
+	private enum GetAsObjectExpectedResult {
+		/** The value is null, thus the result should be null. */
+		FAILURE_NULL,
+		/** The value is not a valid pattern, thus the result should be null. */
+		FAILURE_PATTERN,
+		/** The value is a valid pattern, thus the conversion should succeed. */
+		SUCCESS
+	};
+
+	/** Enumeration of different possible results for {@code getAsString()} method of {@link ConverterZonedDateTime}. */
+	private enum GetAsStringExpectedResult {
+		/** The value is null, thus the result should be null. */
+		FAILURE_NULL,
+		/** The value is not a ZonedDateTime, thus the result should be null. */
+		FAILURE_CLASS_CAST,
+		/** The value is a ZonedDateTime, thus the conversion should succeed. */
+		SUCCESS
+	};
+
+	// Attributes
 	private ConverterZonedDateTime converter;
-	
+	private String stringValue;
+	private GetAsObjectExpectedResult getAsObjectExpectedResult;
+	private Object objectValue;
+	private GetAsStringExpectedResult getAsStringExpectedResult;
+
 	/**
-	 * @throws java.lang.Exception
+	 * Constructor.
+	 * Its parameter comes from all values from {@code valueToTest()}.
+	 * @param stringValue String the value for {@code testGetAsObjectWithDifferentValues()}.
+	 * @param getAsObjectExpectedResult the {@code stringValue}'s expected result in test.
+	 * @param objectValue the value to test in {@code testGetAsStringWithDifferentValues()}.
+	 * @param getAsStringExpectedResult the {@code objectValue}'s expected result in test.
 	 */
-	@Before
-	public void setUp() throws Exception {
+	public TestConverterZonedDateTime(String stringValue, GetAsObjectExpectedResult getAsObjectExpectedResult, 
+			Object objectValue, GetAsStringExpectedResult getAsStringExpectedResult) {
+		// Set the parameters for the test
+		this.stringValue = stringValue;
+		this.getAsObjectExpectedResult = getAsObjectExpectedResult;
+		this.objectValue = objectValue;
+		this.getAsStringExpectedResult = getAsStringExpectedResult;
+		// Initialize the converter and mock the logger
 		converter = new ConverterZonedDateTime();
+		converter.setLogger(mock(Logger.class));
 	}
 
 	/**
-	 * Test method for {@link ConverterZonedDateTime#getAsObject(FacesContext, UIComponent, String)} with its value null.
+	 * Test method for {@link ConverterZonedDateTime#getAsObject(FacesContext, UIComponent, String)}.
 	 */
 	@Test
-	public final void testGetAsObjectWithValueNull() {
-		assertNull(converter.getAsObject(context, component, null));
-	}
-	
-	/**
-	 * Test method for {@link ConverterZonedDateTime#getAsObject(FacesContext, UIComponent, String)} with its value not null.
-	 */
-	@Test
-	public final void testGetAsObjectWithValueNotNull() {
-		String value = "27/02/2016 23:52:36 GMT";
-		assertEquals("This method should never fail because of rounding", 
-				ZonedDateTime.parse(value, DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getRegex())), 
-				converter.getAsObject(context, component, value));
-	}
-	
-	/**
-	 * Test method for {@link ConverterZonedDateTime#getAsString(FacesContext, UIComponent, Object)}, with its value null.
-	 */
-	@Test
-	public final void testGetAsStringWithValueNull() {
-		assertNull(converter.getAsString(context, component, null));
+	public final void testGetAsObjectWithDifferentValues() {
+		Object result = converter.getAsObject(mock(FacesContext.class), mock(UIComponent.class), stringValue);
+		switch (getAsObjectExpectedResult) {
+		case FAILURE_NULL: // Expected result is null
+		case FAILURE_PATTERN: // Expected result is null
+			assertNull("Result should be null with value=" + stringValue, result);				
+			break;
+		case SUCCESS: // Expected result is a ZonedDateTime
+			assertEquals("Conversion should succeed with value=" + stringValue, ZonedDateTime.class, result.getClass());				
+			break;
+		}
 	}
 
 	/**
-	 * Test method for {@link ConverterZonedDateTime#getAsString(FacesContext, UIComponent, Object)}, with its value not null.
+	 * Test method for {@link ConverterZonedDateTime#getAsString(FacesContext, UIComponent, Object)}.
 	 */
 	@Test
-	public final void testGetAsStringWithValueNotNull() {
-		ZonedDateTime now = ZonedDateTime.now();
-		assertEquals("This method should never fail because of rounding", 
-				now.format(DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getRegex())), 
-				converter.getAsString(context, component, now));
+	public final void testGetAsStringWithDifferentValues() {
+		String result = converter.getAsString(mock(FacesContext.class), mock(UIComponent.class), objectValue);
+		switch (getAsStringExpectedResult) {
+		case FAILURE_NULL: // Expected result is null
+		case FAILURE_CLASS_CAST: // Expected result is null
+			assertNull("Result should be null with value=" 
+					+ (objectValue == null ? objectValue : objectValue.getClass()), result);				
+			break;
+		case SUCCESS: // Expected result is a String
+			ZonedDateTime dateValue = (ZonedDateTime) objectValue;
+			String expectedResult = dateValue.format(ConverterZonedDateTime.getFormatter());
+			assertEquals("Conversion should succeed with value=" 
+					+ (objectValue == null ? objectValue : objectValue.getClass()), 
+					expectedResult, result);				
+			break;
+		}
+	}
+
+	/**
+	 * Reference values, associated with their expected result to the test, 
+	 * to be used as parameters on constructor.
+	 * Each value will be tested with the tests {@code testGetAsObjectWithDifferentValues()} or 
+	 * {@code testGetAsStringWithDifferentValues()}.
+	 * @return {@code Iterable<Object[]>} with the parameters.
+	 */
+	@Parameters
+	public static Iterable<Object[]> valueToTest() {
+		return Arrays.asList(new Object[][] {
+			{null, GetAsObjectExpectedResult.FAILURE_NULL, null, GetAsStringExpectedResult.FAILURE_NULL},
+			{"23-12-2016 23:52:36 GMT", GetAsObjectExpectedResult.FAILURE_PATTERN, 
+				LocalDate.now(), GetAsStringExpectedResult.FAILURE_CLASS_CAST},
+			{"27/02/2016 23:52:36 GMT", GetAsObjectExpectedResult.SUCCESS, 
+				ZonedDateTime.now(), GetAsStringExpectedResult.SUCCESS}
+		});
 	}
 }
