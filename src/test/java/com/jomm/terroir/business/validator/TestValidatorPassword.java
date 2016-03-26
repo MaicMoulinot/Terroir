@@ -3,7 +3,7 @@ package com.jomm.terroir.business.validator;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
-import static com.jomm.terroir.util.Constants.View.PASSWORD_PARAMETER;
+import static com.jomm.terroir.util.Constants.View.PARAMETER;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -157,7 +157,7 @@ public class TestValidatorPassword {
 		UIInput uiInput = new UIInput();
 		uiInput.setValue(password1);
 		// Set UIInput to UIComponent
-		component.getAttributes().put(PASSWORD_PARAMETER.getId(), uiInput);
+		component.getAttributes().put(PARAMETER.toString(), uiInput);
 		return component;
 	}
 }

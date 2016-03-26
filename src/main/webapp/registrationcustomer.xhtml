@@ -66,7 +66,7 @@
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
 				<p:password id="password1" value="#{beanRegistrationCustomer.password}"
-					feedback="true" binding="#{passwordParam}" required="true"
+					feedback="true" binding="#{parameter}" required="true"
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
@@ -87,7 +87,7 @@
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
-					<f:attribute name="passwordParam" value="#{passwordParam}" />
+					<f:attribute name="parameter" value="#{parameter}" />
 					<f:validator binding="#{validatorPassword}" />
 					<p:ajax event="blur" execute="password1 password2"
 						update="password1Message password2Message" />

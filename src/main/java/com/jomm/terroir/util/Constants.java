@@ -5,7 +5,9 @@ package com.jomm.terroir.util;
  * @author Maic
  */
 public final class Constants {
-
+	
+	public static final String PERSISTENCE_UNIT = "terroirPU";
+	
 	/**
 	 * This enumeration stores all {@link java.util.ResourceBundle} file names.
 	 * @author Maic
@@ -126,33 +128,20 @@ public final class Constants {
 			return key;
 		}
 	}
-
+	
 	/**
-	 * This enumeration stores all the id and binding in the views.
+	 * This enumeration stores useful parameters (e.g. id and binding) in the views.
 	 * @author Maic
 	 */
 	public enum View {
-		/** "passwordParam" */
-		PASSWORD_PARAMETER("passwordParam"),
+		/** "parameter" */
+		PARAMETER,
 		/** "growl" */
-		CLIENT_ID_GROWL("growl");
+		GROWL;
 
-		private String id;
-
-		/**
-		 * Constructor.
-		 * @param id String the id.
-		 */
-		private View(String id) {
-			this.id = id;
-		}
-
-		/**
-		 * Get the appropriate id or binding used in the view.
-		 * @return the id
-		 */
-		public String getId() {
-			return id;
+		@Override
+		public String toString() {
+			return name().toLowerCase();
 		}
 	}
 	
@@ -176,7 +165,7 @@ public final class Constants {
 		 * dot (.), and then matches characters in the list: a-z</li>
 		 * <li>{@code $}				# end of the regex.</li></ul>
 		 */
-		VALID_EMAIL("^([a-z0-9._%+-]+)(@{1})([a-z0-9.-]+)(\\.[a-z0-9]+)*(\\.[a-z]{2,})$"),
+		EMAIL("^([a-z0-9._%+-]+)(@{1})([a-z0-9.-]+)(\\.[a-z0-9]+)*(\\.[a-z]{2,})$"),
 		/** Pattern used to validate a password that is secured enough.
 		 * The complete pattern is {@code ^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$},
 		 * which can be explained as follow:
@@ -190,7 +179,7 @@ public final class Constants {
 		 * <li>{@code .{6,}				the length is minimum 6 characters,</li>
 		 * <li>{@code $}				end of the regex.</li></ul>
 		 */
-		VALID_PASSWORD("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$"),
+		PASSWORD("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$"),
 		/** Pattern used to validate a user name.
 		 * The complete pattern is {@code ^[a-zA-Z0-9._@#$%\\-]{5,15}$},
 		 * which can be explained as follow:
@@ -200,7 +189,7 @@ public final class Constants {
 		 * <li>{@code {5,15}				the length is minimum 5 and maximum 15 characters,</li>
 		 * <li>{@code $}					end of the regex.</li></ul>
 		 */
-		VALID_USERNAME("^[a-zA-Z0-9._@#$%\\-]{5,15}$"),
+		USERNAME("^[a-zA-Z0-9._@#$%\\-]{5,15}$"),
 		/** Pattern used in date converter: {@code dd/MM/yyyy}. */
 		LOCAL_DATE("dd/MM/yyyy"),
 		/** Pattern used in date time converter: {@code dd/MM/yyyy HH:mm:ss z}. */

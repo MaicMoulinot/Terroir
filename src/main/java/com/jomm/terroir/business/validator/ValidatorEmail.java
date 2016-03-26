@@ -2,7 +2,7 @@ package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_EXISTING;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_NOT_MATCHING_PATTERN;
-import static com.jomm.terroir.util.Constants.Pattern.VALID_EMAIL;
+import static com.jomm.terroir.util.Constants.Pattern.EMAIL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
@@ -33,7 +33,7 @@ import com.jomm.terroir.business.ServiceUser;
 public class ValidatorEmail implements Validator {
 
 	// Pattern for password
-	private static final Pattern EMAIL_PATTERN = Pattern.compile(VALID_EMAIL.getRegex(), Pattern.CASE_INSENSITIVE);
+	private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL.getRegex(), Pattern.CASE_INSENSITIVE);
 
 	@Inject
 	private ServiceUser serviceUser;

@@ -5,7 +5,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
-import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
+import static com.jomm.terroir.util.Constants.View.GROWL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -127,7 +127,7 @@ public class TestBeanRegistrationUser {
 		// call
 		view.passwordTooltip();
 		// check if a FacesMessage was correctly thrown
-		TestBackingBean.checkMessageWithPlainDetail(view, CLIENT_ID_GROWL.getId(), FacesMessage.SEVERITY_INFO, 
+		TestBackingBean.checkMessageWithPlainDetail(view, GROWL.toString(), FacesMessage.SEVERITY_INFO, 
 				getValueFromKey(PASSWORD_TITLE), 
 				getValueFromKey(PASSWORD_RULES));
 	}

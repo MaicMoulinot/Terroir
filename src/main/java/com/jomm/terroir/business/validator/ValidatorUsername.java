@@ -1,6 +1,6 @@
 package com.jomm.terroir.business.validator;
 
-import static com.jomm.terroir.util.Constants.Pattern.VALID_USERNAME;
+import static com.jomm.terroir.util.Constants.Pattern.USERNAME;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.LENGTH_BETWEEN_5_AND_15;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_NAME_EXISTING;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.USER_NAME_NOT_MATCHING_PATTERN;
@@ -33,7 +33,7 @@ import com.jomm.terroir.business.ServiceUser;
 public class ValidatorUsername implements Validator {
 	
 	// Pattern for user name
-	private static final Pattern USERNAME_PATTERN = Pattern.compile(VALID_USERNAME.getRegex());
+	private static final Pattern USERNAME_PATTERN = Pattern.compile(USERNAME.getRegex());
 
 	@Inject
 	private ServiceUser serviceUser;

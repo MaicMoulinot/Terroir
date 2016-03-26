@@ -1,11 +1,11 @@
 package com.jomm.terroir.business.validator;
 
-import static com.jomm.terroir.util.Constants.Pattern.VALID_PASSWORD;
+import static com.jomm.terroir.util.Constants.Pattern.PASSWORD;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
-import static com.jomm.terroir.util.Constants.View.PASSWORD_PARAMETER;
+import static com.jomm.terroir.util.Constants.View.PARAMETER;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.util.Objects;
@@ -33,7 +33,7 @@ import javax.inject.Named;
 public class ValidatorPassword implements Validator {
 
 	// Pattern for password
-	private static final Pattern PASSWORD_PATTERN = Pattern.compile(VALID_PASSWORD.getRegex());
+	private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD.getRegex());
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
@@ -71,8 +71,8 @@ public class ValidatorPassword implements Validator {
 	 */
 	private String retrieveValueFromComponent(UIComponent component) {
 		String value = null;
-		if (component != null && component.getAttributes().get(PASSWORD_PARAMETER.getId()) != null) {
-			value = (String) ((UIInput) component.getAttributes().get(PASSWORD_PARAMETER.getId())).getValue();
+		if (component != null && component.getAttributes().get(PARAMETER.toString()) != null) {
+			value = (String) ((UIInput) component.getAttributes().get(PARAMETER.toString())).getValue();
 		}
 		return value;
 	}

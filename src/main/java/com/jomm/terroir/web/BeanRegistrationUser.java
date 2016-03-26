@@ -4,7 +4,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
-import static com.jomm.terroir.util.Constants.View.CLIENT_ID_GROWL;
+import static com.jomm.terroir.util.Constants.View.GROWL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
@@ -73,8 +73,7 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	 * Generate tips to create a secured enough password into growl.
 	 */
 	public void passwordTooltip() {
-		addMessage(CLIENT_ID_GROWL.getId(), getValueFromKey(PASSWORD_TITLE), 
-				getValueFromKey(PASSWORD_RULES));
+		addMessage(GROWL.toString(), getValueFromKey(PASSWORD_TITLE), getValueFromKey(PASSWORD_RULES));
 	}
 
 	/**
