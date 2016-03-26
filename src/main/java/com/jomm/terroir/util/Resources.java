@@ -2,6 +2,7 @@ package com.jomm.terroir.util;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.ERROR;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.MESSAGE;
+import static com.jomm.terroir.util.Constants.PERSISTENCE_UNIT;
 
 import java.time.ZoneId;
 import java.util.Locale;
@@ -28,8 +29,8 @@ public final class Resources {
 	/**
 	 * Expose an {@link EntityManager} using the resource producer pattern.
 	 */
-	@PersistenceContext(name="terroirPU")
 	@Produces
+	@PersistenceContext(name = PERSISTENCE_UNIT)
 	private static EntityManager entityManager;
 	
 	/**

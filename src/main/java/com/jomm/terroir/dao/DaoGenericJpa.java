@@ -1,5 +1,7 @@
 package com.jomm.terroir.dao;
 
+import static com.jomm.terroir.util.Constants.PERSISTENCE_UNIT;
+
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +26,14 @@ public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> 
 	protected Class<E> entityClass;
 	
 	@Inject
-	@PersistenceContext(name="terroirPU")
+	@PersistenceContext(name = PERSISTENCE_UNIT)
 	protected EntityManager entityManager;
 
 	/**
 	 * Constructor with no argument.
 	 * Set the {@code entityClass} dynamically.
+	 * It is annotated {@link SuppressWarnings} to suppress the warning 
+	 * {@code Type safety: Unchecked cast from Type to Class<E>}.
 	 */
 	@SuppressWarnings("unchecked")
 	public DaoGenericJpa() {
