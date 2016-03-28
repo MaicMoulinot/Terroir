@@ -12,20 +12,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * This Class is an {@link Entity} representing a label.
+ * This Class is an {@link Entity} representing a quality label, or certification mark.
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
  * It uses {@link com.jomm.terroir.business.ServiceLabel} for all its business operations.
  * It includes an {@link Image} and other specific attributes.
- * Its properties are persisted in the {@link Table} named {@code qualitylabel}.
+ * Its properties are persisted in the {@link javax.persistence.Table} named {@code label}.
  * @author Maic
  */
 @Entity
-@Table(name="qualitylabel")
 @NamedQuery(name="Label.findAll", query="SELECT l FROM Label l")
 public class Label extends AbstractEntity {
 
@@ -35,7 +33,7 @@ public class Label extends AbstractEntity {
 	// Attributes
 	@Id
 	@GeneratedValue
-	@Column(name = "qualitylabel_id")
+	@Column(name = "label_id")
 	private Long id;
 	
 	@NotNull

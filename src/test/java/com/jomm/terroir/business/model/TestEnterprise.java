@@ -61,18 +61,6 @@ public class TestEnterprise {
 		enterprise.setLegalIdentification(test);
 		assertEquals("LegalIdentification should be " + test, test, enterprise.getLegalIdentification());
 		
-		// Description
-		enterprise.setDescription(test);
-		assertEquals("Description should be " + test, test, enterprise.getDescription());
-		
-		// Address
-		Address address = new Address();
-		address.setStreet(test);
-		enterprise.setAddress(address);
-		assertNotNull("Address should not be null", address);
-		assertEquals("Address.Street should be " + test, test, enterprise.getAddress().getStreet());
-		address = null; // Available for Garbage Collector
-		
 		// CreationDate
 		LocalDate localDate = LocalDate.now();
 		enterprise.setCreationDate(localDate);
@@ -83,10 +71,26 @@ public class TestEnterprise {
 		enterprise.setNbEmployees(employees);
 		assertEquals("NbEmployees should be " + employees, employees, enterprise.getNbEmployees());
 		
+		// Description
+		enterprise.setDescription(test);
+		assertEquals("Description should be " + test, test, enterprise.getDescription());
+		
+		// WebSite
+		enterprise.setWebSite(test);
+		assertEquals("WebSite should be " + test, test, enterprise.getWebSite());
+		
 		// RegistrationDate
 		ZonedDateTime zonedDate = ZonedDateTime.now();
 		enterprise.setRegistrationDate(zonedDate);
 		assertEquals("RegistrationDate should be " + zonedDate, zonedDate, enterprise.getRegistrationDate());
+		
+		// Address
+		Address address = new Address();
+		address.setStreet(test);
+		enterprise.setAddress(address);
+		assertNotNull("Address should not be null", address);
+		assertEquals("Address.Street should be " + test, test, enterprise.getAddress().getStreet());
+		address = null; // Available for Garbage Collector
 		
 		// List of sellers
 		ArrayList<Seller> listSellers = new ArrayList<>();
@@ -114,19 +118,21 @@ public class TestEnterprise {
 	
 	/**
 	 * Generate a simple {@link Enterprise} usable for tests.
+	 * The {@link Enterprise#setRegistrationDate(ZonedDateTime)} is omitted.
 	 * @return a {@link Enterprise}.
 	 */
 	public static Enterprise generateEnterpriseWithIdNull() {
 		Enterprise enterprise = new Enterprise();
-		enterprise.setAddress(TestAddress.generateAddress());
-		enterprise.setCreationDate(LocalDate.now());
-		enterprise.setLegalIdentification("LegalIdentification");
+		enterprise.setTradeName("TradeName");		
 		enterprise.setLegalName("LegalName");
+		enterprise.setLegalIdentification("LegalIdentification");
+		enterprise.setCreationDate(LocalDate.now());
+		enterprise.setNbEmployees(10);
 		enterprise.setDescription("Description");
+		enterprise.setWebSite("WebSite");
+		enterprise.setAddress(TestAddress.generateAddress());
 		enterprise.setSellers(new ArrayList<>());
 		enterprise.setSites(new ArrayList<>());
-		enterprise.setNbEmployees(10);
-		enterprise.setTradeName("TradeName");		
 		return enterprise;
 	}
 }

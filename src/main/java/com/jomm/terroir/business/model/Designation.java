@@ -1,5 +1,7 @@
 package com.jomm.terroir.business.model;
 
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,7 +24,8 @@ import javax.validation.constraints.NotNull;
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
  * It uses {@link com.jomm.terroir.business.ServiceDesignation} for all its business operations.
- * It includes a list of {@link Label}s, an {@link Address} and an {@link Image} among other attributes.
+ * It includes a list of {@link Label}s, a list of {@link Product}s, a {@link Category}, an {@link Address} 
+ * and two {@link Image}s, among other attributes.
  * Its properties are persisted in the {@link javax.persistence.Table} named {@code designation}.
  * @author Maic
  */
@@ -41,27 +45,50 @@ public class Designation extends AbstractEntity {
 	@NotNull
 	@Column(name = "registered_name")
 	private String registeredName;
+	
+	@Column(name = "local_name")
+	private String localName;
 
 	@Column(name = "transcripted_name")
 	private String transcriptedName;
 
 	@Column(name = "legal_act")
 	private String legalAct;
+	
+	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
+	private ZonedDateTime registrationDate;
 
 	@Column(columnDefinition = "text")
 	private String definition;
+	
+	@Column(columnDefinition = "text")
+	private String season;
+	
+	@Column(name = "web_site")
+	private String webSite;
+	
+	@Column(name = "median_price")
+	private BigDecimal medianPrice;
 
 	@Embedded
 	private Address address;
 
 	@OneToOne
-	@JoinColumn(name = "fk_image_id")
+	@JoinColumn(name = "fk_image_logo_id")
 	private Image logo;
+	
+	@OneToOne
+	@JoinColumn(name = "fk_image_picture_id")
+	private Image picture;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name="fk_category_id")
+	private Category category;
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "designationlabel", 
 		joinColumns = {@JoinColumn(name = "fk_designation_id", nullable = false, updatable = false)},
-		inverseJoinColumns = {@JoinColumn(name = "fk_qualitylabel_id", nullable = false, updatable = false)}
+		inverseJoinColumns = {@JoinColumn(name = "fk_label_id", nullable = false, updatable = false)}
 	)
 	private List<Label> labels;
 
@@ -96,6 +123,20 @@ public class Designation extends AbstractEntity {
 	}
 
 	/**
+	 * @return the localName
+	 */
+	public String getLocalName() {
+		return localName;
+	}
+
+	/**
+	 * @param localName the localName to set
+	 */
+	public void setLocalName(String localName) {
+		this.localName = localName;
+	}
+
+	/**
 	 * @return the transcriptedName
 	 */
 	public String getTranscriptedName() {
@@ -124,6 +165,20 @@ public class Designation extends AbstractEntity {
 	}
 
 	/**
+	 * @return the registrationDate
+	 */
+	public ZonedDateTime getRegistrationDate() {
+		return registrationDate;
+	}
+
+	/**
+	 * @param registrationDate the registrationDate to set
+	 */
+	public void setRegistrationDate(ZonedDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	/**
 	 * @return the definition
 	 */
 	public String getDefinition() {
@@ -135,6 +190,48 @@ public class Designation extends AbstractEntity {
 	 */
 	public void setDefinition(String definition) {
 		this.definition = definition;
+	}
+
+	/**
+	 * @return the season
+	 */
+	public String getSeason() {
+		return season;
+	}
+
+	/**
+	 * @param season the season to set
+	 */
+	public void setSeason(String season) {
+		this.season = season;
+	}
+
+	/**
+	 * @return the webSite
+	 */
+	public String getWebSite() {
+		return webSite;
+	}
+
+	/**
+	 * @param webSite the webSite to set
+	 */
+	public void setWebSite(String webSite) {
+		this.webSite = webSite;
+	}
+
+	/**
+	 * @return the medianPrice
+	 */
+	public BigDecimal getMedianPrice() {
+		return medianPrice;
+	}
+
+	/**
+	 * @param medianPrice the medianPrice to set
+	 */
+	public void setMedianPrice(BigDecimal medianPrice) {
+		this.medianPrice = medianPrice;
 	}
 
 	/**
@@ -163,6 +260,34 @@ public class Designation extends AbstractEntity {
 	 */
 	public void setLogo(Image logo) {
 		this.logo = logo;
+	}
+
+	/**
+	 * @return the picture
+	 */
+	public Image getPicture() {
+		return picture;
+	}
+
+	/**
+	 * @param picture the picture to set
+	 */
+	public void setPicture(Image picture) {
+		this.picture = picture;
+	}
+
+	/**
+	 * @return the category
+	 */
+	public Category getCategory() {
+		return category;
+	}
+
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	/**

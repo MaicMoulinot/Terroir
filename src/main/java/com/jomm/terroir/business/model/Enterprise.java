@@ -48,20 +48,23 @@ public class Enterprise extends AbstractEntity {
 	@Column(name = "legal_identification", unique = true)
 	private String legalIdentification;
 	
-	@Embedded
-	private Address address;
+	@Column(name = "creation_date", columnDefinition = "date")
+	private LocalDate creationDate;
 	
 	@Column(name = "number_employees")
 	private int nbEmployees;
 	
-	@Column(name = "creation_date", columnDefinition = "date")
-	private LocalDate creationDate;
-	
 	@Column(columnDefinition = "text")
 	private String description;
 	
+	@Column(name = "web_site")
+	private String webSite;
+	
 	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
 	private ZonedDateTime registrationDate;
+	
+	@Embedded
+	private Address address;
 	
 	@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Seller> sellers;
@@ -125,34 +128,6 @@ public class Enterprise extends AbstractEntity {
 	}
 
 	/**
-	 * @return the address
-	 */
-	public Address getAddress() {
-		return address;
-	}
-
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-	
-	/**
-	 * @return the nbEmployees
-	 */
-	public int getNbEmployees() {
-		return nbEmployees;
-	}
-	
-	/**
-	 * @param nbEmployees the nbEmployees to set
-	 */
-	public void setNbEmployees(int nbEmployees) {
-		this.nbEmployees = nbEmployees;
-	}
-
-	/**
 	 * @return the creationDate
 	 */
 	public LocalDate getCreationDate() {
@@ -165,7 +140,21 @@ public class Enterprise extends AbstractEntity {
 	public void setCreationDate(LocalDate creationDate) {
 		this.creationDate = creationDate;
 	}
-	
+
+	/**
+	 * @return the nbEmployees
+	 */
+	public int getNbEmployees() {
+		return nbEmployees;
+	}
+
+	/**
+	 * @param nbEmployees the nbEmployees to set
+	 */
+	public void setNbEmployees(int nbEmployees) {
+		this.nbEmployees = nbEmployees;
+	}
+
 	/**
 	 * @return the description
 	 */
@@ -178,6 +167,20 @@ public class Enterprise extends AbstractEntity {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @return the webSite
+	 */
+	public String getWebSite() {
+		return webSite;
+	}
+
+	/**
+	 * @param webSite the webSite to set
+	 */
+	public void setWebSite(String webSite) {
+		this.webSite = webSite;
 	}
 
 	/**
@@ -195,6 +198,20 @@ public class Enterprise extends AbstractEntity {
 	}
 
 	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	/**
 	 * @return the sellers
 	 */
 	public List<Seller> getSellers() {
@@ -209,16 +226,16 @@ public class Enterprise extends AbstractEntity {
 	}
 
 	/**
-	 * @return the listSites
+	 * @return the sites
 	 */
 	public List<Site> getSites() {
 		return sites;
 	}
 
 	/**
-	 * @param listSites the listSites to set
+	 * @param sites the sites to set
 	 */
-	public void setSites(List<Site> listSites) {
-		this.sites = listSites;
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
 	}
 }

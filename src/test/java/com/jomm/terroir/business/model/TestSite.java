@@ -93,12 +93,12 @@ public class TestSite {
 	 */
 	public static Site generateSiteWithIdNull() {
 		Site site = new Site();
-		site.setAddress(TestAddress.generateAddress());
-		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
+		site.setName("SiteName");
 		site.setLegalIdentification("LegalIdentification");
 		site.setDescription("Description");
+		site.setAddress(TestAddress.generateAddress());
+		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		site.setProducts(new ArrayList<>());
-		site.setName("SiteName");
 		return site;
 	}
 }

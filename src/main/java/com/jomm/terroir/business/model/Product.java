@@ -47,7 +47,6 @@ public class Product extends AbstractEntity {
 	@Column(name = "last_update", columnDefinition = "timestamp with time zone")
 	private ZonedDateTime lastUpdate;
 	
-	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_site_id")
 	private Site site;

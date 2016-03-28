@@ -44,13 +44,12 @@ public class Site extends AbstractEntity {
 	@Column(name = "legal_identification")
 	private String legalIdentification;
 	
-	@Embedded
-	private Address address;
-	
 	@Column(columnDefinition = "text")
 	private String description;
 	
-	@NotNull
+	@Embedded
+	private Address address;
+	
 	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_enterprise_id")
 	private Enterprise enterprise;
@@ -100,20 +99,6 @@ public class Site extends AbstractEntity {
 	}
 
 	/**
-	 * @return the address
-	 */
-	public Address getAddress() {
-		return address;
-	}
-
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	/**
 	 * @return the description
 	 */
 	public String getDescription() {
@@ -125,6 +110,20 @@ public class Site extends AbstractEntity {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	/**
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
+	}
+	
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	/**
