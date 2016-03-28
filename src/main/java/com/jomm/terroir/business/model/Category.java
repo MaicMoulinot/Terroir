@@ -5,13 +5,12 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,11 +20,10 @@ import javax.validation.constraints.NotNull;
  * It uses {@link com.jomm.terroir.business.ServiceCategory} for all its business operations.
  * The categories are organized in a tree, thanks to the Adjacency List Model.
  * So each category may include a other {@link Category} as its parent, allowing to navigate in the tree.
- * Its properties are persisted in the {@link Table} named {@code category}.
+ * Its properties are persisted in the {@link javax.persistence.Table} named {@code category}.
  * @author Maic
  */
 @Entity
-@Table
 @NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
 public class Category extends AbstractEntity {
 
@@ -42,10 +40,11 @@ public class Category extends AbstractEntity {
 	@Column(name = "category_name", unique = true)
 	private String name;
 	
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(optional = true)
+	@JoinColumn(name="parent_id")
 	private Category parent;
 	
-	@ManyToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Designation> designations;
 	
 	// Getters and Setters

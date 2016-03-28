@@ -14,23 +14,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jomm.terroir.business.model.Category;
-import com.jomm.terroir.business.model.Designation;
-import com.jomm.terroir.business.model.TestDesignation;
+import com.jomm.terroir.business.model.TestCategory;
 
 /**
- * This Class is a Junit test case testing {@link DaoDesignationJpa}.
- * It extends {@link TestDaoGenericJpa} with {@link Designation} as parameter, 
+ * This Class is a Junit test case testing {@link DaoCategoryJpa}.
+ * It extends {@link TestDaoGenericJpa} with {@link Category} as parameter, 
  * and implements {@code testBehavior()} and {@code testState()}.
  * @author Maic
  */
-public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
-
+public class TestDaoCategoryJpa extends TestDaoGenericJpa<Category> {
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		dao = new DaoDesignationJpa();
+		dao = new DaoCategoryJpa();
 	}
 
 	@Override
@@ -38,7 +37,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 	public final void testBehavior() {
 		// EntityManager is not working, it is mocked
 		dao.entityManager = mock(EntityManager.class);
-
+		
 		super.testBehavior();
 	}
 
@@ -49,19 +48,19 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.entityManager = entityManager;
-			entity = TestDesignation.generateDesignationWithIdNull();
+			entity = TestCategory.generateCategoryWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
 
 			// FindAll
-			List<Designation> list = dao.findAll();
+			List<Category> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
 			int listInitialSize = list.size();
 			
-			// Retrieve a Category from DataBase
-			Category category = TestDaoCategoryJpa.findCategoryFromDataBase(entityManager);
-			assertNotNull("Category should not be null", category);
-			entity.setCategory(category);
+			// Retrieve a Parent from DataBase
+			Category parent = findCategoryFromDataBase(entityManager);
+			assertNotNull("Parent should not be null", parent);
+			entity.setParent(parent);
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -74,16 +73,15 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			assertEquals("After persistence, the list's size should be", listInitialSize+1, dao.findAll().size());
 
 			// FindById
-			Designation persistedEntity = dao.find(persistedId);
+			Category persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
-			assertEquals("After persistence, properties should be equal", entity.getRegisteredName(), 
-					persistedEntity.getRegisteredName());
+			assertEquals("After persistence, properties should be equal", entity.getName(), persistedEntity.getName());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
 
 			// Update
-			String initialValue = persistedEntity.getRegisteredName();
-			persistedEntity.setRegisteredName("UpdatedValue");
-			String updatedValue = dao.update(persistedEntity).getRegisteredName();
+			String initialValue = persistedEntity.getName();
+			persistedEntity.setName("UpdatedValue");
+			String updatedValue = dao.update(persistedEntity).getName();
 			assertNotEquals("Values should not match", initialValue, updatedValue);
 
 			// DeleteById
@@ -93,8 +91,8 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Create
-			entity = TestDesignation.generateDesignationWithIdNull();
-			entity.setCategory(category);
+			entity = TestCategory.generateCategoryWithIdNull();
+			entity.setParent(parent);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
@@ -114,31 +112,13 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 	}
 	
 	/**
-	 * Test the {@link javax.persistence.ManyToMany} relationship between {@link Designation} 
-	 * and {@link com.jomm.terroir.business.model.Label}.
-	 */
-	@Test
-	public final void testManyToManyWithLabel() {
-		try {
-			// EntityManager is working with test-specific Persistence Unit
-			entity = findDesignationFromDataBase(UtilEntityManager.prepareEntityManager());
-			assertNotNull("List of labels should not be null", entity.getLabels());
-			assertEquals("List of labels size should be", 1, entity.getLabels().size());
-			assertEquals("Label's id should be", EXISTING_LABEL_ID, entity.getLabels().get(0).getId().longValue());
-			
-		} finally {
-			UtilEntityManager.closeEntityManager();
-		}
-	}
-	
-	/**
-	 * Retrieve a {@link Designation} from database filled with basic test data.
+	 * Retrieve a {@link Category} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Designation} with {@link UtilData#EXISTING_DESIGNATION_ID}.
+	 * @return the {@link Category} with {@link UtilData#EXISTING_CATEGORY_ID}.
 	 */
-	public static Designation findDesignationFromDataBase(EntityManager entityManager) {
-		DaoDesignationJpa dao = new DaoDesignationJpa();
+	public static Category findCategoryFromDataBase(EntityManager entityManager) {
+		DaoCategoryJpa dao = new DaoCategoryJpa();
 		dao.entityManager = entityManager;
-		return dao.find(EXISTING_DESIGNATION_ID);
+		return dao.find(EXISTING_CATEGORY_ID);
 	}
 }

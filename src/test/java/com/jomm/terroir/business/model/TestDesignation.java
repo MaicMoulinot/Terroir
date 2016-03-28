@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -54,13 +56,35 @@ public class TestDesignation {
 		designation.setTranscriptedName(test);
 		assertEquals("TranscriptedName should be " + test, test, designation.getTranscriptedName());
 		
+		// LocalName
+		designation.setLocalName(test);
+		assertEquals("LocalName should be " + test, test, designation.getLocalName());
+		
 		// LegalAct
 		designation.setLegalAct(test);
 		assertEquals("LegalAct should be " + test, test, designation.getLegalAct());
 		
+		// RegistrationDate
+		ZonedDateTime zonedDate = ZonedDateTime.now();
+		designation.setRegistrationDate(zonedDate);
+		assertEquals("RegistrationDate should be " + zonedDate, zonedDate, designation.getRegistrationDate());
+		
 		// Definition
 		designation.setDefinition(test);
 		assertEquals("Definition should be " + test, test, designation.getDefinition());
+		
+		// Season
+		designation.setSeason(test);
+		assertEquals("Season should be " + test, test, designation.getSeason());
+		
+		// WebSite
+		designation.setWebSite(test);
+		assertEquals("WebSite should be " + test, test, designation.getWebSite());
+		
+		// MedianPrice
+		BigDecimal price = new BigDecimal("1.23");
+		designation.setMedianPrice(price);
+		assertEquals("Price should be " + price.toString(), price, designation.getMedianPrice());
 		
 		// Address
 		Address address = new Address();
@@ -71,12 +95,25 @@ public class TestDesignation {
 		address = null; // Available for Garbage Collector
 		
 		// Logo
-		Image logo = new Image();
-		logo.setId(nb);
-		designation.setLogo(logo);
+		Image image = new Image();
+		image.setId(nb);
+		designation.setLogo(image);
 		assertNotNull("Logo should not be null", designation.getLogo());
 		assertEquals("Logo's id should be " + nb, nb, designation.getLogo().getId());
-		logo = null; // Available for Garbage Collector
+		
+		// Picture
+		designation.setPicture(image);
+		assertNotNull("Picture should not be null", designation.getPicture());
+		assertEquals("Picture's id should be " + nb, nb, designation.getPicture().getId());
+		image = null; // Available for Garbage Collector
+		
+		// Category
+		Category category = new Category();
+		category.setId(nb);
+		designation.setCategory(category);
+		assertNotNull("Category should not be null", designation.getCategory());
+		assertEquals("Category's id should be " + nb, nb, designation.getCategory().getId());
+		category = null; // Available for Garbage Collector
 		
 		// List of labels
 		ArrayList<Label> listLabels = new ArrayList<>();
@@ -109,10 +146,17 @@ public class TestDesignation {
 		Designation designation = new Designation();
 		designation.setRegisteredName("RegisteredName");
 		designation.setTranscriptedName("TranscriptedName");
+		designation.setLocalName("LocalName");
 		designation.setLegalAct("LegalAct");
+		designation.setRegistrationDate(ZonedDateTime.now());
 		designation.setDefinition("Definition");
+		designation.setSeason("Season");
+		designation.setWebSite("WebSite");
+		designation.setMedianPrice(new BigDecimal("1.2345"));
 		designation.setAddress(TestAddress.generateAddress());
 		designation.setLogo(null);
+		designation.setPicture(null);
+		designation.setCategory(TestCategory.generateCategoryWithIdNull());
 		designation.setLabels(new ArrayList<Label>());
 		designation.setProducts(new ArrayList<Product>());
 		return designation;

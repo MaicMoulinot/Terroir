@@ -37,6 +37,14 @@
         PRIMARY KEY (user_id)
     );
     
+    -- Table category from entity Category
+    CREATE TABLE category (
+        category_id BIGINT NOT NULL,
+        category_name VARCHAR(255) UNIQUE NOT NULL,
+        parent_id BIGINT CONSTRAINT fk_category_parent REFERENCES category(category_id),
+        PRIMARY KEY (category_id)
+    );
+    
     -- Table image from entity Image
     CREATE TABLE image (
         image_id BIGINT NOT NULL,
@@ -46,55 +54,63 @@
         PRIMARY KEY (image_id)
     );
     
-    -- Table qualitylabel from entity Label
-    CREATE TABLE qualitylabel (
-        qualitylabel_id BIGINT NOT NULL,
+    -- Table label from entity Label
+    CREATE TABLE label (
+        label_id BIGINT NOT NULL,
         official_name VARCHAR(255) UNIQUE NOT NULL,
         acronym VARCHAR(255) UNIQUE NOT NULL,
         definition LONG VARCHAR,
         fk_image_id BIGINT CONSTRAINT fk_qualitylabel_image REFERENCES image(image_id),
-        PRIMARY KEY (qualitylabel_id)
+        PRIMARY KEY (label_id)
     );
     
     -- Table designation from entity Designation
     CREATE TABLE designation (
         designation_id BIGINT NOT NULL,
+        registered_name VARCHAR(255) UNIQUE NOT NULL,
+        transcripted_name VARCHAR(255),
+        local_name VARCHAR(255),
+        legal_act VARCHAR(255),
+        registration_date TIMESTAMP,
+        definition LONG VARCHAR,
+        season LONG VARCHAR,
+        web_site VARCHAR(255),
+        median_price NUMERIC(19,2),
         addr_street VARCHAR(255),					-- from embeddable Address
         addr_complement VARCHAR(255),				-- from embeddable Address
         addr_post_code VARCHAR(255) NOT NULL,		-- from embeddable Address
         addr_city VARCHAR(255) NOT NULL,			-- from embeddable Address
         addr_country VARCHAR(255) NOT NULL,			-- from embeddable Address
         addr_coordinates VARCHAR(255),				-- from embeddable Address
-        definition LONG VARCHAR,
-        legal_act VARCHAR(255),
-        registered_name VARCHAR(255) UNIQUE NOT NULL,
-        transcripted_name VARCHAR(255),
-        fk_image_id BIGINT CONSTRAINT fk_designation_image REFERENCES image(image_id),
+        fk_category_id BIGINT CONSTRAINT fk_designation_category REFERENCES category(category_id) NOT NULL,
+        fk_image_logo_id BIGINT CONSTRAINT fk_designation_logo REFERENCES image(image_id),
+        fk_image_picture_id BIGINT CONSTRAINT fk_designation_picture REFERENCES image(image_id),
         PRIMARY KEY (designation_id)
     );
     
     -- Table designationlabel join table from entities Designation and Label
     CREATE TABLE designationlabel (
 		fk_designation_id BIGINT NOT NULL CONSTRAINT fk_designation_label REFERENCES designation(designation_id),
-		fk_qualitylabel_id BIGINT NOT NULL CONSTRAINT fk_label_designation REFERENCES qualitylabel(qualitylabel_id)
+		fk_label_id BIGINT NOT NULL CONSTRAINT fk_label_designation REFERENCES label(label_id)
     );
 
     -- Table enterprise from entity Enterprise
     CREATE TABLE enterprise (
         enterprise_id BIGINT NOT NULL,
+        trade_name VARCHAR(255) UNIQUE NOT NULL,
+        legal_identification VARCHAR(255) NOT NULL,
+        legal_name VARCHAR(255) UNIQUE NOT NULL,
+        creation_date DATE,
+        number_employees BIGINT,
+        description LONG VARCHAR,
+        web_site VARCHAR(255),
+        registration_date TIMESTAMP,
         addr_street VARCHAR(255),					-- from embeddable Address
         addr_complement VARCHAR(255),				-- from embeddable Address
         addr_post_code VARCHAR(255) NOT NULL,		-- from embeddable Address
         addr_city VARCHAR(255) NOT NULL,			-- from embeddable Address
         addr_country VARCHAR(255) NOT NULL,			-- from embeddable Address
         addr_coordinates VARCHAR(255),				-- from embeddable Address
-        creation_date DATE,
-        description LONG VARCHAR,
-        legal_identification VARCHAR(255) NOT NULL,
-        legal_name VARCHAR(255) UNIQUE NOT NULL,
-        number_employees BIGINT,
-        registration_date TIMESTAMP,
-        trade_name VARCHAR(255) UNIQUE NOT NULL,
         PRIMARY KEY (enterprise_id)
     );
 
