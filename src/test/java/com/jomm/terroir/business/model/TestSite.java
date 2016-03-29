@@ -98,7 +98,8 @@ public class TestSite {
 		site.setDescription("Description");
 		site.setAddress(TestAddress.generateAddress());
 		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
-		site.setProducts(new ArrayList<>());
+		site.setProducts(new ArrayList<Product>());
+		site.setImages(new ArrayList<Image>());
 		return site;
 	}
 }

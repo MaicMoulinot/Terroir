@@ -113,6 +113,23 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	}
 	
 	/**
+	 * Test the {@link javax.persistence.ManyToMany} relationship between {@link Site} 
+	 * and {@link com.jomm.terroir.business.model.Image}.
+	 */
+	@Test
+	public final void testManyToManyWithImage() {
+		try {
+			// EntityManager is working with test-specific Persistence Unit
+			entity = findSiteFromDataBase(UtilEntityManager.prepareEntityManager());
+			assertNotNull("List of images should not be null", entity.getImages());
+			assertEquals("List of images size should be", 1, entity.getImages().size());
+			assertEquals("Image's id should be", EXISTING_IMAGE_ID, entity.getImages().get(0).getId().longValue());
+		} finally {
+			UtilEntityManager.closeEntityManager();
+		}
+	}
+	
+	/**
 	 * Retrieve a {@link Site} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.
 	 * @return the {@link Site} with {@link UtilData#EXISTING_SITE_ID}.

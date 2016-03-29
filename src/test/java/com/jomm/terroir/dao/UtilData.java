@@ -36,6 +36,7 @@ public abstract class UtilData {
 	protected static final long EXISTING_DESIGNATION_ID = 111111;
 	protected static final long EXISTING_LABEL_ID = 111111;
 	protected static final long EXISTING_CATEGORY_ID = 333333;
+	protected static final long EXISTING_IMAGE_ID = 111111;
 
 	// DBSetup attributes
 	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
@@ -43,8 +44,13 @@ public abstract class UtilData {
 	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
 			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
 	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", "product", 
-			"site", "seller", "enterprise", "designationlabel", "designation", "label", "image", "category");
+			"siteimage", "site", "seller", "enterprise", "designationlabel", "designation", "label", "image", "category");
 	private static final Operation INSERT_BASIC_DATA = sequenceOf(
+			// table image
+			insertInto("image")
+			.columns("image_id", "imag_title", "imag_description", "imag_data")
+			.values(EXISTING_IMAGE_ID, "pomme.jpg", "Une très belle pomme croquante", null)
+			.build(),
 			// table category
 			insertInto("category")
 			.columns("category_id", "category_name", "parent_id")
@@ -54,18 +60,18 @@ public abstract class UtilData {
 			.build(),
 			// table enterprise
 			insertInto("enterprise")
-			.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", 
+			.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", "fk_image_id",
 					"description", "web_site", "creation_date", "number_employees", "registration_date", 
 					"addr_street", "addr_complement", "addr_post_code",
 					"addr_city", "addr_country", "addr_coordinates")
-			.values(EXISTING_ENTERPRISE_ID, "Janichon&Sons", "GAEC Janichon", "XXDGQG", 
+			.values(EXISTING_ENTERPRISE_ID, "Janichon&Sons", "GAEC Janichon", "XXDGQG", null, 
 					"L'élevage bovin est l'ensemble des opérations visant à reproduire des animaux de l'espèce "
 							+ "Bos taurus au profit de l'activité humaine. Il permet de fournir de la viande, du lait, "
 							+ "des peaux des animaux reproducteurs, un travail de traction, du fumier et l'entretien "
 							+ "des espaces ouverts…", null, 
 							GENERATOR_LOCAL_DATE.nextValue(), 2, GENERATOR_ZONED_DATE_TIME.nextValue(),
 							"Dagallier Haut", null, "01400", "Sulignat", "France", "46.182194, 4.970275")
-			.values(222222, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", 
+			.values(222222, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", null, 
 					"Nous sommes producteurs de fruits à noyaux, cerise, abricot, pêche, nectarine, brugnon et prune "
 							+ "ainsi que de fruits à pépins, pomme. Dans un souci de développement durable de notre activité, "
 							+ "nous avons une multitude de variétés pour chaque type de fruits. Ainsi nous étalons nos récoltes "
@@ -95,6 +101,11 @@ public abstract class UtilData {
 					"Les amateurs de pommes vont trouver leur bonheur. Plus de 20 variétés composent notre verger, "
 							+ "Reine des Reinettes, Golden, Fuji, Chantecler, Pinova, Patte de Loup,.... Toutes produites "
 							+ "avec le plus grand soin et ")
+			.build(),
+			// table siteimage
+			insertInto("siteimage")
+			.columns("fk_site_id", "fk_image_id")
+			.values(EXISTING_SITE_ID, EXISTING_IMAGE_ID)
 			.build(),
 			// table label
 			insertInto("label")

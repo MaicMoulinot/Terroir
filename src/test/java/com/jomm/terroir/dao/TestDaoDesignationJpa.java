@@ -125,7 +125,6 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			assertNotNull("List of labels should not be null", entity.getLabels());
 			assertEquals("List of labels size should be", 1, entity.getLabels().size());
 			assertEquals("Label's id should be", EXISTING_LABEL_ID, entity.getLabels().get(0).getId().longValue());
-			
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

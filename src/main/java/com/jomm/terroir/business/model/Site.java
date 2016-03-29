@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -56,6 +57,13 @@ public class Site extends AbstractEntity {
 	
 	@OneToMany(mappedBy = "site", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Product> products;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinTable(name = "siteimage", 
+	joinColumns = {@JoinColumn(name = "fk_site_id", nullable = false, updatable = false)},
+	inverseJoinColumns = {@JoinColumn(name = "fk_image_id", nullable = false, updatable = false)}
+)
+	private List<Image> images;
 
 	// Getters and Setters
 	@Override
@@ -152,5 +160,19 @@ public class Site extends AbstractEntity {
 	 */
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+
+	/**
+	 * @return the images
+	 */
+	public List<Image> getImages() {
+		return images;
+	}
+
+	/**
+	 * @param images the images to set
+	 */
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 }

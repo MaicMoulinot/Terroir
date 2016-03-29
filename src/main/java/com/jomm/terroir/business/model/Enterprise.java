@@ -10,8 +10,10 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -65,6 +67,10 @@ public class Enterprise extends AbstractEntity {
 	
 	@Embedded
 	private Address address;
+	
+	@OneToOne
+	@JoinColumn(name = "fk_image_id")
+	private Image logo;
 	
 	@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Seller> sellers;
@@ -209,6 +215,20 @@ public class Enterprise extends AbstractEntity {
 	 */
 	public void setAddress(Address address) {
 		this.address = address;
+	}
+
+	/**
+	 * @return the logo
+	 */
+	public Image getLogo() {
+		return logo;
+	}
+
+	/**
+	 * @param logo the logo to set
+	 */
+	public void setLogo(Image logo) {
+		this.logo = logo;
 	}
 
 	/**

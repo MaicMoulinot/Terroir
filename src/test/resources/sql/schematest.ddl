@@ -50,7 +50,7 @@
         image_id BIGINT NOT NULL,
         imag_title VARCHAR(255) NOT NULL,
         imag_description LONG VARCHAR,
-        imag_data BLOB NOT NULL,
+        imag_data BLOB,
         PRIMARY KEY (image_id)
     );
     
@@ -60,7 +60,7 @@
         official_name VARCHAR(255) UNIQUE NOT NULL,
         acronym VARCHAR(255) UNIQUE NOT NULL,
         definition LONG VARCHAR,
-        fk_image_id BIGINT CONSTRAINT fk_qualitylabel_image REFERENCES image(image_id),
+        fk_image_id BIGINT CONSTRAINT fk_label_image REFERENCES image(image_id),
         PRIMARY KEY (label_id)
     );
     
@@ -111,6 +111,7 @@
         addr_city VARCHAR(255) NOT NULL,			-- from embeddable Address
         addr_country VARCHAR(255) NOT NULL,			-- from embeddable Address
         addr_coordinates VARCHAR(255),				-- from embeddable Address
+        fk_image_id BIGINT CONSTRAINT fk_enterprise_image REFERENCES image(image_id),
         PRIMARY KEY (enterprise_id)
     );
 
@@ -140,6 +141,12 @@
         site_name VARCHAR(255) NOT NULL,
         fk_enterprise_id BIGINT CONSTRAINT fk_site_enterprise REFERENCES enterprise(enterprise_id) NOT NULL,
         PRIMARY KEY (site_id)
+    );
+    
+    -- Table siteimage join table from entities Site and Image
+    CREATE TABLE siteimage (
+		fk_site_id BIGINT NOT NULL CONSTRAINT fk_site_image REFERENCES site(site_id),
+		fk_image_id BIGINT NOT NULL CONSTRAINT fk_image_site REFERENCES image(image_id)
     );
 
     -- Table product from entity Product

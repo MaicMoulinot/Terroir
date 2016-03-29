@@ -92,6 +92,14 @@ public class TestEnterprise {
 		assertEquals("Address.Street should be " + test, test, enterprise.getAddress().getStreet());
 		address = null; // Available for Garbage Collector
 		
+		// Logo
+		Image image = new Image();
+		image.setId(nb);
+		enterprise.setLogo(image);
+		assertNotNull("Logo should not be null", enterprise.getLogo());
+		assertEquals("Logo's id should be " + nb, nb, enterprise.getLogo().getId());
+		image = null; // Available for Garbage Collector
+		
 		// List of sellers
 		ArrayList<Seller> listSellers = new ArrayList<>();
 		Seller seller = new Seller();
@@ -131,8 +139,9 @@ public class TestEnterprise {
 		enterprise.setDescription("Description");
 		enterprise.setWebSite("WebSite");
 		enterprise.setAddress(TestAddress.generateAddress());
-		enterprise.setSellers(new ArrayList<>());
-		enterprise.setSites(new ArrayList<>());
+		enterprise.setLogo(null);
+		enterprise.setSellers(new ArrayList<Seller>());
+		enterprise.setSites(new ArrayList<Site>());
 		return enterprise;
 	}
 }
