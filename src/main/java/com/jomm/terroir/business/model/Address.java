@@ -26,15 +26,15 @@ public class Address implements Serializable {
 	private String complement;
 	
 	@NotNull
-	@Column(name = "addr_post_code")
+	@Column(name = "addr_post_code", nullable = false)
 	private String postCode;
 	
 	@NotNull
-	@Column(name = "addr_city")
+	@Column(name = "addr_city", nullable = false)
 	private String city;
 	
 	@NotNull
-	@Column(name = "addr_country")
+	@Column(name = "addr_country", nullable = false)
 	private String country;
 	
 	@Column(name = "addr_coordinates")
