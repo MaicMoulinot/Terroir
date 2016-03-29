@@ -42,12 +42,14 @@ public abstract class BeanListUser extends BackingBean {
 	
 	/**
 	 * Initialize the list of all users.
+	 * It must be annotated {@link javax.annotation.PostConstruct} in concrete implementations,
+	 * for proper call from the bean management framework which uses proxies, such as CDI.
 	 */
 	public abstract void init();
 	
 	/**
 	 * Is called when a row is edited.
-	 * @param event RowEditEvent the AJAX event.
+	 * @param event {@link RowEditEvent} the AJAX event.
 	 */
 	public void onRowEdit(RowEditEvent event) {
 		currentUser = (AbstractUser) event.getObject();
@@ -67,7 +69,7 @@ public abstract class BeanListUser extends BackingBean {
 	
 	/**
 	 * Is called when a edited row is back to normal state.
-	 * @param event RowEditEvent the AJAX event.
+	 * @param event {@link RowEditEvent} the AJAX event.
 	 */
 	public void onRowCancel(RowEditEvent event) {
 		// Do nothing.
@@ -75,6 +77,9 @@ public abstract class BeanListUser extends BackingBean {
 	
 	/**
 	 * Delete an user.
+	 * This may be overridden in concrete child.
+	 * If so, the child's method should first call this method using {@code super.delete()},
+	 * and then it should set a String as proper navigation return.
 	 * @return a String for navigation.
 	 */
 	public String delete() {

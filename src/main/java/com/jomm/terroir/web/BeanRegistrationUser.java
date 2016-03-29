@@ -52,6 +52,9 @@ public abstract class BeanRegistrationUser extends BackingBean {
 
 	/**
 	 * Create and save a new User.
+	 * This may be overridden in concrete child.
+	 * If so, the child's method should first call this method using {@code super.create()},
+	 * and then it should set a String as proper navigation return.
 	 * @return String for navigation.
 	 */
 	public String create() {
