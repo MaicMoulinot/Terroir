@@ -2,7 +2,6 @@ package com.jomm.terroir.business.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,7 +43,7 @@ public class Category extends AbstractEntity {
 	@JoinColumn(name="parent_id")
 	private Category parent;
 	
-	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "category")
 	private List<Designation> designations;
 	
 	// Getters and Setters

@@ -68,7 +68,7 @@ public class Enterprise extends AbstractEntity {
 	@Embedded
 	private Address address;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_image_id")
 	private Image logo;
 	

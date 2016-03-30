@@ -158,7 +158,7 @@
         last_update TIMESTAMP,
         title VARCHAR(255) NOT NULL,
         fk_site_id BIGINT CONSTRAINT fk_product_site REFERENCES site(site_id) NOT NULL,
-        fk_designation_id BIGINT CONSTRAINT fk_product_designation REFERENCES designation(designation_id),
+        fk_designation_id BIGINT CONSTRAINT fk_product_designation REFERENCES designation(designation_id) NOT NULL,
         PRIMARY KEY (product_id)
     );
 

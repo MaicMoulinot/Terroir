@@ -59,10 +59,10 @@ public class Site extends AbstractEntity {
 	private List<Product> products;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable(name = "siteimage", 
+	@JoinTable(name = "siteimage",
 	joinColumns = {@JoinColumn(name = "fk_site_id", nullable = false, updatable = false)},
 	inverseJoinColumns = {@JoinColumn(name = "fk_image_id", nullable = false, updatable = false)}
-)
+	)
 	private List<Image> images;
 
 	// Getters and Setters

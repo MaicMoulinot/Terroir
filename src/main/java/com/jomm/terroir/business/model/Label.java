@@ -47,7 +47,7 @@ public class Label extends AbstractEntity {
 	@Column(columnDefinition = "text")
 	private String definition;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="fk_image_id")
 	private Image logo;
 	

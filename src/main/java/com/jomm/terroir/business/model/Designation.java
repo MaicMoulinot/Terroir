@@ -73,11 +73,11 @@ public class Designation extends AbstractEntity {
 	@Embedded
 	private Address address;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_image_logo_id")
 	private Image logo;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_image_picture_id")
 	private Image picture;
 	

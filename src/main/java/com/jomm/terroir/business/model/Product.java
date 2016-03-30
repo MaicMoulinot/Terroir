@@ -51,7 +51,7 @@ public class Product extends AbstractEntity {
 	@JoinColumn(name="fk_site_id")
 	private Site site;
 	
-	@ManyToOne
+	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_designation_id")
 	private Designation designation;
 	
