@@ -139,7 +139,7 @@ public class TestEnterprise {
 		enterprise.setDescription("Description");
 		enterprise.setWebSite("WebSite");
 		enterprise.setAddress(TestAddress.generateAddress());
-		enterprise.setLogo(null);
+		enterprise.setLogo(TestImage.generateImageWithIdNull());
 		enterprise.setSellers(new ArrayList<Seller>());
 		enterprise.setSites(new ArrayList<Site>());
 		return enterprise;

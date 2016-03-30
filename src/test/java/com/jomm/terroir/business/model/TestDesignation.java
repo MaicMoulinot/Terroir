@@ -154,8 +154,8 @@ public class TestDesignation {
 		designation.setWebSite("WebSite");
 		designation.setMedianPrice(new BigDecimal("1.2345"));
 		designation.setAddress(TestAddress.generateAddress());
-		designation.setLogo(null);
-		designation.setPicture(null);
+		designation.setLogo(TestImage.generateImageWithIdNull());
+		designation.setPicture(TestImage.generateImageWithIdNull());
 		designation.setCategory(TestCategory.generateCategoryWithIdNull());
 		designation.setLabels(new ArrayList<Label>());
 		designation.setProducts(new ArrayList<Product>());

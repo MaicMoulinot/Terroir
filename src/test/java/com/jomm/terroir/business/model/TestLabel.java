@@ -87,7 +87,7 @@ public class TestLabel {
 		label.setName("Name");
 		label.setAcronym("Acronym");
 		label.setDefinition("Definition");
-		label.setLogo(null);
+		label.setLogo(TestImage.generateImageWithIdNull());
 		label.setDesignations(new ArrayList<Designation>());
 		return label;
 	}

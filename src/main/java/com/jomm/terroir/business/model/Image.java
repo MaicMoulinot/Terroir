@@ -1,7 +1,5 @@
 package com.jomm.terroir.business.model;
 
-import java.awt.image.BufferedImage;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +13,7 @@ import javax.validation.constraints.NotNull;
  * It extends {@link AbstractEntity}, thus it indirectly implements 
  * {@link java.io.Serializable} and has a default serial version ID.
  * It uses {@link com.jomm.terroir.business.ServiceImage} for all its business operations.
- * It includes a {@link BufferedImage} persisted as a {@link Lob}.
+ * It includes a {@code byte[]} persisted as a {@link Lob}.
  * Its properties are persisted in the {@link javax.persistence.Table} named {@code image}.
  * @author Maic
  */
@@ -42,7 +40,7 @@ public class Image extends AbstractEntity {
 	@Lob
 	@NotNull
 	@Column(name = "imag_data")
-	private BufferedImage imageData;
+	private byte[] data;
 	
 	// Getters and Setters
 	@Override
@@ -86,16 +84,16 @@ public class Image extends AbstractEntity {
 	}
 
 	/**
-	 * @return the imageData
+	 * @return the data
 	 */
-	public BufferedImage getBufferedImage() {
-		return imageData;
+	public byte[] getData() {
+		return data;
 	}
 
 	/**
-	 * @param imageData the imageData to set
+	 * @param data the data to set
 	 */
-	public void setBufferedImage(BufferedImage imageData) {
-		this.imageData = imageData;
+	public void setData(byte[] data) {
+		this.data = data;
 	}
 }
