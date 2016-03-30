@@ -22,6 +22,7 @@ import com.jomm.terroir.business.model.TestAbstractEntity;
 import com.jomm.terroir.business.model.TestAbstractUser;
 import com.jomm.terroir.business.model.TestAddress;
 import com.jomm.terroir.business.model.TestAdministrator;
+import com.jomm.terroir.business.model.TestCategory;
 import com.jomm.terroir.business.model.TestCustomer;
 import com.jomm.terroir.business.model.TestDesignation;
 import com.jomm.terroir.business.model.TestEnterprise;
@@ -35,12 +36,16 @@ import com.jomm.terroir.business.validator.TestValidatorPassword;
 import com.jomm.terroir.business.validator.TestValidatorUsername;
 import com.jomm.terroir.dao.TestDaoAdministrator;
 import com.jomm.terroir.dao.TestDaoAdministratorJpa;
+import com.jomm.terroir.dao.TestDaoCategory;
+import com.jomm.terroir.dao.TestDaoCategoryJpa;
 import com.jomm.terroir.dao.TestDaoCustomer;
 import com.jomm.terroir.dao.TestDaoCustomerJpa;
 import com.jomm.terroir.dao.TestDaoDesignation;
 import com.jomm.terroir.dao.TestDaoDesignationJpa;
 import com.jomm.terroir.dao.TestDaoEnterprise;
 import com.jomm.terroir.dao.TestDaoEnterpriseJpa;
+import com.jomm.terroir.dao.TestDaoImage;
+import com.jomm.terroir.dao.TestDaoImageJpa;
 import com.jomm.terroir.dao.TestDaoLabel;
 import com.jomm.terroir.dao.TestDaoLabelJpa;
 import com.jomm.terroir.dao.TestDaoProduct;
@@ -75,8 +80,8 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 @RunWith(Suite.class)
 @SuiteClasses({
 	// Model
-	TestAbstractEntity.class, TestAbstractUser.class, TestAddress.class, TestAdministrator.class, TestCustomer.class, 
-	TestDesignation.class, TestEnterprise.class, TestImage.class, TestLabel.class, 
+	TestAbstractEntity.class, TestAbstractUser.class, TestAddress.class, TestAdministrator.class, TestCategory.class, 
+	TestCustomer.class, TestDesignation.class, TestEnterprise.class, TestImage.class, TestLabel.class, 
 	TestProduct.class, TestSeller.class, TestSite.class, 
 	// Service
 	TestServiceDesignation.class, TestServiceDesignationImpl.class, 
@@ -88,10 +93,11 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	// Validator
 	TestValidatorEmail.class, TestValidatorPassword.class, TestValidatorUsername.class, 
 	// DAO
-	TestDaoAdministratorJpa.class, TestDaoAdministrator.class, TestDaoCustomerJpa.class, TestDaoCustomer.class, 
-	TestDaoDesignationJpa.class, TestDaoDesignation.class, TestDaoEnterpriseJpa.class, TestDaoEnterprise.class, 
-	TestDaoLabelJpa.class, TestDaoLabel.class, TestDaoProductJpa.class, TestDaoProduct.class, 
-	TestDaoSiteJpa.class, TestDaoSite.class, TestDaoSellerJpa.class, TestDaoSeller.class,
+	TestDaoAdministrator.class, TestDaoAdministratorJpa.class, TestDaoCategory.class, TestDaoCategoryJpa.class, 
+	TestDaoCustomer.class, TestDaoCustomerJpa.class, TestDaoDesignation.class, TestDaoDesignationJpa.class, 
+	TestDaoEnterprise.class, TestDaoEnterpriseJpa.class, TestDaoImage.class, TestDaoImageJpa.class, 
+	TestDaoLabel.class, TestDaoLabelJpa.class, TestDaoProduct.class, TestDaoProductJpa.class, 
+	TestDaoSeller.class, TestDaoSellerJpa.class, TestDaoSite.class, TestDaoSiteJpa.class, 
 	TestDaoUserJpa.class, TestDaoUser.class,
 	// Util
 	TestResources.class,
@@ -102,9 +108,8 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	TestExceptionService.class, 
 	// Web
 	TestBackingBean.class, 
-	TestBeanRegistrationCustomer.class, TestBeanListCustomer.class, 
-	TestBeanRegistrationSeller.class, TestBeanListSeller.class,
-	TestBeanRegistrationUser.class, TestBeanListUser.class
+	TestBeanListCustomer.class, TestBeanListSeller.class, TestBeanListUser.class, 
+	TestBeanRegistrationCustomer.class, TestBeanRegistrationSeller.class, TestBeanRegistrationUser.class
 	})
 public class AllTests {
 	

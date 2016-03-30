@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jomm.terroir.business.model.Image;
 import com.jomm.terroir.business.model.Label;
 import com.jomm.terroir.business.model.TestLabel;
 
@@ -46,7 +47,8 @@ public class TestDaoLabelJpa extends TestDaoGenericJpa<Label> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			dao.entityManager = UtilEntityManager.prepareEntityManager();
+			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
+			dao.entityManager = entityManager;
 			entity = TestLabel.generateLabelWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
@@ -55,6 +57,11 @@ public class TestDaoLabelJpa extends TestDaoGenericJpa<Label> {
 			List<Label> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
 			int listInitialSize = list.size();
+			
+			// Retrieve an Image from DataBase
+			Image image = TestDaoImageJpa.findImageFromDataBase(entityManager);
+			assertNotNull("Image should not be null", image);
+			entity.setLogo(image);
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -86,6 +93,7 @@ public class TestDaoLabelJpa extends TestDaoGenericJpa<Label> {
 
 			// Create
 			entity = TestLabel.generateLabelWithIdNull();
+			entity.setLogo(image);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);

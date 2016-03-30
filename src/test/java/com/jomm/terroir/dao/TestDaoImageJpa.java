@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,25 +13,23 @@ import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Image;
-import com.jomm.terroir.business.model.Site;
-import com.jomm.terroir.business.model.TestSite;
+import com.jomm.terroir.business.model.TestImage;
 
 /**
- * This Class is a Junit test case testing {@link DaoSiteJpa}.
- * It extends {@link TestDaoGenericJpa} with {@link Site} as parameter, 
+ * This Class is a Junit test case testing {@link DaoImageJpa}.
+ * It extends {@link TestDaoGenericJpa} with {@link Image} as parameter, 
  * and implements {@code testBehavior()} and {@code testState()}.
  * @author Maic
  */
-public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
+public class TestDaoImageJpa extends TestDaoGenericJpa<Image> {
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
-		dao = new DaoSiteJpa();
+		dao = new DaoImageJpa();
 	}
 
 	@Override
@@ -49,31 +46,15 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
-			dao.entityManager = entityManager;
-			entity = TestSite.generateSiteWithIdNull();
+			dao.entityManager = UtilEntityManager.prepareEntityManager();
+			entity = TestImage.generateImageWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
 
 			// FindAll
-			List<Site> list = dao.findAll();
+			List<Image> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
 			int listInitialSize = list.size();
-			
-			// Retrieve an Enterprise from DataBase
-			Enterprise enterprise = TestDaoEnterpriseJpa.findEnterpriseFromDataBase(entityManager);
-			assertNotNull("Enterprise should not be null", enterprise);
-			entity.setEnterprise(enterprise);
-			
-			// Retrieve an Image from DataBase
-			assertNotNull(entity.getImages());
-			assertEquals(0, entity.getImages().size());
-			Image image = TestDaoImageJpa.findImageFromDataBase(entityManager);
-			assertNotNull("Image should not be null", image);
-			List<Image> images = new ArrayList<>();
-			images.add(image);
-			entity.setImages(images);
-			assertEquals(1, entity.getImages().size());
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -86,15 +67,15 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			assertEquals("After persistence, the list's size should be", listInitialSize+1, dao.findAll().size());
 
 			// FindById
-			Site persistedEntity = dao.find(persistedId);
+			Image persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
-			assertEquals("After persistence, properties should be equal", entity.getName(), persistedEntity.getName());
+			assertEquals("After persistence, properties should be equal", entity.getTitle(), persistedEntity.getTitle());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
 
 			// Update
-			String initialValue = persistedEntity.getName();
-			persistedEntity.setName("UpdatedValue");
-			String updatedValue = dao.update(persistedEntity).getName();
+			String initialValue = persistedEntity.getTitle();
+			persistedEntity.setTitle("UpdatedValue");
+			String updatedValue = dao.update(persistedEntity).getTitle();
 			assertNotEquals("Values should not match", initialValue, updatedValue);
 
 			// DeleteById
@@ -104,9 +85,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
 
 			// Create
-			entity = TestSite.generateSiteWithIdNull();
-			entity.setEnterprise(enterprise);
-			entity.setImages(images);
+			entity = TestImage.generateImageWithIdNull();
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
@@ -126,30 +105,13 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	}
 	
 	/**
-	 * Test the {@link javax.persistence.ManyToMany} relationship between {@link Site} 
-	 * and {@link com.jomm.terroir.business.model.Image}.
-	 */
-	@Test
-	public final void testManyToManyWithImage() {
-		try {
-			// EntityManager is working with test-specific Persistence Unit
-			entity = findSiteFromDataBase(UtilEntityManager.prepareEntityManager());
-			assertNotNull("List of images should not be null", entity.getImages());
-			assertEquals("List of images size should be", 1, entity.getImages().size());
-			assertEquals("Image's id should be", EXISTING_IMAGE_ID, entity.getImages().get(0).getId().longValue());
-		} finally {
-			UtilEntityManager.closeEntityManager();
-		}
-	}
-	
-	/**
-	 * Retrieve a {@link Site} from database filled with basic test data.
+	 * Retrieve a {@link Image} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Site} with {@link UtilData#EXISTING_SITE_ID}.
+	 * @return the {@link Image} with {@link UtilData#EXISTING_IMAGE_ID}.
 	 */
-	public static Site findSiteFromDataBase(EntityManager entityManager) {
-		DaoSiteJpa dao = new DaoSiteJpa();
+	public static Image findImageFromDataBase(EntityManager entityManager) {
+		DaoImageJpa dao = new DaoImageJpa();
 		dao.entityManager = entityManager;
-		return dao.find(EXISTING_SITE_ID);
+		return dao.find(EXISTING_IMAGE_ID);
 	}
 }

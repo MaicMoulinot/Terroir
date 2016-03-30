@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jomm.terroir.business.model.Enterprise;
+import com.jomm.terroir.business.model.Image;
 import com.jomm.terroir.business.model.TestEnterprise;
 
 /**
@@ -46,7 +47,8 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			dao.entityManager = UtilEntityManager.prepareEntityManager();
+			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
+			dao.entityManager = entityManager;
 			entity = TestEnterprise.generateEnterpriseWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
@@ -55,6 +57,11 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			List<Enterprise> list = dao.findAll();
 			assertNotNull("Before persistence, the list should not be null", list);
 			int listInitialSize = list.size();
+			
+			// Retrieve an Image from DataBase
+			Image image = TestDaoImageJpa.findImageFromDataBase(entityManager);
+			assertNotNull("Image should not be null", image);
+			entity.setLogo(image);
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -87,6 +94,7 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 
 			// Create
 			entity = TestEnterprise.generateEnterpriseWithIdNull();
+			entity.setLogo(image);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);

@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import com.jomm.terroir.business.model.Category;
 import com.jomm.terroir.business.model.Designation;
+import com.jomm.terroir.business.model.Image;
 import com.jomm.terroir.business.model.TestDesignation;
 
 /**
@@ -63,6 +64,12 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			assertNotNull("Category should not be null", category);
 			entity.setCategory(category);
 			
+			// Retrieve an Image from DataBase
+			Image image = TestDaoImageJpa.findImageFromDataBase(entityManager);
+			assertNotNull("Image should not be null", image);
+			entity.setLogo(image);
+			entity.setPicture(image);
+			
 			// Create
 			UtilEntityManager.beginTransaction();
 			entity = dao.create(entity);
@@ -95,6 +102,8 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			// Create
 			entity = TestDesignation.generateDesignationWithIdNull();
 			entity.setCategory(category);
+			entity.setLogo(image);
+			entity.setPicture(image);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
