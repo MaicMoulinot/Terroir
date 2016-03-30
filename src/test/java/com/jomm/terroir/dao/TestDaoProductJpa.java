@@ -101,6 +101,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			// Create
 			entity = TestProduct.generateProductWithIdNull();
 			entity.setSite(site);
+			entity.setDesignation(designation);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
