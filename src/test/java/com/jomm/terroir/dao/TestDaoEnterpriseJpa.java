@@ -59,7 +59,7 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			int listInitialSize = list.size();
 			
 			// Retrieve an Image from DataBase
-			Image image = TestDaoImageJpa.findImageFromDataBase(entityManager);
+			Image image = TestDaoImageJpa.findImageFromDataBaseFirstCall(entityManager);
 			assertNotNull("Image should not be null", image);
 			entity.setLogo(image);
 			
@@ -94,7 +94,9 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 
 			// Create
 			entity = TestEnterprise.generateEnterpriseWithIdNull();
-			entity.setLogo(image);
+			Image secondImage = TestDaoImageJpa.findImageFromDataBaseSecondCall(entityManager);
+			assertNotNull("Image should not be null", secondImage);
+			entity.setLogo(secondImage);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);

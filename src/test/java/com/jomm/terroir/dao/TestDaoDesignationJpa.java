@@ -65,7 +65,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			entity.setCategory(category);
 			
 			// Retrieve an Image from DataBase
-			Image image = TestDaoImageJpa.findImageFromDataBase(entityManager);
+			Image image = TestDaoImageJpa.findImageFromDataBaseFirstCall(entityManager);
 			assertNotNull("Image should not be null", image);
 			entity.setLogo(image);
 			entity.setPicture(image);
@@ -101,9 +101,11 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 
 			// Create
 			entity = TestDesignation.generateDesignationWithIdNull();
+			Image secondImage = TestDaoImageJpa.findImageFromDataBaseSecondCall(entityManager);
+			assertNotNull("Image should not be null", secondImage);
 			entity.setCategory(category);
-			entity.setLogo(image);
-			entity.setPicture(image);
+			entity.setLogo(secondImage);
+			entity.setPicture(secondImage);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);

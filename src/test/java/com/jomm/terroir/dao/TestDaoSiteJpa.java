@@ -68,7 +68,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			// Retrieve an Image from DataBase
 			assertNotNull(entity.getImages());
 			assertEquals(0, entity.getImages().size());
-			Image image = TestDaoImageJpa.findImageFromDataBase(entityManager);
+			Image image = TestDaoImageJpa.findImageFromDataBaseFirstCall(entityManager);
 			assertNotNull("Image should not be null", image);
 			List<Image> images = new ArrayList<>();
 			images.add(image);
@@ -106,6 +106,10 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			// Create
 			entity = TestSite.generateSiteWithIdNull();
 			entity.setEnterprise(enterprise);
+			Image secondImage = TestDaoImageJpa.findImageFromDataBaseSecondCall(entityManager);
+			assertNotNull("Image should not be null", secondImage);
+			images = new ArrayList<>();
+			images.add(secondImage);
 			entity.setImages(images);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
@@ -136,7 +140,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			entity = findSiteFromDataBase(UtilEntityManager.prepareEntityManager());
 			assertNotNull("List of images should not be null", entity.getImages());
 			assertEquals("List of images size should be", 1, entity.getImages().size());
-			assertEquals("Image's id should be", EXISTING_IMAGE_ID, entity.getImages().get(0).getId().longValue());
+			assertEquals("Image's id should be", IMAGE_FOR_SITE_ID, entity.getImages().get(0).getId().longValue());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

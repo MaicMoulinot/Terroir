@@ -105,13 +105,34 @@ public class TestDaoImageJpa extends TestDaoGenericJpa<Image> {
 	}
 	
 	/**
-	 * Retrieve a {@link Image} from database filled with basic test data.
+	 * Retrieve the {@link Image} from database filled with basic test data 
+	 * with its identifier = {@link UtilData#EXISTING_IMAGE_ID_FIRST_CALL}.
 	 * @param entityManager the {@link EntityManager}.
-	 * @return the {@link Image} with {@link UtilData#EXISTING_IMAGE_ID}.
+	 * @return the {@link Image}.
 	 */
-	public static Image findImageFromDataBase(EntityManager entityManager) {
+	public static Image findImageFromDataBaseFirstCall(EntityManager entityManager) {
+		return findImageFromDataBase(entityManager, EXISTING_IMAGE_ID_FIRST_CALL);
+	}
+	
+	/**
+	 * Retrieve the {@link Image} from database filled with basic test data 
+	 * with its identifier = {@link UtilData#EXISTING_IMAGE_ID_SECOND_CALL}.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Image}.
+	 */
+	public static Image findImageFromDataBaseSecondCall(EntityManager entityManager) {
+		return findImageFromDataBase(entityManager, EXISTING_IMAGE_ID_SECOND_CALL);
+	}
+	
+	/**
+	 * Retrieve an {@link Image} from database filled with basic test data.
+	 * @param entityManager the {@link EntityManager}.
+	 * @param id Long the Image's identifier.
+	 * @return the {@link Image}.
+	 */
+	private static Image findImageFromDataBase(EntityManager entityManager, Long id) {
 		DaoImageJpa dao = new DaoImageJpa();
 		dao.entityManager = entityManager;
-		return dao.find(EXISTING_IMAGE_ID);
+		return dao.find(id);
 	}
 }

@@ -36,7 +36,9 @@ public abstract class UtilData {
 	protected static final long EXISTING_DESIGNATION_ID = 111111;
 	protected static final long EXISTING_LABEL_ID = 111111;
 	protected static final long EXISTING_CATEGORY_ID = 333333;
-	protected static final long EXISTING_IMAGE_ID = 111111;
+	protected static final long EXISTING_IMAGE_ID_FIRST_CALL = 111111;
+	protected static final long EXISTING_IMAGE_ID_SECOND_CALL = 222222;
+	protected static final long IMAGE_FOR_SITE_ID = 333333;
 
 	// DBSetup attributes
 	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
@@ -49,7 +51,9 @@ public abstract class UtilData {
 			// table image
 			insertInto("image")
 			.columns("image_id", "imag_title", "imag_description", "imag_data")
-			.values(EXISTING_IMAGE_ID, "pomme.jpg", "Une très belle pomme croquante", null)
+			.values(EXISTING_IMAGE_ID_FIRST_CALL, "pomme.jpg", "Une très belle pomme croquante", null)
+			.values(EXISTING_IMAGE_ID_SECOND_CALL, "poire.jpg", "Une très belle poire croquante", null)
+			.values(IMAGE_FOR_SITE_ID, "vache.jpg", "Une très belle vache croquante", null)
 			.build(),
 			// table category
 			insertInto("category")
@@ -105,7 +109,7 @@ public abstract class UtilData {
 			// table siteimage
 			insertInto("siteimage")
 			.columns("fk_site_id", "fk_image_id")
-			.values(EXISTING_SITE_ID, EXISTING_IMAGE_ID)
+			.values(EXISTING_SITE_ID, IMAGE_FOR_SITE_ID)
 			.build(),
 			// table label
 			insertInto("label")
