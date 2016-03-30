@@ -51,7 +51,7 @@ public class Label extends AbstractEntity {
 	@JoinColumn(name="fk_image_id")
 	private Image logo;
 	
-	@ManyToMany(mappedBy = "labels", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "labels", fetch = FetchType.LAZY)
 	private List<Designation> designations;
 	
 	// Getters and Setters

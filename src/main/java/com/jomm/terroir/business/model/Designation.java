@@ -85,7 +85,7 @@ public class Designation extends AbstractEntity {
 	@JoinColumn(name="fk_category_id")
 	private Category category;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	@JoinTable(name = "designationlabel", 
 		joinColumns = {@JoinColumn(name = "fk_designation_id", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_label_id", nullable = false, updatable = false)}
