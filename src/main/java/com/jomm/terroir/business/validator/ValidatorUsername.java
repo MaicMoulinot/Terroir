@@ -61,6 +61,7 @@ public class ValidatorUsername implements Validator {
 		}
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Instantiate a new {@link FacesMessage} with severity {@link FacesMessage#SEVERITY_ERROR} and detail {@code null}.
 	 * @param summary String the message's summary.

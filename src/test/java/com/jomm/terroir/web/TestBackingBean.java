@@ -186,7 +186,7 @@ public class TestBackingBean {
 		return message;
 	}
 	
-	// Getters and setters //-------------------------------------
+	// Getters and Setters //-------------------------------------
 	/**
 	 * Set mocked {@link FacesContext} into view.
 	 * @param view {@link BackingBean} the view to be set.

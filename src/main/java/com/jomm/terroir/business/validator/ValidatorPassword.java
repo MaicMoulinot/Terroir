@@ -55,7 +55,8 @@ public class ValidatorPassword implements Validator {
 					getValueFromKey(PASSWORD_RULES)));
 		}
 	}
-
+	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Determine if the password is null or empty.
 	 * @param password String.
