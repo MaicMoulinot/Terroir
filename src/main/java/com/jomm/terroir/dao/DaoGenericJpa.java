@@ -62,8 +62,8 @@ public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> 
 	}
 	
 	@Override
-	public void deleteById(Long entityId) {
-		entityManager.remove(entityManager.getReference(entityClass, entityId));
+	public void deleteById(Long id) {
+		entityManager.remove(entityManager.getReference(entityClass, id));
 	}
     
 	@Override
