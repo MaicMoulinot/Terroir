@@ -51,7 +51,7 @@ public class TestBackingBean {
 	@Test
 	public final void testAddMessageException() {
 		// set mocked FacesContext
-		view.setFacesContext(mock(FacesContext.class));
+		view.setTestFacesContext(mock(FacesContext.class));
 		// call method
 		String detail = "detail";
 		view.addMessageException(detail);
@@ -65,7 +65,7 @@ public class TestBackingBean {
 	@Test
 	public final void testAddMessageStringString() {
 		// set mocked FacesContext
-		view.setFacesContext(mock(FacesContext.class));
+		view.setTestFacesContext(mock(FacesContext.class));
 		// call method
 		String summary = "summary";
 		String detail = "detail";
@@ -79,7 +79,7 @@ public class TestBackingBean {
 	@Test
 	public final void testAddMessageStringStringString() {
 		// set mocked FacesContext
-		view.setFacesContext(mock(FacesContext.class));
+		view.setTestFacesContext(mock(FacesContext.class));
 		// call method
 		String idClient = "idClient";
 		String summary = "summary";
@@ -94,7 +94,7 @@ public class TestBackingBean {
 	@Test
 	public final void testAddMessageStringSeverityStringString() {
 		// set mocked FacesContext
-		view.setFacesContext(mock(FacesContext.class));
+		view.setTestFacesContext(mock(FacesContext.class));
 		// call method
 		String idClient = "idClient";
 		String summary = "summary";
@@ -119,12 +119,12 @@ public class TestBackingBean {
 	}
 	
 	/**
-	 * Test method for {@link BackingBean#getFacesContext()} and {@link BackingBean#setFacesContext(FacesContext)}.
+	 * Test method for {@link BackingBean#getFacesContext()} and {@link BackingBean#setTestFacesContext(FacesContext)}.
 	 */
 	@Test
 	public final void testFacesContextGetterSetter() {
 		FacesContext facesContext = mock(FacesContext.class);
-		view.setFacesContext(facesContext);
+		view.setTestFacesContext(facesContext);
 		assertEquals("FacesContext should be " + facesContext, facesContext, view.getFacesContext());
 		facesContext = null; // Available for Garbage Collector
 	}
@@ -187,6 +187,6 @@ public class TestBackingBean {
 	 * @param view {@link BackingBean} the view to be set.
 	 */
 	static void setInjections(BackingBean view) {
-		view.setFacesContext(mock(FacesContext.class));
+		view.setTestFacesContext(mock(FacesContext.class));
 	}
 }

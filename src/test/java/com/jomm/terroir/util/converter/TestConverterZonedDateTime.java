@@ -71,7 +71,7 @@ public class TestConverterZonedDateTime {
 		this.getAsStringExpectedResult = getAsStringExpectedResult;
 		// Initialize the converter and mock the logger
 		converter = new ConverterZonedDateTime();
-		converter.setLogger(mock(Logger.class));
+		converter.setTestLogger(mock(Logger.class));
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class TestConverterZonedDateTime {
 			break;
 		case SUCCESS: // Expected result is a String
 			ZonedDateTime dateValue = (ZonedDateTime) objectValue;
-			String expectedResult = dateValue.format(ConverterZonedDateTime.getFormatter());
+			String expectedResult = dateValue.format(ConverterZonedDateTime.getTestFormatter());
 			assertEquals("Conversion should succeed with value=" 
 					+ (objectValue == null ? objectValue : objectValue.getClass()), 
 					expectedResult, result);				

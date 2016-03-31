@@ -71,7 +71,7 @@ public class ValidatorEmail implements Validator {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param serviceUser the serviceUser to set.
 	 */
-	void setServiceUser(ServiceUser serviceUser) {
+	void setTestServiceUser(ServiceUser serviceUser) {
 		this.serviceUser = serviceUser;
 	}
 }

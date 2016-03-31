@@ -63,7 +63,7 @@ public class TestValidatorUsername {
 		// Initialize the validator and mocked service
 		service = mock(ServiceUser.class);
 		validator = new ValidatorUsername();
-		validator.setServiceUser(service);
+		validator.setTestServiceUser(service);
 	}
 
 	/**

@@ -269,10 +269,10 @@ public class TestServiceUser {
 	 */
 	private static ServiceUserImpl generateMockedUserServiceImpl() {
 		ServiceUserImpl impl = new ServiceUserImpl();
-		impl.setDaoAdmin(mock(DaoAdministrator.class));
-		impl.setDaoCustomer(mock(DaoCustomer.class));
-		impl.setDaoSeller(mock(DaoSeller.class));
-		impl.setDaoUser(mock(DaoUser.class));
+		impl.setTestDaoAdmin(mock(DaoAdministrator.class));
+		impl.setTestDaoCustomer(mock(DaoCustomer.class));
+		impl.setTestDaoSeller(mock(DaoSeller.class));
+		impl.setTestDaoUser(mock(DaoUser.class));
 		return impl;
 	}
 }

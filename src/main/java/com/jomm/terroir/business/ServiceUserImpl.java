@@ -113,11 +113,12 @@ public class ServiceUserImpl implements ServiceUser {
 		return daoUser.isExistingEmail(email);
 	}
 	
+	// Tests //---------------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoAdmin the daoAdmin to set.
 	 */
-	void setDaoAdmin(DaoAdministrator daoAdmin) {
+	void setTestDaoAdmin(DaoAdministrator daoAdmin) {
 		this.daoAdmin = daoAdmin;
 	}
 	
@@ -125,7 +126,7 @@ public class ServiceUserImpl implements ServiceUser {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoCustomer the daoCustomer to set.
 	 */
-	void setDaoCustomer(DaoCustomer daoCustomer) {
+	void setTestDaoCustomer(DaoCustomer daoCustomer) {
 		this.daoCustomer = daoCustomer;
 	}
 	
@@ -133,7 +134,7 @@ public class ServiceUserImpl implements ServiceUser {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoSeller the daoSeller to set.
 	 */
-	void setDaoSeller(DaoSeller daoSeller) {
+	void setTestDaoSeller(DaoSeller daoSeller) {
 		this.daoSeller = daoSeller;
 	}
 	
@@ -141,7 +142,7 @@ public class ServiceUserImpl implements ServiceUser {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoUser the daoUser to set.
 	 */
-	void setDaoUser(DaoUser daoUser) {
+	void setTestDaoUser(DaoUser daoUser) {
 		this.daoUser = daoUser;
 	}
 }

@@ -174,7 +174,7 @@ public class TestServiceDesignation {
 	 */
 	private static ServiceDesignationImpl generateMockedDesignationServiceImpl() {
 		ServiceDesignationImpl impl = new ServiceDesignationImpl();
-		impl.setDaoDesignation(mock(DaoDesignation.class));
+		impl.setTestDaoDesignation(mock(DaoDesignation.class));
 		return impl;
 	}
 }

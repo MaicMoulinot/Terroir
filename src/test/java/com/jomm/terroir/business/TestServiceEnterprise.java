@@ -182,7 +182,7 @@ public class TestServiceEnterprise {
 	 */
 	private static ServiceEnterpriseImpl generateMockedEnterpriseServiceImpl() {
 		ServiceEnterpriseImpl impl = new ServiceEnterpriseImpl();
-		impl.setDaoEnterprise(mock(DaoEnterprise.class));
+		impl.setTestDaoEnterprise(mock(DaoEnterprise.class));
 		return impl;
 	}
 }

@@ -65,11 +65,12 @@ public class ServiceSiteImpl implements ServiceSite {
 		daoSite.delete(site);
 	}
 	
+	// Tests //---------------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoSite the daoSite to set.
 	 */
-	void setDaoSite(DaoSite daoSite) {
+	void setTestDaoSite(DaoSite daoSite) {
 		this.daoSite = daoSite;
 	}
 }

@@ -71,7 +71,7 @@ public class TestConverterLocalDate {
 		this.getAsStringExpectedResult = getAsStringExpectedResult;
 		// Initialize the converter and mock the logger
 		converter = new ConverterLocalDate();
-		converter.setLogger(mock(Logger.class));
+		converter.setTestLogger(mock(Logger.class));
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class TestConverterLocalDate {
 			break;
 		case SUCCESS: // Expected result is a String
 			LocalDate dateValue = (LocalDate) objectValue;
-			String expectedResult = dateValue.format(ConverterLocalDate.getFormatter());
+			String expectedResult = dateValue.format(ConverterLocalDate.getTestFormatter());
 			assertEquals("Conversion should succeed with value=" 
 					+ (objectValue == null ? objectValue : objectValue.getClass()), 
 					expectedResult, result);				

@@ -60,7 +60,7 @@ public class TestValidatorEmail {
 		// Initialize the validator and mocked service
 		service = mock(ServiceUser.class);
 		validator = new ValidatorEmail();
-		validator.setServiceUser(service);
+		validator.setTestServiceUser(service);
 	}
 
 	/**

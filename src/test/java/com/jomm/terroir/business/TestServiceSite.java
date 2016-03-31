@@ -174,7 +174,7 @@ public class TestServiceSite {
 	 */
 	private static ServiceSiteImpl generateMockedSiteServiceImpl() {
 		ServiceSiteImpl impl = new ServiceSiteImpl();
-		impl.setDaoSite(mock(DaoSite.class));
+		impl.setTestDaoSite(mock(DaoSite.class));
 		return impl;
 	}
 }

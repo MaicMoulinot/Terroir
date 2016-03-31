@@ -68,11 +68,12 @@ public class ServiceProductImpl implements ServiceProduct {
 		daoProduct.delete(product);
 	}
 	
+	// Tests //---------------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoProduct the daoProduct to set.
 	 */
-	void setDaoProduct(DaoProduct daoProduct) {
+	void setTestDaoProduct(DaoProduct daoProduct) {
 		this.daoProduct = daoProduct;
 	}
 }

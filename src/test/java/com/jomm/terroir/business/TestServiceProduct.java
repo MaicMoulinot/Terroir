@@ -190,7 +190,7 @@ public class TestServiceProduct {
 	 */
 	private static ServiceProductImpl generateMockedProductServiceImpl() {
 		ServiceProductImpl impl = new ServiceProductImpl();
-		impl.setDaoProduct(mock(DaoProduct.class));
+		impl.setTestDaoProduct(mock(DaoProduct.class));
 		return impl;
 	}
 }

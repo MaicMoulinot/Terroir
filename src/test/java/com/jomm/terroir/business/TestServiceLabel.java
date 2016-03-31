@@ -174,7 +174,7 @@ public class TestServiceLabel {
 	 */
 	private static ServiceLabelImpl generateMockedLabelServiceImpl() {
 		ServiceLabelImpl impl = new ServiceLabelImpl();
-		impl.setDaoLabel(mock(DaoLabel.class));
+		impl.setTestDaoLabel(mock(DaoLabel.class));
 		return impl;
 	}
 }

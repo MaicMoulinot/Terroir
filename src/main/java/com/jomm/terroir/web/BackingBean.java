@@ -100,7 +100,7 @@ public abstract class BackingBean implements Serializable {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param facesContext the {@link FacesContext}.
 	 */
-	void setFacesContext(FacesContext facesContext) {
+	void setTestFacesContext(FacesContext facesContext) {
 		this.facesContext = facesContext;
 	}
 }

@@ -65,7 +65,7 @@ public final class ConverterZonedDateTime implements Converter {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @return the formatter.
 	 */
-	static DateTimeFormatter getFormatter() {
+	static DateTimeFormatter getTestFormatter() {
 		return FORMATTER;
 	}
 	
@@ -73,7 +73,7 @@ public final class ConverterZonedDateTime implements Converter {
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param logger the logger to set.
 	 */
-	void setLogger(Logger logger) {
+	void setTestLogger(Logger logger) {
 		this.logger = logger;
 	}
 }
