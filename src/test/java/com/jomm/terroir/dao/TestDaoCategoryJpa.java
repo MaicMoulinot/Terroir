@@ -89,6 +89,9 @@ public class TestDaoCategoryJpa extends TestDaoGenericJpa<Category> {
 			dao.deleteById(persistedId);
 			UtilEntityManager.commit();
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
+			
+			// Cascade
+			assertNotNull("Without cascade delete, Parent should not be null", findCategoryFromDataBase(entityManager));
 
 			// Create
 			entity = TestCategory.generateCategoryWithIdNull();
@@ -103,6 +106,9 @@ public class TestDaoCategoryJpa extends TestDaoGenericJpa<Category> {
 			dao.delete(entity);
 			UtilEntityManager.commit();
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
+			
+			// Cascade
+			assertNotNull("Without cascade delete, Parent should not be null", findCategoryFromDataBase(entityManager));
 			
 			// FindAll
 			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());

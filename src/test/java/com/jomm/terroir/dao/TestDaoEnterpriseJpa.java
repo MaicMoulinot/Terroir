@@ -79,7 +79,7 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			assertEquals("After persistence, properties should be equal", entity.getLegalName(), 
 					persistedEntity.getLegalName());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
-
+			
 			// Update
 			String initialValue = persistedEntity.getLegalName();
 			persistedEntity.setLegalName("UpdatedValue");
@@ -91,6 +91,10 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			dao.deleteById(persistedId);
 			UtilEntityManager.commit();
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
+			
+			// Cascade
+			assertNull("With cascade delete, Image should be null", 
+					TestDaoImageJpa.findImageFromDataBaseFirstCall(entityManager));
 
 			// Create
 			entity = TestEnterprise.generateEnterpriseWithIdNull();
@@ -107,6 +111,10 @@ public class TestDaoEnterpriseJpa extends TestDaoGenericJpa<Enterprise> {
 			dao.delete(entity);
 			UtilEntityManager.commit();
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
+			
+			// Cascade
+			assertNull("With cascade delete, Image should be null", 
+					TestDaoImageJpa.findImageFromDataBaseSecondCall(entityManager));
 			
 			// FindAll
 			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());

@@ -102,6 +102,12 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			dao.deleteById(persistedId);
 			UtilEntityManager.commit();
 			assertNull("After DeleteById, persistedEntity should be null", dao.find(persistedId));
+			
+			// Cascade
+			assertNull("With cascade delete, Image should be null", 
+					TestDaoImageJpa.findImageFromDataBaseFirstCall(entityManager));
+			assertNotNull("Without cascade delete, Enterprise should not be null", 
+					TestDaoEnterpriseJpa.findEnterpriseFromDataBase(entityManager));
 
 			// Create
 			entity = TestSite.generateSiteWithIdNull();
@@ -121,6 +127,12 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			dao.delete(entity);
 			UtilEntityManager.commit();
 			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
+			
+			// Cascade
+			assertNull("With cascade delete, Image should be null", 
+					TestDaoImageJpa.findImageFromDataBaseSecondCall(entityManager));
+			assertNotNull("Without cascade delete, Enterprise should not be null", 
+					TestDaoEnterpriseJpa.findEnterpriseFromDataBase(entityManager));
 			
 			// FindAll
 			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());
