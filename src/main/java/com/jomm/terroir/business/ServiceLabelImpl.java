@@ -24,9 +24,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @Stateless
 public class ServiceLabelImpl implements ServiceLabel {
 	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private DaoLabel daoLabel;
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public Label create(Label label) throws ExceptionService {
 		if (label == null) {

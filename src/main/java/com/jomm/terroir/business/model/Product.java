@@ -25,10 +25,11 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
 public class Product extends AbstractEntity {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue
 	@Column(name = "product_id")
@@ -55,7 +56,7 @@ public class Product extends AbstractEntity {
 	@JoinColumn(name="fk_designation_id")
 	private Designation designation;
 	
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return id;

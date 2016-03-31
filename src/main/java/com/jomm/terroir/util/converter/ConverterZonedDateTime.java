@@ -27,12 +27,15 @@ import javax.inject.Inject;
  */
 @FacesConverter(value = "zonedDateTimeConverter")
 public final class ConverterZonedDateTime implements Converter {
-
-	@Inject
-	private Logger logger;
-
+	
+	// Constants //-----------------------------------------------
 	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(ZONED_DATE_TIME.getRegex());
 	
+	// Injected Fields //-----------------------------------------
+	@Inject
+	private Logger logger;
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		ZonedDateTime dateAsZonedDateTime = null;
@@ -57,6 +60,7 @@ public final class ConverterZonedDateTime implements Converter {
 		return dateAsString;
 	}
 	
+	// Tests //---------------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @return the formatter.

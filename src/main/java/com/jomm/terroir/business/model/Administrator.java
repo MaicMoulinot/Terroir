@@ -20,10 +20,11 @@ import javax.persistence.Table;
 @NamedQuery(name="Administrator.findAll", query="SELECT a FROM Administrator a")
 public class Administrator extends AbstractUser {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Column(name = "can_read")
 	private Boolean canReadData;
 	
@@ -32,7 +33,8 @@ public class Administrator extends AbstractUser {
 	
 	@Column(name = "can_delete")
 	private Boolean canDeleteData;
-
+	
+	// Constructors //--------------------------------------------
 	/**
 	 * No-arg constructor.
 	 * Default is no special power.
@@ -44,7 +46,7 @@ public class Administrator extends AbstractUser {
 		canDeleteData = false;
 	}
 
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the canReadData
 	 */

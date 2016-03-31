@@ -21,13 +21,15 @@ import com.jomm.terroir.business.model.Customer;
 @ViewScoped
 public class BeanRegistrationCustomer extends BeanRegistrationUser {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
-
-	//	Attributes
+	
+	// Variables //-----------------------------------------------
 	private LocalDate birthDate;
 	private Address address;
     
+	// Methods //-------------------------------------------------
 	/**
 	 * This method instantiate all necessary attributes, such as the {@link Address}.
 	 * It replaces the constructor and it is annotated {@link PostConstruct},
@@ -68,7 +70,8 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser {
 		userEntity.setAddress(getAddress());
 		return userEntity;
 	}
-
+	
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the birthDate
 	 */

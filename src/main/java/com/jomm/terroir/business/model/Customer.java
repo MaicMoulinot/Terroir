@@ -22,10 +22,11 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
 public class Customer extends AbstractUser {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Column(name = "birth_date", columnDefinition = "date")
 	private LocalDate birthDate;
 	
@@ -35,7 +36,7 @@ public class Customer extends AbstractUser {
 	@Embedded
 	private Address address;
 
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the birthDate
 	 */

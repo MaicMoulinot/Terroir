@@ -15,7 +15,8 @@ import java.io.Serializable;
  * @author Maic
  */
 public class ExceptionService extends Exception {
-
+	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 	
@@ -32,10 +33,11 @@ public class ExceptionService extends Exception {
 		ID_NOT_NULL;
 	}
 	
-	// Private attribute
+	// Variables //-----------------------------------------------
 	private String message;
 	
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Defines the {@code message}.
@@ -57,7 +59,8 @@ public class ExceptionService extends Exception {
 			message = "The parameter is not a correct TypeException.";
 		}
 	}
-
+	
+	// Getters and Setters //-------------------------------------
 	@Override
 	public String getMessage() {
 		return message;

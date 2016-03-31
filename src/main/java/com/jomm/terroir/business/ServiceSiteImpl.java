@@ -24,9 +24,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @Stateless
 public class ServiceSiteImpl implements ServiceSite {
 	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private DaoSite daoSite;
 
+	// Methods //-------------------------------------------------
 	@Override
 	public Site create(Site site) throws ExceptionService {
 		if (site == null) {

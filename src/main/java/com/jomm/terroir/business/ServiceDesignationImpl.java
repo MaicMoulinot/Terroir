@@ -24,9 +24,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @Stateless
 public class ServiceDesignationImpl implements ServiceDesignation {
 	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private DaoDesignation daoDesignation;
 
+	// Methods //-------------------------------------------------
 	@Override
 	public Designation create(Designation designation) throws ExceptionService {
 		if (designation == null) {

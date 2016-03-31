@@ -20,12 +20,14 @@ import com.jomm.terroir.business.model.Customer;
 @ViewScoped
 public class BeanListCustomer extends BeanListUser {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 	
-	// Attributes
+	// Variables //-----------------------------------------------
 	private List<Customer> listCustomers;
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	@PostConstruct 
 	public void init() {
@@ -38,6 +40,7 @@ public class BeanListCustomer extends BeanListUser {
 		return "listcustomer" + "?faces-redirect=true";	// Navigation case.
 	}
 
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the listCustomers
 	 */

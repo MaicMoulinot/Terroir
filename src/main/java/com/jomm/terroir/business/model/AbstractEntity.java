@@ -17,9 +17,11 @@ import java.io.Serializable;
  */
 public abstract class AbstractEntity implements Serializable {
 
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
-
+	
+	// Getters and Setters //-------------------------------------
 	/**
 	 * This method returns the identifier of the {@link javax.persistence.Entity}.
 	 * @return the id a {@link Long}.

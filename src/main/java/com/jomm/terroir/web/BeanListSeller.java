@@ -20,12 +20,14 @@ import com.jomm.terroir.business.model.Seller;
 @ViewScoped
 public class BeanListSeller extends BeanListUser {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 	
-	// Attributes
+	// Variables //-----------------------------------------------
 	private List<Seller> listSellers;
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	@PostConstruct 
 	public void init() {
@@ -37,7 +39,8 @@ public class BeanListSeller extends BeanListUser {
 		super.delete();
 		return "listseller" + "?faces-redirect=true";	// Navigation case.
 	}
-
+	
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the listSellers
 	 */

@@ -22,10 +22,12 @@ import com.jomm.terroir.util.Resources;
  */
 @Converter(autoApply = true)
 public final class AttributeConverterZonedDateTime implements AttributeConverter<ZonedDateTime, Timestamp> {
-
+	
+	// Constants //-----------------------------------------------
 	// Cannot be injected in an AttributeConverter
 	private static final ZoneId zoneId = Resources.getZonedId();
 	
+	// Methods //-------------------------------------------------
 	@Override
 	public Timestamp convertToDatabaseColumn(ZonedDateTime entityDateTime) {
 		Timestamp dbDateTime = null;

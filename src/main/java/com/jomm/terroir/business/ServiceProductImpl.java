@@ -25,9 +25,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @Stateless
 public class ServiceProductImpl implements ServiceProduct {
 	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private DaoProduct daoProduct;
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public Product create(Product product) throws ExceptionService {
 		if (product == null) {

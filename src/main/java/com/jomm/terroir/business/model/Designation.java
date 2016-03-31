@@ -33,10 +33,11 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Designation.findAll", query="SELECT d FROM Designation d")
 public class Designation extends AbstractEntity {
 
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue
 	@Column(name = "designation_id")
@@ -95,7 +96,7 @@ public class Designation extends AbstractEntity {
 	@OneToMany(mappedBy = "designation", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Product> products;
 
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return id;

@@ -19,12 +19,14 @@ import com.jomm.terroir.business.model.Seller;
 @ViewScoped
 public class BeanRegistrationSeller extends BeanRegistrationUser {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 	
-	//	Attributes
+	// Variables //-----------------------------------------------
 	private Enterprise enterprise;
 	
+	// Methods //-------------------------------------------------
 	/**
 	 * This method instantiate all necessary attributes, such as the {@link Enterprise}.
 	 * It replaces the constructor and it is annotated {@link PostConstruct},
@@ -61,7 +63,8 @@ public class BeanRegistrationSeller extends BeanRegistrationUser {
 		userEntity.setEnterprise(getEnterprise());
 		return userEntity;
 	}
-
+	
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the enterprise
 	 */

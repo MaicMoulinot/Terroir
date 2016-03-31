@@ -25,7 +25,8 @@ import com.jomm.terroir.util.Constants.ResourceBundleMessage;
  * @author Maic
  */
 public final class Resources {
-
+	
+	// Variables //-----------------------------------------------
 	/**
 	 * Expose an {@link EntityManager} using the resource producer pattern.
 	 */
@@ -33,11 +34,13 @@ public final class Resources {
 	@PersistenceContext(name = PERSISTENCE_UNIT)
 	private static EntityManager entityManager;
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor private to prevent instantiation.
 	 */
 	private Resources() {}	
-
+	
+	// Methods //-------------------------------------------------
 	/**
 	 * Expose the {@link Logger} using the resource producer pattern.
 	 * @param injectionPoint the {@link InjectionPoint}.

@@ -32,9 +32,10 @@ import javax.inject.Named;
 @Named
 public class ValidatorPassword implements Validator {
 
-	// Pattern for password
+	// Constants //-----------------------------------------------
 	private static final Pattern PASSWORD_PATTERN = Pattern.compile(PASSWORD.getRegex());
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		// Retrieve password1

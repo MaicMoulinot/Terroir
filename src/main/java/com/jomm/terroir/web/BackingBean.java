@@ -20,14 +20,15 @@ import com.jomm.terroir.business.model.AbstractEntity;
  */
 public abstract class BackingBean implements Serializable {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 	
-	// Injected fields
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private FacesContext facesContext;
 	
-	// Utility methods
+	// Methods //-------------------------------------------------
 	/**
 	 * This method is used when a exception occurred in a service.
 	 * It adds a {@link FacesMessage} to the {@link FacesContext}.
@@ -86,6 +87,7 @@ public abstract class BackingBean implements Serializable {
 		return message;
 	}
 	
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return facesContext the {@link FacesContext}.
 	 */
@@ -93,6 +95,7 @@ public abstract class BackingBean implements Serializable {
 		return facesContext;
 	}
 	
+	// Tests //---------------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param facesContext the {@link FacesContext}.

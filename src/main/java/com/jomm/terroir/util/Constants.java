@@ -6,8 +6,10 @@ package com.jomm.terroir.util;
  */
 public final class Constants {
 	
+	// Constants //-----------------------------------------------
 	public static final String PERSISTENCE_UNIT = "terroirPU";
 	
+	// Enumerations //--------------------------------------------
 	/**
 	 * This enumeration stores all {@link java.util.ResourceBundle} file names.
 	 * @author Maic
@@ -214,6 +216,7 @@ public final class Constants {
 		}
 	}
 
+	// Constructors //--------------------------------------------
 	/** Private constructor to prevent instantiation. */
 	private Constants() {}
 }

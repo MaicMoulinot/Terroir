@@ -20,16 +20,17 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Seller.findAll", query="SELECT s FROM Seller s")
 public class Seller extends AbstractUser {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
-	
-	// Attributes
+
+	// Attributes //----------------------------------------------
 	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_enterprise_id")
 	private Enterprise enterprise;
 
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the enterprise
 	 */

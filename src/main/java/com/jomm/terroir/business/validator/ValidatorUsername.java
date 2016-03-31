@@ -32,12 +32,14 @@ import com.jomm.terroir.business.ServiceUser;
 @Named
 public class ValidatorUsername implements Validator {
 	
-	// Pattern for user name
+	// Constants //-----------------------------------------------
 	private static final Pattern USERNAME_PATTERN = Pattern.compile(USERNAME.getRegex());
-
+	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private ServiceUser serviceUser;
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if (value != null) {
@@ -60,19 +62,20 @@ public class ValidatorUsername implements Validator {
 	}
 	
 	/**
-	 * This method should only be used in tests, so the visibility is set to default/package.
-	 * @param serviceUser the serviceUser to set.
-	 */
-	void setServiceUser(ServiceUser serviceUser) {
-		this.serviceUser = serviceUser;
-	}
-	
-	/**
 	 * Instantiate a new {@link FacesMessage} with severity {@link FacesMessage#SEVERITY_ERROR} and detail {@code null}.
 	 * @param summary String the message's summary.
 	 * @return {@link FacesMessage} the message.
 	 */
 	private FacesMessage createMessage(String summary) {
 		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
+	}
+	
+	// Tests //---------------------------------------------------
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param serviceUser the serviceUser to set.
+	 */
+	void setServiceUser(ServiceUser serviceUser) {
+		this.serviceUser = serviceUser;
 	}
 }

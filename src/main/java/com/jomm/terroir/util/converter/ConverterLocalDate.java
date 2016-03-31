@@ -27,12 +27,15 @@ import javax.inject.Inject;
  */
 @FacesConverter(value = "localDateConverter")
 public final class ConverterLocalDate implements Converter {
-
+	
+	// Constants //-----------------------------------------------
+	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex());
+	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private Logger logger;
-
-	private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(LOCAL_DATE.getRegex());
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		LocalDate dateAsLocalDate = null;
@@ -57,6 +60,7 @@ public final class ConverterLocalDate implements Converter {
 		return dateAsString;
 	}
 
+	// Tests //---------------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @return the formatter.

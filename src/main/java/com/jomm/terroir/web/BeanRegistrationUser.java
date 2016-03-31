@@ -27,16 +27,17 @@ import com.jomm.terroir.util.exception.ExceptionService;
  */
 public abstract class BeanRegistrationUser extends BackingBean {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
-	
-	// Injected fields
+
+	// Injected Fields //-----------------------------------------
 	@Inject
 	protected ServiceUser userService;
 	@Inject
 	protected Logger logger;
-
-	//	Attributes
+	
+	// Variables //-----------------------------------------------
 	protected Long id;
 	protected String firstName;
 	protected String lastName;
@@ -44,6 +45,7 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	protected String email;
 	protected String password;
 	
+	// Methods //-------------------------------------------------
 	/**
 	 * Generate an {@link AbstractUser} using values from the {@link BeanRegistrationUser}.
 	 * @return {@link AbstractUser}.
@@ -78,7 +80,8 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	public void passwordTooltip() {
 		addMessage(GROWL.toString(), getValueFromKey(PASSWORD_TITLE), getValueFromKey(PASSWORD_RULES));
 	}
-
+	
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the id
 	 */

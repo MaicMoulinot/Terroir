@@ -22,13 +22,16 @@ import com.jomm.terroir.business.model.AbstractEntity;
  * @param <E> the entity's type extending {@link AbstractEntity}.
  */
 public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> {
-
+	
+	// Variables //-----------------------------------------------
 	protected Class<E> entityClass;
 	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	@PersistenceContext(name = PERSISTENCE_UNIT)
 	protected EntityManager entityManager;
 
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor with no argument.
 	 * Set the {@code entityClass} dynamically.
@@ -41,6 +44,7 @@ public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> 
 		this.entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
 	}
 	
+	// Methods //-------------------------------------------------
 	@Override
 	public E create(E entity) {
 		entityManager.persist(entity);
@@ -59,24 +63,25 @@ public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> 
 	
 	@Override
 	public void deleteById(Long entityId) {
-		entityManager.remove(entityManager.getReference(getEntityClass(), entityId));
+		entityManager.remove(entityManager.getReference(entityClass, entityId));
 	}
     
 	@Override
 	public E find(Long id) {
-		return entityManager.find(getEntityClass(), id);
+		return entityManager.find(entityClass, id);
 	}
 	
 	@Override
 	public List<E> findAll() {
 		List<E> result = new ArrayList<>();
-	    TypedQuery<E> query = entityManager.createNamedQuery(getEntityClass().getSimpleName() + ".findAll", getEntityClass());
+	    TypedQuery<E> query = entityManager.createNamedQuery(entityClass.getSimpleName() + ".findAll", entityClass);
 	    if (query != null) {
 	    	result = query.getResultList();
 	    }
 		return result;
 	}
-
+	
+	// Tests //---------------------------------------------------
 	@Override
 	public Class<E> getEntityClass() {
 		return entityClass;

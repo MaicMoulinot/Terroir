@@ -21,10 +21,11 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Image.findAll", query="SELECT i FROM Image i")
 public class Image extends AbstractEntity {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue
 	@Column(name = "image_id")
@@ -42,7 +43,7 @@ public class Image extends AbstractEntity {
 	@Column(name = "imag_data")
 	private byte[] data;
 	
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return id;

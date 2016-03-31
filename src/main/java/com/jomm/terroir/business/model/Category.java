@@ -25,11 +25,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 @NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
 public class Category extends AbstractEntity {
-
+	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue
 	@Column(name = "category_id")
@@ -46,7 +47,7 @@ public class Category extends AbstractEntity {
 	@OneToMany(mappedBy = "category")
 	private List<Designation> designations;
 	
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return this.id;

@@ -15,10 +15,11 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class Address implements Serializable {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Column(name = "addr_street")
 	private String street;
 	
@@ -40,7 +41,7 @@ public class Address implements Serializable {
 	@Column(name = "addr_coordinates")
 	private String coordinates;
 
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the street
 	 */

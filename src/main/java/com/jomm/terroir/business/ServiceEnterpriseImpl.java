@@ -25,9 +25,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @Stateless
 public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private DaoEnterprise daoEnterprise;
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public Enterprise create(Enterprise enterprise) throws ExceptionService {
 		if (enterprise == null) {

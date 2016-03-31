@@ -29,10 +29,11 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Enterprise.findAll", query="SELECT e FROM Enterprise e")
 public class Enterprise extends AbstractEntity {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue
 	@Column(name = "enterprise_id")
@@ -78,7 +79,7 @@ public class Enterprise extends AbstractEntity {
 	@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Site> sites;
 	
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return id;

@@ -24,9 +24,11 @@ import com.jomm.terroir.util.Resources;
 @Converter(autoApply = true)
 public final class AttributeConverterLocalDate implements AttributeConverter<LocalDate, Date> {
 	
+	// Constants //-----------------------------------------------
 	// Cannot be injected in an AttributeConverter
 	private static final ZoneId zoneId = Resources.getZonedId();
-
+	
+	// Methods //-------------------------------------------------
 	@Override
 	public Date convertToDatabaseColumn(LocalDate entityDate) {
 		Date dbDate = null;

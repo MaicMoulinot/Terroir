@@ -25,10 +25,11 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="AbstractUser.findAll", query="SELECT u FROM AbstractUser u")
 public abstract class AbstractUser extends AbstractEntity {
 
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "user_id")
@@ -52,7 +53,7 @@ public abstract class AbstractUser extends AbstractEntity {
 	@NotNull
 	private char[] password;
 
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return id;

@@ -28,18 +28,20 @@ import com.jomm.terroir.util.exception.ExceptionService;
  */
 public abstract class BeanListUser extends BackingBean {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Injected fields
+	// Injected Fields //-----------------------------------------
 	@Inject
 	protected ServiceUser userService;
 	@Inject
 	protected Logger logger;
 	
-	// Attributes
+	// Variables //-----------------------------------------------
 	protected AbstractUser currentUser;
 	
+	// Methods //-------------------------------------------------
 	/**
 	 * Initialize the list of all users.
 	 * It must be annotated {@link javax.annotation.PostConstruct} in concrete implementations,
@@ -97,7 +99,8 @@ public abstract class BeanListUser extends BackingBean {
 		}
 		return null;	// Navigation case.
 	}
-
+	
+	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the currentUser
 	 */

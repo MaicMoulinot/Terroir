@@ -28,10 +28,11 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Site.findAll", query="SELECT s FROM Site s")
 public class Site extends AbstractEntity {
 	
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue
 	@Column(name = "site_id")
@@ -65,7 +66,7 @@ public class Site extends AbstractEntity {
 	)
 	private List<Image> images;
 
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return id;

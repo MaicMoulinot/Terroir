@@ -35,18 +35,17 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @Stateless
 public class ServiceUserImpl implements ServiceUser {
 	
+	// Injected Fields //-----------------------------------------
 	@Inject
 	private DaoUser daoUser;
-	
 	@Inject
 	private DaoAdministrator daoAdmin;
-	
 	@Inject
 	private DaoCustomer daoCustomer;
-	
 	@Inject
 	private DaoSeller daoSeller;
 
+	// Methods //-------------------------------------------------
 	@Override
 	public AbstractUser create(AbstractUser user) throws ExceptionService {
 		if (user == null) {

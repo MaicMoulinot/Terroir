@@ -27,10 +27,11 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name="Label.findAll", query="SELECT l FROM Label l")
 public class Label extends AbstractEntity {
 
+	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
 
-	// Attributes
+	// Attributes //----------------------------------------------
 	@Id
 	@GeneratedValue
 	@Column(name = "label_id")
@@ -54,7 +55,7 @@ public class Label extends AbstractEntity {
 	@ManyToMany(mappedBy = "labels", fetch = FetchType.LAZY)
 	private List<Designation> designations;
 	
-	// Getters and Setters
+	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
 		return this.id;
