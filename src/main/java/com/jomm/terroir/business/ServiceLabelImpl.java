@@ -65,7 +65,7 @@ public class ServiceLabelImpl implements ServiceLabel {
 		daoLabel.delete(label);
 	}
 	
-	// Tests //---------------------------------------------------
+	// Tests only //----------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoLabel the daoLabel to set.

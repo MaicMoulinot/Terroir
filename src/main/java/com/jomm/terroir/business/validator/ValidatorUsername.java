@@ -70,7 +70,7 @@ public class ValidatorUsername implements Validator {
 		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
 	}
 	
-	// Tests //---------------------------------------------------
+	// Tests only //----------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param serviceUser the serviceUser to set.

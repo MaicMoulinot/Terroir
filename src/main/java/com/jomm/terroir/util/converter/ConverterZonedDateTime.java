@@ -60,7 +60,7 @@ public final class ConverterZonedDateTime implements Converter {
 		return dateAsString;
 	}
 	
-	// Tests //---------------------------------------------------
+	// Tests only //----------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @return the formatter.

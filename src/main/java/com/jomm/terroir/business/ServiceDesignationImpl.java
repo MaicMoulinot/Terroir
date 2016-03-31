@@ -65,7 +65,7 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 		daoDesignation.delete(designation);
 	}
 	
-	// Tests //---------------------------------------------------
+	// Tests only //----------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoDesignation the daoDesignation to set.

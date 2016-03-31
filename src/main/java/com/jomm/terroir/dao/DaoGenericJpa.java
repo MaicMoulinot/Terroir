@@ -81,7 +81,7 @@ public abstract class DaoGenericJpa<E extends AbstractEntity> implements Dao<E> 
 		return result;
 	}
 	
-	// Tests //---------------------------------------------------
+	// Tests only //----------------------------------------------
 	@Override
 	public Class<E> getEntityClass() {
 		return entityClass;

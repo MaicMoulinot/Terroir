@@ -95,7 +95,7 @@ public abstract class BackingBean implements Serializable {
 		return facesContext;
 	}
 	
-	// Tests //---------------------------------------------------
+	// Tests only //----------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param facesContext the {@link FacesContext}.

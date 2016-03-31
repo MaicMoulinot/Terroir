@@ -67,7 +67,7 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 		daoEnterprise.delete(enterprise);
 	}
 	
-	// Tests //---------------------------------------------------
+	// Tests only //----------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.
 	 * @param daoEnterprise the daoEnterprise to set.
