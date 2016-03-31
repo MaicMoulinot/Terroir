@@ -32,6 +32,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class TestValidatorPassword {
 
+	// Constants //-----------------------------------------------
 	/** Enumeration of different possible results for {@code validate()} method of {@link ValidatorPassword}. */
 	private enum ExpectedResult {
 		/** At least one password is null or empty, thus the validation should fail. */
@@ -44,12 +45,13 @@ public class TestValidatorPassword {
 		SUCCESS
 	};
 	
-	// Attributes
+	// Variables //-----------------------------------------------
 	private ValidatorPassword validator;
 	private String password1;
 	private String password2;
 	private ExpectedResult expectedResult;
 
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestValidatorPassword#valueToTest()}.
@@ -66,6 +68,7 @@ public class TestValidatorPassword {
 		validator = new ValidatorPassword();
 	}
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method {@link ValidatorPassword#validate(javax.faces.context.FacesContext, 
 	 * javax.faces.component.UIComponent, java.lang.Object)}.
@@ -112,6 +115,7 @@ public class TestValidatorPassword {
 		}
 	}
 
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of pair of passwords, associated with their expected result to the test, 
 	 * to be used as parameters on constructor.
@@ -140,6 +144,7 @@ public class TestValidatorPassword {
 		});
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Build a stubbed {@link UIComponent} usable for tests.
 	 * @param password1 String the Password1.

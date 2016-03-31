@@ -25,9 +25,11 @@ import com.jomm.terroir.business.model.Enterprise;
  * @author Maic
  */
 public class TestBackingBean {
-
+	
+	// Variables //-----------------------------------------------
 	private BackingBean view;
 
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -129,6 +131,7 @@ public class TestBackingBean {
 		facesContext = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Verify if a {@link FacesMessage} was thrown with correct values.
 	 * @param view {@link BackingBean} the view sending the {@link FacesMessage}.
@@ -159,6 +162,7 @@ public class TestBackingBean {
     	assertTrue(message.getDetail().endsWith(detailParts[1]));
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Verify if a {@link FacesMessage} was thrown with correct values.
 	 * It does not check the message's detail.
@@ -182,6 +186,7 @@ public class TestBackingBean {
 		return message;
 	}
 	
+	// Getters and setters //-------------------------------------
 	/**
 	 * Set mocked {@link FacesContext} into view.
 	 * @param view {@link BackingBean} the view to be set.

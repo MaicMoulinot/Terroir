@@ -24,12 +24,14 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(MockitoJUnitRunner.class)
 public class TestServiceLabelImpl {
 	
+	// Injected Fields //-----------------------------------------
 	@Mock(name = "dao")
 	private DaoLabel dao;
 	
 	@InjectMocks
 	private ServiceLabelImpl service;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link ServiceLabelImpl#create(Label)}.
 	 */

@@ -11,7 +11,8 @@ import org.junit.Test;
  * @author Maic
  */
 public class TestAbstractEntity {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link AbstractEntity#getId()}.
 	 */

@@ -23,7 +23,8 @@ import com.jomm.terroir.business.model.TestImage;
  * @author Maic
  */
 public class TestDaoImageJpa extends TestDaoGenericJpa<Image> {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -104,6 +105,7 @@ public class TestDaoImageJpa extends TestDaoGenericJpa<Image> {
 		}
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Retrieve the {@link Image} from database filled with basic test data 
 	 * with its identifier = {@link UtilData#EXISTING_IMAGE_ID_FIRST_CALL}.

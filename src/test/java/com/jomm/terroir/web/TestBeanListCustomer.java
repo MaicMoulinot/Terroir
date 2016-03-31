@@ -22,8 +22,10 @@ import com.jomm.terroir.business.model.TestCustomer;
  */
 public class TestBeanListCustomer {
 	
+	// Variables //-----------------------------------------------
 	private BeanListCustomer view;
 
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */

@@ -24,6 +24,7 @@ import com.jomm.terroir.business.model.TestCategory;
  */
 public class TestDaoCategoryJpa extends TestDaoGenericJpa<Category> {
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -117,6 +118,7 @@ public class TestDaoCategoryJpa extends TestDaoGenericJpa<Category> {
 		}
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Retrieve a {@link Category} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.

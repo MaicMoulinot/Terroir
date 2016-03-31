@@ -31,14 +31,18 @@ import com.jomm.terroir.business.model.AbstractEntity;
  */
 @RunWith(MockitoJUnitRunner.class)
 public abstract class TestDaoGenericJpa<E extends AbstractEntity> extends UtilData {
-
+	
+	// Variables //-----------------------------------------------
 	/** An implementation of {@link DaoGenericJpa}. */
 	protected DaoGenericJpa<E> dao;
 	/** An {@link javax.persistence.Entity} that extends {@link AbstractEntity}. */
 	protected E entity;
+	
+	// Injected Fields //-----------------------------------------
 	@Mock
 	protected TypedQuery<E> mockedQuery;
 
+	// Test methods //--------------------------------------------
 	/**
 	 * State verification of DAO's methods.
 	 * This test determines if the methods under test worked correctly by examining 
@@ -60,7 +64,8 @@ public abstract class TestDaoGenericJpa<E extends AbstractEntity> extends UtilDa
 		testFind();
 		testFindAll();
 	}
-
+	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Test method for {@link DaoGenericJpa#create(Serializable)}.
 	 */

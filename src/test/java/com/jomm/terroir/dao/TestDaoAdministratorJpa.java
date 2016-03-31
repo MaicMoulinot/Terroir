@@ -24,6 +24,7 @@ import com.jomm.terroir.business.model.TestAdministrator;
  */
 public class TestDaoAdministratorJpa extends TestDaoGenericJpa<Administrator> {
 
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */

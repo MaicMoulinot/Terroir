@@ -41,10 +41,12 @@ import com.jomm.terroir.util.exception.TestExceptionService;
  */
 @RunWith(Parameterized.class)
 public class TestBeanListUser {
-
+	
+	// Variables //-----------------------------------------------
 	private BeanListUser view;
 	private AbstractUser user;
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestBeanListUser#childToTest()}.
@@ -56,6 +58,7 @@ public class TestBeanListUser {
         this.user = user;
     }
     
+    // Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link BeanListSeller#onRowEdit(RowEditEvent)} with entity null.
 	 * @throws Exception should not be thrown.
@@ -200,6 +203,7 @@ public class TestBeanListUser {
 				getValueFromKey(DELETE_USER));
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Set mocked {@link ServiceUser}, and a dummy {@link java.util.logging.Logger} into view.
 	 * Call {@link TestBackingBean#setInjections(AbstractView)}.
@@ -210,6 +214,7 @@ public class TestBeanListUser {
 		view.logger = TestResources.createLogger(view.getClass());
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all {@link BeanListUser}'s concrete children, 
 	 * and the associated concrete child of {@link AbstractUser},

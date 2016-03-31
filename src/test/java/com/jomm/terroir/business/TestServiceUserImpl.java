@@ -26,7 +26,8 @@ import com.jomm.terroir.util.exception.ExceptionService;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestServiceUserImpl {
-
+	
+	// Injected Fields //-----------------------------------------
 	@Mock(name = "dao")
 	private DaoUser dao;
 	
@@ -41,7 +42,8 @@ public class TestServiceUserImpl {
 
 	@InjectMocks
 	private ServiceUserImpl service;
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link ServiceUserImpl#create(AbstractUser)}.
 	 */

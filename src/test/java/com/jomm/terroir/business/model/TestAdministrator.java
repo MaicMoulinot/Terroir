@@ -13,7 +13,8 @@ import com.jomm.terroir.business.model.Administrator;
  * @author Maic
  */
 public class TestAdministrator {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for the {@link Administrator}'s constructor with no arg.
 	 */
@@ -51,6 +52,7 @@ public class TestAdministrator {
 		admin = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Administrator} usable for tests.
 	 * @return a {@link Administrator}.

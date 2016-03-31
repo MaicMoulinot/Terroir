@@ -19,6 +19,7 @@ import com.jomm.terroir.business.model.Label;
 @RunWith(Parameterized.class)
 public class TestDaoLabel extends TestDao<Label> {
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link LabelDaoTest#implementationToTest()}.
@@ -29,12 +30,14 @@ public class TestDaoLabel extends TestDao<Label> {
         entityClass = Label.class;
     }
     
+    // Test methods //--------------------------------------------
 	@Override
 	@Test
 	public final void testEntityClassMatch() {
 		super.testEntityClassMatch();
 	}
     
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all implementations of {@link DaoLabel} to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.

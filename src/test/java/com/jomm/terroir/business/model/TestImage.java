@@ -15,8 +15,10 @@ import org.junit.Test;
  */
 public class TestImage {
 	
+	// Constants //-----------------------------------------------
 	private static final String IMAGE_RELATIVE_PATH = "../../../../../resources/image/terroir.png";
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for all {@link Image}'s getters and setters.
 	 */
@@ -45,7 +47,8 @@ public class TestImage {
 		
 		image = null; // Available for Garbage Collector
 	}
-
+	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Image} usable for tests.
 	 * @return a {@link Image}.

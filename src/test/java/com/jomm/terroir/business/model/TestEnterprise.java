@@ -17,9 +17,11 @@ import org.junit.Test;
  * @author Maic
  */
 public class TestEnterprise {
-
+	
+	// Variables //-----------------------------------------------
 	private Enterprise enterprise;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Instantiate the {@link Enterprise}.
 	 * @throws java.lang.Exception
@@ -123,7 +125,7 @@ public class TestEnterprise {
 		listSites = null; // Available for Garbage Collector
 	}
 	
-	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Enterprise} usable for tests.
 	 * The {@link Enterprise#setRegistrationDate(ZonedDateTime)} is omitted.

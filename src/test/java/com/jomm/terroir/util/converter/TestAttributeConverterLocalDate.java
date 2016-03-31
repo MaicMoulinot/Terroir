@@ -20,9 +20,11 @@ import com.jomm.terroir.util.Resources;
  * @author Maic
  */
 public class TestAttributeConverterLocalDate {
-
+	
+	// Variables //-----------------------------------------------
 	private AttributeConverterLocalDate converter;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Set proper ZonedId for the converter.
 	 * @throws java.lang.Exception
@@ -69,6 +71,7 @@ public class TestAttributeConverterLocalDate {
 				formatLocalDateIntoString(converter.convertToEntityAttribute(new Date())));
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Format a {@link Date} into a String.
 	 * @param date the {@link Date} to format.

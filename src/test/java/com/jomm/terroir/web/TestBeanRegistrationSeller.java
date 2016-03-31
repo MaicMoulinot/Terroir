@@ -15,9 +15,11 @@ import com.jomm.terroir.business.model.TestEnterprise;
  * @author Maic
  */
 public class TestBeanRegistrationSeller {
-
+	
+	// Variables //-----------------------------------------------
 	private BeanRegistrationSeller view;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link BeanRegistrationSeller#init()}.
 	 */
@@ -51,6 +53,7 @@ public class TestBeanRegistrationSeller {
 		assertEquals("Enterprise should be " + enterprise, enterprise, view.getEnterprise());
 	}	
 
+	// Helpers //-------------------------------------------------
 	/**
 	 * Compare a view and an entity.
 	 * @param view {@link BeanRegistrationSeller}.
@@ -66,6 +69,7 @@ public class TestBeanRegistrationSeller {
 		assertEquals(view.getEnterprise(), entity.getEnterprise());
 	}
 
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a dummy {@link BeanRegistrationSeller} usable for tests.
 	 * @return {@link BeanRegistrationSeller}.

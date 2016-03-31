@@ -23,13 +23,15 @@ import com.jomm.terroir.util.exception.ExceptionService;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TestServiceSiteImpl {
-
+	
+	// Injected Fields //-----------------------------------------
 	@Mock(name = "dao")
 	private DaoSite dao;
 
 	@InjectMocks
 	private ServiceSiteImpl service;
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link ServiceSiteImpl#create(Site)}.
 	 */

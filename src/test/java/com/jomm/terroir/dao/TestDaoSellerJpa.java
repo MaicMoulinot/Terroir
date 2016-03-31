@@ -24,7 +24,8 @@ import com.jomm.terroir.business.model.TestSeller;
  * @author Maic
  */
 public class TestDaoSellerJpa extends TestDaoGenericJpa<Seller> {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */

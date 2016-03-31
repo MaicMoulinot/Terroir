@@ -24,7 +24,8 @@ import com.jomm.terroir.business.model.TestLabel;
  * @author Maic
  */
 public class TestDaoLabelJpa extends TestDaoGenericJpa<Label> {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -141,6 +142,7 @@ public class TestDaoLabelJpa extends TestDaoGenericJpa<Label> {
 		}
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Retrieve a {@link Label} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.

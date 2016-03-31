@@ -26,9 +26,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(Parameterized.class)
 public class TestServiceLabel {
 	
+	// Variables //-----------------------------------------------
 	/** An implementation of {@link ServiceLabel}. */
 	private ServiceLabel service;
-
+	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * As this class is running with {@code Parameterized.class}, the constructor will be initialized with
@@ -38,7 +40,8 @@ public class TestServiceLabel {
 	public TestServiceLabel(ServiceLabel service) {
 		this.service = service;
 	}
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test that {@link ServiceLabel#create(Label)} throws an {@link ExceptionService}
 	 * when entity is null.
@@ -155,6 +158,7 @@ public class TestServiceLabel {
 		assertNotNull(service.getAllLabels());
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all {@link ServiceLabel}'s implementation to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.
@@ -168,6 +172,7 @@ public class TestServiceLabel {
 		);
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Construct a {@link ServiceLabelImpl} with a mocked DAO.
 	 * @return the {@link ServiceLabelImpl}

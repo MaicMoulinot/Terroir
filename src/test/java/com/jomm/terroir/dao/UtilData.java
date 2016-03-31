@@ -23,7 +23,8 @@ import com.ninja_squad.dbsetup.operation.Operation;
  * @author Maic
  */
 public abstract class UtilData {
-
+	
+	// Constants //-----------------------------------------------
 	// Private constants used for database configuration
 	private static final String DESTINATION_URL = "jdbc:derby:memory:testDB";
 	private static final String DESTINATION_USER = "";
@@ -41,7 +42,6 @@ public abstract class UtilData {
 	protected static final long IMAGE_FOR_SITE_ID = 333333;
 
 	// DBSetup attributes
-	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
 	private static final DateSequenceValueGenerator GENERATOR_LOCAL_DATE = ValueGenerators.dateSequence();
 	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
 			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
@@ -144,7 +144,11 @@ public abstract class UtilData {
 			.columns("fk_designation_id", "fk_label_id")
 			.values(EXISTING_DESIGNATION_ID, EXISTING_LABEL_ID)
 			.build());
+	
+	// Variables //-----------------------------------------------
+	protected static DbSetupTracker dbSetupTracker = new DbSetupTracker();
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Clean the data from previous tests and insert new data. This method is used before each test.
 	 * @throws java.lang.Exception

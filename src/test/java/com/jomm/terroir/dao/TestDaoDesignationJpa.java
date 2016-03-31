@@ -25,7 +25,8 @@ import com.jomm.terroir.business.model.TestDesignation;
  * @author Maic
  */
 public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -153,6 +154,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 		}
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Retrieve a {@link Designation} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.

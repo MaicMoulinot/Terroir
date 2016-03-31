@@ -26,7 +26,8 @@ import com.jomm.terroir.business.model.TestSite;
  * @author Maic
  */
 public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -158,6 +159,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 		}
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Retrieve a {@link Site} from database filled with basic test data.
 	 * @param entityManager the {@link EntityManager}.

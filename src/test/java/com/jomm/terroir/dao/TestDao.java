@@ -14,11 +14,13 @@ import java.io.Serializable;
  */
 public abstract class TestDao<E extends Serializable> extends UtilData {
 	
+	// Variables //-----------------------------------------------
 	/** An implementation of {@link Dao}. */
 	protected Dao<E> dao;
 	/** A Class of {@link javax.persistence.Entity} that extends {@link Serializable}. */
 	protected Class<E> entityClass;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Validate the entityClass was properly initialized.
 	 */

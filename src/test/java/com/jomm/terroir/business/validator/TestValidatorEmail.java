@@ -30,7 +30,8 @@ import com.jomm.terroir.business.ServiceUser;
  */
 @RunWith(Parameterized.class)
 public class TestValidatorEmail {
-
+	
+	// Constants //-----------------------------------------------
 	// Enumeration of different possible results for {@code validate()} method of {@link ValidatorEmail}.
 	private enum ExpectedResult {
 		/** The value is not a valid pattern, thus the validation should fail. */
@@ -41,12 +42,13 @@ public class TestValidatorEmail {
 		NOTHING
 	};
 
-	// Attributes
+	// Variables //-----------------------------------------------
 	private ValidatorEmail validator;
 	private ServiceUser service;
 	private String email;
 	private ExpectedResult expectedResult;
 
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestValidatorEmail#valueToTest()}.
@@ -63,6 +65,7 @@ public class TestValidatorEmail {
 		validator.setTestServiceUser(service);
 	}
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
 	 * javax.faces.component.UIComponent, java.lang.Object)}.
@@ -98,6 +101,7 @@ public class TestValidatorEmail {
 		}
 	}
 
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of email, associated with its expected result, to be used as parameters on constructor.
 	 * Each email will be tested with the test {@link TestValidatorEmail#testValidateWithDifferentValues()}.

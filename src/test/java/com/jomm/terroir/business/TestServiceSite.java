@@ -26,9 +26,11 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(Parameterized.class)
 public class TestServiceSite {
 	
+	// Variables //-----------------------------------------------
 	/** An implementation of {@link ServiceSite}. */
 	private ServiceSite service;
-
+	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * As this class is running with {@code Parameterized.class}, the constructor will be initialized with
@@ -38,7 +40,8 @@ public class TestServiceSite {
 	public TestServiceSite(ServiceSite service) {
 		this.service = service;
 	}
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test that {@link ServiceSite#create(Site)} throws an {@link ExceptionService}
 	 * when entity is null.
@@ -155,6 +158,7 @@ public class TestServiceSite {
 		assertNotNull(service.getAllSites());
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all {@link ServiceSite}'s implementation to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.
@@ -168,6 +172,7 @@ public class TestServiceSite {
 		);
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Construct a {@link ServiceSiteImpl} with a mocked DAO.
 	 * @return the {@link ServiceSiteImpl}

@@ -12,9 +12,11 @@ import org.junit.Test;
  * @author Maic
  */
 public class TestSeller {
-
+	
+	// Variables //-----------------------------------------------
 	private Seller seller;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Instantiate the {@link Seller}.
 	 * @throws java.lang.Exception
@@ -48,6 +50,7 @@ public class TestSeller {
 		enterprise = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Seller} usable for tests.
 	 * @return a {@link Seller}.

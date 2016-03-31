@@ -19,6 +19,7 @@ import com.jomm.terroir.business.model.Administrator;
 @RunWith(Parameterized.class)
 public class TestDaoAdministrator extends TestDao<Administrator> {
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestDaoAdministrator#implementationToTest()}.
@@ -29,12 +30,14 @@ public class TestDaoAdministrator extends TestDao<Administrator> {
         entityClass = Administrator.class;
     }
     
+    // Test methods //--------------------------------------------
 	@Override
 	@Test
 	public final void testEntityClassMatch() {
 		super.testEntityClassMatch();
 	}
     
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all implementations of {@link DaoAdministrator} to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.

@@ -16,8 +16,10 @@ import org.junit.Test;
  */
 public class TestProduct {
 	
+	// Variables //-----------------------------------------------
 	private Product product;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Instantiate the {@link Product}.
 	 * @throws java.lang.Exception
@@ -87,6 +89,7 @@ public class TestProduct {
 		designation = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Product} usable for tests.
 	 * @return a {@link Product}.

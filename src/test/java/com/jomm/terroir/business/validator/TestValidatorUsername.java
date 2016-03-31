@@ -31,7 +31,8 @@ import com.jomm.terroir.business.ServiceUser;
  */
 @RunWith(Parameterized.class)
 public class TestValidatorUsername {
-
+	
+	// Constants //-----------------------------------------------
 	/** Enumeration of different possible results for {@code validate()} method of {@link ValidatorUsername}. */
 	private enum ExpectedResult {
 		/** The value is not between 3 and 15 characters, thus the validation should fail. */
@@ -44,12 +45,13 @@ public class TestValidatorUsername {
 		NOTHING
 	};
 
-	// Attributes
+	// Variables //-----------------------------------------------
 	private ValidatorUsername validator;
 	private ServiceUser service;
 	private String username;
 	private ExpectedResult expectedResult;
 
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestValidatorUsername#valueToTest()}.
@@ -66,6 +68,7 @@ public class TestValidatorUsername {
 		validator.setTestServiceUser(service);
 	}
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
 	 * javax.faces.component.UIComponent, java.lang.Object)}.
@@ -108,6 +111,7 @@ public class TestValidatorUsername {
 		}
 	}
 
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of user names, associated with its expected result, to be used as parameters on constructor.
 	 * Each username will be tested with the test {@link TestValidatorUsername#testValidateWithDifferentValues()}.

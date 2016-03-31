@@ -15,9 +15,11 @@ import org.junit.Test;
  * @author Maic
  */
 public class TestSite {
-
+	
+	// Variables //-----------------------------------------------
 	private Site site;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Instantiate the {@link Site}.
 	 * @throws java.lang.Exception
@@ -87,6 +89,7 @@ public class TestSite {
 		listProducts = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Site} usable for tests.
 	 * @return a {@link Site}.

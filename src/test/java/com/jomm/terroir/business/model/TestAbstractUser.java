@@ -18,11 +18,14 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class TestAbstractUser {
 	
-	private AbstractUser user;
+	// Constants //-----------------------------------------------
 	private static final char[] PASSWORD = { 'Z', 'm', '@', 't', 'g', 'e', 'Q', 3 };
 	public static final Long USER_ID = (long) 33;
 	
+	// Variables //-----------------------------------------------
+	private AbstractUser user;
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestAbstractUser#childToTest()}.
@@ -32,6 +35,7 @@ public class TestAbstractUser {
         this.user = user;
     }
 	
+    // Test methods //--------------------------------------------
 	/**
 	 *  Test method for all {@link AbstractUser}'s getters and setters.
 	 */
@@ -64,6 +68,7 @@ public class TestAbstractUser {
 		assertEquals("Password should be " + PASSWORD.toString(), PASSWORD, user.getPassword());
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link AbstractUser} usable for tests.
 	 * @return a {@link AbstractUser}.

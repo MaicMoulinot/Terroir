@@ -26,7 +26,8 @@ import org.junit.runners.Parameterized.Parameters;
  */
 @RunWith(Parameterized.class)
 public class TestConverterLocalDate {
-
+	
+	// Constants //-----------------------------------------------
 	/** Enumeration of different possible results for {@code getAsObject()} method of {@link ConverterLocalDate}. */
 	private enum GetAsObjectExpectedResult {
 		/** The value is null, thus the result should be null. */
@@ -47,13 +48,14 @@ public class TestConverterLocalDate {
 		SUCCESS
 	};
 	
-	// Attributes
+	// Variables //-----------------------------------------------
 	private ConverterLocalDate converter;
 	private String stringValue;
 	private GetAsObjectExpectedResult getAsObjectExpectedResult;
 	private Object objectValue;
 	private GetAsStringExpectedResult getAsStringExpectedResult;
 
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@code valueToTest()}.
@@ -74,6 +76,7 @@ public class TestConverterLocalDate {
 		converter.setTestLogger(mock(Logger.class));
 	}
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link ConverterLocalDate#getAsObject(FacesContext, UIComponent, String)}.
 	 */
@@ -113,6 +116,7 @@ public class TestConverterLocalDate {
 		}
 	}
 
+	// Static methods //------------------------------------------
 	/**
 	 * Reference values, associated with their expected result to the test, 
 	 * to be used as parameters on constructor.

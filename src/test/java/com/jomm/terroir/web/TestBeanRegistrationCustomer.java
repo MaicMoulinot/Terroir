@@ -17,9 +17,11 @@ import com.jomm.terroir.business.model.TestAddress;
  * @author Maic
  */
 public class TestBeanRegistrationCustomer {
-
+	
+	// Variables //-----------------------------------------------
 	private BeanRegistrationCustomer view;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link BeanRegistrationCustomer#init()}.
 	 */
@@ -80,6 +82,7 @@ public class TestBeanRegistrationCustomer {
 		view = null; // Available for Garbage Collector
 	}	
 
+	// Helpers //-------------------------------------------------
 	/**
 	 * Compare a view and an entity.
 	 * @param view {@link BeanRegistrationCustomer}.
@@ -96,6 +99,7 @@ public class TestBeanRegistrationCustomer {
 		assertEquals(view.getAddress(), entity.getAddress());
 	}
 
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a dummy {@link BeanRegistrationCustomer} usable for tests.
 	 * @return {@link BeanRegistrationCustomer}.

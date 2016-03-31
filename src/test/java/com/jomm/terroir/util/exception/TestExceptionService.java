@@ -18,8 +18,10 @@ import com.jomm.terroir.util.exception.ExceptionService.TypeException;
  */
 public class TestExceptionService {
 	
+	// Variables //-----------------------------------------------
 	private ExceptionService exception;
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link ExceptionService#ExceptionService(TypeException)}
 	 * with TypeException is {@code ENTITY_SHOULD_NOT_BE_NULL}.
@@ -50,6 +52,7 @@ public class TestExceptionService {
 		assertEquals(getValueFromKey(ID_SHOULD_BE_NULL), exception.getMessage());
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a mocked {@link ExceptionService} usable for tests which
 	 * method {@code getMessage()} returns 
@@ -80,6 +83,7 @@ public class TestExceptionService {
 		return createException(getValueFromKey(ENTITY_SHOULD_NOT_BE_NULL));
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Generate a mocked {@link ExceptionService} usable for tests.
 	 * @param exceptionMessage String the message returned by method {@code getMessage()}.

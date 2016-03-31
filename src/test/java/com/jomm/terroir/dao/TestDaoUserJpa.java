@@ -23,7 +23,8 @@ import com.jomm.terroir.business.model.TestAbstractUser;
  * @author Maic
  */
 public class TestDaoUserJpa extends TestDaoGenericJpa<AbstractUser> {
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */

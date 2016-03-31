@@ -26,6 +26,7 @@ import com.jomm.terroir.business.model.TestProduct;
  */
 public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */

@@ -16,8 +16,10 @@ import org.junit.Test;
  */
 public class TestCategory {
 	
+	// Variables //-----------------------------------------------
 	private Category category;
 
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -70,6 +72,7 @@ public class TestCategory {
 		listDesignations = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Category} usable for tests.
 	 * @return a {@link Category}.

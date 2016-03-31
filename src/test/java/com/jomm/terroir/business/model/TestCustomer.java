@@ -16,8 +16,10 @@ import org.junit.Test;
  */
 public class TestCustomer {
 	
+	// Variables //-----------------------------------------------
 	private Customer customer;
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Instantiate the {@link Customer}.
 	 * @throws java.lang.Exception
@@ -60,6 +62,7 @@ public class TestCustomer {
 		address = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Customer} usable for tests.
 	 * @return a {@link Customer}.

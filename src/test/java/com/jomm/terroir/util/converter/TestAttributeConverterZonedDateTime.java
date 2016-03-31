@@ -19,9 +19,11 @@ import com.jomm.terroir.util.Resources;
  * @author Maic
  */
 public class TestAttributeConverterZonedDateTime {
-
+	
+	// Variables //-----------------------------------------------
 	private AttributeConverterZonedDateTime converter;
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Set proper ZonedId for the converter.
 	 * @throws java.lang.Exception
@@ -73,6 +75,7 @@ public class TestAttributeConverterZonedDateTime {
 				formatZonedDateTimeIntoString(converter.convertToEntityAttribute(Timestamp.from(now.toInstant()))));
 	}
 
+	// Helpers //-------------------------------------------------
 	/**
 	 * Format a {@link Timestamp} into a String.
 	 * @param date the {@link Timestamp} to format.

@@ -29,6 +29,7 @@ public class TestDaoImage extends TestDao<Image> {
         entityClass = Image.class;
     }
     
+    // Test methods //--------------------------------------------
 	@Override
 	@Test
 	public final void testEntityClassMatch() {

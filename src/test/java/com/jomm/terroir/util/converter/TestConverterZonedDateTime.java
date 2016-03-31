@@ -26,7 +26,8 @@ import org.junit.runners.Parameterized.Parameters;
  */
 @RunWith(Parameterized.class)
 public class TestConverterZonedDateTime {
-
+	
+	// Constants //-----------------------------------------------
 	/** Enumeration of different possible results for {@code getAsObject()} method of {@link ConverterZonedDateTime}. */
 	private enum GetAsObjectExpectedResult {
 		/** The value is null, thus the result should be null. */
@@ -47,13 +48,14 @@ public class TestConverterZonedDateTime {
 		SUCCESS
 	};
 
-	// Attributes
+	// Variables //-----------------------------------------------
 	private ConverterZonedDateTime converter;
 	private String stringValue;
 	private GetAsObjectExpectedResult getAsObjectExpectedResult;
 	private Object objectValue;
 	private GetAsStringExpectedResult getAsStringExpectedResult;
 
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@code valueToTest()}.
@@ -74,6 +76,7 @@ public class TestConverterZonedDateTime {
 		converter.setTestLogger(mock(Logger.class));
 	}
 
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link ConverterZonedDateTime#getAsObject(FacesContext, UIComponent, String)}.
 	 */
@@ -113,6 +116,7 @@ public class TestConverterZonedDateTime {
 		}
 	}
 
+	// Static methods //------------------------------------------
 	/**
 	 * Reference values, associated with their expected result to the test, 
 	 * to be used as parameters on constructor.

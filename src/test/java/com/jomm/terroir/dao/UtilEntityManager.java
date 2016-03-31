@@ -25,7 +25,7 @@ import org.hibernate.jdbc.Work;
  */
 public final class UtilEntityManager {
 	
-	// Constants
+	// Constants //-----------------------------------------------
 	private static final String PERSISTENCE_UNIT_TEST = "testPU";
 	private static final String SCHEMA_TEST = "sql/schematest.ddl";
 	private static final String TEXT_FILE_ENCODING = "UTF-8";
@@ -36,16 +36,18 @@ public final class UtilEntityManager {
 	private static final EntityManagerFactory entityManagerFactory = 
 			Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_TEST);
 	
-	// Attributes
+	// Variables //-----------------------------------------------
 	private static EntityManager entityManager;
 	private static Connection connection;
 	private static Transaction transaction;
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor private to prevent instantiation.
 	 */
 	private UtilEntityManager() {}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Get the {@link EntityManager}.
 	 * If it is null, it is created from the {@link EntityManagerFactory}, and the {@link Connection} is set.
@@ -112,7 +114,8 @@ public final class UtilEntityManager {
 			}
 		}
 	}
-
+	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Create the database used for tests.
 	 */

@@ -19,6 +19,7 @@ import com.jomm.terroir.business.model.Category;
 @RunWith(Parameterized.class)
 public class TestDaoCategory extends TestDao<Category> {
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link CategoryDaoTest#implementationToTest()}.
@@ -29,12 +30,14 @@ public class TestDaoCategory extends TestDao<Category> {
         entityClass = Category.class;
     }
     
+    // Test methods //--------------------------------------------
 	@Override
 	@Test
 	public final void testEntityClassMatch() {
 		super.testEntityClassMatch();
 	}
     
+	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all implementations of {@link DaoCategory} to be used as parameter on constructor.
 	 * Each implementation will be tested with all test methods.

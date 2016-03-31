@@ -34,6 +34,7 @@ import com.jomm.terroir.util.Constants.ResourceBundleMessage;
  */
 public class TestResources {
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link Resources#getLogger(InjectionPoint)} with its {@link InjectionPoint} null.
 	 */
@@ -82,6 +83,7 @@ public class TestResources {
 				getValueFromKey(EXCEPTION));
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Construct a dummy {@link Logger} usable for test.
 	 * @param declaringClass the declaring class of {@link InjectionPoint}.
@@ -91,6 +93,7 @@ public class TestResources {
 		return Resources.getLogger(constructInjectionPoint(declaringClass));
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Construct a dummy {@link InjectionPoint} usable for test.
 	 * @param declaringClass the declaring class of {@link InjectionPoint}.

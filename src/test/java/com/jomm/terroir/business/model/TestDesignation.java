@@ -18,8 +18,10 @@ import org.junit.Test;
  */
 public class TestDesignation {
 	
+	// Variables //-----------------------------------------------
 	private Designation designation;
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -138,6 +140,7 @@ public class TestDesignation {
 		listProducts = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Designation} usable for tests.
 	 * @return a {@link Designation}.

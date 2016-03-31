@@ -40,10 +40,12 @@ import com.jomm.terroir.util.exception.TestExceptionService;
  */
 @RunWith(Parameterized.class)
 public class TestBeanRegistrationUser {
-
+	
+	// Variables //-----------------------------------------------
 	private BeanRegistrationUser view;
 	private AbstractUser user;
 	
+	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
 	 * Its parameter comes from all values from {@link TestBeanRegistrationUser#childToTest()}.
@@ -57,6 +59,7 @@ public class TestBeanRegistrationUser {
         this.user.setId(TestAbstractUser.USER_ID);
     }
     
+    // Test methods //--------------------------------------------
 	/**
 	 * Test method for {@link BeanRegistrationCustomer#create()} when entity is null.
 	 * @throws Exception should not be thrown.
@@ -165,6 +168,7 @@ public class TestBeanRegistrationUser {
 		assertEquals("Password should be " + test, test, view.getPassword());
 	}
 	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Set mocked {@link ServiceUser}, and a dummy {@link java.util.logging.Logger} into view.
 	 * Call {@link TestBackingBean#setInjections(AbstractView)}.
@@ -175,6 +179,7 @@ public class TestBeanRegistrationUser {
 		view.logger = TestResources.createLogger(view.getClass());
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a dummy {@link BeanRegistrationUser} usable for tests.
 	 * @param user the {@link AbstractUser} defining appropriate view.

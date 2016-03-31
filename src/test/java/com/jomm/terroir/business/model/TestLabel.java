@@ -16,8 +16,10 @@ import org.junit.Test;
  */
 public class TestLabel {
 	
+	// Variables //-----------------------------------------------
 	private Label label;
-
+	
+	// Test methods //--------------------------------------------
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -78,6 +80,7 @@ public class TestLabel {
 		listDesignations = null; // Available for Garbage Collector
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Label} usable for tests.
 	 * @return a {@link Label}.

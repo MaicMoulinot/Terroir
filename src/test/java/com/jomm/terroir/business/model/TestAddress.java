@@ -10,6 +10,7 @@ import org.junit.Test;
  */
 public class TestAddress {
 	
+	// Test methods //--------------------------------------------
 	/**
 	 * Test method for all {@link Address}'s getters and setters.
 	 */
@@ -43,6 +44,7 @@ public class TestAddress {
 		assertEquals("Coordinates should be " + test, test, address.getCoordinates());
 	}
 	
+	// Static methods //------------------------------------------
 	/**
 	 * Generate a simple {@link Address} usable for tests.
 	 * @return a {@link Address}.
