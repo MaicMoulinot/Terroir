@@ -1,12 +1,5 @@
 package com.jomm.terroir.web;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
-import static com.jomm.terroir.util.Resources.getValueFromKey;
-
-import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,6 +9,7 @@ import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
+import com.jomm.terroir.util.Constants.Entity;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -50,6 +44,12 @@ public abstract class BeanListUser extends BackingBean {
 	public abstract void init();
 	
 	/**
+	 * Return the appropriate value from enumeration {@link Entity}.
+	 * @return {@link Entity}.
+	 */
+	public abstract Entity getConstantsEntity();
+	
+	/**
 	 * Is called when a row is edited.
 	 * @param event {@link RowEditEvent} the AJAX event.
 	 */
@@ -58,12 +58,10 @@ public abstract class BeanListUser extends BackingBean {
 		if (currentUser != null) {
 			try {
 				userService.update(currentUser);
-				Object[] argument = {currentUser.getUserName()};
-				String detail = MessageFormat.format(getValueFromKey(UPDATE_USER), argument);
-				addMessage(getValueFromKey(UPDATE_OK), detail);
+				addFacesMessageUpdate(getConstantsEntity(), currentUser.getUserName());
 			} catch (ExceptionService exception) {
-				String problem = generateExceptionMessage(exception, currentUser);
-				addMessageException(problem);
+				String problem = generateReadableExceptionMessage(exception, currentUser);
+				addFacesMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}
 		}
@@ -88,12 +86,10 @@ public abstract class BeanListUser extends BackingBean {
 		if (currentUser != null) {
 			try {
 				userService.delete(currentUser);
-				Object[] argument = {currentUser.getUserName()};
-				String detail = MessageFormat.format(getValueFromKey(DELETE_USER), argument);
-				addMessage(getValueFromKey(DELETE_OK), detail);
+				addFacesMessageDelete(getConstantsEntity(), currentUser.getUserName());
 			} catch (ExceptionService exception) {
-				String problem = generateExceptionMessage(exception, currentUser);
-				addMessageException(problem);
+				String problem = generateReadableExceptionMessage(exception, currentUser);
+				addFacesMessageException(problem);
 				logger.log(Level.FINE, problem, exception);
 			}
 		}

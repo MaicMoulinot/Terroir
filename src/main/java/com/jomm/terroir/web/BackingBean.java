@@ -1,9 +1,16 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
@@ -11,6 +18,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.AbstractEntity;
+import com.jomm.terroir.util.Constants.Entity;
 
 /**
  * This abstract Class defines common attributes shared among all Beans.
@@ -36,30 +44,69 @@ public abstract class BackingBean implements Serializable {
 	 * and the summary is the value obtained from {@code ResourceBundleError.EXCEPTION}.
 	 * @param detail String the message's detail.
 	 */
-	public void addMessageException(String detail) {
-		addMessage(null, FacesMessage.SEVERITY_ERROR, getValueFromKey(EXCEPTION), detail);
+	protected void addFacesMessageException(String detail) {
+		addFacesMessage(null, FacesMessage.SEVERITY_ERROR, getValueFromKey(EXCEPTION), detail);
 	}
 	
 	/**
-	 * This method adds a {@link FacesMessage} to the {@link FacesContext}
-	 * with the {@link Severity} set to {@code FacesMessage.SEVERITY_INFO}.
-	 * @param summary String the message's summary.
-	 * @param detail String the message's detail.
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext} about a successful create.
+	 * @param entity a value from the enumeration {@link Entity}.
+	 * @param id Long the entity's identifier.
 	 */
-	public void addMessage(String summary, String detail) {
-		addMessage(null, FacesMessage.SEVERITY_INFO, summary, detail);
+	protected void addFacesMessageCreate(Entity entity, Long id) {
+		addFacesMessageCreate(entity, "id=[" + id + "]");
 	}
 	
 	/**
-	 * This method adds a {@link FacesMessage} to the {@link FacesContext}
-	 * with the {@link Severity} set to {@code FacesMessage.SEVERITY_INFO}.
-	 * @param idClient String the client identifier with which this message is associated.
-	 * @param summary String the message's summary.
-	 * @param detail String the message's detail.
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext} about a successful create.
+	 * @param entity a value from the enumeration {@link Entity}.
+	 * @param name String the entity's name.
 	 */
-	public void addMessage(String idClient, String summary, String detail) {
-		addMessage(idClient, FacesMessage.SEVERITY_INFO, summary, detail);
+	protected void addFacesMessageCreate(Entity entity, String name) {
+		Object[] argument = {name};
+		String detail = MessageFormat.format(getValueFromKey(entity), argument) + getValueFromKey(CREATE);
+		addFacesMessage(null, FacesMessage.SEVERITY_INFO, getValueFromKey(CREATE_OK), detail);
 	}
+	
+	/**
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext} about a successful update.
+	 * @param entity a value from the enumeration {@link Entity}.
+	 * @param id Long the entity's identifier.
+	 */
+	protected void addFacesMessageUpdate(Entity entity, Long id) {
+		addFacesMessageUpdate(entity, "id=[" + id + "]");
+	}
+	
+	/**
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext} about a successful update.
+	 * @param entity a value from the enumeration {@link Entity}.
+	 * @param name String the entity's name.
+	 */
+	protected void addFacesMessageUpdate(Entity entity, String name) {
+		Object[] argument = {name};
+		String detail = MessageFormat.format(getValueFromKey(entity), argument) + getValueFromKey(UPDATE);
+		addFacesMessage(null, FacesMessage.SEVERITY_INFO, getValueFromKey(UPDATE_OK), detail);
+	}
+	
+	/**
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext} about a successful delete.
+	 * @param entity a value from the enumeration {@link Entity}.
+	 * @param id Long the entity's identifier.
+	 */
+	protected void addFacesMessageDelete(Entity entity, Long id) {
+		addFacesMessageDelete(entity, "id=[" + id + "]");
+	}
+	
+	/**
+	 * This method adds a {@link FacesMessage} to the {@link FacesContext} about a successful delete.
+	 * @param entity a value from the enumeration {@link Entity}.
+	 * @param name String the entity's name.
+	 */
+	protected void addFacesMessageDelete(Entity entity, String name) {
+		Object[] argument = {name};
+		String detail = MessageFormat.format(getValueFromKey(entity), argument) + getValueFromKey(DELETE);
+		addFacesMessage(null, FacesMessage.SEVERITY_INFO, getValueFromKey(DELETE_OK), detail);
+	}	
 	
 	/**
 	 * This method adds a {@link FacesMessage} to the {@link FacesContext}.
@@ -68,7 +115,7 @@ public abstract class BackingBean implements Serializable {
 	 * @param summary String the message's summary.
 	 * @param detail String the message's detail.
 	 */
-	public void addMessage(String idClient, Severity severity, String summary, String detail) {
+	protected void addFacesMessage(String idClient, Severity severity, String summary, String detail) {
 		FacesMessage message = new FacesMessage(severity, summary, detail);
 		facesContext.addMessage(idClient, message);
 	}
@@ -79,7 +126,7 @@ public abstract class BackingBean implements Serializable {
 	 * @param entity the {@link AbstractEntity}.
 	 * @return String the generated message.
 	 */
-	public String generateExceptionMessage(Exception exception, AbstractEntity entity) {
+	protected String generateReadableExceptionMessage(Exception exception, AbstractEntity entity) {
 		String message = exception.getMessage();
 		if (entity != null) {
 			message += " on [id=" + entity.getId() + ", class=" + entity.getClass().getName() + "]";

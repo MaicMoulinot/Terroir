@@ -7,6 +7,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.model.Customer;
+import com.jomm.terroir.util.Constants.Entity;
 
 /**
  * This Class is the Bean linked to {@code listcustomer.xhtml}, displaying the list of {@link Customer}s.
@@ -32,6 +33,11 @@ public class BeanListCustomer extends BeanListUser {
 	@PostConstruct 
 	public void init() {
 		listCustomers = userService.getAllCustomers();
+	}
+	
+	@Override
+	public Entity getConstantsEntity() {
+		return Entity.CUSTOMER;
 	}
 
 	@Override

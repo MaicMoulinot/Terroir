@@ -1,20 +1,19 @@
 package com.jomm.terroir.web;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
 import static com.jomm.terroir.util.Constants.View.GROWL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
-import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
+import com.jomm.terroir.util.Constants.Entity;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -51,6 +50,12 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	 * @return {@link AbstractUser}.
 	 */
 	public abstract AbstractUser convertIntoEntity();
+	
+	/**
+	 * Return the appropriate value from enumeration {@link Entity}.
+	 * @return {@link Entity}.
+	 */
+	public abstract Entity getConstantsEntity();
 
 	/**
 	 * Create and save a new User.
@@ -63,12 +68,10 @@ public abstract class BeanRegistrationUser extends BackingBean {
 		AbstractUser entity = convertIntoEntity();
 		try {
 			userService.create(entity);
-			Object[] argument = {entity.getUserName()};
-			String detail = MessageFormat.format(getValueFromKey(CREATE_USER), argument);
-			addMessage(getValueFromKey(CREATE_OK), detail);
+			addFacesMessageCreate(getConstantsEntity(), entity.getUserName());
 		} catch (ExceptionService exception) {
-			String problem = generateExceptionMessage(exception, entity);
-			addMessageException(problem);
+			String problem = generateReadableExceptionMessage(exception, entity);
+			addFacesMessageException(problem);
 			logger.log(Level.FINE, problem, exception);
 		}
 		return null;
@@ -78,7 +81,8 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	 * Generate tips to create a secured enough password into growl.
 	 */
 	public void passwordTooltip() {
-		addMessage(GROWL.toString(), getValueFromKey(PASSWORD_TITLE), getValueFromKey(PASSWORD_RULES));
+		addFacesMessage(GROWL.toString(), FacesMessage.SEVERITY_INFO, getValueFromKey(PASSWORD_TITLE), 
+				getValueFromKey(PASSWORD_RULES));
 	}
 	
 	// Getters and Setters //-------------------------------------

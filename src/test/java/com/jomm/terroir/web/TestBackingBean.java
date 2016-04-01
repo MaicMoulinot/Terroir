@@ -48,7 +48,7 @@ public class TestBackingBean {
 	}
 
 	/**
-	 * Test method for {@link BackingBean#addMessageException(String)}.
+	 * Test method for {@link BackingBean#addFacesMessageException(String)}.
 	 */
 	@Test
 	public final void testAddMessageException() {
@@ -56,42 +56,13 @@ public class TestBackingBean {
 		view.setTestFacesContext(mock(FacesContext.class));
 		// call method
 		String detail = "detail";
-		view.addMessageException(detail);
+		view.addFacesMessageException(detail);
 		checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				getValueFromKey(EXCEPTION), detail);
 	}
 
 	/**
-	 * Test method for {@link BackingBean#addMessage(String, String)}.
-	 */
-	@Test
-	public final void testAddMessageStringString() {
-		// set mocked FacesContext
-		view.setTestFacesContext(mock(FacesContext.class));
-		// call method
-		String summary = "summary";
-		String detail = "detail";
-		view.addMessage(summary, detail);
-		checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_INFO, summary, detail);
-	}
-
-	/**
-	 * Test method for {@link BackingBean#addMessage(String, String, String)}.
-	 */
-	@Test
-	public final void testAddMessageStringStringString() {
-		// set mocked FacesContext
-		view.setTestFacesContext(mock(FacesContext.class));
-		// call method
-		String idClient = "idClient";
-		String summary = "summary";
-		String detail = "detail";
-		view.addMessage(idClient, summary, detail);
-		checkMessageWithPlainDetail(view, idClient, FacesMessage.SEVERITY_INFO, summary, detail);
-	}
-
-	/**
-	 * Test method for {@link BackingBean#addMessage(String, FacesMessage.Severity, String, String)}.
+	 * Test method for {@link BackingBean#addFacesMessage(String, FacesMessage.Severity, String, String)}.
 	 */
 	@Test
 	public final void testAddMessageStringSeverityStringString() {
@@ -102,12 +73,12 @@ public class TestBackingBean {
 		String summary = "summary";
 		String detail = "detail";
 		Severity severity = FacesMessage.SEVERITY_WARN;
-		view.addMessage(idClient, severity, summary, detail);
+		view.addFacesMessage(idClient, severity, summary, detail);
 		checkMessageWithPlainDetail(view, idClient, severity, summary, detail);
 	}
 
 	/**
-	 * Test method for {@link BackingBean#generateExceptionMessage(Exception, com.jomm.terroir.business.model.AbstractEntity)}.
+	 * Test method for {@link BackingBean#generateReadableExceptionMessage(Exception, com.jomm.terroir.business.model.AbstractEntity)}.
 	 */
 	@Test
 	public final void testGenerateExceptionMessage() {
@@ -117,7 +88,7 @@ public class TestBackingBean {
 		String messageException = "test";
 		Exception exception = new Exception(messageException);
 		assertEquals(messageException + " on [id=" + id + ", class=" + entity.getClass().getName() + "]", 
-				view.generateExceptionMessage(exception, entity));
+				view.generateReadableExceptionMessage(exception, entity));
 	}
 	
 	/**
@@ -152,14 +123,15 @@ public class TestBackingBean {
 	 * @param idClient String the identifier of the client.
 	 * @param severity {@link Severity} the message's severity.
 	 * @param summary String the message's summary.
-	 * @param detail String the message's detail, with parameter "{0}".
+	 * @param detailBeginning String the beginning of the message's detail, with parameter "{0}".
+	 * @param detailEnd String the end of the message's detail.
 	 */
 	public static void checkMessageWithParametrizedDetail(BackingBean view, String idClient, Severity severity, 
-			String summary, String detail) {
+			String summary, String detailBeginning, String detailEnd) {
 		FacesMessage message = retrieveAndCheckFacesMessage(view, idClient, severity, summary);
-    	String[] detailParts = detail.replace("''", "'").split(Pattern.quote(" {0} "));
-    	assertTrue(message.getDetail().startsWith(detailParts[0]));
-    	assertTrue(message.getDetail().endsWith(detailParts[1]));
+    	String[] detailParts = detailBeginning.replace("''", "'").split(Pattern.quote(" {0} "));    	
+		assertTrue(message.getDetail().startsWith(detailParts[0]));
+    	assertTrue(message.getDetail().endsWith(detailEnd));
 	}
 	
 	// Helpers //-------------------------------------------------

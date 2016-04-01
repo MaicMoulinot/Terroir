@@ -1,8 +1,8 @@
 package com.jomm.terroir.util;
 
+import static com.jomm.terroir.util.Constants.PERSISTENCE_UNIT;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.ERROR;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.MESSAGE;
-import static com.jomm.terroir.util.Constants.PERSISTENCE_UNIT;
 
 import java.time.ZoneId;
 import java.util.Locale;
@@ -16,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.jomm.terroir.util.Constants.Entity;
 import com.jomm.terroir.util.Constants.ResourceBundleError;
 import com.jomm.terroir.util.Constants.ResourceBundleMessage;
 
@@ -91,5 +92,14 @@ public final class Resources {
 	 */
 	public static String getValueFromKey(ResourceBundleMessage key) {
 		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()).getString(key.getKey());
+	}
+	
+	/**
+	 * Retrieve the value from the {@link ResourceBundle} {@code message}.
+	 * @param key {@link Entity} the key.
+	 * @return String the value.
+	 */
+	public static String getValueFromKey(Entity key) {
+		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()).getString(key.name().toLowerCase());
 	}
 }

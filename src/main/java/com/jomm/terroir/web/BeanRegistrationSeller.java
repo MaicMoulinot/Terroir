@@ -6,6 +6,7 @@ import javax.inject.Named;
 
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Seller;
+import com.jomm.terroir.util.Constants.Entity;
 
 /**
  * This Class is the Bean linked to {@code registrationseller.xhtml}, used to register a new {@link Seller}.
@@ -35,6 +36,11 @@ public class BeanRegistrationSeller extends BeanRegistrationUser {
 	@PostConstruct 
 	public void init() {
 		setEnterprise(new Enterprise());
+	}
+	
+	@Override
+	public Entity getConstantsEntity() {
+		return Entity.SELLER;
 	}
 
 	/**

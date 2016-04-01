@@ -11,6 +11,38 @@ public final class Constants {
 	
 	// Enumerations //--------------------------------------------
 	/**
+	 * This enumeration stores the list of all entities in the model.
+	 * @author Maic
+	 */
+	public enum Entity {
+		/** Represents {@link com.jomm.terroir.business.model.Administrator}. */
+		ADMINISTRATOR,
+		/** Represents {@link com.jomm.terroir.business.model.Category}. */
+		CATEGORY,
+		/** Represents {@link com.jomm.terroir.business.model.Customer}. */
+		CUSTOMER,
+		/** Represents {@link com.jomm.terroir.business.model.Designation}. */
+		DESIGNATION,
+		/** Represents {@link com.jomm.terroir.business.model.Enterprise}. */
+		ENTERPRISE,
+		/** Represents {@link com.jomm.terroir.business.model.Image}. */
+		IMAGE,
+		/** Represents {@link com.jomm.terroir.business.model.Label}. */
+		LABEL,
+		/** Represents {@link com.jomm.terroir.business.model.Product}. */
+		PRODUCT,
+		/** Represents {@link com.jomm.terroir.business.model.Seller}. */
+		SELLER,
+		/** Represents {@link com.jomm.terroir.business.model.Site}. */
+		SITE;
+
+		@Override
+		public String toString() {
+			return name().toLowerCase();
+		}
+	}
+	
+	/**
 	 * This enumeration stores all {@link java.util.ResourceBundle} file names.
 	 * @author Maic
 	 */
@@ -92,25 +124,26 @@ public final class Constants {
 
 	/**
 	 * This enumeration stores all {@link java.util.ResourceBundle} keys for messages.
+	 * @see {@link Entity} for messages related to an entity.
 	 * @author Maic
 	 */
 	public enum ResourceBundleMessage {
 		/** "createok" */
 		CREATE_OK("createok"),
-		/** "createuser" */
-		CREATE_USER("createuser"),
+		/** "create" */
+		CREATE("create"),
 		/** "deleteok" */
 		DELETE_OK("deleteok"),
-		/** "deleteuser" */
-		DELETE_USER("deleteuser"),
+		/** "delete" */
+		DELETE("delete"),
 		/** "passwordtitle" */
 		PASSWORD_TITLE("passwordtitle"),
 		/** "passwordrules" */
 		PASSWORD_RULES("passwordrules"),
 		/** "updateok" */
 		UPDATE_OK("updateok"),
-		/** "updateuser" */
-		UPDATE_USER("updateuser");
+		/** "update" */
+		UPDATE("update");
 
 		private String key;
 

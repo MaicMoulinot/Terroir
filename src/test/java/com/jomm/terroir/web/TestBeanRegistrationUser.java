@@ -1,8 +1,8 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_OK;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CREATE_USER;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
 import static com.jomm.terroir.util.Constants.View.GROWL;
@@ -25,9 +25,11 @@ import org.w3c.dom.views.AbstractView;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
+import com.jomm.terroir.business.model.Administrator;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.business.model.TestAbstractUser;
+import com.jomm.terroir.util.Constants.Entity;
 import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionService;
 import com.jomm.terroir.util.exception.TestExceptionService;
@@ -78,7 +80,7 @@ public class TestBeanRegistrationUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				getValueFromKey(EXCEPTION), 
-				view.generateExceptionMessage(exception, user));
+				view.generateReadableExceptionMessage(exception, user));
 	}
 
 	/**
@@ -99,7 +101,7 @@ public class TestBeanRegistrationUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				getValueFromKey(EXCEPTION), 
-				view.generateExceptionMessage(exception, user));
+				view.generateReadableExceptionMessage(exception, user));
 	}
 
 	/**
@@ -116,8 +118,7 @@ public class TestBeanRegistrationUser {
 		verify(view.userService).create(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				getValueFromKey(CREATE_OK), 
-				getValueFromKey(CREATE_USER));
+				getValueFromKey(CREATE_OK), getValueFromKey(getConstantsEntity()), getValueFromKey(CREATE));
 	}
 
 	/**
@@ -177,6 +178,22 @@ public class TestBeanRegistrationUser {
 		TestBackingBean.setInjections(view);
 		view.userService = mock(ServiceUser.class);
 		view.logger = TestResources.createLogger(view.getClass());
+	}
+	
+	/**
+	 * Retrieve the appropriate value from the enumeration {@link Entity} using the {@code user}.
+	 * @return the {@link Entity}.
+	 */
+	private Entity getConstantsEntity() {
+		Entity entity = null;
+		if (user instanceof Customer) {
+			entity = Entity.CUSTOMER;
+		} else if (user instanceof Seller) {
+			entity = Entity.SELLER;
+		} else if (user instanceof Administrator) {
+			entity = Entity.ADMINISTRATOR;
+		}
+		return entity;
 	}
 	
 	// Static methods //------------------------------------------

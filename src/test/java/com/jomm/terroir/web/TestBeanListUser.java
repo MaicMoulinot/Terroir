@@ -1,10 +1,10 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EXCEPTION;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_OK;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.DELETE_USER;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_OK;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.UPDATE_USER;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
@@ -26,9 +26,11 @@ import org.w3c.dom.views.AbstractView;
 
 import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.AbstractUser;
+import com.jomm.terroir.business.model.Administrator;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
 import com.jomm.terroir.util.TestResources;
+import com.jomm.terroir.util.Constants.Entity;
 import com.jomm.terroir.util.exception.ExceptionService;
 import com.jomm.terroir.util.exception.TestExceptionService;
 
@@ -79,7 +81,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				getValueFromKey(EXCEPTION), 
-				view.generateExceptionMessage(exception, user));
+				view.generateReadableExceptionMessage(exception, user));
 	}
 	
 	/**
@@ -102,7 +104,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				getValueFromKey(EXCEPTION), 
-				view.generateExceptionMessage(exception, user));
+				view.generateReadableExceptionMessage(exception, user));
 	}
 	
 	/**
@@ -121,8 +123,7 @@ public class TestBeanListUser {
 		verify(view.userService).update(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				getValueFromKey(UPDATE_OK), 
-				getValueFromKey(UPDATE_USER));
+				getValueFromKey(UPDATE_OK), getValueFromKey(getConstantsEntity()), getValueFromKey(UPDATE));
 	}
 	
 	/**
@@ -159,7 +160,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				getValueFromKey(EXCEPTION), 
-				view.generateExceptionMessage(exception, user));
+				view.generateReadableExceptionMessage(exception, user));
 	}
 	
 	/**
@@ -181,7 +182,7 @@ public class TestBeanListUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, null, FacesMessage.SEVERITY_ERROR, 
 				getValueFromKey(EXCEPTION), 
-				view.generateExceptionMessage(exception, user));
+				view.generateReadableExceptionMessage(exception, user));
 	}
 	
 	/**
@@ -199,8 +200,7 @@ public class TestBeanListUser {
 		verify(view.userService).delete(any(user.getClass()));
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithParametrizedDetail(view, null, FacesMessage.SEVERITY_INFO, 
-				getValueFromKey(DELETE_OK), 
-				getValueFromKey(DELETE_USER));
+				getValueFromKey(DELETE_OK), getValueFromKey(getConstantsEntity()), getValueFromKey(DELETE));
 	}
 	
 	// Helpers //-------------------------------------------------
@@ -212,6 +212,22 @@ public class TestBeanListUser {
 		TestBackingBean.setInjections(view);
 		view.userService = mock(ServiceUser.class);
 		view.logger = TestResources.createLogger(view.getClass());
+	}
+	
+	/**
+	 * Retrieve the appropriate value from the enumeration {@link Entity} using the {@code user}.
+	 * @return the {@link Entity}.
+	 */
+	private Entity getConstantsEntity() {
+		Entity entity = null;
+		if (user instanceof Customer) {
+			entity = Entity.CUSTOMER;
+		} else if (user instanceof Seller) {
+			entity = Entity.SELLER;
+		} else if (user instanceof Administrator) {
+			entity = Entity.ADMINISTRATOR;
+		}
+		return entity;
 	}
 	
 	// Static methods //------------------------------------------

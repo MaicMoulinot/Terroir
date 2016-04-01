@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import com.jomm.terroir.business.model.Address;
 import com.jomm.terroir.business.model.Customer;
+import com.jomm.terroir.util.Constants.Entity;
 
 /**
  * This Class is the Bean linked to {@code registrationcustomer.xhtml}, used to register a new {@link Customer}.
@@ -38,6 +39,11 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser {
 	@PostConstruct 
 	public void init() {
 		setAddress(new Address());
+	}
+	
+	@Override
+	public Entity getConstantsEntity() {
+		return Entity.CUSTOMER;
 	}
 	
 	@Override
