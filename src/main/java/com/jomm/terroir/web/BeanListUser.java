@@ -19,7 +19,7 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
- * This abstract Class is used to show the list of all {@link BeanRegistrationUser}s.
+ * This abstract Class is used to show the list of all {@link AbstractUser}s.
  * It extends {@link BackingBean} and defines common attributes shared among its concrete children.
  * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It relates to {@link ServiceUser} to update or delete the {@link AbstractUser}s,

@@ -9,7 +9,7 @@ import javax.inject.Named;
 import com.jomm.terroir.business.model.Seller;
 
 /**
- * This Class is the Bean linked to {@code listseller.xhtml}, displaying the list of {@link BeanRegistrationSeller}s.
+ * This Class is the Bean linked to {@code listseller.xhtml}, displaying the list of {@link Seller}s.
  * It extends {@link BeanListUser} and defines specific attributes.
  * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
