@@ -66,7 +66,6 @@ public class BeanRegistrationCustomer extends BeanRegistrationUser {
 	@Override
 	public Customer convertIntoEntity() {
 		Customer userEntity = new Customer();
-		userEntity.setId(getId());
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());
 		userEntity.setUserName(getUserName());

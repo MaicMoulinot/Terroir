@@ -54,7 +54,6 @@ public class TestBeanRegistrationCustomer {
 	@Test
 	public final void testConvertIntoEntity() {
 		view = generateDummyViewCustomer();
-		view.setId((long) 3333);
 		Customer entity = view.convertIntoEntity();
 		compareViewAndEntity(view, entity);
 	}
@@ -89,7 +88,6 @@ public class TestBeanRegistrationCustomer {
 	 * @param entity {@link Customer}.
 	 */
 	private void compareViewAndEntity(BeanRegistrationCustomer view, Customer entity) {
-		assertEquals(view.getId(), entity.getId());
 		assertEquals(view.getFirstName(), entity.getFirstName());
 		assertEquals(view.getLastName(), entity.getLastName());
 		assertEquals(view.getUserName(), entity.getUserName());

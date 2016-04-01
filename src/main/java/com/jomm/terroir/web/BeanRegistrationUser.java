@@ -37,7 +37,6 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	protected Logger logger;
 	
 	// Variables //-----------------------------------------------
-	protected Long id;
 	protected String firstName;
 	protected String lastName;
 	protected String userName;
@@ -86,20 +85,6 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	}
 	
 	// Getters and Setters //-------------------------------------
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	/**
 	 * @return the firstName
 	 */

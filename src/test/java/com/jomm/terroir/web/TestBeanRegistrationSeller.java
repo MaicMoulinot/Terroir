@@ -37,7 +37,6 @@ public class TestBeanRegistrationSeller {
 	@Test
 	public final void testConvertIntoEntity() {
 		view = generateDummyViewSeller();
-		view.setId((long) 3333);
 		Seller entity = view.convertIntoEntity();
 		compareViewAndEntity(view, entity);
 	}
@@ -60,7 +59,6 @@ public class TestBeanRegistrationSeller {
 	 * @param entity {@link Seller}.
 	 */
 	private void compareViewAndEntity(BeanRegistrationSeller view, Seller entity) {
-		assertEquals(view.getId(), entity.getId());
 		assertEquals(view.getFirstName(), entity.getFirstName());
 		assertEquals(view.getLastName(), entity.getLastName());
 		assertEquals(view.getUserName(), entity.getUserName());

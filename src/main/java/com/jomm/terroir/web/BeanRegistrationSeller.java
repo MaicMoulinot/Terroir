@@ -60,7 +60,6 @@ public class BeanRegistrationSeller extends BeanRegistrationUser {
 	@Override
 	public Seller convertIntoEntity() {
 		Seller userEntity = new Seller();
-		userEntity.setId(getId());
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());
 		userEntity.setUserName(getUserName());

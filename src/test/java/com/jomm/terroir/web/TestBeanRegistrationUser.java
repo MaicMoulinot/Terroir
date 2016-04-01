@@ -28,7 +28,6 @@ import com.jomm.terroir.business.model.AbstractUser;
 import com.jomm.terroir.business.model.Administrator;
 import com.jomm.terroir.business.model.Customer;
 import com.jomm.terroir.business.model.Seller;
-import com.jomm.terroir.business.model.TestAbstractUser;
 import com.jomm.terroir.util.Constants.Entity;
 import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.exception.ExceptionService;
@@ -57,8 +56,6 @@ public class TestBeanRegistrationUser {
     public TestBeanRegistrationUser(BeanRegistrationUser view, AbstractUser user) {
         this.view = view;
         this.user = user;
-        this.view.setId(TestAbstractUser.USER_ID);
-        this.user.setId(TestAbstractUser.USER_ID);
     }
     
     // Test methods //--------------------------------------------
@@ -141,12 +138,7 @@ public class TestBeanRegistrationUser {
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Long nb = (long) 0;
 		String test = "test";
-		
-		// Id
-		view.setId(nb);
-		assertEquals("Id should be " + nb, nb, view.getId());
 		
 		// FirstName
 		view.setFirstName(test);
