@@ -20,7 +20,35 @@ public abstract class AbstractEntity implements Serializable {
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
-	
+
+	// Methods //-------------------------------------------------
+	@Override
+	public final String toString() {
+		return String.format("%s[id=%d]", getClass().getSimpleName(), getId());
+	}
+
+	@Override
+	public int hashCode() {
+		return (getId() != null) ? 
+				(getClass().getSimpleName().hashCode() + getId().hashCode()) : super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		return (other != null && isSameClass(other) && getId() != null) ?
+				getId().equals(((AbstractEntity) other).getId()) : (other == this);
+	}
+
+	// Helpers //-------------------------------------------------
+	/**
+	 * Verify if {@code this} current instance and the parameter {@code other} belong to the same class.
+	 * @param other {@link Object} the parameter.
+	 * @return true if the parameter and the current instance are the same class, false otherwise. 
+	 */
+	private boolean isSameClass(Object other) {
+		return other.getClass().isAssignableFrom(getClass()) && getClass().isAssignableFrom(other.getClass());
+	}
+
 	// Getters and Setters //-------------------------------------
 	/**
 	 * This method returns the identifier of the {@link javax.persistence.Entity}.
