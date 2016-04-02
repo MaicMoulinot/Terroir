@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -27,11 +27,12 @@ import com.jomm.terroir.util.exception.ExceptionService;
  * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It relates to {@link ServiceUser} to save the {@link Product},
  * and to {@link Logger} to generate proper logging messages.
- * It is annotated {@link Named} for proper access from/to the view page and {@link RequestScoped}.
+ * It is annotated {@link Named} for proper access from/to the view page,
+ * and {@link ViewScoped} because of multiple AJAX requests.
  * @author Maic
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class BeanRegistrationProduct extends BackingBean {
 	
 	// Constants //-----------------------------------------------
@@ -54,7 +55,7 @@ public class BeanRegistrationProduct extends BackingBean {
 	private int quantity;
 	private BigDecimal price;
 	private Site site;
-	private Designation selectedDesignation;
+	private Designation designation;
 	private List<Designation> designations;
 	
 	// Methods //-------------------------------------------------
@@ -66,7 +67,7 @@ public class BeanRegistrationProduct extends BackingBean {
 	@PostConstruct 
 	public void init() {
 		setSite(serviceSite.getAllSites().get(0)); //TODO à supprimer !! //setSite(new Site());
-		setSelectedDesignation(new Designation());
+		setDesignation(new Designation());
 		designations = serviceDesignation.getAllDesignations();
 	}
 	
@@ -81,7 +82,7 @@ public class BeanRegistrationProduct extends BackingBean {
 		entity.setQuantity(getQuantity());
 		entity.setPrice(getPrice());
 		entity.setSite(getSite());
-		entity.setDesignation(getSelectedDesignation());
+		entity.setDesignation(getDesignation());
 		return entity;
 	}
 
@@ -174,17 +175,17 @@ public class BeanRegistrationProduct extends BackingBean {
 	}
 
 	/**
-	 * @return the selectedDesignation
+	 * @return the designation
 	 */
-	public Designation getSelectedDesignation() {
-		return selectedDesignation;
+	public Designation getDesignation() {
+		return designation;
 	}
 
 	/**
-	 * @param selectedDesignation the selectedDesignation to set
+	 * @param designation the designation to set
 	 */
-	public void setSelectedDesignation(Designation selectedDesignation) {
-		this.selectedDesignation = selectedDesignation;
+	public void setDesignation(Designation designation) {
+		this.designation = designation;
 	}
 
 	/**

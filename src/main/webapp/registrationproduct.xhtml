@@ -9,7 +9,7 @@
 
 <ui:composition template="template/template.xhtml">
 	<ui:define name="content">
-		<h2>#{label.newproduct}</h2>
+		<h2>#{label.productnew}</h2>
 		<p:spacer height="50" />
 		<p:messages id="messages" closable="true" />
 		<h:form id="form">
@@ -21,13 +21,13 @@
 					value="#{label.designation}" />
 				<p:spacer />
 				<p:selectOneMenu id="designation" binding="#{parameter}"
-					value="#{beanRegistrationProduct.selectedDesignation}" 
+					value="#{beanRegistrationProduct.designation}" 
 					converter="omnifaces.SelectItemsConverter" 
 					required="true"	requiredMessage="#{error.mandatory}">
-					<f:selectItem itemLabel="#{label.selectone}" itemValue="#{null}" />
+					<f:selectItem itemLabel="#{label.selectone}" noSelectionOption="true" />
 					<f:selectItems value="#{beanRegistrationProduct.designations}" var="currentDesignation"
 						itemLabel="#{currentDesignation.registeredName}" itemValue="#{currentDesignation}" />
-					<p:ajax event="blur" update="medianPrice designationMessage" />
+					<f:ajax render="medianPrice" />
 				</p:selectOneMenu>
 				<p:message id="designationMessage" for="designation" display="text" />
 
@@ -66,7 +66,7 @@
 				<p:message id="quantityMessage" for="quantity" display="text" />
 
 				<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
-				<h:outputText id="medianPrice" value="truc #{beanRegistrationProduct.selectedDesignation.medianPrice}" />
+				<h:outputText id="medianPrice" value="#{beanRegistrationProduct.designation.medianPrice}" />
 				<p:inputText id="price" value="#{beanRegistrationProduct.price}"
 					required="true" requiredMessage="#{error.mandatory}"
 					converterMessage="#{error.integer}">
