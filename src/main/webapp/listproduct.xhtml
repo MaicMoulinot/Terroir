@@ -9,7 +9,7 @@
 
 <ui:composition template="template/template.xhtml">
 	<ui:define name="content">
-		<h2>#{label.userlist}</h2>
+		<h2>#{label.productlist}</h2>
 		<p:spacer height="50" />
 		<h:form id="form">
 			<p:growl id="growl" showDetail="true" />
@@ -31,7 +31,7 @@
 					listener="#{beanListProduct.onRowCancel}" update=":form:growl"
 					resetValues="true" />
 
-				<f:facet name="header">#{label.userlist}</f:facet>
+				<f:facet name="header">#{label.productlist}</f:facet>
 
 				<p:column headerText="#{label.id}">
 					<p:cellEditor>
@@ -44,151 +44,100 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.username}"
-					sortBy="#{currentProduct.userName}">
+				<p:column headerText="#{label.title}"
+					sortBy="#{currentProduct.title}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.userName}" />
+							<h:outputText value="#{currentProduct.title}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.userName}"
-								label="#{label.username}" />
+							<p:inputText value="#{currentProduct.title}"
+								label="#{label.title}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.firstname}">
+				<p:column headerText="#{label.description}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.firstName}" />
+							<h:outputText value="#{currentProduct.description}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.firstName}"
-								label="#{label.firstname}" />
+							<p:inputText value="#{currentProduct.description}"
+								label="#{label.description}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.lastname}">
+				<p:column headerText="#{label.site}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.lastName}" />
+							<h:outputText value="#{currentProduct.site.name}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.lastName}"
-								label="#{label.lastname}" />
+							<p:inputText value="#{currentProduct.site.name}"
+								label="#{label.site}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.email}">
+				<p:column headerText="#{label.designation}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.email}" />
+							<h:outputText value="#{currentProduct.designation.registeredName}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.email}"
-								label="#{label.email}" />
+							<p:inputText value="#{currentProduct.designation.registeredName}"
+								label="#{label.designation}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.street}">
+				<p:column headerText="#{label.quantity}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.address.street}" />
+							<h:outputText value="#{currentProduct.quantity}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.address.street}"
-								label="#{label.street}" />
+							<p:inputText value="#{currentProduct.quantity}"
+								label="#{label.quantity}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.complement}">
+				<p:column headerText="#{label.price}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.address.complement}" />
+							<h:outputText value="#{currentProduct.price}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.address.complement}"
-								label="#{label.complement}" />
+							<p:inputText value="#{currentProduct.price}"
+								label="#{label.price}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.postcode}">
+				<p:column headerText="#{label.medianprice}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.address.postCode}" />
+							<h:outputText value="#{currentProduct.designation.medianPrice}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.address.postCode}"
-								label="#{label.postcode}" />
+							<p:inputText value="#{currentProduct.designation.medianPrice}"
+								label="#{label.medianprice}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.city}">
+				<p:column headerText="#{label.lastupdate}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.address.city}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{currentProduct.address.city}"
-								label="#{label.city}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="#{label.country}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{currentProduct.address.country}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{currentProduct.address.country}"
-								label="#{label.country}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="#{label.coordinates}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{currentProduct.address.coordinates}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{currentProduct.address.coordinates}"
-								label="#{label.coordinates}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="#{label.birthdate}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<p:outputLabel value="#{currentProduct.birthDate}">
-								<f:converter converterId="localDateConverter" />
-							</p:outputLabel>
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{currentProduct.birthDate}">
-								<f:converter converterId="localDateConverter" />
-							</p:inputText>
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="#{label.signupdate}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<p:outputLabel value="#{currentProduct.registrationDate}">
+							<p:outputLabel value="#{currentProduct.lastUpdate}">
 								<f:converter converterId="zonedDateTimeConverter" />
 							</p:outputLabel>
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.registrationDate}">
+							<p:inputText value="#{currentProduct.lastUpdate}">
 								<f:converter converterId="zonedDateTimeConverter" />
 							</p:inputText>
 						</f:facet>
@@ -200,7 +149,7 @@
 					<p:commandLink styleClass="ui-icon ui-icon-trash"
 						update=":form:deleteConfirmDialog"
 						oncomplete="PF('deleteConfirmation').show();"
-						action="#{beanListProduct.setCurrentUser(currentProduct)}">
+						action="#{beanListProduct.setCurrentProduct(currentProduct)}">
 					</p:commandLink>
 				</p:column>
 
@@ -209,7 +158,7 @@
 			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
 				hideEffect="fade" header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
-				message="#{message.confirmdelete} #{beanListProduct.currentUser.userName} ?"
+				message="#{message.confirmdelete} #{beanListProduct.currentProduct.title} ?"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
@@ -224,10 +173,10 @@
 			<p:spacer height="50" />
 			<h:panelGrid columns="2">
 				<h:outputLabel for="create">
-					<h:outputText id="createLabel" value="#{label.newuser}" />
+					<h:outputText id="createLabel" value="#{label.productnew}" />
 				</h:outputLabel>
 				<h:commandButton id="create" value="#{label.ok}"
-					action="registrationcustomer?faces-redirect=true" />
+					action="registrationproduct?faces-redirect=true" />
 			</h:panelGrid>
 			<p:spacer height="50" />
 		</h:form>
