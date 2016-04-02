@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h2>#{label.userlist}</h2>
+		<p:spacer height="50" />
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" />
+
+			<h:outputLabel value="#{error.userempty}"
+				rendered="#{empty beanListProduct.listProducts}"
+				styleClass="messages" />
+
+			<p:dataTable id="users" var="currentProduct"
+				value="#{beanListProduct.listProducts}" editable="true"
+				rendered="#{not empty beanListProduct.listProducts}" rows="5"
+				scrollable="true" scrollRows="2" stickyHeader="true"
+				paginator="true" paginatorPosition="top"
+				paginatorAlwaysVisible="false">
+
+				<p:ajax event="rowEdit" listener="#{beanListProduct.onRowEdit}"
+					update=":form:growl" />
+				<p:ajax event="rowEditCancel"
+					listener="#{beanListProduct.onRowCancel}" update=":form:growl"
+					resetValues="true" />
+
+				<f:facet name="header">#{label.userlist}</f:facet>
+
+				<p:column headerText="#{label.id}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.id}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.id}" label="#{label.id}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.username}"
+					sortBy="#{currentProduct.userName}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.userName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.userName}"
+								label="#{label.username}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.firstname}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.firstName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.firstName}"
+								label="#{label.firstname}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.lastname}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.lastName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.lastName}"
+								label="#{label.lastname}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.email}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.email}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.email}"
+								label="#{label.email}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.street}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.address.street}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.address.street}"
+								label="#{label.street}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.complement}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.address.complement}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.address.complement}"
+								label="#{label.complement}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.postcode}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.address.postCode}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.address.postCode}"
+								label="#{label.postcode}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.city}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.address.city}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.address.city}"
+								label="#{label.city}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.country}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.address.country}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.address.country}"
+								label="#{label.country}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.coordinates}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.address.coordinates}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.address.coordinates}"
+								label="#{label.coordinates}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.birthdate}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{currentProduct.birthDate}">
+								<f:converter converterId="localDateConverter" />
+							</p:outputLabel>
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.birthDate}">
+								<f:converter converterId="localDateConverter" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.signupdate}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel value="#{currentProduct.registrationDate}">
+								<f:converter converterId="zonedDateTimeConverter" />
+							</p:outputLabel>
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.registrationDate}">
+								<f:converter converterId="zonedDateTimeConverter" />
+							</p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.actions}">
+					<p:rowEditor />
+					<p:commandLink styleClass="ui-icon ui-icon-trash"
+						update=":form:deleteConfirmDialog"
+						oncomplete="PF('deleteConfirmation').show();"
+						action="#{beanListProduct.setCurrentUser(currentProduct)}">
+					</p:commandLink>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
+				hideEffect="fade" header="#{label.confirmation}" severity="alert"
+				widgetVar="deleteConfirmation"
+				message="#{message.confirmdelete} #{beanListProduct.currentUser.userName} ?"
+				closeOnEscape="true">
+				<p:commandButton id="confirm" value="#{label.valid}"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"
+					action="#{beanListProduct.delete()}" process="@this" />
+				<p:commandButton id="decline" value="#{label.cancel}"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+					oncomplete="PF('deleteConfirmation').hide();" />
+			</p:confirmDialog>
+
+			<!-- Buttons -->
+			<p:spacer height="50" />
+			<h:panelGrid columns="2">
+				<h:outputLabel for="create">
+					<h:outputText id="createLabel" value="#{label.newuser}" />
+				</h:outputLabel>
+				<h:commandButton id="create" value="#{label.ok}"
+					action="registrationcustomer?faces-redirect=true" />
+			</h:panelGrid>
+			<p:spacer height="50" />
+		</h:form>
+
+	</ui:define>
+</ui:composition>
+</html>

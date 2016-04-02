@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template/template.xhtml">
+	<ui:define name="content">
+		<h2>#{label.newproduct}</h2>
+		<p:spacer height="50" />
+		<p:messages id="messages" closable="true" />
+		<h:form id="form">
+			<p:growl id="growl" for="growl" showDetail="true" escape="false"
+				life="6000" />
+			<h:panelGrid columns="4">
+
+				<p:outputLabel for="designation" id="designationLabel"
+					value="#{label.designation}" />
+				<p:spacer />
+				<p:selectOneMenu id="designation" binding="#{parameter}"
+					value="#{beanRegistrationProduct.selectedDesignation}" 
+					converter="omnifaces.SelectItemsConverter" 
+					required="true"	requiredMessage="#{error.mandatory}">
+					<f:selectItem itemLabel="#{label.selectone}" itemValue="#{null}" />
+					<f:selectItems value="#{beanRegistrationProduct.designations}" var="currentDesignation"
+						itemLabel="#{currentDesignation.registeredName}" itemValue="#{currentDesignation}" />
+					<p:ajax event="blur" update="medianPrice designationMessage" />
+				</p:selectOneMenu>
+				<p:message id="designationMessage" for="designation" display="text" />
+
+				<p:outputLabel for="title" id="titleLabel" value="#{label.title}" />
+				<p:spacer />
+				<p:inputText id="title" value="#{beanRegistrationProduct.title}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.length2}">
+					<f:validateLength minimum="2" />
+					<p:ajax event="blur" update="titleMessage" />
+				</p:inputText>
+				<p:message id="titleMessage" for="title" display="text" />
+
+				<p:outputLabel for="description" id="descriptionLabel"
+					value="#{label.description}" />
+				<p:spacer />
+				<p:inputTextarea id="description" rows="5" cols="50"
+					value="#{beanRegistrationProduct.description}" required="true"
+					requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.length2}">
+					<f:validateLength minimum="2" />
+					<p:ajax event="blur" update="descriptionMessage" />
+				</p:inputTextarea>
+				<p:message id="descriptionMessage" for="description" display="text" />
+
+				<p:outputLabel for="quantity" id="quantityLabel"
+					value="#{label.quantity}" />
+				<p:spacer />
+				<p:inputText id="quantity"
+					value="#{beanRegistrationProduct.quantity}" required="true"
+					requiredMessage="#{error.mandatory}"
+					converterMessage="#{error.integer}">
+					<f:convertNumber integerOnly="true" />
+					<p:ajax event="blur" update="quantityMessage" />
+				</p:inputText>
+				<p:message id="quantityMessage" for="quantity" display="text" />
+
+				<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
+				<h:outputText id="medianPrice" value="truc #{beanRegistrationProduct.selectedDesignation.medianPrice}" />
+				<p:inputText id="price" value="#{beanRegistrationProduct.price}"
+					required="true" requiredMessage="#{error.mandatory}"
+					converterMessage="#{error.integer}">
+					<f:convertNumber currencySymbol="€" maxFractionDigits="2"
+						minFractionDigits="2" />
+					<f:attribute name="parameter" value="#{parameter}" />
+					<f:validator binding="#{validatorPrice}" />
+					<p:ajax event="blur" execute="price" update="priceMessage" />
+				</p:inputText>
+				<p:message id="priceMessage" for="price" display="text" />
+
+			</h:panelGrid>
+
+			<p:spacer height="100" />
+			<p:commandButton id="create" value="#{label.save}" update="form"
+				action="#{beanRegistrationProduct.create}" icon="ui-icon-check" />
+			<p:spacer width="20" />
+			<p:commandButton id="reset" value="#{label.reset}" update="form"
+				process="@this" icon="ui-icon-refresh">
+				<p:resetInput target="@form" />
+			</p:commandButton>
+
+		</h:form>
+		<p:spacer height="50" />
+	</ui:define>
+</ui:composition>
+</html>

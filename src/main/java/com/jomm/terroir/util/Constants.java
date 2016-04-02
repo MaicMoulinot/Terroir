@@ -96,6 +96,8 @@ public final class Constants {
 		PASSWORDS_DONT_MATCH("passwordsdifferent"),
 		/** "passwordinvalid" */
 		PASSWORD_NOT_MATCHING_PATTERN("passwordinvalid"),
+		/** "priceoutofrange" */
+		PRICE_OUT_OF_RANGE("priceoutofrange"),
 		/** "usernameduplicate" */
 		USER_NAME_EXISTING("usernameduplicate"),
 		/** "usernameinvalid" */
