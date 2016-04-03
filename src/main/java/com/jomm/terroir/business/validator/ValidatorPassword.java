@@ -4,7 +4,6 @@ import static com.jomm.terroir.util.Constants.Pattern.PASSWORD;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
-import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.View.PARAMETER;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
@@ -45,14 +44,13 @@ public class ValidatorPassword implements Validator {
 		// Validation
 		if (isLacking(password1) || isLacking(password2)) {
 			// One password at least is lacking
-			throw new ValidatorException(createMessage(getValueFromKey(FIELD_MANDATORY), null));
+			throw new ValidatorException(createMessage(getValueFromKey(FIELD_MANDATORY)));
 		} else if (!Objects.equals(password1, password2)) {
 			// Passwords don't match
-			throw new ValidatorException(createMessage(getValueFromKey(PASSWORDS_DONT_MATCH), null));
+			throw new ValidatorException(createMessage(getValueFromKey(PASSWORDS_DONT_MATCH)));
 		} else if (!PASSWORD_PATTERN.matcher(password1).matches()) {
 			// Password doesn't match pattern
-			throw new ValidatorException(createMessage(getValueFromKey(PASSWORD_NOT_MATCHING_PATTERN), 
-					getValueFromKey(PASSWORD_RULES)));
+			throw new ValidatorException(createMessage(getValueFromKey(PASSWORD_NOT_MATCHING_PATTERN)));
 		}
 	}
 	
@@ -82,10 +80,9 @@ public class ValidatorPassword implements Validator {
 	/**
 	 * Instantiate a new {@link FacesMessage} with severity {@link FacesMessage#SEVERITY_ERROR}.
 	 * @param summary String the message's summary.
-	 * @param detail String the message's detail.
 	 * @return {@link FacesMessage} the message.
 	 */
-	private FacesMessage createMessage(String summary, String detail) {
-		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+	private FacesMessage createMessage(String summary) {
+		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
 	}
 }
