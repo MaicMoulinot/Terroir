@@ -78,6 +78,8 @@ public final class Constants {
 	 * @author Maic
 	 */
 	public enum ResourceBundleError {
+		/** "designationinvalid" */
+		DESIGNATION_INVALID("designationinvalid"),
 		/** "emailduplicate" */
 		EMAIL_EXISTING("emailduplicate"),
 		/** "emailinvalid" */

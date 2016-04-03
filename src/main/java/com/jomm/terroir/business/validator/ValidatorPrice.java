@@ -1,7 +1,6 @@
 package com.jomm.terroir.business.validator;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.LENGTH_BETWEEN_5_AND_15;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_NOT_MATCHING_PATTERN;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.DESIGNATION_INVALID;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PRICE_OUT_OF_RANGE;
 import static com.jomm.terroir.util.Constants.View.PARAMETER;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
@@ -31,8 +30,7 @@ import com.jomm.terroir.business.model.Designation;
 public class ValidatorPrice implements Validator {
 	
 	// Constants //-----------------------------------------------
-	private static final BigDecimal ONE_HUNDRED = new BigDecimal("100");
-	private static final BigDecimal THIRTY = new BigDecimal("30");
+	private static final BigDecimal THIRTY_PER_CENT = new BigDecimal("30").divide(new BigDecimal("100"));
 	
 	// Methods //-------------------------------------------------
 	@Override
@@ -43,13 +41,9 @@ public class ValidatorPrice implements Validator {
 			// Retrieve designation
 			Designation designation = retrieveValueFromComponent(component);
 			// Validation
-			if (designation == null) {
-				// Designation was not correctly set in the UIComponent
-				throw new ValidatorException(createMessage(getValueFromKey(EMAIL_NOT_MATCHING_PATTERN)));
-			}
 			if (designation == null || designation.getMedianPrice() == null) {
 				// Designation was not correctly set in the UIComponent
-				throw new ValidatorException(createMessage(getValueFromKey(LENGTH_BETWEEN_5_AND_15)));
+				throw new ValidatorException(createMessage(getValueFromKey(DESIGNATION_INVALID)));
 			} else if (isOutOfRange(designation.getMedianPrice(), price)) {
 				// Price is too far from median price
 				throw new ValidatorException(createMessage(getValueFromKey(PRICE_OUT_OF_RANGE)));
@@ -74,7 +68,7 @@ public class ValidatorPrice implements Validator {
 	/**
 	 * Compare the {@link com.jomm.terroir.business.model.Product}'s current price 
 	 * with the {@link Designation}'s median price.
-	 * If the current price is more or less than {@link ValidatorPrice#THIRTY}% the median price,
+	 * If the current price is more or less than {@link ValidatorPrice#THIRTY_PER_CENT} the median price,
 	 * than the current price is out of range.
 	 * @param medianPrice {@link BigDecimal} the median price.
 	 * @param currentPrice {@link BigDecimal} the current price.
@@ -82,7 +76,7 @@ public class ValidatorPrice implements Validator {
 	 */
 	private boolean isOutOfRange(BigDecimal medianPrice, BigDecimal currentPrice) {
 		boolean outOfRange = false;
-		BigDecimal range = medianPrice.multiply(THIRTY).divide(ONE_HUNDRED);
+		BigDecimal range = medianPrice.multiply(THIRTY_PER_CENT);
 		if (currentPrice.compareTo(medianPrice.add(range)) > 0 
 				|| currentPrice.compareTo(medianPrice.subtract(range)) < 0) {
 			outOfRange = true;
