@@ -129,7 +129,7 @@ public class TestBackingBean {
 	public static void checkMessageWithParametrizedDetail(BackingBean view, String idClient, Severity severity, 
 			String summary, String detailBeginning, String detailEnd) {
 		FacesMessage message = retrieveAndCheckFacesMessage(view, idClient, severity, summary);
-    	String[] detailParts = detailBeginning.replace("''", "'").split(Pattern.quote(" {0} "));    	
+    	String[] detailParts = detailBeginning.split(Pattern.quote(" {0} "));    	
 		assertTrue(message.getDetail().startsWith(detailParts[0]));
     	assertTrue(message.getDetail().endsWith(detailEnd));
 	}

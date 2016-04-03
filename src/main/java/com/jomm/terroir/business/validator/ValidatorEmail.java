@@ -50,7 +50,7 @@ public class ValidatorEmail implements Validator {
 					throw new ValidatorException(createMessage(getValueFromKey(EMAIL_NOT_MATCHING_PATTERN)));
 				} else if (serviceUser.isExistingEmail(email)) {
 					Object[] argument = {email};
-					String summary = MessageFormat.format(getValueFromKey(EMAIL_EXISTING), argument);
+					String summary = MessageFormat.format(getValueFromKey(EMAIL_EXISTING).replace("'", "''"), argument);
 					throw new ValidatorException(createMessage(summary));
 				}
 			}

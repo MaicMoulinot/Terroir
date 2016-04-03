@@ -54,7 +54,7 @@ public class ValidatorUsername implements Validator {
 				} else if (serviceUser.isExistingUserName(userName)) {
 					// Existing in database
 					Object[] argument = {userName};
-					String summary = MessageFormat.format(getValueFromKey(USER_NAME_EXISTING), argument);
+					String summary = MessageFormat.format(getValueFromKey(USER_NAME_EXISTING).replace("'", "''"), argument);
 					throw new ValidatorException(createMessage(summary));
 				}
 			}

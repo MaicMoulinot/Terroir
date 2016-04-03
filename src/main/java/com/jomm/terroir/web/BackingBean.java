@@ -64,7 +64,8 @@ public abstract class BackingBean implements Serializable {
 	 */
 	protected void addFacesMessageCreate(Entity entity, String name) {
 		Object[] argument = {name};
-		String detail = MessageFormat.format(getValueFromKey(entity), argument) + getValueFromKey(CREATE);
+		String detail = MessageFormat.format(getValueFromKey(entity).replace("'", "''"), argument) 
+				+ getValueFromKey(CREATE);
 		addFacesMessage(null, FacesMessage.SEVERITY_INFO, getValueFromKey(CREATE_OK), detail);
 	}
 	
@@ -84,7 +85,8 @@ public abstract class BackingBean implements Serializable {
 	 */
 	protected void addFacesMessageUpdate(Entity entity, String name) {
 		Object[] argument = {name};
-		String detail = MessageFormat.format(getValueFromKey(entity), argument) + getValueFromKey(UPDATE);
+		String detail = MessageFormat.format(getValueFromKey(entity).replace("'", "''"), argument) 
+				+ getValueFromKey(UPDATE);
 		addFacesMessage(null, FacesMessage.SEVERITY_INFO, getValueFromKey(UPDATE_OK), detail);
 	}
 	
@@ -104,7 +106,8 @@ public abstract class BackingBean implements Serializable {
 	 */
 	protected void addFacesMessageDelete(Entity entity, String name) {
 		Object[] argument = {name};
-		String detail = MessageFormat.format(getValueFromKey(entity), argument) + getValueFromKey(DELETE);
+		String detail = MessageFormat.format(getValueFromKey(entity).replace("'", "''"), argument) 
+				+ getValueFromKey(DELETE);
 		addFacesMessage(null, FacesMessage.SEVERITY_INFO, getValueFromKey(DELETE_OK), detail);
 	}	
 	
