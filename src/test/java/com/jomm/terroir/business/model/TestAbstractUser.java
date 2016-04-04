@@ -20,7 +20,7 @@ public class TestAbstractUser {
 	
 	// Constants //-----------------------------------------------
 	private static final char[] PASSWORD = { 'Z', 'm', '@', 't', 'g', 'e', 'Q', 3 };
-	public static final Long USER_ID = (long) 33;
+	public static final Long USER_ID = 33L;
 	
 	// Variables //-----------------------------------------------
 	private AbstractUser user;

@@ -32,6 +32,9 @@ import com.jomm.terroir.business.model.AbstractEntity;
 @RunWith(MockitoJUnitRunner.class)
 public abstract class TestDaoGenericJpa<E extends AbstractEntity> extends UtilData {
 	
+	// Constants //-----------------------------------------------
+	private static final Long ID = 52L;
+	
 	// Variables //-----------------------------------------------
 	/** An implementation of {@link DaoGenericJpa}. */
 	protected DaoGenericJpa<E> dao;
@@ -97,9 +100,9 @@ public abstract class TestDaoGenericJpa<E extends AbstractEntity> extends UtilDa
 	 * Test method for {@link DaoGenericJpa#deleteById(Long)}.
 	 */
 	private void testDeleteById() {
-		dao.deleteById((long) 0);
+		dao.deleteById(ID);
 		// validate that entityManager.getReference() was called
-		verify(dao.entityManager).getReference(dao.getEntityClass(), (long) 0);
+		verify(dao.entityManager).getReference(dao.getEntityClass(), ID);
 		verify(dao.entityManager, times(2)).remove(any(Serializable.class));
 	}
 
@@ -107,9 +110,9 @@ public abstract class TestDaoGenericJpa<E extends AbstractEntity> extends UtilDa
 	 * Test method for {@link DaoGenericJpa#find(java.lang.Long)}.
 	 */
 	private void testFind() {
-		dao.find((long) 0);
+		dao.find(ID);
 		// validate that entityManager.find() was called
-		verify(dao.entityManager).find(dao.getEntityClass(), (long) 0);
+		verify(dao.entityManager).find(dao.getEntityClass(), ID);
 	}
 
 	/**

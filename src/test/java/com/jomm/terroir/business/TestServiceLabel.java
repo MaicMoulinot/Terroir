@@ -26,6 +26,9 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(Parameterized.class)
 public class TestServiceLabel {
 	
+	// Constants //-----------------------------------------------
+	private static final Long ID = 52L;
+	
 	// Variables //-----------------------------------------------
 	/** An implementation of {@link ServiceLabel}. */
 	private ServiceLabel service;
@@ -61,7 +64,7 @@ public class TestServiceLabel {
 	@Test(expected = ExceptionService.class)
 	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
-		label.setId((long) 52);
+		label.setId(ID);
 		service.create(label);
 		fail("An ExceptionService should have been thrown");
 	}
@@ -109,7 +112,7 @@ public class TestServiceLabel {
 	@Test
 	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
-		label.setId((long) 52);
+		label.setId(ID);
 		service.update(label);
 		assertTrue("ExceptionService should not be thrown", true);
 	}
@@ -145,7 +148,7 @@ public class TestServiceLabel {
 	@Test
 	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
-		label.setId((long) 52);
+		label.setId(ID);
 		service.delete(label);
 		assertTrue("ExceptionService should not be thrown", true);
 	}

@@ -30,6 +30,9 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(Parameterized.class)
 public class TestServiceProduct {
 	
+	// Constants //-----------------------------------------------
+	private static final Long ID = 52L;
+	
 	// Variables //-----------------------------------------------
 	/** An implementation of {@link ServiceProduct}. */
 	private ServiceProduct service;
@@ -65,7 +68,7 @@ public class TestServiceProduct {
 	@Test(expected = ExceptionService.class)
 	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		product.setId((long) 52);
+		product.setId(ID);
 		service.create(product);
 		fail("An ExceptionService should have been thrown");
 	}
@@ -119,7 +122,7 @@ public class TestServiceProduct {
 	@Test
 	public final void testUpdateProductSetLastUpdate() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		product.setId((long) 52);
+		product.setId(ID);
 		assertNull("LastUpdate should not yet be initialized", product.getStock().getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.update(product);
@@ -161,7 +164,7 @@ public class TestServiceProduct {
 	@Test
 	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		product.setId((long) 52);
+		product.setId(ID);
 		service.delete(product);
 		assertTrue("ExceptionService should not be thrown", true);
 	}

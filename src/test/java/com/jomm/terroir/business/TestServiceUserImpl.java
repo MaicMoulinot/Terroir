@@ -27,6 +27,9 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(MockitoJUnitRunner.class)
 public class TestServiceUserImpl {
 	
+	// Constants //-----------------------------------------------
+	private static final Long ID = 52L;
+	
 	// Injected Fields //-----------------------------------------
 	@Mock(name = "dao")
 	private DaoUser dao;
@@ -63,7 +66,7 @@ public class TestServiceUserImpl {
 	@Test
 	public final void testUpdate() {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
-		user.setId((long) 200);
+		user.setId(ID);
 		try {
 			service.update(user);
 			verify(dao).update(any(AbstractUser.class)); // validate that dao.update() was called
@@ -78,7 +81,7 @@ public class TestServiceUserImpl {
 	@Test
 	public final void testDelete() {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
-		user.setId((long) 200);
+		user.setId(ID);
 		try {
 			service.delete(user);
 			verify(dao).delete(any(AbstractUser.class)); // validate that dao.delete() was called

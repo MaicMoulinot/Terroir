@@ -25,7 +25,7 @@ public class TestImage {
 	@Test
 	public final void testGetterSetter() {
 		Image image = new Image();
-		Long nb = (long) 0;
+		Long nb = 0L;
 		String test = "test";
 
 		// Id

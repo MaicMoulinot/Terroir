@@ -30,6 +30,9 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(Parameterized.class)
 public class TestServiceEnterprise {
 	
+	// Constants //-----------------------------------------------
+	private static final Long ID = 52L;
+	
 	// Variables //-----------------------------------------------
 	/** An implementation of {@link ServiceEnterprise}. */
 	private ServiceEnterprise service;
@@ -65,7 +68,7 @@ public class TestServiceEnterprise {
 	@Test(expected = ExceptionService.class)
 	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
-		enterprise.setId((long) 52);
+		enterprise.setId(ID);
 		service.create(enterprise);
 		fail("An ExceptionService should have been thrown");
 	}
@@ -119,7 +122,7 @@ public class TestServiceEnterprise {
 	@Test
 	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
-		enterprise.setId((long) 52);
+		enterprise.setId(ID);
 		service.update(enterprise);
 		assertTrue("ExceptionService should not be thrown", true);
 	}
@@ -155,7 +158,7 @@ public class TestServiceEnterprise {
 	@Test
 	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
-		enterprise.setId((long) 52);
+		enterprise.setId(ID);
 		service.delete(enterprise);
 		assertTrue("ExceptionService should not be thrown", true);
 	}

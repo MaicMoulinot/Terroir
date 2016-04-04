@@ -42,7 +42,7 @@ public class TestLabel {
 	@Test
 	public final void testGetterSetter() {
 		String test = "test";
-		Long nb = (long) 0;
+		Long nb = 0L;
 		
 		// Id
 		label.setId(nb);

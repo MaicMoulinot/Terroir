@@ -41,7 +41,7 @@ public class TestStock {
 	 */
 	@Test
 	public final void testGetterSetter() {
-		Long nb = (long) 0;
+		Long nb = 0L;
 		
 		// Id
 		stock.setId(nb);

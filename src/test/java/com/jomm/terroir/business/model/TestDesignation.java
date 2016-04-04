@@ -44,7 +44,7 @@ public class TestDesignation {
 	@Test
 	public final void testGetterSetter() {
 		String test = "test";
-		Long nb = (long) 0;
+		Long nb = 0L;
 		
 		// Id
 		designation.setId(nb);

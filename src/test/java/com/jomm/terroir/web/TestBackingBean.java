@@ -83,7 +83,7 @@ public class TestBackingBean {
 	@Test
 	public final void testGenerateExceptionMessage() {
 		Enterprise entity = new Enterprise();
-		Long id = (long) 33;
+		Long id = 33L;
 		entity.setId(id);
 		String messageException = "test";
 		Exception exception = new Exception(messageException);

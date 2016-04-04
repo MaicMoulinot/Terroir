@@ -45,7 +45,7 @@ public class TestProduct {
 	@Test
 	public final void testGetterSetter() {
 		String test = "test";
-		Long nb = (long) 0;
+		Long nb = 0L;
 		
 		// Id
 		product.setId(nb);

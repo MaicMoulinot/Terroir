@@ -26,6 +26,9 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @RunWith(Parameterized.class)
 public class TestServiceDesignation {
 	
+	// Constants //-----------------------------------------------
+	private static final Long ID = 52L;
+	
 	// Variables //-----------------------------------------------
 	/** An implementation of {@link ServiceDesignation}. */
 	private ServiceDesignation service;
@@ -61,7 +64,7 @@ public class TestServiceDesignation {
 	@Test(expected = ExceptionService.class)
 	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
-		designation.setId((long) 52);
+		designation.setId(ID);
 		service.create(designation);
 		fail("An ExceptionService should have been thrown");
 	}
@@ -109,7 +112,7 @@ public class TestServiceDesignation {
 	@Test
 	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
-		designation.setId((long) 52);
+		designation.setId(ID);
 		service.update(designation);
 		assertTrue("ExceptionService should not be thrown", true);
 	}
@@ -145,7 +148,7 @@ public class TestServiceDesignation {
 	@Test
 	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
-		designation.setId((long) 52);
+		designation.setId(ID);
 		service.delete(designation);
 		assertTrue("ExceptionService should not be thrown", true);
 	}
