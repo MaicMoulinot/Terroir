@@ -1,5 +1,6 @@
 package com.jomm.terroir.dao;
 
+import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -51,6 +52,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.entityManager = entityManager;
+			insertData(sequenceOf(INSERT_IMAGES, INSERT_CATEGORIES));
 			entity = TestDesignation.generateDesignationWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
@@ -144,6 +146,7 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 	@Test
 	public final void testManyToManyWithLabel() {
 		try {
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION_LABEL));
 			// EntityManager is working with test-specific Persistence Unit
 			entity = findDesignationFromDataBase(UtilEntityManager.prepareEntityManager());
 			assertNotNull("List of labels should not be null", entity.getLabels());

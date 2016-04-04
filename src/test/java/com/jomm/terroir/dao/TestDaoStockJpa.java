@@ -1,5 +1,6 @@
 package com.jomm.terroir.dao;
 
+import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -48,11 +49,12 @@ public class TestDaoStockJpa extends TestDaoGenericJpa<Stock> {
 	public final void testState() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			insertData(INSERT_PRODUCT);
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.entityManager = entityManager;
 			
 			// Construct Product and Stock
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_ENTERPRISES, INSERT_SITES, INSERT_LABEL, 
+					INSERT_DESIGNATION_LABEL, INSERT_PRODUCTS));
 			entity = TestStock.generateStockWithIdNull();
 			assertNull("Before persistence, id should be null", entity.getId());
 			

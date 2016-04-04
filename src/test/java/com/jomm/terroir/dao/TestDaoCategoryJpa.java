@@ -49,6 +49,7 @@ public class TestDaoCategoryJpa extends TestDaoGenericJpa<Category> {
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.entityManager = entityManager;
+			insertData(INSERT_CATEGORIES);
 			entity = TestCategory.generateCategoryWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());

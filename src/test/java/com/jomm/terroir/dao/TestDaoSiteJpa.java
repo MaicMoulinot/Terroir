@@ -1,5 +1,6 @@
 package com.jomm.terroir.dao;
 
+import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -52,6 +53,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.entityManager = entityManager;
+			insertData(sequenceOf(INSERT_IMAGES, INSERT_ENTERPRISES));
 			entity = TestSite.generateSiteWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
@@ -149,6 +151,7 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	@Test
 	public final void testManyToManyWithImage() {
 		try {
+			insertData(sequenceOf(INSERT_ENTERPRISES, INSERT_SITES));
 			// EntityManager is working with test-specific Persistence Unit
 			entity = findSiteFromDataBase(UtilEntityManager.prepareEntityManager());
 			assertNotNull("List of images should not be null", entity.getImages());

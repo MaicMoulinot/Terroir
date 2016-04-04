@@ -1,5 +1,6 @@
 package com.jomm.terroir.dao;
 
+import static com.ninja_squad.dbsetup.Operations.sequenceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -55,6 +56,8 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			dao.entityManager = entityManager;
 			
 			// Construct Product and Stock
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_ENTERPRISES, INSERT_SITES, INSERT_LABEL, 
+					INSERT_DESIGNATION_LABEL));
 			entity = TestProduct.generateProductWithIdNull();
 			Stock stock = TestStock.generateStockWithIdNull();
 			entity.setStock(stock);
