@@ -5,11 +5,11 @@ package com.jomm.terroir.util;
  * @author Maic
  */
 public final class Constants {
-	
+
 	// Constants //-----------------------------------------------
 	public static final String PERSISTENCE_UNIT = "terroirPU";
-	
-	// Enumerations //--------------------------------------------
+
+	// Enumerations //--------------------------------------------	
 	/**
 	 * This enumeration stores the list of all entities in the model.
 	 * @author Maic
@@ -41,149 +41,7 @@ public final class Constants {
 			return name().toLowerCase();
 		}
 	}
-	
-	/**
-	 * This enumeration stores all {@link java.util.ResourceBundle} file names.
-	 * @author Maic
-	 */
-	public enum ResourceBundleFileName {
-		/** "i18n.error" */
-		ERROR("i18n.error"),
-		/** "i18n.label" */
-		LABEL("i18n.label"),
-		/** "i18n.message" */
-		MESSAGE("i18n.message");
 
-		private String fileName;
-
-		/**
-		 * Constructor.
-		 * @param fileName String the file name.
-		 */
-		private ResourceBundleFileName(String fileName) {
-			this.fileName = fileName;
-		}
-
-		/**
-		 * Get the appropriate file name where the {@link java.util.ResourceBundle} is stored.
-		 * @return String the file name.
-		 */
-		public String getFileName() {
-			return fileName;
-		}
-	}
-
-	/**
-	 * This enumeration stores all {@link java.util.ResourceBundle} keys for errors.
-	 * @author Maic
-	 */
-	public enum ResourceBundleError {
-		/** "designationinvalid" */
-		DESIGNATION_INVALID("designationinvalid"),
-		/** "emailduplicate" */
-		EMAIL_EXISTING("emailduplicate"),
-		/** "emailinvalid" */
-		EMAIL_NOT_MATCHING_PATTERN("emailinvalid"),
-		/** "exception" */
-		EXCEPTION("exception"),
-		/** "mandatory" */
-		FIELD_MANDATORY("mandatory"),
-		/** "idnotnull" */
-		ID_SHOULD_BE_NULL("idnotnull"),
-		/** "idnull" */
-		ID_SHOULD_NOT_BE_NULL("idnull"),
-		/** "length5and15" */
-		LENGTH_BETWEEN_5_AND_15("length5and15"),
-		/** "passwordsdifferent" */
-		PASSWORDS_DONT_MATCH("passwordsdifferent"),
-		/** "passwordinvalid" */
-		PASSWORD_NOT_MATCHING_PATTERN("passwordinvalid"),
-		/** "priceoutofrange" */
-		PRICE_OUT_OF_RANGE("priceoutofrange"),
-		/** "usernameduplicate" */
-		USER_NAME_EXISTING("usernameduplicate"),
-		/** "usernameinvalid" */
-		USER_NAME_NOT_MATCHING_PATTERN("usernameinvalid"),
-		/** "entitynull" */
-		ENTITY_SHOULD_NOT_BE_NULL("entitynull");
-
-		private String key;
-
-		/**
-		 * Constructor.
-		 * @param key String the key.
-		 */
-		private ResourceBundleError(String key) {
-			this.key = key;
-		}
-
-		/**
-		 * Get the appropriate key for the {@link java.util.ResourceBundle} Error.
-		 * @return the key
-		 */
-		public String getKey() {
-			return key;
-		}
-	}
-
-	/**
-	 * This enumeration stores all {@link java.util.ResourceBundle} keys for messages.
-	 * @see {@link Entity} for messages related to an entity.
-	 * @author Maic
-	 */
-	public enum ResourceBundleMessage {
-		/** "createok" */
-		CREATE_OK("createok"),
-		/** "create" */
-		CREATE("create"),
-		/** "deleteok" */
-		DELETE_OK("deleteok"),
-		/** "delete" */
-		DELETE("delete"),
-		/** "passwordtitle" */
-		PASSWORD_TITLE("passwordtitle"),
-		/** "passwordrules" */
-		PASSWORD_RULES("passwordrules"),
-		/** "updateok" */
-		UPDATE_OK("updateok"),
-		/** "update" */
-		UPDATE("update");
-
-		private String key;
-
-		/**
-		 * Constructor.
-		 * @param key String the key.
-		 */
-		private ResourceBundleMessage(String key) {
-			this.key = key;
-		}
-
-		/**
-		 * Get the appropriate key for the {@link java.util.ResourceBundle} Message.
-		 * @return the key
-		 */
-		public String getKey() {
-			return key;
-		}
-	}
-	
-	/**
-	 * This enumeration stores useful parameters (e.g. id and binding) in the views.
-	 * @author Maic
-	 */
-	public enum View {
-		/** "parameter" */
-		PARAMETER,
-		/** "growl" */
-		GROWL;
-
-		@Override
-		public String toString() {
-			return name().toLowerCase();
-		}
-	}
-	
 	/**
 	 * This enumeration stores all patterns.
 	 * @author Maic
@@ -252,6 +110,204 @@ public final class Constants {
 			return regex;
 		}
 	}
+
+	/**
+	 * This enumeration stores all {@link java.util.ResourceBundle} keys for errors.
+	 * @author Maic
+	 */
+	public enum ResourceBundleError {
+		/** "designationinvalid" */
+		DESIGNATION_INVALID("designationinvalid"),
+		/** "emailduplicate" */
+		EMAIL_EXISTING("emailduplicate"),
+		/** "emailinvalid" */
+		EMAIL_NOT_MATCHING_PATTERN("emailinvalid"),
+		/** "exception" */
+		EXCEPTION("exception"),
+		/** "mandatory" */
+		FIELD_MANDATORY("mandatory"),
+		/** "idnotnull" */
+		ID_SHOULD_BE_NULL("idnotnull"),
+		/** "idnull" */
+		ID_SHOULD_NOT_BE_NULL("idnull"),
+		/** "length5and15" */
+		LENGTH_BETWEEN_5_AND_15("length5and15"),
+		/** "passwordsdifferent" */
+		PASSWORDS_DONT_MATCH("passwordsdifferent"),
+		/** "passwordinvalid" */
+		PASSWORD_NOT_MATCHING_PATTERN("passwordinvalid"),
+		/** "priceoutofrange" */
+		PRICE_OUT_OF_RANGE("priceoutofrange"),
+		/** "usernameduplicate" */
+		USER_NAME_EXISTING("usernameduplicate"),
+		/** "usernameinvalid" */
+		USER_NAME_NOT_MATCHING_PATTERN("usernameinvalid"),
+		/** "entitynull" */
+		ENTITY_SHOULD_NOT_BE_NULL("entitynull");
+
+		private String key;
+
+		/**
+		 * Constructor.
+		 * @param key String the key.
+		 */
+		private ResourceBundleError(String key) {
+			this.key = key;
+		}
+
+		/**
+		 * Get the appropriate key for the {@link java.util.ResourceBundle} Error.
+		 * @return the key
+		 */
+		public String getKey() {
+			return key;
+		}
+	}
+
+	/**
+	 * This enumeration stores all {@link java.util.ResourceBundle} file names.
+	 * @author Maic
+	 */
+	public enum ResourceBundleFileName {
+		/** "i18n.error" */
+		ERROR("i18n.error"),
+		/** "i18n.label" */
+		LABEL("i18n.label"),
+		/** "i18n.message" */
+		MESSAGE("i18n.message");
+
+		private String fileName;
+
+		/**
+		 * Constructor.
+		 * @param fileName String the file name.
+		 */
+		private ResourceBundleFileName(String fileName) {
+			this.fileName = fileName;
+		}
+
+		/**
+		 * Get the appropriate file name where the {@link java.util.ResourceBundle} is stored.
+		 * @return String the file name.
+		 */
+		public String getFileName() {
+			return fileName;
+		}
+	}
+
+	/**
+	 * This enumeration stores all {@link java.util.ResourceBundle} keys for messages.
+	 * @see {@link Entity} for messages related to an entity.
+	 * @author Maic
+	 */
+	public enum ResourceBundleMessage {
+		/** "createok" */
+		CREATE_OK("createok"),
+		/** "create" */
+		CREATE("create"),
+		/** "deleteok" */
+		DELETE_OK("deleteok"),
+		/** "delete" */
+		DELETE("delete"),
+		/** "passwordtitle" */
+		PASSWORD_TITLE("passwordtitle"),
+		/** "passwordrules" */
+		PASSWORD_RULES("passwordrules"),
+		/** "updateok" */
+		UPDATE_OK("updateok"),
+		/** "update" */
+		UPDATE("update");
+
+		private String key;
+
+		/**
+		 * Constructor.
+		 * @param key String the key.
+		 */
+		private ResourceBundleMessage(String key) {
+			this.key = key;
+		}
+
+		/**
+		 * Get the appropriate key for the {@link java.util.ResourceBundle} Message.
+		 * @return the key
+		 */
+		public String getKey() {
+			return key;
+		}
+	}
+
+	/**
+	 * This enumeration stores the list of all possible units used to describe a product.
+	 * @author Maic
+	 */
+	public enum Unit {
+		/** A piece (short name: p). */
+		PIECE("p"),
+		/** A milligram (SI unit symbol: mg). */
+		MILLIGRAM("mg"),
+		/** A gram (SI unit symbol: g). */
+		GRAM("g"),
+		/** A kilogram (SI unit symbol: kg). */
+		KILOGRAM("kg"),
+		/** A liter (SI unit symbol: l). */
+		LITER("l"),
+		/** A milliliter (SI unit symbol: ml). */
+		MILLILITER("ml");
+
+		private String symbol;
+
+		/**
+		 * Constructor.
+		 * @param symbol String the symbol.
+		 */
+		private Unit(String symbol) {
+			this.symbol = symbol;
+		}
+
+		/**
+		 * Get the unit symbol.
+		 * @return String the symbol.
+		 */
+		public String getSymbol() {
+			return symbol;
+		}
+
+		/**
+		 * Get the appropriate value using the symbol.
+		 * @param symbol String the symbol.
+		 * @return the {@code Unit}'s value if it has been found, {@code null} otherwise.
+		 */
+		public static Unit getValue(String symbol) {
+			Unit value = null;
+			if (symbol != null && !symbol.isEmpty()) {
+				for (Unit unit : values()) {
+					if (unit.getSymbol().matches(symbol)) {
+						value = unit;
+						break;
+					}
+				}
+			}
+			return value;
+		}
+	}
+
+	/**
+	 * This enumeration stores useful parameters (e.g. id and binding) in the views.
+	 * @author Maic
+	 */
+	public enum View {
+		/** "parameter" */
+		PARAMETER,
+		/** "growl" */
+		GROWL;
+
+		@Override
+		public String toString() {
+			return name().toLowerCase();
+		}
+	}
+
 
 	// Constructors //--------------------------------------------
 	/** Private constructor to prevent instantiation. */
