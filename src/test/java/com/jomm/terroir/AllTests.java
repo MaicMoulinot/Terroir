@@ -31,6 +31,7 @@ import com.jomm.terroir.business.model.TestLabel;
 import com.jomm.terroir.business.model.TestProduct;
 import com.jomm.terroir.business.model.TestSeller;
 import com.jomm.terroir.business.model.TestSite;
+import com.jomm.terroir.business.model.TestStock;
 import com.jomm.terroir.business.validator.TestValidatorEmail;
 import com.jomm.terroir.business.validator.TestValidatorPassword;
 import com.jomm.terroir.business.validator.TestValidatorUsername;
@@ -54,11 +55,14 @@ import com.jomm.terroir.dao.TestDaoSeller;
 import com.jomm.terroir.dao.TestDaoSellerJpa;
 import com.jomm.terroir.dao.TestDaoSite;
 import com.jomm.terroir.dao.TestDaoSiteJpa;
+import com.jomm.terroir.dao.TestDaoStock;
+import com.jomm.terroir.dao.TestDaoStockJpa;
 import com.jomm.terroir.dao.TestDaoUser;
 import com.jomm.terroir.dao.TestDaoUserJpa;
 import com.jomm.terroir.dao.UtilEntityManager;
 import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.converter.TestAttributeConverterLocalDate;
+import com.jomm.terroir.util.converter.TestAttributeConverterUnit;
 import com.jomm.terroir.util.converter.TestAttributeConverterZonedDateTime;
 import com.jomm.terroir.util.converter.TestConverterLocalDate;
 import com.jomm.terroir.util.converter.TestConverterZonedDateTime;
@@ -82,7 +86,7 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	// Model
 	TestAbstractEntity.class, TestAbstractUser.class, TestAddress.class, TestAdministrator.class, TestCategory.class, 
 	TestCustomer.class, TestDesignation.class, TestEnterprise.class, TestImage.class, TestLabel.class, 
-	TestProduct.class, TestSeller.class, TestSite.class, 
+	TestProduct.class, TestSeller.class, TestSite.class, TestStock.class, 
 	// Service
 	TestServiceDesignation.class, TestServiceDesignationImpl.class, 
 	TestServiceEnterprise.class, TestServiceEnterpriseImpl.class, 
@@ -98,11 +102,12 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	TestDaoEnterprise.class, TestDaoEnterpriseJpa.class, TestDaoImage.class, TestDaoImageJpa.class, 
 	TestDaoLabel.class, TestDaoLabelJpa.class, TestDaoProduct.class, TestDaoProductJpa.class, 
 	TestDaoSeller.class, TestDaoSellerJpa.class, TestDaoSite.class, TestDaoSiteJpa.class, 
-	TestDaoUserJpa.class, TestDaoUser.class,
+	TestDaoStockJpa.class, TestDaoStock.class, TestDaoUserJpa.class, TestDaoUser.class, 
 	// Util
 	TestResources.class,
 	// Converter
-	TestAttributeConverterLocalDate.class, TestAttributeConverterZonedDateTime.class, 
+	TestAttributeConverterLocalDate.class, TestAttributeConverterUnit.class, 
+	TestAttributeConverterZonedDateTime.class, 
 	TestConverterLocalDate.class, TestConverterZonedDateTime.class, 
 	// Exception
 	TestExceptionService.class, 

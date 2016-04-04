@@ -16,7 +16,9 @@ import org.junit.Test;
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.Site;
+import com.jomm.terroir.business.model.Stock;
 import com.jomm.terroir.business.model.TestProduct;
+import com.jomm.terroir.business.model.TestStock;
 
 /**
  * This Class is a Junit test case testing {@link DaoProductJpa}.
@@ -51,7 +53,12 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.entityManager = entityManager;
+			
+			// Construct Product and Stock
 			entity = TestProduct.generateProductWithIdNull();
+			Stock stock = TestStock.generateStockWithIdNull();
+			entity.setStock(stock);
+			stock.setProduct(entity);
 
 			assertNull("Before persistence, id should be null", entity.getId());
 
@@ -83,14 +90,14 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			// FindById
 			Product persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
-			assertEquals("After persistence, properties should be equal", entity.getDescription(), 
-					persistedEntity.getDescription());
+			assertEquals("After persistence, properties should be equal", entity.getTitle(), 
+					persistedEntity.getTitle());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
 
 			// Update
-			String initialValue = persistedEntity.getDescription();
-			persistedEntity.setDescription("UpdatedValue");
-			String updatedValue = dao.update(persistedEntity).getDescription();
+			String initialValue = persistedEntity.getTitle();
+			persistedEntity.setTitle("UpdatedValue");
+			String updatedValue = dao.update(persistedEntity).getTitle();
 			assertNotEquals("Values should not match", initialValue, updatedValue);
 
 			// DeleteById
@@ -104,32 +111,73 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 					TestDaoSiteJpa.findSiteFromDataBase(entityManager));
 			assertNotNull("Without cascade delete, Category should not be null", 
 					TestDaoCategoryJpa.findCategoryFromDataBase(entityManager));
+			assertNull("With cascade delete, Stock should be null", 
+					TestDaoStockJpa.findStockFromDataBase(entityManager, persistedId));
 
 			// Create
 			entity = TestProduct.generateProductWithIdNull();
+			stock = TestStock.generateStockWithIdNull();
+			entity.setStock(stock);
+			stock.setProduct(entity);
 			entity.setSite(site);
 			entity.setDesignation(designation);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
-			assertNotNull("After Create, id should not be null", entity.getId());
+			Long secondPersistedId = entity.getId();
+			assertNotNull("After Create, id should not be null", secondPersistedId);
 			
 			// Delete
-			assertNotNull("Before Delete, entity should not be null", dao.find(entity.getId()));
+			assertNotNull("Before Delete, entity should not be null", dao.find(secondPersistedId));
 			dao.delete(entity);
 			UtilEntityManager.commit();
-			assertNull("After Delete, entity should be null", dao.find(entity.getId()));
+			assertNull("After Delete, entity should be null", dao.find(secondPersistedId));
 			
 			// Cascade
 			assertNotNull("Without cascade delete, Site should not be null", 
 					TestDaoSiteJpa.findSiteFromDataBase(entityManager));
 			assertNotNull("Without cascade delete, Category should not be null", 
 					TestDaoCategoryJpa.findCategoryFromDataBase(entityManager));
+			assertNull("With cascade delete, Stock should be null", 
+					TestDaoStockJpa.findStockFromDataBase(entityManager, secondPersistedId));
 			
 			// FindAll
 			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}
+	}
+	
+	// Static methods //------------------------------------------
+	/**
+	 * Retrieve the {@link Product} from database filled with basic test data 
+	 * with its identifier = {@link UtilData#EXISTING_PRODUCT_ID_FIRST_CALL}.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Product}.
+	 */
+	public static Product findProductFromDataBaseFirstCall(EntityManager entityManager) {
+		return findProductFromDataBase(entityManager, EXISTING_PRODUCT_ID_FIRST_CALL);
+	}
+	
+	/**
+	 * Retrieve the {@link Product} from database filled with basic test data 
+	 * with its identifier = {@link UtilData#EXISTING_PRODUCT_ID_SECOND_CALL}.
+	 * @param entityManager the {@link EntityManager}.
+	 * @return the {@link Product}.
+	 */
+	public static Product findProductFromDataBaseSecondCall(EntityManager entityManager) {
+		return findProductFromDataBase(entityManager, EXISTING_PRODUCT_ID_SECOND_CALL);
+	}
+	
+	/**
+	 * Retrieve an {@link Product} from database filled with basic test data.
+	 * @param entityManager the {@link EntityManager}.
+	 * @param id Long the Product's identifier.
+	 * @return the {@link Product}.
+	 */
+	private static Product findProductFromDataBase(EntityManager entityManager, Long id) {
+		DaoProductJpa dao = new DaoProductJpa();
+		dao.entityManager = entityManager;
+		return dao.find(id);
 	}
 }

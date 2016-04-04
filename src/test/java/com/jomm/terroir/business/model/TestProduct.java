@@ -1,14 +1,16 @@
 package com.jomm.terroir.business.model;
 
+import static com.jomm.terroir.util.Constants.Unit.PIECE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.jomm.terroir.util.Constants.Unit;
 
 /**
  * This class is a Junit test case testing the methods of {@link Product}.
@@ -53,24 +55,36 @@ public class TestProduct {
 		product.setTitle(test);
 		assertEquals("Title should be " + test, test, product.getTitle());
 		
-		// Description
-		product.setDescription(test);
-		assertEquals("Description should be " + test, test, product.getDescription());
-		
-		// Quantity
-		int qty = 1;
-		product.setQuantity(qty);
-		assertEquals("Quantity should be " + qty, qty, product.getQuantity());
-		
 		// Price
-		BigDecimal price = new BigDecimal("1.23");
-		product.setPrice(price);
-		assertEquals("Price should be " + price.toString(), price, product.getPrice());
+		BigDecimal decimal = new BigDecimal("1.23");
+		product.setPrice(decimal);
+		assertEquals("Price should be " + decimal.toString(), decimal, product.getPrice());
 		
-		// LastUpdate
-		ZonedDateTime zonedDate = ZonedDateTime.now();
-		product.setLastUpdate(zonedDate);
-		assertEquals("RegistrationDate should be " + zonedDate, zonedDate, product.getLastUpdate());
+		// Unit
+		Unit unit = PIECE;
+		product.setUnit(unit);
+		assertEquals("Price should be " + unit.toString(), unit, product.getUnit());
+		unit = null; // Available for Garbage Collector
+		
+		// TaxPercentage
+		product.setTaxPercentage(decimal);
+		assertEquals("Price should be " + decimal.toString(), decimal, product.getTaxPercentage());
+		decimal = null; // Available for Garbage Collector
+		
+		// Active
+		Boolean active = true;
+		product.setActive(active);
+		assertEquals("Active should be " + active, active, product.isActive());
+		active = null; // Available for Garbage Collector
+		
+		// Stock
+		Stock stock = new Stock();
+		Integer quantity = 11;
+		stock.setQuantity(quantity);
+		product.setStock(stock);
+		assertNotNull("Stock should not be null", product.getStock());
+		assertEquals("Stock's quantity should be " + quantity, quantity, product.getStock().getQuantity());
+		stock = null; // Available for Garbage Collector
 		
 		// Site
 		Site site = new Site();
@@ -96,12 +110,14 @@ public class TestProduct {
 	 */
 	public static Product generateProductWithIdNull() {
 		Product product = new Product();
-		product.setDescription("Description");
 		product.setTitle("Title");
-		product.setQuantity(10);
 		product.setPrice(new BigDecimal("1.2345"));
+		product.setUnit(PIECE);
+		product.setTaxPercentage(new BigDecimal("5.5"));
+		product.setActive(true);
 		product.setSite(TestSite.generateSiteWithIdNull());
 		product.setDesignation(TestDesignation.generateDesignationWithIdNull());
+		product.setStock(new Stock(product));
 		return product;
 	}
 }

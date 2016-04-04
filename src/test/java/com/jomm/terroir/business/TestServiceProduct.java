@@ -72,16 +72,16 @@ public class TestServiceProduct {
 	
 	/**
 	 * Test that {@link ServiceProduct#create(Product)} does not throw an {@link ExceptionService}
-	 * when entity's state is correct, and properly generates the LastUpdate date.
+	 * when entity's state is correct, and properly generates the LastUpdate in the stock.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
 	public final void testCreateProductSetLastUpdate() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		assertNull("LastUpdate should not yet be initialized", product.getLastUpdate());
+		assertNull("LastUpdate should not yet be initialized", product.getStock().getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.create(product);
-		ZonedDateTime entityDate = product.getLastUpdate();
+		ZonedDateTime entityDate = product.getStock().getLastUpdate();
 		assertNotNull("LastUpdate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
 		assertEquals("LastUpdate should be like ZonedDateTime.now()", now.format(formatter), 
@@ -113,17 +113,17 @@ public class TestServiceProduct {
 	
 	/**
 	 * Test that {@link ServiceProduct#update(Product)} does not throw an {@link ExceptionService}
-	 * when entity's state is correct, and properly generates the LastUpdate date.
+	 * when entity's state is correct, and properly generates the LastUpdate date in the stock.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
 	public final void testUpdateProductSetLastUpdate() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		product.setId((long) 52);
-		assertNull("LastUpdate should not yet be initialized", product.getLastUpdate());
+		assertNull("LastUpdate should not yet be initialized", product.getStock().getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.update(product);
-		ZonedDateTime entityDate = product.getLastUpdate();
+		ZonedDateTime entityDate = product.getStock().getLastUpdate();
 		assertNotNull("LastUpdate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
 		assertEquals("LastUpdate should be like ZonedDateTime.now()", now.format(formatter), 

@@ -152,13 +152,21 @@
     -- Table product from entity Product
     CREATE TABLE product (
         product_id BIGINT NOT NULL,
-        description LONG VARCHAR,
-        quantity INTEGER,
-        price NUMERIC(19,2),
-        last_update TIMESTAMP,
+        active_for_sale INT,
+        price_per_unit NUMERIC(6,2) NOT NULL,
+        tax_percentage NUMERIC(4,2),
         title VARCHAR(255) NOT NULL,
+        unit VARCHAR(2) NOT NULL,
         fk_site_id BIGINT CONSTRAINT fk_product_site REFERENCES site(site_id) NOT NULL,
         fk_designation_id BIGINT CONSTRAINT fk_product_designation REFERENCES designation(designation_id) NOT NULL,
+        PRIMARY KEY (product_id)
+    );
+    
+    -- Table stock from entity Stock
+    CREATE TABLE stock (
+        last_update TIMESTAMP,
+        in_stock BIGINT,
+        product_id BIGINT CONSTRAINT fk_stock_product REFERENCES product(product_id) NOT NULL,
         PRIMARY KEY (product_id)
     );
 

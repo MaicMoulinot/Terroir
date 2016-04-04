@@ -19,6 +19,8 @@ import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.business.model.Product;
 import com.jomm.terroir.business.model.Site;
+import com.jomm.terroir.business.model.Stock;
+import com.jomm.terroir.util.Constants.Unit;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -51,9 +53,11 @@ public class BeanRegistrationProduct extends BackingBean {
 	
 	// Variables //-----------------------------------------------
 	private String title;
-	private String description;
-	private int quantity;
 	private BigDecimal price;
+	private Unit unit;
+	private BigDecimal taxPercentage;
+	private Boolean active;
+	private Stock stock;	
 	private Site site;
 	private Designation designation;
 	private List<Designation> designations;
@@ -78,9 +82,11 @@ public class BeanRegistrationProduct extends BackingBean {
 	public Product convertIntoEntity() {
 		Product entity = new Product();
 		entity.setTitle(getTitle());
-		entity.setDescription(getDescription());
-		entity.setQuantity(getQuantity());
 		entity.setPrice(getPrice());
+		entity.setUnit(unit);
+		entity.setTaxPercentage(taxPercentage);
+		entity.setActive(isActive());
+		entity.setStock(stock);
 		entity.setSite(getSite());
 		entity.setDesignation(getDesignation());
 		return entity;
@@ -117,56 +123,84 @@ public class BeanRegistrationProduct extends BackingBean {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-	
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	/**
-	 * @return the quantity
-	 */
-	public int getQuantity() {
-		return quantity;
-	}
-	
-	/**
-	 * @param quantity the quantity to set
-	 */
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-	
+
 	/**
 	 * @return the price
 	 */
 	public BigDecimal getPrice() {
 		return price;
 	}
-	
+
 	/**
 	 * @param price the price to set
 	 */
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-	
+
+	/**
+	 * @return the unit
+	 */
+	public Unit getUnit() {
+		return unit;
+	}
+
+	/**
+	 * @param unit the unit to set
+	 */
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
+	/**
+	 * @return the taxPercentage
+	 */
+	public BigDecimal getTaxPercentage() {
+		return taxPercentage;
+	}
+
+	/**
+	 * @param taxPercentage the taxPercentage to set
+	 */
+	public void setTaxPercentage(BigDecimal taxPercentage) {
+		this.taxPercentage = taxPercentage;
+	}
+
+	/**
+	 * @return the active
+	 */
+	public Boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * @param active the active to set
+	 */
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
+	/**
+	 * @return the stock
+	 */
+	public Stock getStock() {
+		return stock;
+	}
+
+	/**
+	 * @param stock the stock to set
+	 */
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+
 	/**
 	 * @return the site
 	 */
 	public Site getSite() {
 		return site;
 	}
-	
+
 	/**
 	 * @param site the site to set
 	 */

@@ -37,7 +37,7 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() != null) {
 			throw new ExceptionService(ID_NOT_NULL);
 		}
-		product.setLastUpdate(ZonedDateTime.now());
+		product.getStock().setLastUpdate(ZonedDateTime.now());
 		return daoProduct.create(product);
 	}
 	
@@ -48,7 +48,7 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() == null) {
 			throw new ExceptionService(ID_NULL);
 		}
-		product.setLastUpdate(ZonedDateTime.now());
+		product.getStock().setLastUpdate(ZonedDateTime.now());
 		return daoProduct.update(product);
 	}
 
