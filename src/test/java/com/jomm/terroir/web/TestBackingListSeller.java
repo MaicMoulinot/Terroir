@@ -13,17 +13,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.jomm.terroir.business.ServiceUser;
-import com.jomm.terroir.business.model.Customer;
-import com.jomm.terroir.business.model.TestCustomer;
+import com.jomm.terroir.business.model.Seller;
+import com.jomm.terroir.business.model.TestSeller;
 
 /**
- * This class is a Junit test case testing {@link BeanListCustomer}.
+ * This class is a Junit test case testing {@link BackingListSeller}.
  * @author Maic
  */
-public class TestBeanListCustomer {
+public class TestBackingListSeller {
 	
 	// Variables //-----------------------------------------------
-	private BeanListCustomer view;
+	private BackingListSeller view;
 
 	// Test methods //--------------------------------------------
 	/**
@@ -31,7 +31,7 @@ public class TestBeanListCustomer {
 	 */
 	@Before
 	public void setUp() throws Exception {
-		view = new BeanListCustomer();
+		view = new BackingListSeller();
 	}
 
 	/**
@@ -43,31 +43,31 @@ public class TestBeanListCustomer {
 	}
 
 	/**
-	 * Test method for {@link BeanListCustomer#init()}.
+	 * Test method for {@link BackingListSeller#init()}.
 	 */
 	@Test
 	public final void testInit() {
-		assertNull(view.getListCustomers());
+		assertNull(view.getListSellers());
 		view.userService = mock(ServiceUser.class);
 		view.init();
-		// verify Service.getAllCustomers() was called
-		verify(view.userService).getAllCustomers();
-		assertNotNull(view.getListCustomers());
+		// verify Service.getAllSellers() was called
+		verify(view.userService).getAllSellers();
+		assertNotNull(view.getListSellers());
 	}
 	
 	/**
-	 * Test method for {@link BeanListCustomer}'s getters and setters.
+	 * Test method for {@link BackingListSeller}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {		
-		// ViewCustomer
-		Customer current = TestCustomer.generateCustomerWithIdNull();
+		// ViewSeller
+		Seller current = TestSeller.generateSellerWithIdNull();
 		view.setCurrentUser(current);
-		assertEquals("ViewCustomer should be " + current, current, view.getCurrentUser());
+		assertEquals("ViewSeller should be " + current, current, view.getCurrentUser());
 		
-		// ListCustomers
-		LinkedList<Customer> listCustomers = new LinkedList<>();
-		view.setListCustomers(listCustomers);
-		assertEquals("ListCustomers should be " + listCustomers, listCustomers, view.getListCustomers());
+		// ListSellers
+		LinkedList<Seller> listSellers = new LinkedList<>();
+		view.setListSellers(listSellers);
+		assertEquals("ListSellers should be " + listSellers, listSellers, view.getListSellers());
 	}
 }

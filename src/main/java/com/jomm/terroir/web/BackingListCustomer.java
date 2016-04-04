@@ -11,7 +11,7 @@ import com.jomm.terroir.util.Constants.Entity;
 
 /**
  * This Class is the Bean linked to {@code listcustomer.xhtml}, displaying the list of {@link Customer}s.
- * It extends {@link BeanListUser} and defines specific attributes.
+ * It extends {@link BackingListUser} and defines specific attributes.
  * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
@@ -19,7 +19,7 @@ import com.jomm.terroir.util.Constants.Entity;
  */
 @Named
 @ViewScoped
-public class BeanListCustomer extends BeanListUser {
+public class BackingListCustomer extends BackingListUser {
 	
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */

@@ -15,20 +15,20 @@
 			<p:growl id="growl" showDetail="true" />
 
 			<h:outputLabel value="#{error.userempty}"
-				rendered="#{empty beanListProduct.listProducts}"
+				rendered="#{empty backingListProduct.listProducts}"
 				styleClass="messages" />
 
 			<p:dataTable id="users" var="currentProduct"
-				value="#{beanListProduct.listProducts}" editable="true"
-				rendered="#{not empty beanListProduct.listProducts}" rows="5"
+				value="#{backingListProduct.listProducts}" editable="true"
+				rendered="#{not empty backingListProduct.listProducts}" rows="5"
 				scrollable="true" scrollRows="2" stickyHeader="true"
 				paginator="true" paginatorPosition="top"
 				paginatorAlwaysVisible="false">
 
-				<p:ajax event="rowEdit" listener="#{beanListProduct.onRowEdit}"
+				<p:ajax event="rowEdit" listener="#{backingListProduct.onRowEdit}"
 					update=":form:growl" />
 				<p:ajax event="rowEditCancel"
-					listener="#{beanListProduct.onRowCancel}" update=":form:growl"
+					listener="#{backingListProduct.onRowCancel}" update=":form:growl"
 					resetValues="true" />
 
 				<f:facet name="header">#{label.productlist}</f:facet>
@@ -149,7 +149,7 @@
 					<p:commandLink styleClass="ui-icon ui-icon-trash"
 						update=":form:deleteConfirmDialog"
 						oncomplete="PF('deleteConfirmation').show();"
-						action="#{beanListProduct.setCurrentProduct(currentProduct)}">
+						action="#{backingListProduct.setCurrentProduct(currentProduct)}">
 					</p:commandLink>
 				</p:column>
 
@@ -158,12 +158,12 @@
 			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
 				hideEffect="fade" header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
-				message="#{message.confirmdelete} #{beanListProduct.currentProduct.title} ?"
+				message="#{message.confirmdelete} #{backingListProduct.currentProduct.title} ?"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
 					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"
-					action="#{beanListProduct.delete()}" process="@this" />
+					action="#{backingListProduct.delete()}" process="@this" />
 				<p:commandButton id="decline" value="#{label.cancel}"
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
 					oncomplete="PF('deleteConfirmation').hide();" />

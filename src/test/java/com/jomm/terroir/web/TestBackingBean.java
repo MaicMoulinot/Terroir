@@ -36,7 +36,7 @@ public class TestBackingBean {
 	@Before
 	public void setUp() throws Exception {
 		// Instantiate a concrete child
-		view = TestBeanRegistrationCustomer.generateDummyViewCustomer();
+		view = TestBackingRegistrationCustomer.generateDummyViewCustomer();
 	}
 
 	/**

@@ -68,12 +68,12 @@ import com.jomm.terroir.util.converter.TestConverterLocalDate;
 import com.jomm.terroir.util.converter.TestConverterZonedDateTime;
 import com.jomm.terroir.util.exception.TestExceptionService;
 import com.jomm.terroir.web.TestBackingBean;
-import com.jomm.terroir.web.TestBeanListCustomer;
-import com.jomm.terroir.web.TestBeanListSeller;
-import com.jomm.terroir.web.TestBeanListUser;
-import com.jomm.terroir.web.TestBeanRegistrationCustomer;
-import com.jomm.terroir.web.TestBeanRegistrationSeller;
-import com.jomm.terroir.web.TestBeanRegistrationUser;
+import com.jomm.terroir.web.TestBackingListCustomer;
+import com.jomm.terroir.web.TestBackingListSeller;
+import com.jomm.terroir.web.TestBackingListUser;
+import com.jomm.terroir.web.TestBackingRegistrationCustomer;
+import com.jomm.terroir.web.TestBackingRegistrationSeller;
+import com.jomm.terroir.web.TestBackingRegistrationUser;
 
 /**
  * This Class is a Junit Suite Case launching all Junit test cases.
@@ -113,8 +113,8 @@ import com.jomm.terroir.web.TestBeanRegistrationUser;
 	TestExceptionService.class, 
 	// Web
 	TestBackingBean.class, 
-	TestBeanListCustomer.class, TestBeanListSeller.class, TestBeanListUser.class, 
-	TestBeanRegistrationCustomer.class, TestBeanRegistrationSeller.class, TestBeanRegistrationUser.class
+	TestBackingListCustomer.class, TestBackingListSeller.class, TestBackingListUser.class, 
+	TestBackingRegistrationCustomer.class, TestBackingRegistrationSeller.class, TestBackingRegistrationUser.class
 	})
 public class AllTests {
 	

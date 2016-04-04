@@ -24,7 +24,7 @@ import com.jomm.terroir.util.exception.ExceptionService;
  * and to {@link Logger} to generate proper logging messages.
  * @author Maic
  */
-public abstract class BeanRegistrationUser extends BackingBean {
+public abstract class BackingRegistrationUser extends BackingBean {
 	
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
@@ -45,7 +45,7 @@ public abstract class BeanRegistrationUser extends BackingBean {
 	
 	// Methods //-------------------------------------------------
 	/**
-	 * Generate an {@link AbstractUser} using values from the {@link BeanRegistrationUser}.
+	 * Generate an {@link AbstractUser} using values from the {@link BackingRegistrationUser}.
 	 * @return {@link AbstractUser}.
 	 */
 	public abstract AbstractUser convertIntoEntity();

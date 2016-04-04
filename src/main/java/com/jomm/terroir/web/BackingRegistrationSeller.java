@@ -10,7 +10,7 @@ import com.jomm.terroir.util.Constants.Entity;
 
 /**
  * This Class is the Bean linked to {@code registrationseller.xhtml}, used to register a new {@link Seller}.
- * It extends {@link BeanRegistrationUser} and defines an additional attribute {@link Enterprise}.
+ * It extends {@link BackingRegistrationUser} and defines an additional attribute {@link Enterprise}.
  * It indirectly implements {@link java.io.Serializable} and has a default serial version ID.
  * It is annotated {@link Named} for proper access from/to the view page,
  * and {@link ViewScoped} because of multiple AJAX requests.
@@ -18,7 +18,7 @@ import com.jomm.terroir.util.Constants.Entity;
  */
 @Named
 @ViewScoped
-public class BeanRegistrationSeller extends BeanRegistrationUser {
+public class BackingRegistrationSeller extends BackingRegistrationUser {
 	
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
@@ -54,7 +54,7 @@ public class BeanRegistrationSeller extends BeanRegistrationUser {
 	}
 
 	/**
-	 * Transform an {@link BeanRegistrationSeller} into {@link Seller}.
+	 * Transform an {@link BackingRegistrationSeller} into {@link Seller}.
 	 * @return Seller.
 	 */
 	@Override

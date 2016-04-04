@@ -20,7 +20,7 @@
 					value="#{label.firstname}" />
 				<p:spacer />
 				<p:inputText id="firstname"
-					value="#{beanRegistrationCustomer.firstName}" required="true"
+					value="#{backingRegistrationCustomer.firstName}" required="true"
 					requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -32,7 +32,7 @@
 					value="#{label.lastname}" />
 				<p:spacer />
 				<p:inputText id="lastname"
-					value="#{beanRegistrationCustomer.lastName}" required="true"
+					value="#{backingRegistrationCustomer.lastName}" required="true"
 					requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -45,7 +45,7 @@
 				<p:tooltip id="usertooltip" for="username"
 					value="#{label.usernametooltip}" />
 				<p:inputText id="username"
-					value="#{beanRegistrationCustomer.userName}" required="true"
+					value="#{backingRegistrationCustomer.userName}" required="true"
 					requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{validatorUsername}" />
 					<p:ajax event="blur" update="usernameMessage" />
@@ -54,7 +54,7 @@
 
 				<p:outputLabel for="email" id="emailLabel" value="#{label.email}" />
 				<p:spacer />
-				<p:inputText id="email" value="#{beanRegistrationCustomer.email}"
+				<p:inputText id="email" value="#{backingRegistrationCustomer.email}"
 					required="true" requiredMessage="#{error.mandatory}">
 					<f:validator binding="#{validatorEmail}" />
 					<p:ajax event="blur" execute="email" update="emailMessage" />
@@ -65,11 +65,11 @@
 					value="#{label.password}" />
 				<p:commandLink id="help" title="#{message.passwordtitle}"
 					process="@this"
-					action="#{beanRegistrationCustomer.passwordTooltip}" update="growl">
+					action="#{backingRegistrationCustomer.passwordTooltip}" update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
 				<p:password id="password1"
-					value="#{beanRegistrationCustomer.password}" feedback="true"
+					value="#{backingRegistrationCustomer.password}" feedback="true"
 					binding="#{parameter}" required="true"
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
@@ -83,11 +83,11 @@
 					value="#{label.password2}" />
 				<p:commandLink id="help2" title="#{message.passwordtitle}"
 					process="@this"
-					action="#{beanRegistrationCustomer.passwordTooltip}" update="growl">
+					action="#{backingRegistrationCustomer.passwordTooltip}" update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
 				<p:password id="password2"
-					value="#{beanRegistrationCustomer.password}" feedback="true"
+					value="#{backingRegistrationCustomer.password}" feedback="true"
 					required="true" requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
@@ -105,7 +105,7 @@
 				<p:outputLabel for="street" id="streetLabel" value="#{label.street}" />
 				<p:spacer />
 				<p:inputText id="street"
-					value="#{beanRegistrationCustomer.address.street}" required="true"
+					value="#{backingRegistrationCustomer.address.street}" required="true"
 					requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -117,14 +117,14 @@
 					value="#{label.complement}" />
 				<p:spacer />
 				<p:inputText id="complement"
-					value="#{beanRegistrationCustomer.address.complement}" />
+					value="#{backingRegistrationCustomer.address.complement}" />
 				<p:message id="complementMessage" for="complement" display="text" />
 
 				<p:outputLabel for="postcode" id="postcodeLabel"
 					value="#{label.postcode}" />
 				<p:spacer />
 				<p:inputText id="postcode"
-					value="#{beanRegistrationCustomer.address.postCode}"
+					value="#{backingRegistrationCustomer.address.postCode}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -135,7 +135,7 @@
 				<p:outputLabel for="city" id="cityLabel" value="#{label.city}" />
 				<p:spacer />
 				<p:inputText id="city"
-					value="#{beanRegistrationCustomer.address.city}" required="true"
+					value="#{backingRegistrationCustomer.address.city}" required="true"
 					requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -147,7 +147,7 @@
 					value="#{label.country}" />
 				<p:spacer />
 				<p:inputText id="country"
-					value="#{beanRegistrationCustomer.address.country}" required="true"
+					value="#{backingRegistrationCustomer.address.country}" required="true"
 					requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -159,9 +159,9 @@
 					value="#{label.birthdate}" />
 				<p:spacer />
 				<p:calendar id="birthdate"
-					value="#{beanRegistrationCustomer.birthDate}" navigator="true"
+					value="#{backingRegistrationCustomer.birthDate}" navigator="true"
 					pattern="dd/MM/yyyy" converter="localDateConverter"
-					yearRange="#{beanRegistrationCustomer.generateYearRange()}"
+					yearRange="#{backingRegistrationCustomer.generateYearRange()}"
 					effect="slide" required="true" requiredMessage="#{error.mandatory}">
 					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
@@ -172,7 +172,7 @@
 
 			<p:spacer height="100" />
 			<p:commandButton id="create" value="#{label.save}" update="form"
-				action="#{beanRegistrationCustomer.create}" icon="ui-icon-check" />
+				action="#{backingRegistrationCustomer.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
 			<p:commandButton id="reset" value="#{label.reset}" update="form"
 				process="@this" icon="ui-icon-refresh">

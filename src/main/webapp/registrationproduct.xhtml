@@ -21,11 +21,11 @@
 					value="#{label.designation}" />
 				<p:spacer />
 				<p:selectOneMenu id="designation" binding="#{parameter}"
-					value="#{beanRegistrationProduct.designation}" 
+					value="#{backingRegistrationProduct.designation}" 
 					converter="omnifaces.SelectItemsConverter" 
 					required="true"	requiredMessage="#{error.mandatory}">
 					<f:selectItem itemLabel="#{label.selectone}" noSelectionOption="true" />
-					<f:selectItems value="#{beanRegistrationProduct.designations}" var="currentDesignation"
+					<f:selectItems value="#{backingRegistrationProduct.designations}" var="currentDesignation"
 						itemLabel="#{currentDesignation.registeredName}" itemValue="#{currentDesignation}" />
 					<f:ajax render="medianPrice" />
 				</p:selectOneMenu>
@@ -33,7 +33,7 @@
 
 				<p:outputLabel for="title" id="titleLabel" value="#{label.title}" />
 				<p:spacer />
-				<p:inputText id="title" value="#{beanRegistrationProduct.title}"
+				<p:inputText id="title" value="#{backingRegistrationProduct.title}"
 					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -45,7 +45,7 @@
 					value="#{label.description}" />
 				<p:spacer />
 				<p:inputTextarea id="description" rows="5" cols="50"
-					value="#{beanRegistrationProduct.description}" required="true"
+					value="#{backingRegistrationProduct.description}" required="true"
 					requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
@@ -57,7 +57,7 @@
 					value="#{label.quantity}" />
 				<p:spacer />
 				<p:inputText id="quantity"
-					value="#{beanRegistrationProduct.quantity}" required="true"
+					value="#{backingRegistrationProduct.quantity}" required="true"
 					requiredMessage="#{error.mandatory}"
 					converterMessage="#{error.integer}">
 					<f:convertNumber integerOnly="true" />
@@ -66,8 +66,8 @@
 				<p:message id="quantityMessage" for="quantity" display="text" />
 
 				<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
-				<h:outputText id="medianPrice" value="#{beanRegistrationProduct.designation.medianPrice}" />
-				<p:inputText id="price" value="#{beanRegistrationProduct.price}"
+				<h:outputText id="medianPrice" value="#{backingRegistrationProduct.designation.medianPrice}" />
+				<p:inputText id="price" value="#{backingRegistrationProduct.price}"
 					required="true" requiredMessage="#{error.mandatory}"
 					converterMessage="#{error.integer}">
 					<f:convertNumber currencySymbol="€" maxFractionDigits="2"
@@ -82,7 +82,7 @@
 
 			<p:spacer height="100" />
 			<p:commandButton id="create" value="#{label.save}" update="form"
-				action="#{beanRegistrationProduct.create}" icon="ui-icon-check" />
+				action="#{backingRegistrationProduct.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
 			<p:commandButton id="reset" value="#{label.reset}" update="form"
 				process="@this" icon="ui-icon-refresh">

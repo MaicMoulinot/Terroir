@@ -35,7 +35,7 @@ import com.jomm.terroir.util.exception.ExceptionService;
  */
 @Named
 @ViewScoped
-public class BeanRegistrationProduct extends BackingBean {
+public class BackingRegistrationProduct extends BackingBean {
 	
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
@@ -76,7 +76,7 @@ public class BeanRegistrationProduct extends BackingBean {
 	}
 	
 	/**
-	 * Generate an {@link Product} using values from the {@link BeanRegistrationProduct}.
+	 * Generate an {@link Product} using values from the {@link BackingRegistrationProduct}.
 	 * @return {@link Product}.
 	 */
 	public Product convertIntoEntity() {

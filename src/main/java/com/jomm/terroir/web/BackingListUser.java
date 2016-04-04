@@ -20,7 +20,7 @@ import com.jomm.terroir.util.exception.ExceptionService;
  * and to {@link Logger} to generate proper logging messages.
  * @author Maic
  */
-public abstract class BeanListUser extends BackingBean {
+public abstract class BackingListUser extends BackingBean {
 	
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */

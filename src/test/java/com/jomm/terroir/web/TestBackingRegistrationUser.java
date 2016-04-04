@@ -34,33 +34,33 @@ import com.jomm.terroir.util.exception.ExceptionService;
 import com.jomm.terroir.util.exception.TestExceptionService;
 
 /**
- * This class is a Junit test case testing the methods of {@link BeanRegistrationUser}.
+ * This class is a Junit test case testing the methods of {@link BackingRegistrationUser}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
- * Here, the parameters are each child of {@link BeanRegistrationUser} with its associated concrete child of {@link AbstractUser}.
+ * Here, the parameters are each child of {@link BackingRegistrationUser} with its associated concrete child of {@link AbstractUser}.
  * @author Maic
  */
 @RunWith(Parameterized.class)
-public class TestBeanRegistrationUser {
+public class TestBackingRegistrationUser {
 	
 	// Variables //-----------------------------------------------
-	private BeanRegistrationUser view;
+	private BackingRegistrationUser view;
 	private AbstractUser user;
 	
 	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
-	 * Its parameter comes from all values from {@link TestBeanRegistrationUser#childToTest()}.
-	 * @param view the concrete child of {@link BeanRegistrationUser}.
+	 * Its parameter comes from all values from {@link TestBackingRegistrationUser#childToTest()}.
+	 * @param view the concrete child of {@link BackingRegistrationUser}.
 	 * @param user the concrete child of {@link AbstractUser}.
 	 */
-    public TestBeanRegistrationUser(BeanRegistrationUser view, AbstractUser user) {
+    public TestBackingRegistrationUser(BackingRegistrationUser view, AbstractUser user) {
         this.view = view;
         this.user = user;
     }
     
     // Test methods //--------------------------------------------
 	/**
-	 * Test method for {@link BeanRegistrationCustomer#create()} when entity is null.
+	 * Test method for {@link BackingRegistrationCustomer#create()} when entity is null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -81,7 +81,7 @@ public class TestBeanRegistrationUser {
 	}
 
 	/**
-	 * Test method for {@link BeanRegistrationCustomer#create()} with id not null.
+	 * Test method for {@link BackingRegistrationCustomer#create()} with id not null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -102,7 +102,7 @@ public class TestBeanRegistrationUser {
 	}
 
 	/**
-	 * Test method for {@link BeanRegistrationCustomer#create()} with id null.
+	 * Test method for {@link BackingRegistrationCustomer#create()} with id null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -119,7 +119,7 @@ public class TestBeanRegistrationUser {
 	}
 
 	/**
-	 * Test method for {@link BeanRegistrationUser#passwordTooltip()}.
+	 * Test method for {@link BackingRegistrationUser#passwordTooltip()}.
 	 */
 	@Test
 	public final void testPasswordTooltip() {
@@ -134,7 +134,7 @@ public class TestBeanRegistrationUser {
 	}
 
 	/**
-	 * Test method for {@link BeanRegistrationUser}'s getters and setters.
+	 * Test method for {@link BackingRegistrationUser}'s getters and setters.
 	 */
 	@Test
 	public final void testGetterSetter() {
@@ -190,27 +190,27 @@ public class TestBeanRegistrationUser {
 	
 	// Static methods //------------------------------------------
 	/**
-	 * Generate a dummy {@link BeanRegistrationUser} usable for tests.
+	 * Generate a dummy {@link BackingRegistrationUser} usable for tests.
 	 * @param user the {@link AbstractUser} defining appropriate view.
-	 * @return {@link BeanRegistrationUser}.
+	 * @return {@link BackingRegistrationUser}.
 	 */
-	static BeanRegistrationUser generateDummyViewUser(AbstractUser user) {
-		BeanRegistrationUser view = null;
+	static BackingRegistrationUser generateDummyViewUser(AbstractUser user) {
+		BackingRegistrationUser view = null;
 		if (user != null) {
 			if (user instanceof Seller) {
-				view = TestBeanRegistrationSeller.generateDummyViewSeller();
+				view = TestBackingRegistrationSeller.generateDummyViewSeller();
 			} else if (user instanceof Customer) {
-				view = TestBeanRegistrationCustomer.generateDummyViewCustomer();
+				view = TestBackingRegistrationCustomer.generateDummyViewCustomer();
 			}
 		}
 		return view;
 	}
 	
 	/**
-	 * Set dummy values to a {@link BeanRegistrationUser} usable for tests.
-	 * @param view the {@link BeanRegistrationUser} to be set.
+	 * Set dummy values to a {@link BackingRegistrationUser} usable for tests.
+	 * @param view the {@link BackingRegistrationUser} to be set.
 	 */
-	static void setDummyValues(BeanRegistrationUser view) {
+	static void setDummyValues(BackingRegistrationUser view) {
 		view.setFirstName("FirstName");
 		view.setLastName("LastName");
 		view.setUserName("UserName");
@@ -219,7 +219,7 @@ public class TestBeanRegistrationUser {
 	}
 	
 	/**
-	 * Reference a list of all {@link BeanRegistrationUser}'s concrete children, 
+	 * Reference a list of all {@link BackingRegistrationUser}'s concrete children, 
 	 * and the associated concrete child of {@link AbstractUser},
 	 * to be used as parameters on constructor.
 	 * Each iteration will be tested with all test methods.
@@ -228,8 +228,8 @@ public class TestBeanRegistrationUser {
 	@Parameters
 	public static Iterable<Object[]> childToTest() {
 		return Arrays.asList(new Object[][] {
-			{new BeanRegistrationCustomer(), new Customer()},
-			{new BeanRegistrationSeller(), new Seller()}
+			{new BackingRegistrationCustomer(), new Customer()},
+			{new BackingRegistrationSeller(), new Seller()}
 			}
 		);
 	}

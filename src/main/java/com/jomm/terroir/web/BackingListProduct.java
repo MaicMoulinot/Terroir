@@ -29,7 +29,7 @@ import com.jomm.terroir.util.exception.ExceptionService;
  */
 @Named
 @ViewScoped
-public class BeanListProduct extends BackingBean {
+public class BackingListProduct extends BackingBean {
 	
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */

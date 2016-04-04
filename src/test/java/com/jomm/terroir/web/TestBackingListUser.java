@@ -35,34 +35,34 @@ import com.jomm.terroir.util.exception.ExceptionService;
 import com.jomm.terroir.util.exception.TestExceptionService;
 
 /**
- * This class is a Junit test case testing the methods of {@link BeanListUser}.
+ * This class is a Junit test case testing the methods of {@link BackingListUser}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
- * Here, the parameters are each child of {@link BeanListUser} 
+ * Here, the parameters are each child of {@link BackingListUser} 
  * with its associated concrete child of {@link AbstractUser}.
  * @author Maic
  */
 @RunWith(Parameterized.class)
-public class TestBeanListUser {
+public class TestBackingListUser {
 	
 	// Variables //-----------------------------------------------
-	private BeanListUser view;
+	private BackingListUser view;
 	private AbstractUser user;
 	
 	// Constructors //--------------------------------------------
 	/**
 	 * Constructor.
-	 * Its parameter comes from all values from {@link TestBeanListUser#childToTest()}.
-	 * @param view the concrete child of {@link BeanListUser}.
+	 * Its parameter comes from all values from {@link TestBackingListUser#childToTest()}.
+	 * @param view the concrete child of {@link BackingListUser}.
 	 * @param user the concrete child of {@link AbstractUser}.
 	 */
-    public TestBeanListUser(BeanListUser view, AbstractUser user) {
+    public TestBackingListUser(BackingListUser view, AbstractUser user) {
         this.view = view;
         this.user = user;
     }
     
     // Test methods //--------------------------------------------
 	/**
-	 * Test method for {@link BeanListSeller#onRowEdit(RowEditEvent)} with entity null.
+	 * Test method for {@link BackingListSeller#onRowEdit(RowEditEvent)} with entity null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -85,7 +85,7 @@ public class TestBeanListUser {
 	}
 	
 	/**
-	 * Test method for {@link BeanListSeller#onRowEdit(RowEditEvent)} with id null.
+	 * Test method for {@link BackingListSeller#onRowEdit(RowEditEvent)} with id null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -108,7 +108,7 @@ public class TestBeanListUser {
 	}
 	
 	/**
-	 * Test method for {@link BeanListSeller#onRowEdit(RowEditEvent)} with id not null.
+	 * Test method for {@link BackingListSeller#onRowEdit(RowEditEvent)} with id not null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -127,7 +127,7 @@ public class TestBeanListUser {
 	}
 	
 	/**
-	 * Test method for {@link BeanListSeller#delete()} with current customer null.
+	 * Test method for {@link BackingListSeller#delete()} with current customer null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -142,7 +142,7 @@ public class TestBeanListUser {
 	}
 	
 	/**
-	 * Test method for {@link BeanListSeller#delete()} with entity null.
+	 * Test method for {@link BackingListSeller#delete()} with entity null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -164,7 +164,7 @@ public class TestBeanListUser {
 	}
 	
 	/**
-	 * Test method for {@link BeanListSeller#delete()} with entity's id null.
+	 * Test method for {@link BackingListSeller#delete()} with entity's id null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -186,7 +186,7 @@ public class TestBeanListUser {
 	}
 	
 	/**
-	 * Test method for {@link BeanListSeller#delete()} with entity's id not null.
+	 * Test method for {@link BackingListSeller#delete()} with entity's id not null.
 	 * @throws Exception should not be thrown.
 	 */
 	@Test
@@ -232,7 +232,7 @@ public class TestBeanListUser {
 	
 	// Static methods //------------------------------------------
 	/**
-	 * Reference a list of all {@link BeanListUser}'s concrete children, 
+	 * Reference a list of all {@link BackingListUser}'s concrete children, 
 	 * and the associated concrete child of {@link AbstractUser},
 	 * to be used as parameters on constructor.
 	 * Each iteration will be tested with all test methods.
@@ -241,8 +241,8 @@ public class TestBeanListUser {
 	@Parameters
 	public static Iterable<Object[]> childToTest() {
 		return Arrays.asList(new Object[][] {
-			{new BeanListCustomer(), new Customer()},
-			{new BeanListSeller(), new Seller()}
+			{new BackingListCustomer(), new Customer()},
+			{new BackingListSeller(), new Seller()}
 			}
 		);
 	}
