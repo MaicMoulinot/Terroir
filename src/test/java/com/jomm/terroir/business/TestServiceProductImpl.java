@@ -11,8 +11,11 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.jomm.terroir.business.model.Product;
+import com.jomm.terroir.business.model.Stock;
 import com.jomm.terroir.business.model.TestProduct;
+import com.jomm.terroir.business.model.TestStock;
 import com.jomm.terroir.dao.DaoProduct;
+import com.jomm.terroir.dao.DaoStock;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -30,6 +33,8 @@ public class TestServiceProductImpl {
 	// Injected Fields //-----------------------------------------
 	@Mock(name = "dao")
 	private DaoProduct dao;
+	@Mock(name = "daoStock")
+	private DaoStock daoStock;
 
 	@InjectMocks
 	private ServiceProductImpl service;
@@ -58,6 +63,21 @@ public class TestServiceProductImpl {
 		try {
 			service.update(product);
 			verify(dao).update(any(Product.class)); // validate that dao.update() was called
+		} catch (ExceptionService unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
+	}
+	
+	/**
+	 * Test method for {@link ServiceProductImpl#updateQuantity(Stock, Integer)}.
+	 */
+	@Test
+	public final void testUpdateQuantity() {
+		Stock stock = TestStock.generateStockWithIdNull();
+		stock.setId(ID);
+		try {
+			service.updateQuantity(stock, 23);
+			verify(daoStock).update(any(Stock.class)); // validate that daoStock.update() was called
 		} catch (ExceptionService unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}

@@ -17,8 +17,11 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.jomm.terroir.business.model.Product;
+import com.jomm.terroir.business.model.Stock;
 import com.jomm.terroir.business.model.TestProduct;
+import com.jomm.terroir.business.model.TestStock;
 import com.jomm.terroir.dao.DaoProduct;
+import com.jomm.terroir.dao.DaoStock;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -32,6 +35,7 @@ public class TestServiceProduct {
 	
 	// Constants //-----------------------------------------------
 	private static final Long ID = 52L;
+	private static final Integer QUANTITY = 200;
 	
 	// Variables //-----------------------------------------------
 	/** An implementation of {@link ServiceProduct}. */
@@ -66,7 +70,7 @@ public class TestServiceProduct {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
+	public final void testCreateWithIdNotNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		product.setId(ID);
 		service.create(product);
@@ -79,7 +83,7 @@ public class TestServiceProduct {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateProductSetLastUpdate() throws ExceptionService {
+	public final void testCreateSetLastUpdateStock() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		assertNull("LastUpdate should not yet be initialized", product.getStock().getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
@@ -108,7 +112,7 @@ public class TestServiceProduct {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionService {
+	public final void testUpdateWithIdNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		service.update(product);
 		fail("An ExceptionService should have been thrown");
@@ -116,21 +120,58 @@ public class TestServiceProduct {
 	
 	/**
 	 * Test that {@link ServiceProduct#update(Product)} does not throw an {@link ExceptionService}
-	 * when entity's state is correct, and properly generates the LastUpdate date in the stock.
+	 * when entity's state is correct.
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testUpdateProductSetLastUpdate() throws ExceptionService {
+	public final void testUpdateWithIdNotNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		product.setId(ID);
-		assertNull("LastUpdate should not yet be initialized", product.getStock().getLastUpdate());
-		ZonedDateTime now = ZonedDateTime.now();
+		Long beforeUpdateId = ID;
+		product.setId(beforeUpdateId);
 		service.update(product);
-		ZonedDateTime entityDate = product.getStock().getLastUpdate();
+		assertEquals("Update does not change the identifier", beforeUpdateId, product.getId());
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#updateQuantity(Stock, Integer)} throws an {@link ExceptionService}
+	 * when entity is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testUpdateQuantityWithEntityNull() throws ExceptionService {
+		service.updateQuantity(null, QUANTITY);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#updateQuantity(Stock, Integer)} throws an {@link ExceptionService}
+	 * when entity's id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testUpdateQuantityWithIdNull() throws ExceptionService {
+		Stock stock = TestStock.generateStockWithIdNull();
+		service.updateQuantity(stock, QUANTITY);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#updateQuantity(Stock, Integer)} does not throw an {@link ExceptionService}
+	 * when entity's state is correct, and properly generates the LastUpdate in the stock.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testUpdateQuantityWithIdNotNullSetLastUpdate() throws ExceptionService {
+		Stock stock = TestStock.generateStockWithIdNull();
+		stock.setId(ID);
+		assertNull("LastUpdate should not yet be initialized", stock.getLastUpdate());
+		ZonedDateTime now = ZonedDateTime.now();
+		service.updateQuantity(stock, QUANTITY);
+		ZonedDateTime entityDate = stock.getLastUpdate();
 		assertNotNull("LastUpdate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;
 		assertEquals("LastUpdate should be like ZonedDateTime.now()", now.format(formatter), 
-				entityDate.format(formatter));
+				entityDate.format(formatter));		
 	}
 
 	/**
@@ -150,7 +191,7 @@ public class TestServiceProduct {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionService {
+	public final void testDeleteWithIdNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		service.delete(product);
 		fail("An ExceptionService should have been thrown");
@@ -162,7 +203,7 @@ public class TestServiceProduct {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+	public final void testDeleteWithIdNotNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
 		product.setId(ID);
 		service.delete(product);
@@ -199,6 +240,7 @@ public class TestServiceProduct {
 	private static ServiceProductImpl generateMockedProductServiceImpl() {
 		ServiceProductImpl impl = new ServiceProductImpl();
 		impl.setTestDaoProduct(mock(DaoProduct.class));
+		impl.setTestDaoStock(mock(DaoStock.class));
 		return impl;
 	}
 }

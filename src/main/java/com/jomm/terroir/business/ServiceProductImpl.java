@@ -13,13 +13,15 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Product;
+import com.jomm.terroir.business.model.Stock;
 import com.jomm.terroir.dao.DaoProduct;
+import com.jomm.terroir.dao.DaoStock;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
- * This Class is the Service relating to {@link Product}.
+ * This Class is the Service relating to {@link Product} and {@link Stock}.
  * It implements {@link ServiceProduct} and defines all its business methods.
- * It relates to {@link DaoProduct} for all persistence operations.
+ * It relates to {@link DaoProduct} and {@link DaoStock} for all persistence operations.
  * @author Maic
  */
 @Stateless
@@ -28,11 +30,13 @@ public class ServiceProductImpl implements ServiceProduct {
 	// Injected Fields //-----------------------------------------
 	@Inject
 	private DaoProduct daoProduct;
+	@Inject
+	private DaoStock daoStock;
 	
 	// Methods //-------------------------------------------------
 	@Override
 	public Product create(Product product) throws ExceptionService {
-		if (product == null) {
+		if (product == null || product.getStock() == null) {
 			throw new ExceptionService(ENTITY_NULL);
 		} else if (product.getId() != null) {
 			throw new ExceptionService(ID_NOT_NULL);
@@ -43,13 +47,24 @@ public class ServiceProductImpl implements ServiceProduct {
 	
 	@Override
 	public Product update(Product product) throws ExceptionService {
-		if (product == null) {
+		if (product == null || product.getStock() == null) {
 			throw new ExceptionService(ENTITY_NULL);
 		} else if (product.getId() == null) {
 			throw new ExceptionService(ID_NULL);
 		}
-		product.getStock().setLastUpdate(ZonedDateTime.now());
 		return daoProduct.update(product);
+	}
+	
+	@Override
+	public Stock updateQuantity(Stock stock, Integer newQuantity) throws ExceptionService {
+		if (stock == null) {
+			throw new ExceptionService(ENTITY_NULL);
+		} else if (stock.getId() == null) {
+			throw new ExceptionService(ID_NULL);
+		}
+		stock.setQuantity(newQuantity);
+		stock.setLastUpdate(ZonedDateTime.now());
+		return daoStock.update(stock);
 	}
 
 	@Override
@@ -75,5 +90,13 @@ public class ServiceProductImpl implements ServiceProduct {
 	 */
 	void setTestDaoProduct(DaoProduct daoProduct) {
 		this.daoProduct = daoProduct;
+	}
+	
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param daoStock the daoStock to set.
+	 */
+	void setTestDaoStock(DaoStock daoStock) {
+		this.daoStock = daoStock;
 	}
 }
