@@ -55,6 +55,7 @@ public abstract class UtilData {
 	// DBSetup protected operations to be used in concrete child
 	/**
 	 * A sequence of 2 {@link Operation}s.
+	 * It requires {@link UtilData#INSERT_LABEL} and {@link UtilData#INSERT_CATEGORIES} to be called first.
 	 * <br />Insert data in table designation with id {@link UtilData#EXISTING_DESIGNATION_ID}.
 	 * <br />Insert data in join table designationlabel ({@link UtilData#EXISTING_LABEL_ID}, 
 	 * {@link UtilData#EXISTING_DESIGNATION_ID}).
@@ -69,7 +70,7 @@ public abstract class UtilData {
 					"fk_category_id", "definition", "season")
 			.values(EXISTING_DESIGNATION_ID, "Roquefort", null, "ròcafòrt", "Décret du 22 janvier 2001 relatif à "
 					+ "l'appellation d'origine contrôlée 'Roquefort' NOR: AGRP0001838D Version consolidée au 21 mars 2016", 
-					GENERATOR_LOCAL_DATE.nextValue(), "https://fr.wikipedia.org/wiki/Roquefort", null, null, null, 
+					GENERATOR_LOCAL_DATE.nextValue(), "https://fr.wikipedia.org/wiki/Roquefort", 19.99, null, null, 
 					null, null, "12250", "Roquefort-sur-Soulzon", "France", "43.973724, 2.991373", EXISTING_CATEGORY_ID, 
 					"Le fromage bénéficiant de l'appellation d'origine contrôlée 'Roquefort' est un fromage fabriqué "
 							+ "exclusivement avec du lait de brebis mis en oeuvre à l'état cru et emprésuré, de forme "
@@ -100,6 +101,7 @@ public abstract class UtilData {
 
 	/**
 	 * A sequence of 3 {@link Operation}s.
+	 * It requires {@link UtilData#INSERT_ENTERPRISES} to be called first.
 	 * <br />Insert data in table image with id {@link UtilData#IMAGE_FOR_SITE_ID}.
 	 * <br />Insert data in table site with ids 111111, 222222, and {@link UtilData#EXISTING_SITE_ID}.
 	 * <br />Insert data in join table siteimage ({@link UtilData#EXISTING_SITE_ID}, 
@@ -186,6 +188,7 @@ public abstract class UtilData {
 			.build();
 
 	/**
+	 * It requires {@link UtilData#INSERT_SITES} and {@link UtilData#INSERT_DESIGNATION_LABEL} to be called first.
 	 * Insert data in product table with ids {@link UtilData#EXISTING_PRODUCT_ID_FIRST_CALL}, 
 	 * and {@link UtilData#EXISTING_PRODUCT_ID_SECOND_CALL}.
 	 */
