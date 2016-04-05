@@ -130,6 +130,8 @@ public final class Constants {
 		ID_SHOULD_BE_NULL("idnotnull"),
 		/** "idnull" */
 		ID_SHOULD_NOT_BE_NULL("idnull"),
+		/** "integer" */
+		INTEGER("integer"),
 		/** "length5and15" */
 		LENGTH_BETWEEN_5_AND_15("length5and15"),
 		/** "passwordsdifferent" */
