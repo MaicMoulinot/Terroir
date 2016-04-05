@@ -30,7 +30,7 @@ import com.jomm.terroir.business.model.Designation;
 public class ValidatorPrice implements Validator {
 	
 	// Constants //-----------------------------------------------
-	private static final BigDecimal THIRTY_PER_CENT = new BigDecimal("30").divide(new BigDecimal("100"));
+	private static final BigDecimal THIRTY_PER_CENT = new BigDecimal("0.3");
 	
 	// Methods //-------------------------------------------------
 	@Override
@@ -41,12 +41,15 @@ public class ValidatorPrice implements Validator {
 			// Retrieve designation
 			Designation designation = retrieveValueFromComponent(component);
 			// Validation
-			if (designation == null || designation.getMedianPrice() == null) {
+			if (designation == null) {
 				// Designation was not correctly set in the UIComponent
 				throw new ValidatorException(createMessage(getValueFromKey(DESIGNATION_INVALID)));
-			} else if (isOutOfRange(designation.getMedianPrice(), price)) {
-				// Price is too far from median price
-				throw new ValidatorException(createMessage(getValueFromKey(PRICE_OUT_OF_RANGE)));
+			} else if (designation.getMedianPrice() != null) {
+				// If median price is null, the validation should not fail
+				if (isOutOfRange(designation.getMedianPrice(), price)) {
+					// Price is too far from median price
+					throw new ValidatorException(createMessage(getValueFromKey(PRICE_OUT_OF_RANGE)));
+				}
 			}
 		}
 	}
