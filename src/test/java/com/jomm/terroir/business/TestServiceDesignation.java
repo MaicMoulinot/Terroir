@@ -62,7 +62,7 @@ public class TestServiceDesignation {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
+	public final void testCreateWithIdNotNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
 		designation.setId(ID);
 		service.create(designation);
@@ -75,7 +75,7 @@ public class TestServiceDesignation {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateWithEntityNotNull() throws ExceptionService {
+	public final void testCreateWithIdNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
 		service.create(designation);
 		assertTrue("ExceptionService should not be thrown", true);
@@ -98,7 +98,7 @@ public class TestServiceDesignation {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionService {
+	public final void testUpdateWithIdNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
 		service.update(designation);
 		fail("An ExceptionService should have been thrown");
@@ -110,7 +110,7 @@ public class TestServiceDesignation {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+	public final void testUpdateWithIdNotNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
 		designation.setId(ID);
 		service.update(designation);
@@ -134,7 +134,7 @@ public class TestServiceDesignation {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionService {
+	public final void testDeleteWithIdNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
 		service.delete(designation);
 		fail("An ExceptionService should have been thrown");
@@ -146,7 +146,7 @@ public class TestServiceDesignation {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+	public final void testDeleteWithIdNotNull() throws ExceptionService {
 		Designation designation = TestDesignation.generateDesignationWithIdNull();
 		designation.setId(ID);
 		service.delete(designation);

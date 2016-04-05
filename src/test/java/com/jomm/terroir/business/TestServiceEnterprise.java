@@ -66,7 +66,7 @@ public class TestServiceEnterprise {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
+	public final void testCreateWithIdNotNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId(ID);
 		service.create(enterprise);
@@ -108,7 +108,7 @@ public class TestServiceEnterprise {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionService {
+	public final void testUpdateWithIdNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		service.update(enterprise);
 		fail("An ExceptionService should have been thrown");
@@ -120,7 +120,7 @@ public class TestServiceEnterprise {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+	public final void testUpdateWithIdNotNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId(ID);
 		service.update(enterprise);
@@ -144,7 +144,7 @@ public class TestServiceEnterprise {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionService {
+	public final void testDeleteWithIdNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		service.delete(enterprise);
 		fail("An ExceptionService should have been thrown");
@@ -156,7 +156,7 @@ public class TestServiceEnterprise {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+	public final void testDeleteWithIdNotNull() throws ExceptionService {
 		Enterprise enterprise = TestEnterprise.generateEnterpriseWithIdNull();
 		enterprise.setId(ID);
 		service.delete(enterprise);

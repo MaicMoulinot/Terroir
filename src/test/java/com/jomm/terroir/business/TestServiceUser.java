@@ -73,7 +73,7 @@ public class TestServiceUser {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
+	public final void testCreateWithIdNotNull() throws ExceptionService {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		user.setId(ID);
 		service.create(user);
@@ -127,7 +127,7 @@ public class TestServiceUser {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+	public final void testUpdateWithIdNotNull() throws ExceptionService {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		user.setId(ID);
 		service.update(user);
@@ -140,7 +140,7 @@ public class TestServiceUser {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionService {
+	public final void testUpdateWithIdNull() throws ExceptionService {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		service.update(user);
 		fail("An ExceptionService should have been thrown");
@@ -163,7 +163,7 @@ public class TestServiceUser {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+	public final void testDeleteWithIdNotNull() throws ExceptionService {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		user.setId(ID);
 		service.delete(user);
@@ -176,7 +176,7 @@ public class TestServiceUser {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionService {
+	public final void testDeleteWithIdNull() throws ExceptionService {
 		AbstractUser user = TestAbstractUser.generateAbstractUserWithIdNull();
 		service.delete(user);
 		fail("An ExceptionService should have been thrown");

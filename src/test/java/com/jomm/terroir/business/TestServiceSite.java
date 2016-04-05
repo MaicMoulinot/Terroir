@@ -62,7 +62,7 @@ public class TestServiceSite {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
+	public final void testCreateWithIdNotNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		site.setId(ID);
 		service.create(site);
@@ -75,7 +75,7 @@ public class TestServiceSite {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateWithEntityNotNull() throws ExceptionService {
+	public final void testCreateWithIdNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		service.create(site);
 		assertTrue("ExceptionService should not be thrown", true);
@@ -98,7 +98,7 @@ public class TestServiceSite {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionService {
+	public final void testUpdateWithIdNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		service.update(site);
 		fail("An ExceptionService should have been thrown");
@@ -110,7 +110,7 @@ public class TestServiceSite {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+	public final void testUpdateWithIdNotNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		site.setId(ID);
 		service.update(site);
@@ -134,7 +134,7 @@ public class TestServiceSite {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionService {
+	public final void testDeleteWithIdNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		service.delete(site);
 		fail("An ExceptionService should have been thrown");
@@ -146,7 +146,7 @@ public class TestServiceSite {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+	public final void testDeleteWithIdNotNull() throws ExceptionService {
 		Site site = TestSite.generateSiteWithIdNull();
 		site.setId(ID);
 		service.delete(site);

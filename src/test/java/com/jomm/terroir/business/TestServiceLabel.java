@@ -62,7 +62,7 @@ public class TestServiceLabel {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testCreateWithEntityIdNotNull() throws ExceptionService {
+	public final void testCreateWithIdNotNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
 		label.setId(ID);
 		service.create(label);
@@ -75,7 +75,7 @@ public class TestServiceLabel {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testCreateWithEntityNotNull() throws ExceptionService {
+	public final void testCreateWithIdNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
 		service.create(label);
 		assertTrue("ExceptionService should not be thrown", true);
@@ -98,7 +98,7 @@ public class TestServiceLabel {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testUpdateWithEntityIdNull() throws ExceptionService {
+	public final void testUpdateWithIdNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
 		service.update(label);
 		fail("An ExceptionService should have been thrown");
@@ -110,7 +110,7 @@ public class TestServiceLabel {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testUpdateWithEntityIdNotNull() throws ExceptionService {
+	public final void testUpdateWithIdNotNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
 		label.setId(ID);
 		service.update(label);
@@ -134,7 +134,7 @@ public class TestServiceLabel {
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
-	public final void testDeleteWithEntityIdNull() throws ExceptionService {
+	public final void testDeleteWithIdNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
 		service.delete(label);
 		fail("An ExceptionService should have been thrown");
@@ -146,7 +146,7 @@ public class TestServiceLabel {
 	 * @throws ExceptionService is not expected.
 	 */
 	@Test
-	public final void testDeleteWithEntityIdNotNull() throws ExceptionService {
+	public final void testDeleteWithIdNotNull() throws ExceptionService {
 		Label label = TestLabel.generateLabelWithIdNull();
 		label.setId(ID);
 		service.delete(label);
