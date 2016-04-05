@@ -32,26 +32,38 @@ public class Label extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The label's unique identifier in the system. */
 	@Id
 	@GeneratedValue
 	@Column(name = "label_id")
 	private Long id;
 	
+	/** The label's official name. */
 	@NotNull
 	@Column(name = "official_name", unique = true)
 	private String name;
 	
+	/** The label's acronym. */
 	@NotNull
 	@Column(unique = true)
 	private String acronym;
 	
+	/** The label's definition. */
 	@Column(columnDefinition = "text")
 	private String definition;
 	
+	/** 
+	 * The label's official logo. Label is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name="fk_image_id")
 	private Image logo;
 	
+	/** 
+	 * The label's list of designations. Designation is the owning side of the relationship, 
+	 * and this many-to-many relationship is persisted in a join table.
+	 */
 	@ManyToMany(mappedBy = "labels", fetch = FetchType.LAZY)
 	private List<Designation> designations;
 	

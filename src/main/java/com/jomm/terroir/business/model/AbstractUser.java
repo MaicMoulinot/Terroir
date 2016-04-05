@@ -30,25 +30,31 @@ public abstract class AbstractUser extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The user's unique identifier in the system. */
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "user_id")
 	private Long id;
-
+	
+	/** The user's first name. */
 	@Column(name = "user_firstname")
 	private String firstName;
-
+	
+	/** The user's last name. */
 	@Column(name = "user_lastname")
 	private String lastName;
-
+	
+	/** The user's unique name in the system. */
 	@Column(name = "user_name", unique = true)
 	@NotNull
 	private String userName;
-
+	
+	/** The user's email address. */
 	@Column(name = "user_email", unique=true)
 	@NotNull
 	private String email;
-
+	
+	/** The user's password to log in the system. */
 	@Column(name = "user_password")
 	@NotNull
 	private char[] password;

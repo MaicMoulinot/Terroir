@@ -20,24 +20,30 @@ public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The address' street. */
 	@Column(name = "addr_street")
 	private String street;
 	
+	/** The address' complement, if any. */
 	@Column(name = "addr_complement")
 	private String complement;
 	
+	/** The address' postcode/zipcode. */
 	@NotNull
 	@Column(name = "addr_post_code", nullable = false)
 	private String postCode;
 	
+	/** The address' city. */
 	@NotNull
 	@Column(name = "addr_city", nullable = false)
 	private String city;
 	
+	/** The address' country. */
 	@NotNull
 	@Column(name = "addr_country", nullable = false)
 	private String country;
 	
+	/** The address' GPS coordinates. */
 	@Column(name = "addr_coordinates")
 	private String coordinates;
 

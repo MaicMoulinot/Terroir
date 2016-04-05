@@ -34,48 +34,70 @@ public class Enterprise extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The enterprise's unique identifier in the system. */
 	@Id
 	@GeneratedValue
 	@Column(name = "enterprise_id")
 	private Long id;
 	
+	/** The enterprise's official trade name. */
 	@NotNull
 	@Column(name = "trade_name", unique = true)
 	private String tradeName;
 	
+	/** The enterprise's legal name. */
 	@NotNull
 	@Column(name = "legal_name", unique = true)
 	private String legalName;
 	
+	/** The enterprise's legal identification. */
 	@NotNull
 	@Column(name = "legal_identification", unique = true)
 	private String legalIdentification;
 	
+	/** The enterprise's official creation date. */
 	@Column(name = "creation_date", columnDefinition = "date")
 	private LocalDate creationDate;
 	
+	/** The enterprise's number of employees. */
 	@Column(name = "number_employees")
 	private int nbEmployees;
 	
+	/** The enterprise's description, its values and goals. */
 	@Column(columnDefinition = "text")
 	private String description;
 	
+	/** The enterprise's website. */
 	@Column(name = "web_site")
 	private String webSite;
 	
+	/** The enterprise's registration date in the system. */
 	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
 	private ZonedDateTime registrationDate;
 	
+	/** The enterprise's address. */
 	@Embedded
 	private Address address;
 	
+	/** 
+	 * The enterprise's logo, if any. Enterprise is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_image_id")
 	private Image logo;
 	
+	/** 
+	 * The enterprise's list of sellers. Seller is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Seller> sellers;
 	
+	/** 
+	 * The enterprise's list of sites. Site is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToMany(mappedBy = "enterprise", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Site> sites;
 	

@@ -25,12 +25,15 @@ public class Administrator extends AbstractUser {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The administrator's right to read data. */
 	@Column(name = "can_read")
 	private Boolean canReadData;
 	
+	/** The administrator's right to update data. */
 	@Column(name = "can_update")
 	private Boolean canUpdateData;
 	
+	/** The administrator's right to delete data. */
 	@Column(name = "can_delete")
 	private Boolean canDeleteData;
 	

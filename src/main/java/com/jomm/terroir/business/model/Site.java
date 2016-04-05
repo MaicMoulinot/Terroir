@@ -33,32 +33,49 @@ public class Site extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The site's unique identifier in the system. */
 	@Id
 	@GeneratedValue
 	@Column(name = "site_id")
 	private Long id;
 	
+	/** The site's name. */
 	@NotNull
 	@Column(name = "site_name")
 	private String name;
 	
+	/** The site's legal identification. */
 	@NotNull
 	@Column(name = "legal_identification")
 	private String legalIdentification;
 	
+	/** The site's description. */
 	@Column(columnDefinition = "text")
 	private String description;
 	
+	/** The site's address. */
 	@Embedded
 	private Address address;
 	
+	/** 
+	 * The site's enterprise. Site is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_enterprise_id")
 	private Enterprise enterprise;
 	
+	/** 
+	 * The site's list of products. Product is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToMany(mappedBy = "site", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Product> products;
 	
+	/** 
+	 * The site's list of images. Image is the owning side of the relationship, 
+	 * and this one-to-many relationship is persisted in a join table.
+	 */
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "siteimage",
 	joinColumns = {@JoinColumn(name = "fk_site_id", nullable = false, updatable = false)},

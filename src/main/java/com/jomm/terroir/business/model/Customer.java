@@ -27,12 +27,15 @@ public class Customer extends AbstractUser {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The customer's birth date. */
 	@Column(name = "birth_date", columnDefinition = "date")
 	private LocalDate birthDate;
 	
+	/** The customer's registration date in the system. */
 	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
 	private ZonedDateTime registrationDate;
-
+	
+	/** The customer's address. */
 	@Embedded
 	private Address address;
 

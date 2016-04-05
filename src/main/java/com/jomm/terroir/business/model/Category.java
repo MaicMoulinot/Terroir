@@ -31,19 +31,29 @@ public class Category extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The category's unique identifier in the system. */
 	@Id
 	@GeneratedValue
 	@Column(name = "category_id")
 	private Long id;
 	
+	/** The category's unique name. */
 	@NotNull
 	@Column(name = "category_name", unique = true)
 	private String name;
 	
+	/** 
+	 * The category's parent. Category is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@ManyToOne(optional = true)
 	@JoinColumn(name="parent_id")
 	private Category parent;
 	
+	/** 
+	 * The category's list of designations. Designations is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToMany(mappedBy = "category")
 	private List<Designation> designations;
 	

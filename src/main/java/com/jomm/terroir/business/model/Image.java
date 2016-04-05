@@ -26,18 +26,22 @@ public class Image extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The image's unique identifier in the system. */
 	@Id
 	@GeneratedValue
 	@Column(name = "image_id")
 	private Long id;
 	
+	/** The image's title. */
 	@NotNull
 	@Column(name = "imag_title")
 	private String title;
 	
+	/** The image's description. */
 	@Column(name = "imag_description", columnDefinition = "text")
 	private String description;
 	
+	/** The image's data. */
 	@Lob
 	@NotNull
 	@Column(name = "imag_data")

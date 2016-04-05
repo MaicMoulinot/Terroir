@@ -38,61 +38,92 @@ public class Designation extends AbstractEntity {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** The designation's unique identifier in the system. */
 	@Id
 	@GeneratedValue
 	@Column(name = "designation_id")
 	private Long id;
-
+	
+	/** The designation's official registered name. */
 	@NotNull
 	@Column(name = "registered_name")
 	private String registeredName;
 	
+	/** The designation's local name, if any. */
 	@Column(name = "local_name")
 	private String localName;
-
+	
+	/** The designation's name in Latin alphabet, if the registered name is in an other alphabet. */
 	@Column(name = "transcripted_name")
 	private String transcriptedName;
-
+	
+	/** The designation's legal act reference. */
 	@Column(name = "legal_act")
 	private String legalAct;
 	
+	/** The designation's official date of registration. */
 	@Column(name = "registration_date", columnDefinition = "timestamp with time zone")
 	private ZonedDateTime registrationDate;
-
+	
+	/** The designation's official definition. */
 	@Column(columnDefinition = "text")
 	private String definition;
 	
+	/** The designation's season, if any. */
 	@Column(columnDefinition = "text")
 	private String season;
 	
+	/** The designation's official website, if any. */
 	@Column(name = "web_site")
 	private String webSite;
 	
+	/** The designation's median price, if any. */
 	@Column(name = "median_price")
 	private BigDecimal medianPrice;
-
+	
+	/** The designation's address. */
 	@Embedded
 	private Address address;
-
+	
+	/** 
+	 * The designation's logo, if any. Designation is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "fk_image_logo_id")
 	private Image logo;
 	
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	/** 
+	 * The designation's picture. Designation is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
 	@JoinColumn(name = "fk_image_picture_id")
 	private Image picture;
 	
+	/** 
+	 * The designation's category. Designation is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_category_id")
 	private Category category;
-
+	
+	/** 
+	 * The designation's list of labels. Designation is the owning side of the relationship, 
+	 * and this many-to-many relationship is persisted in a join table.
+	 */
 	@ManyToMany
 	@JoinTable(name = "designationlabel", 
 		joinColumns = {@JoinColumn(name = "fk_designation_id", nullable = false, updatable = false)},
 		inverseJoinColumns = {@JoinColumn(name = "fk_label_id", nullable = false, updatable = false)}
 	)
 	private List<Label> labels;
-
+	
+	/** 
+	 * The designation's list of products. Product is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@OneToMany(mappedBy = "designation", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Product> products;
 

@@ -25,6 +25,10 @@ public class Seller extends AbstractUser {
 	private static final long serialVersionUID = 1L;
 
 	// Attributes //----------------------------------------------
+	/** 
+	 * The seller's enterprise. Seller is the owning side of the relationship, 
+	 * since it contains the foreign key.
+	 */
 	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(name="fk_enterprise_id")
