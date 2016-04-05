@@ -60,6 +60,7 @@ public class TestServiceProductImpl {
 	public final void testUpdate() {
 		Product product = TestProduct.generateProductWithIdNull();
 		product.setId(ID);
+		product.getStock().setId(ID);
 		try {
 			service.update(product);
 			verify(dao).update(any(Product.class)); // validate that dao.update() was called
@@ -75,6 +76,9 @@ public class TestServiceProductImpl {
 	public final void testUpdateQuantity() {
 		Stock stock = TestStock.generateStockWithIdNull();
 		stock.setId(ID);
+		Product product = TestProduct.generateProductWithIdNull();
+		product.setId(ID);
+		stock.setProduct(product);
 		try {
 			service.updateQuantity(stock, 23);
 			verify(daoStock).update(any(Stock.class)); // validate that daoStock.update() was called

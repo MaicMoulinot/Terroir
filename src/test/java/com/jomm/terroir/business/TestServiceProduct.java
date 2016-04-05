@@ -126,10 +126,10 @@ public class TestServiceProduct {
 	@Test
 	public final void testUpdateWithIdNotNull() throws ExceptionService {
 		Product product = TestProduct.generateProductWithIdNull();
-		Long beforeUpdateId = ID;
-		product.setId(beforeUpdateId);
+		product.setId(ID);
+		product.getStock().setId(ID);
 		service.update(product);
-		assertEquals("Update does not change the identifier", beforeUpdateId, product.getId());
+		assertEquals("Update does not change the identifier", ID, product.getId());
 	}
 	
 	/**
@@ -164,6 +164,9 @@ public class TestServiceProduct {
 	public final void testUpdateQuantityWithIdNotNullSetLastUpdate() throws ExceptionService {
 		Stock stock = TestStock.generateStockWithIdNull();
 		stock.setId(ID);
+		Product product = TestProduct.generateProductWithIdNull();
+		product.setId(ID);
+		stock.setProduct(product);
 		assertNull("LastUpdate should not yet be initialized", stock.getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
 		service.updateQuantity(stock, QUANTITY);
