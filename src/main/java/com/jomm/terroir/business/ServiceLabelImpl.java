@@ -1,8 +1,8 @@
 package com.jomm.terroir.business;
 
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
 
 import java.util.List;
 
@@ -32,9 +32,9 @@ public class ServiceLabelImpl implements ServiceLabel {
 	@Override
 	public Label create(Label label) throws ExceptionService {
 		if (label == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (label.getId() != null) {
-			throw new ExceptionService(ID_NOT_NULL);
+			throw new ExceptionService(ID_SHOULD_BE_NULL);
 		}
 		return daoLabel.create(label);
 	}
@@ -42,9 +42,9 @@ public class ServiceLabelImpl implements ServiceLabel {
 	@Override
 	public Label update(Label label) throws ExceptionService {
 		if (label == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (label.getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		return daoLabel.update(label);
 	}
@@ -58,9 +58,9 @@ public class ServiceLabelImpl implements ServiceLabel {
 	@Override
 	public void delete(Label label) throws ExceptionService {
 		if (label == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (label.getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		daoLabel.delete(label);
 	}

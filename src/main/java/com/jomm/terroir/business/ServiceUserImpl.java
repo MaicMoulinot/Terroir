@@ -1,8 +1,8 @@
 package com.jomm.terroir.business;
 
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -49,9 +49,9 @@ public class ServiceUserImpl implements ServiceUser {
 	@Override
 	public AbstractUser create(AbstractUser user) throws ExceptionService {
 		if (user == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (user.getId() != null) {
-			throw new ExceptionService(ID_NOT_NULL);
+			throw new ExceptionService(ID_SHOULD_BE_NULL);
 		}
 		if (user instanceof Customer) {
 			((Customer) user).setRegistrationDate(ZonedDateTime.now());
@@ -62,9 +62,9 @@ public class ServiceUserImpl implements ServiceUser {
 	@Override
 	public AbstractUser update(AbstractUser user) throws ExceptionService {
 		if (user == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (user.getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		return daoUser.update(user);
 	}
@@ -72,9 +72,9 @@ public class ServiceUserImpl implements ServiceUser {
 	@Override
 	public void delete(AbstractUser user) throws ExceptionService {
 		if (user == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (user.getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		daoUser.delete(user);
 	}

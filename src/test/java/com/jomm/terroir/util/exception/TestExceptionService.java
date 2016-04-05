@@ -10,8 +10,6 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 
-import com.jomm.terroir.util.exception.ExceptionService.TypeException;
-
 /**
  * This Class is a Junit test case testing {@link ExceptionService}.
  * @author Maic
@@ -28,7 +26,7 @@ public class TestExceptionService {
 	 */
 	@Test
 	public final void testConstructorWithTypeExceptionEntityShouldNotBeNull() {
-		exception = new ExceptionService(TypeException.ENTITY_NULL);
+		exception = new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		assertEquals(getValueFromKey(ENTITY_SHOULD_NOT_BE_NULL), exception.getMessage());
 	}
 	
@@ -38,7 +36,7 @@ public class TestExceptionService {
 	 */
 	@Test
 	public final void testConstructorWithTypeExceptionIdShouldNotBeNull() {
-		exception = new ExceptionService(TypeException.ID_NULL);
+		exception = new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		assertEquals(getValueFromKey(ID_SHOULD_NOT_BE_NULL), exception.getMessage());
 	}
 	
@@ -48,7 +46,7 @@ public class TestExceptionService {
 	 */
 	@Test
 	public final void testConstructorWithTypeExceptionIdShouldBeNull() {
-		exception = new ExceptionService(TypeException.ID_NOT_NULL);
+		exception = new ExceptionService(ID_SHOULD_BE_NULL);
 		assertEquals(getValueFromKey(ID_SHOULD_BE_NULL), exception.getMessage());
 	}
 	

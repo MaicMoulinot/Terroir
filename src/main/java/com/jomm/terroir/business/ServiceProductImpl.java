@@ -1,8 +1,9 @@
 package com.jomm.terroir.business;
 
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.INTEGER;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -36,10 +37,10 @@ public class ServiceProductImpl implements ServiceProduct {
 	// Methods //-------------------------------------------------
 	@Override
 	public Product create(Product product) throws ExceptionService {
-		if (areEntitiesNull(product, product.getStock())) {
-			throw new ExceptionService(ENTITY_NULL);
+		if (product == null || product.getStock() == null) {
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (product.getId() != null || product.getStock().getId() != null) {
-			throw new ExceptionService(ID_NOT_NULL);
+			throw new ExceptionService(ID_SHOULD_BE_NULL);
 		}
 		product.getStock().setLastUpdate(ZonedDateTime.now());
 		return daoProduct.create(product);
@@ -47,29 +48,26 @@ public class ServiceProductImpl implements ServiceProduct {
 
 	@Override
 	public Product update(Product product) throws ExceptionService {
-		if (areEntitiesNull(product, product.getStock())) {
-			throw new ExceptionService(ENTITY_NULL);
+		if (product == null || product.getStock() == null) {
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (product.getId() == null || product.getStock().getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		return daoProduct.update(product);
 	}
 
 	@Override
 	public Stock updateQuantity(Stock stock, Integer newQuantity) throws ExceptionService {
-		if (areEntitiesNull(stock.getProduct(), stock)) {
-			throw new ExceptionService(ENTITY_NULL);
+		if (stock == null || stock.getProduct() == null) {
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (stock.getId() == null || stock.getProduct().getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		} else if (newQuantity == null || newQuantity < 0) {
-			throw new ExceptionService(ID_NOT_NULL);//TODO INTEGER
+			throw new ExceptionService(INTEGER);
 		}
 		stock.setQuantity(newQuantity);
 		stock.setLastUpdate(ZonedDateTime.now());
-		if (!updateProduct(newQuantity, stock.getProduct())) {
-			// Update only Stock
-			daoStock.update(stock);
-		}
+		updateStock(newQuantity, stock);
 		return stock;
 	}
 	
@@ -82,47 +80,36 @@ public class ServiceProductImpl implements ServiceProduct {
 	@Override
 	public void delete(Product product) throws ExceptionService {
 		if (product == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (product.getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		daoProduct.delete(product);
 	}
 	
 	// Helpers //-------------------------------------------------	
 	/**
-	 * Verify if at least one of the entities is {@code null}.
-	 * @param product the {@link Product}.
-	 * @param stock the {@link Stock}.
-	 * @return {@code true} if at least one of the entities is {@code null}, {@code false} otherwise.
-	 */
-	private boolean areEntitiesNull(Product product, Stock stock) {
-		return product == null || stock == null;
-	}
-	
-	/**
-	 * Update a product's availability, if necessary, with a call to {@link Product#setActive(Boolean)}.
+	 * Update the Stock, and its product's availability if necessary, with a call to {@link Product#setActive(Boolean)}.
 	 * @param newQuantity {@link Integer} the new quantity.
-	 * @param product the {@link Product}.
-	 * @return {@code true} if the {@link Product} was updated, {@code false} otherwise.
+	 * @param stock the {@link Stock}.
 	 * @throws ExceptionService.
 	 */
-	private boolean updateProduct(Integer newQuantity, Product product) throws ExceptionService {
-		boolean productUpdated = false;
+	private void updateStock(Integer newQuantity, Stock stock) throws ExceptionService {
+		Product product = stock.getProduct();
 		if (newQuantity == 0 && product.isActive()) {
 			// If stock's new quantity is zero, the product should not be active for sale
 			product.setActive(false);
-			productUpdated = true;
+			// Update both Product + Stock
+			update(product);
 		} else if (newQuantity > 0 && !product.isActive()) {
 			// If stock's new quantity is > 0, the product should be active for sale
 			product.setActive(true);
-			productUpdated = true;
-		}
-		if (productUpdated) {
 			// Update both Product + Stock
 			update(product);
+		} else {
+			// Update only Stock
+			daoStock.update(stock);
 		}
-		return productUpdated;
 	}
 	
 	// Tests only //----------------------------------------------

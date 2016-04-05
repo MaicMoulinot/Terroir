@@ -1,8 +1,8 @@
 package com.jomm.terroir.business;
 
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ENTITY_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NOT_NULL;
-import static com.jomm.terroir.util.exception.ExceptionService.TypeException.ID_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
 
 import java.util.List;
 
@@ -32,9 +32,9 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 	@Override
 	public Designation create(Designation designation) throws ExceptionService {
 		if (designation == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (designation.getId() != null) {
-			throw new ExceptionService(ID_NOT_NULL);
+			throw new ExceptionService(ID_SHOULD_BE_NULL);
 		}
 		return daoDesignation.create(designation);
 	}
@@ -42,9 +42,9 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 	@Override
 	public Designation update(Designation designation) throws ExceptionService {
 		if (designation == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (designation.getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		return daoDesignation.update(designation);
 	}
@@ -58,9 +58,9 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 	@Override
 	public void delete(Designation designation) throws ExceptionService {
 		if (designation == null) {
-			throw new ExceptionService(ENTITY_NULL);
+			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (designation.getId() == null) {
-			throw new ExceptionService(ID_NULL);
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		daoDesignation.delete(designation);
 	}
