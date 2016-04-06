@@ -44,6 +44,7 @@ public abstract class UtilData {
 	protected static final Long EXISTING_IMAGE_ID_FIRST_CALL = 111111L;
 	protected static final Long EXISTING_IMAGE_ID_SECOND_CALL = 222222L;
 	protected static final Long IMAGE_FOR_SITE_ID = 333333L;
+	protected static final Long IMAGE_FOR_DESIGNATION_ID = 444444L;
 
 	// DBSetup private constants
 	private static final DateSequenceValueGenerator GENERATOR_LOCAL_DATE = ValueGenerators.dateSequence();
@@ -62,6 +63,11 @@ public abstract class UtilData {
 	 * {@link UtilData#EXISTING_DESIGNATION_ID}).
 	 */
 	protected static final Operation INSERT_DESIGNATION = sequenceOf(
+			// table image
+			insertInto("image")
+			.columns("image_id", "imag_title", "imag_description", "imag_data")
+			.values(IMAGE_FOR_DESIGNATION_ID, "roquefort.jpg", "Le meilleur du monde", null)
+			.build(),
 			// table designation
 			insertInto("designation")
 			.columns("designation_id", "registered_name", "transcripted_name", "local_name", "legal_act", 
@@ -71,7 +77,8 @@ public abstract class UtilData {
 					"fk_category_id", "definition", "season")
 			.values(EXISTING_DESIGNATION_ID, "Roquefort", null, "ròcafòrt", "Décret du 22 janvier 2001 relatif à "
 					+ "l'appellation d'origine contrôlée 'Roquefort' NOR: AGRP0001838D Version consolidée au 21 mars 2016", 
-					GENERATOR_LOCAL_DATE.nextValue(), "https://fr.wikipedia.org/wiki/Roquefort", 19.99, null, null, 
+					GENERATOR_LOCAL_DATE.nextValue(), "https://fr.wikipedia.org/wiki/Roquefort", 19.99, null, 
+					IMAGE_FOR_DESIGNATION_ID, 
 					null, null, "12250", "Roquefort-sur-Soulzon", "France", "43.973724, 2.991373", EXISTING_CATEGORY_ID, 
 					"Le fromage bénéficiant de l'appellation d'origine contrôlée 'Roquefort' est un fromage fabriqué "
 							+ "exclusivement avec du lait de brebis mis en oeuvre à l'état cru et emprésuré, de forme "
