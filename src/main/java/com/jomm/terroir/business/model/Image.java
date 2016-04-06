@@ -43,7 +43,7 @@ public class Image extends AbstractEntity {
 	
 	/** The image's data. */
 	@Lob
-	@NotNull
+	//@NotNull //TODO Not ready for this !
 	@Column(name = "imag_data")
 	private byte[] data;
 	
