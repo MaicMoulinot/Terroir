@@ -50,14 +50,17 @@ public abstract class UtilData {
 	private static final DateSequenceValueGenerator GENERATOR_LOCAL_DATE = ValueGenerators.dateSequence();
 	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
 			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
+	
+	/** A common {@link Operation} deleting all table in a sensible order. */
 	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", "stock", "product", 
 			"siteimage", "sitedesignation", "site", "seller", "enterprise", "designationlabel", "designation", 
 			"label", "image", "category");
 	
 	// DBSetup protected operations to be used in concrete child
 	/**
-	 * A sequence of 2 {@link Operation}s.
+	 * A sequence of 3 {@link Operation}s.
 	 * It requires {@link UtilData#INSERT_LABEL} and {@link UtilData#INSERT_CATEGORIES} to be called first.
+	 * <br />Insert data in table image with id {@link UtilData#IMAGE_FOR_DESIGNATION_ID}.
 	 * <br />Insert data in table designation with id {@link UtilData#EXISTING_DESIGNATION_ID}.
 	 * <br />Insert data in join table designationlabel ({@link UtilData#EXISTING_LABEL_ID}, 
 	 * {@link UtilData#EXISTING_DESIGNATION_ID}).
