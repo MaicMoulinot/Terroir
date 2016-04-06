@@ -53,8 +53,8 @@ public class TestDaoStockJpa extends TestDaoGenericJpa<Stock> {
 			dao.entityManager = entityManager;
 			
 			// Construct Product and Stock
-			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_ENTERPRISES, INSERT_SITES, INSERT_LABEL, 
-					INSERT_DESIGNATION_LABEL, INSERT_PRODUCTS));
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION, 
+					INSERT_ENTERPRISES, INSERT_SITES, INSERT_PRODUCTS));
 			entity = TestStock.generateStockWithIdNull();
 			assertNull("Before persistence, id should be null", entity.getId());
 			

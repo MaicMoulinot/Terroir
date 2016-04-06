@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -119,6 +120,13 @@ public class Designation extends AbstractEntity {
 		inverseJoinColumns = {@JoinColumn(name = "fk_label_id", nullable = false, updatable = false)}
 	)
 	private List<Label> labels;
+	
+	/** 
+	 * The designation's list of sites. Site is the owning side of the relationship, 
+	 * and this many-to-many relationship is persisted in a join table.
+	 */
+	@ManyToMany(mappedBy = "designations", fetch = FetchType.LAZY)
+	private List<Site> sites;
 	
 	/** 
 	 * The designation's list of products. Product is the owning side of the relationship, 
@@ -334,6 +342,20 @@ public class Designation extends AbstractEntity {
 	 */
 	public void setLabels(List<Label> labels) {
 		this.labels = labels;
+	}
+	
+	/**
+	 * @return the sites
+	 */
+	public List<Site> getSites() {
+		return sites;
+	}
+
+	/**
+	 * @param sites the sites to set
+	 */
+	public void setSites(List<Site> sites) {
+		this.sites = sites;
 	}
 
 	/**

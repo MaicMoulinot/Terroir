@@ -128,6 +128,17 @@ public class TestDesignation {
 		label = null; // Available for Garbage Collector
 		listLabels = null; // Available for Garbage Collector
 		
+		// List of sites
+		ArrayList<Site> listSites = new ArrayList<>();
+		Site site = new Site();
+		listSites.add(site);
+		designation.setSites(listSites);
+		assertNotNull("List of sites should not be null", designation.getSites());
+		assertFalse("List of sites should not be empty", designation.getSites().isEmpty());
+		assertEquals("List of sites size should be 1", 1, designation.getSites().size());
+		site = null; // Available for Garbage Collector
+		listSites = null; // Available for Garbage Collector
+		
 		// List of products
 		ArrayList<Product> listProducts = new ArrayList<>();
 		Product product = new Product();
@@ -161,6 +172,7 @@ public class TestDesignation {
 		designation.setPicture(TestImage.generateImageWithIdNull());
 		designation.setCategory(TestCategory.generateCategoryWithIdNull());
 		designation.setLabels(new ArrayList<Label>());
+		designation.setSites(new ArrayList<Site>());
 		designation.setProducts(new ArrayList<Product>());
 		return designation;
 	}

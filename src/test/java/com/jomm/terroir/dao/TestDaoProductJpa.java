@@ -56,8 +56,8 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			dao.entityManager = entityManager;
 			
 			// Construct Product and Stock
-			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_ENTERPRISES, INSERT_SITES, INSERT_LABEL, 
-					INSERT_DESIGNATION_LABEL));
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION, 
+					INSERT_ENTERPRISES, INSERT_SITES));
 			entity = TestProduct.generateProductWithIdNull();
 			Stock stock = TestStock.generateStockWithIdNull();
 			entity.setStock(stock);

@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.business.model.Enterprise;
 import com.jomm.terroir.business.model.Image;
 import com.jomm.terroir.business.model.Site;
@@ -50,10 +51,12 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	@Test
 	public final void testState() {
 		try {
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION, 
+					INSERT_ENTERPRISES, INSERT_IMAGES));
+			
 			// EntityManager is working with test-specific Persistence Unit
 			EntityManager entityManager = UtilEntityManager.prepareEntityManager();
 			dao.entityManager = entityManager;
-			insertData(sequenceOf(INSERT_IMAGES, INSERT_ENTERPRISES));
 			entity = TestSite.generateSiteWithIdNull();
 
 			assertNull("Before persistence, id should be null", entity.getId());
@@ -77,6 +80,16 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			images.add(image);
 			entity.setImages(images);
 			assertEquals(1, entity.getImages().size());
+			
+			// Retrieve an Designation from DataBase
+			assertNotNull(entity.getDesignations());
+			assertEquals(0, entity.getDesignations().size());
+			Designation designation = TestDaoDesignationJpa.findDesignationFromDataBase(entityManager);
+			assertNotNull("Designation should not be null", designation);
+			List<Designation> designations = new ArrayList<>();
+			designations.add(designation);
+			entity.setDesignations(designations);
+			assertEquals(1, entity.getDesignations().size());
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -111,6 +124,8 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 					TestDaoImageJpa.findImageFromDataBaseFirstCall(entityManager));
 			assertNotNull("Without cascade delete, Enterprise should not be null", 
 					TestDaoEnterpriseJpa.findEnterpriseFromDataBase(entityManager));
+			assertNotNull("Without cascade delete, Designation should not be null", 
+					TestDaoDesignationJpa.findDesignationFromDataBase(entityManager));
 
 			// Create
 			entity = TestSite.generateSiteWithIdNull();
@@ -120,6 +135,9 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 			images = new ArrayList<>();
 			images.add(secondImage);
 			entity.setImages(images);
+			designations = new ArrayList<>();
+			designations.add(designation);
+			entity.setDesignations(designations);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();
 			dao.create(entity);
@@ -136,6 +154,8 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 					TestDaoImageJpa.findImageFromDataBaseSecondCall(entityManager));
 			assertNotNull("Without cascade delete, Enterprise should not be null", 
 					TestDaoEnterpriseJpa.findEnterpriseFromDataBase(entityManager));
+			assertNotNull("Without cascade delete, Designation should not be null", 
+					TestDaoDesignationJpa.findDesignationFromDataBase(entityManager));
 			
 			// FindAll
 			assertEquals("After Delete, the list's size should be", listInitialSize, dao.findAll().size());
@@ -146,17 +166,25 @@ public class TestDaoSiteJpa extends TestDaoGenericJpa<Site> {
 	
 	/**
 	 * Test the {@link javax.persistence.ManyToMany} relationship between {@link Site} 
-	 * and {@link com.jomm.terroir.business.model.Image}.
+	 * and {@link com.jomm.terroir.business.model.Image}, 
+	 * and the {@link javax.persistence.ManyToMany} relationship between {@link Site} 
+	 * and {@link com.jomm.terroir.business.model.Designation}.
 	 */
 	@Test
-	public final void testManyToManyWithImage() {
+	public final void testManyToManyWithImageAndDesignation() {
 		try {
-			insertData(sequenceOf(INSERT_ENTERPRISES, INSERT_SITES));
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION, 
+					INSERT_ENTERPRISES, INSERT_SITES));
 			// EntityManager is working with test-specific Persistence Unit
 			entity = findSiteFromDataBase(UtilEntityManager.prepareEntityManager());
+			// Image
 			assertNotNull("List of images should not be null", entity.getImages());
 			assertEquals("List of images size should be", 1, entity.getImages().size());
-			assertEquals("Image's id should be", IMAGE_FOR_SITE_ID, entity.getImages().get(0).getId().longValue());
+			assertEquals("Image's id should be", IMAGE_FOR_SITE_ID, entity.getImages().get(0).getId());
+			// Designation
+			assertNotNull("List of designations should not be null", entity.getDesignations());
+			assertEquals("List of designations size should be", 1, entity.getDesignations().size());
+			assertEquals("Designation's id should be", EXISTING_DESIGNATION_ID, entity.getDesignations().get(0).getId());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

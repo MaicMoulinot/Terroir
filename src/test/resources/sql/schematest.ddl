@@ -148,6 +148,12 @@
 		fk_site_id BIGINT NOT NULL CONSTRAINT fk_site_image REFERENCES site(site_id),
 		fk_image_id BIGINT NOT NULL CONSTRAINT fk_image_site REFERENCES image(image_id)
     );
+    
+        -- Table sitedesignation join table from entities Site and Designation
+    CREATE TABLE sitedesignation (
+		fk_site_id BIGINT NOT NULL CONSTRAINT fk_site_designation REFERENCES site(site_id),
+		fk_designation_id BIGINT NOT NULL CONSTRAINT fk_designation_site REFERENCES designation(designation_id)
+    );
 
     -- Table product from entity Product
     CREATE TABLE product (

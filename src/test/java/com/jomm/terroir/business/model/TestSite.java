@@ -87,6 +87,28 @@ public class TestSite {
 		assertEquals("List of products size should be 1", 1, site.getProducts().size());
 		product = null; // Available for Garbage Collector
 		listProducts = null; // Available for Garbage Collector
+		
+		// List of images
+		ArrayList<Image> listImages = new ArrayList<>();
+		Image image = new Image();
+		listImages.add(image);
+		site.setImages(listImages);
+		assertNotNull("List of images should not be null", site.getImages());
+		assertFalse("List of images should not be empty", site.getImages().isEmpty());
+		assertEquals("List of images size should be 1", 1, site.getImages().size());
+		image = null; // Available for Garbage Collector
+		listImages = null; // Available for Garbage Collector
+		
+		// List of designations
+		ArrayList<Designation> listDesignations = new ArrayList<>();
+		Designation designation = new Designation();
+		listDesignations.add(designation);
+		site.setDesignations(listDesignations);
+		assertNotNull("List of designations should not be null", site.getDesignations());
+		assertFalse("List of designations should not be empty", site.getDesignations().isEmpty());
+		assertEquals("List of designations size should be 1", 1, site.getDesignations().size());
+		designation = null; // Available for Garbage Collector
+		listDesignations = null; // Available for Garbage Collector
 	}
 	
 	// Static methods //------------------------------------------
@@ -103,6 +125,7 @@ public class TestSite {
 		site.setEnterprise(TestEnterprise.generateEnterpriseWithIdNull());
 		site.setProducts(new ArrayList<Product>());
 		site.setImages(new ArrayList<Image>());
+		site.setDesignations(new ArrayList<Designation>());
 		return site;
 	}
 }

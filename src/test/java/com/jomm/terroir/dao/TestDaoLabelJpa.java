@@ -133,12 +133,12 @@ public class TestDaoLabelJpa extends TestDaoGenericJpa<Label> {
 	public final void testManyToManyWithDesignation() {
 		try {
 			// EntityManager is working with test-specific Persistence Unit
-			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION_LABEL));
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION));
 			entity = findLabelFromDataBase(UtilEntityManager.prepareEntityManager());
 			assertNotNull("List of designations should not be null", entity.getDesignations());
 			assertEquals("List of designations size should be", 1, entity.getDesignations().size());
 			assertEquals("Designation's id should be", EXISTING_DESIGNATION_ID, 
-					entity.getDesignations().get(0).getId().longValue());
+					entity.getDesignations().get(0).getId());
 			
 		} finally {
 			UtilEntityManager.closeEntityManager();

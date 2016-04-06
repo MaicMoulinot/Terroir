@@ -33,24 +33,25 @@ public abstract class UtilData {
 	private static final String DESTINATION_PASSWORD = "";
 
 	// Protected constants to be used in concrete child
-	protected static final long NON_EXISTING_ENTITY_ID = 999999;
-	protected static final long EXISTING_PRODUCT_ID_FIRST_CALL = 111111;
-	protected static final long EXISTING_PRODUCT_ID_SECOND_CALL = 222222;
-	protected static final long EXISTING_SITE_ID = 333333;
-	protected static final long EXISTING_ENTERPRISE_ID = 111111;
-	protected static final long EXISTING_DESIGNATION_ID = 111111;
-	protected static final long EXISTING_LABEL_ID = 111111;
-	protected static final long EXISTING_CATEGORY_ID = 333333;
-	protected static final long EXISTING_IMAGE_ID_FIRST_CALL = 111111;
-	protected static final long EXISTING_IMAGE_ID_SECOND_CALL = 222222;
-	protected static final long IMAGE_FOR_SITE_ID = 333333;
+	protected static final Long NON_EXISTING_ENTITY_ID = 999999L;
+	protected static final Long EXISTING_PRODUCT_ID_FIRST_CALL = 111111L;
+	protected static final Long EXISTING_PRODUCT_ID_SECOND_CALL = 222222L;
+	protected static final Long EXISTING_SITE_ID = 333333L;
+	protected static final Long EXISTING_ENTERPRISE_ID = 111111L;
+	protected static final Long EXISTING_DESIGNATION_ID = 111111L;
+	protected static final Long EXISTING_LABEL_ID = 111111L;
+	protected static final Long EXISTING_CATEGORY_ID = 333333L;
+	protected static final Long EXISTING_IMAGE_ID_FIRST_CALL = 111111L;
+	protected static final Long EXISTING_IMAGE_ID_SECOND_CALL = 222222L;
+	protected static final Long IMAGE_FOR_SITE_ID = 333333L;
 
 	// DBSetup private constants
 	private static final DateSequenceValueGenerator GENERATOR_LOCAL_DATE = ValueGenerators.dateSequence();
 	private static final DateSequenceValueGenerator GENERATOR_ZONED_DATE_TIME = 
 			ValueGenerators.dateSequence().startingAt(new Date(), TimeZone.getDefault());
 	private static final Operation DELETE_ALL_DATA = deleteAllFrom("administrator", "customer", "stock", "product", 
-			"siteimage", "site", "seller", "enterprise", "designationlabel", "designation", "label", "image", "category");
+			"siteimage", "sitedesignation", "site", "seller", "enterprise", "designationlabel", "designation", 
+			"label", "image", "category");
 	
 	// DBSetup protected operations to be used in concrete child
 	/**
@@ -60,7 +61,7 @@ public abstract class UtilData {
 	 * <br />Insert data in join table designationlabel ({@link UtilData#EXISTING_LABEL_ID}, 
 	 * {@link UtilData#EXISTING_DESIGNATION_ID}).
 	 */
-	protected static final Operation INSERT_DESIGNATION_LABEL = sequenceOf(
+	protected static final Operation INSERT_DESIGNATION = sequenceOf(
 			// table designation
 			insertInto("designation")
 			.columns("designation_id", "registered_name", "transcripted_name", "local_name", "legal_act", 
@@ -100,12 +101,14 @@ public abstract class UtilData {
 			.build();
 
 	/**
-	 * A sequence of 3 {@link Operation}s.
-	 * It requires {@link UtilData#INSERT_ENTERPRISES} to be called first.
+	 * A sequence of 4 {@link Operation}s.
+	 * It requires {@link UtilData#INSERT_ENTERPRISES} and {@link UtilData#INSERT_DESIGNATION} to be called first.
 	 * <br />Insert data in table image with id {@link UtilData#IMAGE_FOR_SITE_ID}.
-	 * <br />Insert data in table site with ids 111111, 222222, and {@link UtilData#EXISTING_SITE_ID}.
+	 * <br />Insert data in table site with ids 111111L, 222222L, and {@link UtilData#EXISTING_SITE_ID}.
 	 * <br />Insert data in join table siteimage ({@link UtilData#EXISTING_SITE_ID}, 
 	 * {@link UtilData#IMAGE_FOR_SITE_ID}).
+	 * <br />Insert data in join table sitedesignation ({@link UtilData#EXISTING_SITE_ID}, 
+	 * {@link UtilData#EXISTING_DESIGNATION_ID}).
 	 */
 	protected static final Operation INSERT_SITES = sequenceOf(
 			// table image
@@ -118,20 +121,20 @@ public abstract class UtilData {
 			.columns("site_id", "site_name", "legal_identification", "addr_street", "addr_complement", 
 					"addr_post_code", "addr_city", "addr_country", "addr_coordinates", 
 					"fk_enterprise_id", "description")
-			.values(111111, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
+			.values(111111L, "Dagallier", "4123512DFSJ677", "Dagallier Haut", null, "01400", "Sulignat", 
 					"France", "46.182194, 4.970275", EXISTING_ENTERPRISE_ID,
 					"L'élevage bovin est l'ensemble des opérations visant à reproduire des animaux de l'espèce "
 							+ "Bos taurus au profit de l'activité humaine. Il permet de fournir de la viande, du lait, "
 							+ "des peaux des animaux reproducteurs, un travail de traction, du fumier et l'entretien "
 							+ "des espaces ouverts…")
-			.values(222222, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 
-					"France", "43.589423, 3.827251", 222222,  
+			.values(222222L, "Cerises", "562FQVC56", "Allée Pioch Redon", null, "34430", "St Jean de Védas", 
+					"France", "43.589423, 3.827251", 222222L,  
 					"Soucieux de produire des fruits de qualités pour vous les faire apprécier, nous vous proposons "
 							+ "également des légumes de saisons issus majoritairement de l’agriculture local tel que "
 							+ "le navet de Pardailhan, la fraise de Mauguio ou encore les oignons des Cévennes, ainsi "
 							+ "que des produits transformés avec la même authenticité que les nôtres.")
 			.values(EXISTING_SITE_ID, "Pommes", "562FQVC57", "Rue des Prés", null, "34430", "St Jean de Védas", 
-					"France", "43.577740, 3.816562", 222222, 
+					"France", "43.577740, 3.816562", 222222L, 
 					"Les amateurs de pommes vont trouver leur bonheur. Plus de 20 variétés composent notre verger, "
 							+ "Reine des Reinettes, Golden, Fuji, Chantecler, Pinova, Patte de Loup,.... Toutes "
 							+ "produites avec le plus grand soin et ")
@@ -140,10 +143,15 @@ public abstract class UtilData {
 			insertInto("siteimage")
 			.columns("fk_site_id", "fk_image_id")
 			.values(EXISTING_SITE_ID, IMAGE_FOR_SITE_ID)
+			.build(),
+			// table sitedesignation
+			insertInto("sitedesignation")
+			.columns("fk_site_id", "fk_designation_id")
+			.values(EXISTING_SITE_ID, EXISTING_DESIGNATION_ID)
 			.build());
 
 	/**
-	 * Insert data in table enterprise with ids {@link UtilData#EXISTING_ENTERPRISE_ID} and 222222.
+	 * Insert data in table enterprise with ids {@link UtilData#EXISTING_ENTERPRISE_ID} and 222222L.
 	 */
 	protected static final Operation INSERT_ENTERPRISES = insertInto("enterprise")
 			.columns("enterprise_id", "trade_name", "legal_name", "legal_identification", "fk_image_id",
@@ -157,7 +165,7 @@ public abstract class UtilData {
 							+ "des espaces ouverts…", null, 
 							GENERATOR_LOCAL_DATE.nextValue(), 2, GENERATOR_ZONED_DATE_TIME.nextValue(),
 							"Dagallier Haut", null, "01400", "Sulignat", "France", "46.182194, 4.970275")
-			.values(222222, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", null, 
+			.values(222222L, "Les Vergers de Saint Jean", "SCEA Les Vergers de Saint Jean", "CHSGFQN", null, 
 					"Nous sommes producteurs de fruits à noyaux, cerise, abricot, pêche, nectarine, brugnon et prune "
 							+ "ainsi que de fruits à pépins, pomme. Dans un souci de développement durable de notre "
 							+ "activité, nous avons une multitude de variétés pour chaque type de fruits. Ainsi nous "
@@ -178,17 +186,17 @@ public abstract class UtilData {
 			.build();
 
 	/**
-	 * Insert data in table category with ids 111111, 222222 and {@link UtilData#EXISTING_CATEGORY_ID}.
+	 * Insert data in table category with ids 111111L, 222222L and {@link UtilData#EXISTING_CATEGORY_ID}.
 	 */
 	protected static final Operation INSERT_CATEGORIES = insertInto("category")
 			.columns("category_id", "category_name", "parent_id")
-			.values(111111, "Charcuterie", null)
-			.values(222222, "Saucisson", 111111)
-			.values(EXISTING_CATEGORY_ID, "Saucisson Sec", 222222)
+			.values(111111L, "Charcuterie", null)
+			.values(222222L, "Saucisson", 111111L)
+			.values(EXISTING_CATEGORY_ID, "Saucisson Sec", 222222L)
 			.build();
 
 	/**
-	 * It requires {@link UtilData#INSERT_SITES} and {@link UtilData#INSERT_DESIGNATION_LABEL} to be called first.
+	 * It requires {@link UtilData#INSERT_SITES} and {@link UtilData#INSERT_DESIGNATION} to be called first.
 	 * Insert data in product table with ids {@link UtilData#EXISTING_PRODUCT_ID_FIRST_CALL}, 
 	 * and {@link UtilData#EXISTING_PRODUCT_ID_SECOND_CALL}.
 	 */

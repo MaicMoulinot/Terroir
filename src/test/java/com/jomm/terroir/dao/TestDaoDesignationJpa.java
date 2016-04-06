@@ -141,17 +141,26 @@ public class TestDaoDesignationJpa extends TestDaoGenericJpa<Designation> {
 	
 	/**
 	 * Test the {@link javax.persistence.ManyToMany} relationship between {@link Designation} 
-	 * and {@link com.jomm.terroir.business.model.Label}.
+	 * and {@link com.jomm.terroir.business.model.Label}, and 
+	 * the {@link javax.persistence.ManyToMany} relationship between {@link Designation} 
+	 * and {@link com.jomm.terroir.business.model.Site}.
 	 */
 	@Test
 	public final void testManyToManyWithLabel() {
 		try {
-			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION_LABEL));
+			insertData(sequenceOf(INSERT_CATEGORIES, INSERT_LABEL, INSERT_DESIGNATION, 
+					INSERT_ENTERPRISES, INSERT_SITES));
 			// EntityManager is working with test-specific Persistence Unit
 			entity = findDesignationFromDataBase(UtilEntityManager.prepareEntityManager());
+			assertNotNull("Designation should not be null", entity);
+			// Label
 			assertNotNull("List of labels should not be null", entity.getLabels());
 			assertEquals("List of labels size should be", 1, entity.getLabels().size());
-			assertEquals("Label's id should be", EXISTING_LABEL_ID, entity.getLabels().get(0).getId().longValue());
+			assertEquals("Label's id should be", EXISTING_LABEL_ID, entity.getLabels().get(0).getId());
+			// Site
+			assertNotNull("List of sites should not be null", entity.getSites());
+			assertEquals("List of sites size should be", 1, entity.getSites().size());
+			assertEquals("Site's id should be", EXISTING_SITE_ID, entity.getSites().get(0).getId());
 		} finally {
 			UtilEntityManager.closeEntityManager();
 		}

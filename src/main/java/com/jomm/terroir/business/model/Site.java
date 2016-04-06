@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -82,6 +83,17 @@ public class Site extends AbstractEntity {
 	inverseJoinColumns = {@JoinColumn(name = "fk_image_id", nullable = false, updatable = false)}
 	)
 	private List<Image> images;
+	
+	/** 
+	 * The site's list of possible designations. Site is the owning side of the relationship, 
+	 * and this many-to-many relationship is persisted in a join table.
+	 */
+	@ManyToMany
+	@JoinTable(name = "sitedesignation", 
+		joinColumns = {@JoinColumn(name = "fk_site_id", nullable = false, updatable = false)},
+		inverseJoinColumns = {@JoinColumn(name = "fk_designation_id", nullable = false, updatable = false)}
+	)
+	private List<Designation> designations;
 
 	// Getters and Setters //-------------------------------------
 	@Override
@@ -192,5 +204,19 @@ public class Site extends AbstractEntity {
 	 */
 	public void setImages(List<Image> images) {
 		this.images = images;
+	}
+
+	/**
+	 * @return the designations
+	 */
+	public List<Designation> getDesignations() {
+		return designations;
+	}
+
+	/**
+	 * @param designations the designations to set
+	 */
+	public void setDesignations(List<Designation> designations) {
+		this.designations = designations;
 	}
 }
