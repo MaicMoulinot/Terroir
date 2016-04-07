@@ -111,6 +111,6 @@ public final class Resources {
 	 * @return String the value.
 	 */
 	public static String getValueFromKey(Entity key) {
-		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()).getString(key.name().toLowerCase());
+		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()).getString(key.toString());
 	}
 }
