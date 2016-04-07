@@ -1,5 +1,6 @@
 package com.jomm.terroir.business.model;
 
+import static com.jomm.terroir.util.Constants.Unit.PIECE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.jomm.terroir.util.Constants.Unit;
 
 /**
  * This class is a Junit test case testing the methods of {@link Designation}.
@@ -86,7 +89,13 @@ public class TestDesignation {
 		// MedianPrice
 		BigDecimal price = new BigDecimal("1.23");
 		designation.setMedianPrice(price);
-		assertEquals("Price should be " + price.toString(), price, designation.getMedianPrice());
+		assertEquals("MedianPrice should be " + price.toString(), price, designation.getMedianPrice());
+		
+		// Unit
+		Unit unit = PIECE;
+		designation.setUnit(unit);
+		assertEquals("MedianPrice's Unit should be " + unit.toString(), unit, designation.getUnit());
+		unit = null; // Available for Garbage Collector
 		
 		// Address
 		Address address = new Address();
@@ -167,6 +176,7 @@ public class TestDesignation {
 		designation.setSeason("Season");
 		designation.setWebSite("WebSite");
 		designation.setMedianPrice(new BigDecimal("1.2345"));
+		designation.setUnit(PIECE);
 		designation.setAddress(TestAddress.generateAddress());
 		designation.setLogo(TestImage.generateImageWithIdNull());
 		designation.setPicture(TestImage.generateImageWithIdNull());

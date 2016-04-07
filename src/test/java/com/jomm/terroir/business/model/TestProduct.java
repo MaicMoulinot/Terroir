@@ -63,12 +63,12 @@ public class TestProduct {
 		// Unit
 		Unit unit = PIECE;
 		product.setUnit(unit);
-		assertEquals("Price should be " + unit.toString(), unit, product.getUnit());
+		assertEquals("Unit should be " + unit.toString(), unit, product.getUnit());
 		unit = null; // Available for Garbage Collector
 		
 		// TaxPercentage
 		product.setTaxPercentage(decimal);
-		assertEquals("Price should be " + decimal.toString(), decimal, product.getTaxPercentage());
+		assertEquals("TaxPercentage should be " + decimal.toString(), decimal, product.getTaxPercentage());
 		decimal = null; // Available for Garbage Collector
 		
 		// Active

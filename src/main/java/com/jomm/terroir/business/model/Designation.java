@@ -20,6 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
+import com.jomm.terroir.util.Constants;
+import com.jomm.terroir.util.Constants.Unit;
+
 /**
  * This Class is an {@link Entity} representing a designation.
  * It extends {@link AbstractEntity}, thus it indirectly implements 
@@ -81,6 +84,10 @@ public class Designation extends AbstractEntity {
 	/** The designation's median price, if any. */
 	@Column(name = "median_price")
 	private BigDecimal medianPrice;
+	
+	/** The designation's median price's base unit from {@link Constants#Unit}.  */
+	@Column(name = "median_price_unit", length = 2)
+	private Unit unit;
 	
 	/** The designation's address. */
 	@Embedded
@@ -272,6 +279,20 @@ public class Designation extends AbstractEntity {
 	 */
 	public void setMedianPrice(BigDecimal medianPrice) {
 		this.medianPrice = medianPrice;
+	}
+
+	/**
+	 * @return the unit
+	 */
+	public Unit getUnit() {
+		return unit;
+	}
+
+	/**
+	 * @param unit the unit to set
+	 */
+	public void setUnit(Unit unit) {
+		this.unit = unit;
 	}
 
 	/**

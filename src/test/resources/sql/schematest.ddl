@@ -76,6 +76,7 @@
         season LONG VARCHAR,
         web_site VARCHAR(255),
         median_price NUMERIC(19,2),
+        median_price_unit VARCHAR(2),
         addr_street VARCHAR(255),					-- from embeddable Address
         addr_complement VARCHAR(255),				-- from embeddable Address
         addr_post_code VARCHAR(255) NOT NULL,		-- from embeddable Address

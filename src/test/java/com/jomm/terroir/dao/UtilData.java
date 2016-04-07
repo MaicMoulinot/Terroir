@@ -74,15 +74,15 @@ public abstract class UtilData {
 			// table designation
 			insertInto("designation")
 			.columns("designation_id", "registered_name", "transcripted_name", "local_name", "legal_act", 
-					"registration_date", "web_site", "median_price", "fk_image_logo_id", "fk_image_picture_id",
+					"registration_date", "web_site", "median_price", "median_price_unit", 
 					"addr_street", "addr_complement", "addr_post_code",
 					"addr_city", "addr_country", "addr_coordinates",
-					"fk_category_id", "definition", "season")
+					"fk_image_logo_id", "fk_image_picture_id", "fk_category_id", "definition", "season")
 			.values(EXISTING_DESIGNATION_ID, "Roquefort", null, "ròcafòrt", "Décret du 22 janvier 2001 relatif à "
 					+ "l'appellation d'origine contrôlée 'Roquefort' NOR: AGRP0001838D Version consolidée au 21 mars 2016", 
-					GENERATOR_LOCAL_DATE.nextValue(), "https://fr.wikipedia.org/wiki/Roquefort", 19.99, null, 
-					IMAGE_FOR_DESIGNATION_ID, 
-					null, null, "12250", "Roquefort-sur-Soulzon", "France", "43.973724, 2.991373", EXISTING_CATEGORY_ID, 
+					GENERATOR_LOCAL_DATE.nextValue(), "https://fr.wikipedia.org/wiki/Roquefort", 19.99, Unit.GRAM.ordinal(),
+					null, null, "12250", "Roquefort-sur-Soulzon", "France", "43.973724, 2.991373", 
+					null, IMAGE_FOR_DESIGNATION_ID, EXISTING_CATEGORY_ID, 
 					"Le fromage bénéficiant de l'appellation d'origine contrôlée 'Roquefort' est un fromage fabriqué "
 							+ "exclusivement avec du lait de brebis mis en oeuvre à l'état cru et emprésuré, de forme "
 							+ "cylindrique de 19 à 20 cm de diamètre et de 8,5 à 11,5 cm de hauteur, d'un poids de 2,5 "
