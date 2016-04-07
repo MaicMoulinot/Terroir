@@ -36,14 +36,15 @@ public class BackingListCustomer extends BackingListUser {
 	}
 	
 	@Override
-	public Entity getConstantsEntity() {
-		return Entity.CUSTOMER;
-	}
-
-	@Override
 	public String delete() {
 		super.delete();
 		return "listcustomer" + "?faces-redirect=true";	// Navigation case.
+	}
+	
+	// Helpers //-------------------------------------------------
+	@Override
+	protected Entity getConstantsEntity() {
+		return Entity.CUSTOMER;
 	}
 
 	// Getters and Setters //-------------------------------------

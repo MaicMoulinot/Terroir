@@ -31,19 +31,10 @@ public class BackingRegistrationCustomer extends BackingRegistrationUser {
 	private Address address;
     
 	// Methods //-------------------------------------------------
-	/**
-	 * This method instantiate all necessary attributes, such as the {@link Address}.
-	 * It replaces the constructor and it is annotated {@link PostConstruct},
-	 * for proper call from the bean management framework which uses proxies, such as CDI.
-	 */
+	@Override
 	@PostConstruct 
 	public void init() {
 		setAddress(new Address());
-	}
-	
-	@Override
-	public Entity getConstantsEntity() {
-		return Entity.CUSTOMER;
 	}
 	
 	@Override
@@ -62,9 +53,10 @@ public class BackingRegistrationCustomer extends BackingRegistrationUser {
 		int maxYear = currentYear - 17;
 		return minYear + ":" + maxYear;
 	}
-
+	
+	// Helpers //-------------------------------------------------
 	@Override
-	public Customer convertIntoEntity() {
+	protected Customer convertIntoEntity() {
 		Customer userEntity = new Customer();
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());
@@ -74,6 +66,11 @@ public class BackingRegistrationCustomer extends BackingRegistrationUser {
 		userEntity.setBirthDate(getBirthDate());
 		userEntity.setAddress(getAddress());
 		return userEntity;
+	}
+	
+	@Override
+	protected Entity getConstantsEntity() {
+		return Entity.CUSTOMER;
 	}
 	
 	// Getters and Setters //-------------------------------------

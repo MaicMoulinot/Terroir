@@ -45,21 +45,16 @@ public abstract class BackingRegistrationUser extends BackingBean {
 	
 	// Methods //-------------------------------------------------
 	/**
-	 * Generate an {@link AbstractUser} using values from the {@link BackingRegistrationUser}.
-	 * @return {@link AbstractUser}.
+	 * This method instantiate all necessary attributes.
+	 * It replaces the constructor and it is annotated {@link javax.annotation.PostConstruct} 
+	 * in concrete implementations, for proper call from the bean management framework 
+	 * which uses proxies, such as CDI.
 	 */
-	public abstract AbstractUser convertIntoEntity();
+	public abstract void init();
 	
 	/**
-	 * Return the appropriate value from enumeration {@link Entity}.
-	 * @return {@link Entity}.
-	 */
-	public abstract Entity getConstantsEntity();
-
-	/**
-	 * Create and save a new User.
-	 * This may be overridden in concrete child.
-	 * If so, the child's method should first call this method using {@code super.create()},
+	 * Create and save a new user.
+	 * If this method is overridden, the child's method should first call this method using {@code super.create()},
 	 * and then it should set a String as proper navigation return.
 	 * @return String for navigation.
 	 */
@@ -75,14 +70,25 @@ public abstract class BackingRegistrationUser extends BackingBean {
 		}
 		return null;
 	}
-
-	/**
-	 * Generate tips to create a secured enough password into growl.
-	 */
+	
+	/** Generate tips to create a secured enough password into growl. */
 	public void passwordTooltip() {
 		addFacesMessage(GROWL.toString(), FacesMessage.SEVERITY_INFO, getValueFromKey(PASSWORD_TITLE), 
 				getValueFromKey(PASSWORD_RULES));
 	}
+	
+	// Helpers //-------------------------------------------------
+	/**
+	 * Generate an {@link AbstractUser} using values from the {@link BackingRegistrationUser}.
+	 * @return {@link AbstractUser}.
+	 */
+	protected abstract AbstractUser convertIntoEntity();
+	
+	/**
+	 * Return the appropriate value from enumeration {@link Entity}.
+	 * @return {@link Entity}.
+	 */
+	protected abstract Entity getConstantsEntity();
 	
 	// Getters and Setters //-------------------------------------
 	/**

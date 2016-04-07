@@ -37,17 +37,12 @@ public abstract class BackingListUser extends BackingBean {
 	
 	// Methods //-------------------------------------------------
 	/**
-	 * Initialize the list of all users.
-	 * It must be annotated {@link javax.annotation.PostConstruct} in concrete implementations,
-	 * for proper call from the bean management framework which uses proxies, such as CDI.
+	 * This method instantiate all necessary attributes (i.e. prepare the list of all users).
+	 * It replaces the constructor and it is annotated {@link javax.annotation.PostConstruct} 
+	 * in concrete implementations, for proper call from the bean management framework 
+	 * which uses proxies, such as CDI.
 	 */
 	public abstract void init();
-	
-	/**
-	 * Return the appropriate value from enumeration {@link Entity}.
-	 * @return {@link Entity}.
-	 */
-	public abstract Entity getConstantsEntity();
 	
 	/**
 	 * Is called when a row is edited.
@@ -95,6 +90,13 @@ public abstract class BackingListUser extends BackingBean {
 		}
 		return null;	// Navigation case.
 	}
+	
+	// Helpers //-------------------------------------------------
+	/**
+	 * Return the appropriate value from enumeration {@link Entity}.
+	 * @return {@link Entity}.
+	 */
+	protected abstract Entity getConstantsEntity();
 	
 	// Getters and Setters //-------------------------------------
 	/**

@@ -28,21 +28,12 @@ public class BackingRegistrationSeller extends BackingRegistrationUser {
 	private Enterprise enterprise;
 	
 	// Methods //-------------------------------------------------
-	/**
-	 * This method instantiate all necessary attributes, such as the {@link Enterprise}.
-	 * It replaces the constructor and it is annotated {@link PostConstruct},
-	 * for proper call from the bean management framework which uses proxies, such as CDI.
-	 */
+	@Override
 	@PostConstruct 
 	public void init() {
 		setEnterprise(new Enterprise());
 	}
 	
-	@Override
-	public Entity getConstantsEntity() {
-		return Entity.SELLER;
-	}
-
 	/**
 	 * Create and save a new Seller.
 	 * @return String for navigation.
@@ -52,13 +43,14 @@ public class BackingRegistrationSeller extends BackingRegistrationUser {
 		super.create();
 		return "listseller" + "?faces-redirect=true";	// Navigation case.
 	}
-
+	
+	// Helpers //-------------------------------------------------
 	/**
 	 * Transform an {@link BackingRegistrationSeller} into {@link Seller}.
 	 * @return Seller.
 	 */
 	@Override
-	public Seller convertIntoEntity() {
+	protected Seller convertIntoEntity() {
 		Seller userEntity = new Seller();
 		userEntity.setFirstName(getFirstName());
 		userEntity.setLastName(getLastName());
@@ -67,6 +59,11 @@ public class BackingRegistrationSeller extends BackingRegistrationUser {
 		userEntity.setPassword(getPassword() != null ? getPassword().toCharArray() : null);
 		userEntity.setEnterprise(getEnterprise());
 		return userEntity;
+	}
+	
+	@Override
+	protected Entity getConstantsEntity() {
+		return Entity.SELLER;
 	}
 	
 	// Getters and Setters //-------------------------------------
