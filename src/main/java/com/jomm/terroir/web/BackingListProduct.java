@@ -48,8 +48,8 @@ public class BackingListProduct extends BackingBean {
 	// Methods //-------------------------------------------------
 	/**
 	 * This method instantiate all necessary attributes (i.e. prepare the list of all products).
-	 * It replaces the constructor and it is annotated {@link PostConstruct} 
-	 * in concrete implementations, for proper call from the bean management framework 
+	 * It replaces the constructor and it is annotated {@link PostConstruct}, 
+	 * for proper call from the bean management framework 
 	 * which uses proxies, such as CDI.
 	 */
 	@PostConstruct 
