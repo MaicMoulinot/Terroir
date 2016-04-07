@@ -34,6 +34,14 @@ public interface ServiceSite {
 	List<Site> getAllSites();
 	
 	/**
+	 * Fetch the {@link Site} with the provided identifier.
+	 * It loads its {@link Designation}s' list.
+	 * @param id Long the unique identifier.
+	 * @return the {@link Site}, or {@code null} if it was not found.
+	 */
+	Site getSite(Long id);
+	
+	/**
 	 * Delete a site.
 	 * @param site the {@link Site} to delete.
 	 * @throws ExceptionService when the entity is not in a valid state.

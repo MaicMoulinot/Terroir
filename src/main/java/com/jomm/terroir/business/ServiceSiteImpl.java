@@ -56,6 +56,13 @@ public class ServiceSiteImpl implements ServiceSite {
 	}
 	
 	@Override
+	public Site getSite(Long id) {
+		Site site = daoSite.find(id);
+		site.getDesignations().size(); // Force the lazy loading
+		return site;
+	}
+	
+	@Override
 	public void delete(Site site) throws ExceptionService {
 		if (site == null) {
 			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
