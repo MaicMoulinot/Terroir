@@ -8,6 +8,7 @@ public final class Constants {
 
 	// Constants //-----------------------------------------------
 	public static final String PERSISTENCE_UNIT = "terroirPU";
+	public static final String MONEY_SYMBOL = "$";
 
 	// Enumerations //--------------------------------------------	
 	/**
@@ -211,6 +212,8 @@ public final class Constants {
 		DELETE_OK("deleteok"),
 		/** "delete" */
 		DELETE("delete"),
+		/** "medianprice" */
+		MEDIAN_PRICE("medianprice"),
 		/** "passwordtitle" */
 		PASSWORD_TITLE("passwordtitle"),
 		/** "passwordrules" */
@@ -291,6 +294,11 @@ public final class Constants {
 				}
 			}
 			return value;
+		}
+
+		@Override
+		public String toString() {
+			return name().toLowerCase();
 		}
 	}
 
