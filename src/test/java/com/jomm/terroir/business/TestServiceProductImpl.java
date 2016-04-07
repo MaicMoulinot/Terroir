@@ -70,7 +70,7 @@ public class TestServiceProductImpl {
 	}
 	
 	/**
-	 * Test method for {@link ServiceProductImpl#updateQuantity(Stock, Integer)}.
+	 * Test method for {@link ServiceProductImpl#updateAvailability(Stock, Integer)}.
 	 */
 	@Test
 	public final void testUpdateQuantity() {
@@ -80,7 +80,7 @@ public class TestServiceProductImpl {
 		product.setId(ID);
 		stock.setProduct(product);
 		try {
-			service.updateQuantity(stock, 23);
+			service.updateAvailability(stock, 23);
 			verify(daoStock).update(any(Stock.class)); // validate that daoStock.update() was called
 		} catch (ExceptionService unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);

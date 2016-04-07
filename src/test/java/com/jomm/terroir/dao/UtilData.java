@@ -212,11 +212,11 @@ public abstract class UtilData {
 	 */
 	protected static final Operation INSERT_PRODUCTS = insertInto("product")
 			.columns("product_id", "active_for_sale", "price_per_unit", "tax_percentage", "title", "unit", 
-					"fk_designation_id", "fk_site_id")
-			.values(EXISTING_PRODUCT_ID_FIRST_CALL, true, 968.25, 5.5, "Une très bonne vache, première main", 
-					Unit.GRAM.ordinal(), EXISTING_DESIGNATION_ID, EXISTING_SITE_ID)
-			.values(EXISTING_PRODUCT_ID_SECOND_CALL, false, 22.99, 19.6, "Une vache, deuxième main, bon état général", 
-					Unit.GRAM.ordinal(), EXISTING_DESIGNATION_ID, EXISTING_SITE_ID)
+					"quantity", "fk_designation_id", "fk_site_id")
+			.values(EXISTING_PRODUCT_ID_FIRST_CALL, true, 13.25, 5.5, "Une très bonne vache, première main", 
+					Unit.KILOGRAM.ordinal(), 0.43, EXISTING_DESIGNATION_ID, EXISTING_SITE_ID)
+			.values(EXISTING_PRODUCT_ID_SECOND_CALL, false, 2.99, 19.6, "Une vache, deuxième main, bon état général", 
+					Unit.KILOGRAM.ordinal(), 5, EXISTING_DESIGNATION_ID, EXISTING_SITE_ID)
 			.build();
 
 	// Variables //-----------------------------------------------

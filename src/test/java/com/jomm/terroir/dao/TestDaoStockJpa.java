@@ -82,14 +82,14 @@ public class TestDaoStockJpa extends TestDaoGenericJpa<Stock> {
 			// FindById
 			Stock persistedEntity = dao.find(persistedId);
 			assertNotNull("After persistence, entity should not be null", persistedEntity);
-			assertEquals("After persistence, properties should be equal", entity.getQuantity(), 
-					persistedEntity.getQuantity());
+			assertEquals("After persistence, properties should be equal", entity.getAvailability(), 
+					persistedEntity.getAvailability());
 			assertNull("Entity with id=999999 should be null", dao.find(NON_EXISTING_ENTITY_ID));
 
 			// Update
-			Integer initialValue = persistedEntity.getQuantity();
-			persistedEntity.setQuantity(initialValue++);
-			Integer updatedValue = dao.update(persistedEntity).getQuantity();
+			Integer initialValue = persistedEntity.getAvailability();
+			persistedEntity.setAvailability(initialValue++);
+			Integer updatedValue = dao.update(persistedEntity).getAvailability();
 			assertNotEquals("Values should not match", initialValue, updatedValue);
 
 			// DeleteById

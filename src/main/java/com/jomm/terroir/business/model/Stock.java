@@ -41,11 +41,10 @@ public class Stock extends AbstractEntity {
     @JoinColumn(name = "product_id")
 	private Product product;
 	
-	/** The product's number of units available for sale. */
-	@Column(name = "in_stock")
-	private Integer quantity;
+	/** The number of products available for sale. */
+	private Integer availability;
 	
-	/** The last time the stock's status changed. */
+	/** The last time the stock's availability changed. */
 	@Column(name = "last_update", columnDefinition = "timestamp with time zone")
 	private ZonedDateTime lastUpdate;
 	
@@ -95,17 +94,17 @@ public class Stock extends AbstractEntity {
 	}
 
 	/**
-	 * @return the quantity
+	 * @return the availability
 	 */
-	public Integer getQuantity() {
-		return quantity;
+	public Integer getAvailability() {
+		return availability;
 	}
 
 	/**
-	 * @param quantity the quantity to set
+	 * @param availability the availability to set
 	 */
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setAvailability(Integer availability) {
+		this.availability = availability;
 	}
 
 	/**

@@ -44,17 +44,22 @@ public class Product extends AbstractEntity {
 	@NotNull
 	private String title;
 	
-	/** The product's cost per unit. */
+	/** The product's quantity, counted in {@code unit}. */
 	@NotNull
-	@Column(name = "price_per_unit", precision = 6, scale = 2)
-	private BigDecimal price;
+	@Column(precision = 6, scale = 2)
+	private BigDecimal quantity;
 	
 	/** The product's base unit from {@link Constants#Unit}.  */
 	@NotNull
 	@Column(length = 2)
 	private Unit unit;
 	
-	/** Percentage of the {@code price_per_unit} to be charged as tax. */
+	/** The product's cost per unit. Thus the final product's cost is {@code pricePerUnit} x {@code quantity}. */
+	@NotNull
+	@Column(name = "price_per_unit", precision = 6, scale = 2)
+	private BigDecimal pricePerUnit;
+	
+	/** Percentage of the price to be charged as tax. */
 	@Column(name = "tax_percentage", precision = 4, scale = 2)
 	private BigDecimal taxPercentage;
 	
@@ -107,17 +112,17 @@ public class Product extends AbstractEntity {
 	}
 
 	/**
-	 * @return the price
+	 * @return the quantity
 	 */
-	public BigDecimal getPrice() {
-		return price;
+	public BigDecimal getQuantity() {
+		return quantity;
 	}
 
 	/**
-	 * @param price the price to set
+	 * @param quantity the quantity to set
 	 */
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
 	}
 
 	/**
@@ -132,6 +137,20 @@ public class Product extends AbstractEntity {
 	 */
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	/**
+	 * @return the pricePerUnit
+	 */
+	public BigDecimal getPricePerUnit() {
+		return pricePerUnit;
+	}
+
+	/**
+	 * @param pricePerUnit the pricePerUnit to set
+	 */
+	public void setPricePerUnit(BigDecimal pricePerUnit) {
+		this.pricePerUnit = pricePerUnit;
 	}
 
 	/**

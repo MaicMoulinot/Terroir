@@ -31,14 +31,14 @@ public interface ServiceProduct {
 	Product update(Product product) throws ExceptionService;
 	
 	/**
-	 * Update the quantity in a product's stock and update its last update time with a call to  
+	 * Update a stock's availability and set its last update time with a call to  
 	 * {@link com.jomm.terroir.business.model.Stock#setLastUpdate(java.time.ZonedDateTime)}.
 	 * @param stock the {@link Stock} to update.
 	 * @param newQuantity {@link Integer} the new quantity. Must not be {@code null}, and must be positive.
 	 * @return the updated stock.
 	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	Stock updateQuantity(Stock stock, Integer newQuantity) throws ExceptionService;
+	Stock updateAvailability(Stock stock, Integer newQuantity) throws ExceptionService;
 	
 	/**
 	 * Fetch the list of all products.

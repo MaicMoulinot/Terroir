@@ -161,6 +161,7 @@
         product_id BIGINT NOT NULL,
         active_for_sale INT,
         price_per_unit NUMERIC(6,2) NOT NULL,
+        quantity NUMERIC(6,2) NOT NULL,
         tax_percentage NUMERIC(4,2),
         title VARCHAR(255) NOT NULL,
         unit VARCHAR(2) NOT NULL,
@@ -172,7 +173,7 @@
     -- Table stock from entity Stock
     CREATE TABLE stock (
         last_update TIMESTAMP,
-        in_stock BIGINT,
+        availability BIGINT,
         product_id BIGINT CONSTRAINT fk_stock_product REFERENCES product(product_id) NOT NULL,
         PRIMARY KEY (product_id)
     );

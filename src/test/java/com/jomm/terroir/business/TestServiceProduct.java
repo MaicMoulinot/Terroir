@@ -133,30 +133,30 @@ public class TestServiceProduct {
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#updateQuantity(Stock, Integer)} throws an {@link ExceptionService}
+	 * Test that {@link ServiceProduct#updateAvailability(Stock, Integer)} throws an {@link ExceptionService}
 	 * when entity is null.
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
 	public final void testUpdateQuantityWithEntityNull() throws ExceptionService {
-		service.updateQuantity(null, QUANTITY);
+		service.updateAvailability(null, QUANTITY);
 		fail("An ExceptionService should have been thrown");
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#updateQuantity(Stock, Integer)} throws an {@link ExceptionService}
+	 * Test that {@link ServiceProduct#updateAvailability(Stock, Integer)} throws an {@link ExceptionService}
 	 * when entity's id is null.
 	 * @throws ExceptionService is expected.
 	 */
 	@Test(expected = ExceptionService.class)
 	public final void testUpdateQuantityWithIdNull() throws ExceptionService {
 		Stock stock = TestStock.generateStockWithIdNull();
-		service.updateQuantity(stock, QUANTITY);
+		service.updateAvailability(stock, QUANTITY);
 		fail("An ExceptionService should have been thrown");
 	}
 	
 	/**
-	 * Test that {@link ServiceProduct#updateQuantity(Stock, Integer)} does not throw an {@link ExceptionService}
+	 * Test that {@link ServiceProduct#updateAvailability(Stock, Integer)} does not throw an {@link ExceptionService}
 	 * when entity's state is correct, and properly generates the LastUpdate in the stock.
 	 * @throws ExceptionService is not expected.
 	 */
@@ -169,7 +169,7 @@ public class TestServiceProduct {
 		stock.setProduct(product);
 		assertNull("LastUpdate should not yet be initialized", stock.getLastUpdate());
 		ZonedDateTime now = ZonedDateTime.now();
-		service.updateQuantity(stock, QUANTITY);
+		service.updateAvailability(stock, QUANTITY);
 		ZonedDateTime entityDate = stock.getLastUpdate();
 		assertNotNull("LastUpdate should be initialized", entityDate);
 		DateTimeFormatter formatter = DateTimeFormatter.RFC_1123_DATE_TIME;

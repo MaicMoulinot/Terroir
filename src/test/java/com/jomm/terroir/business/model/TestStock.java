@@ -47,10 +47,10 @@ public class TestStock {
 		stock.setId(nb);
 		assertEquals("Id should be " + nb, nb, stock.getId());
 		
-		// Quantity
+		// Availability
 		Integer quantity = 10;
-		stock.setQuantity(quantity);
-		assertEquals("Quantity should be " + quantity, quantity, stock.getQuantity());
+		stock.setAvailability(quantity);
+		assertEquals("Availability should be " + quantity, quantity, stock.getAvailability());
 		
 		// LastUpdate
 		ZonedDateTime zonedDate = ZonedDateTime.now();
@@ -73,7 +73,7 @@ public class TestStock {
 	 */
 	public static Stock generateStockWithIdNull() {
 		Stock stock = new Stock(TestProduct.generateProductWithIdNull());
-		stock.setQuantity(10);
+		stock.setAvailability(10);
 		return stock;
 	}
 }

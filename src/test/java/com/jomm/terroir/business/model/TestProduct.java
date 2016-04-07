@@ -55,16 +55,20 @@ public class TestProduct {
 		product.setTitle(test);
 		assertEquals("Title should be " + test, test, product.getTitle());
 		
-		// Price
+		// Quantity
 		BigDecimal decimal = new BigDecimal("1.23");
-		product.setPrice(decimal);
-		assertEquals("Price should be " + decimal.toString(), decimal, product.getPrice());
+		product.setQuantity(decimal);
+		assertEquals("Quantity should be " + decimal.toString(), decimal, product.getQuantity());
 		
 		// Unit
 		Unit unit = PIECE;
 		product.setUnit(unit);
 		assertEquals("Unit should be " + unit.toString(), unit, product.getUnit());
 		unit = null; // Available for Garbage Collector
+		
+		// PricePerUnit
+		product.setPricePerUnit(decimal);
+		assertEquals("PricePerUnit should be " + decimal.toString(), decimal, product.getPricePerUnit());
 		
 		// TaxPercentage
 		product.setTaxPercentage(decimal);
@@ -80,10 +84,10 @@ public class TestProduct {
 		// Stock
 		Stock stock = new Stock();
 		Integer quantity = 11;
-		stock.setQuantity(quantity);
+		stock.setAvailability(quantity);
 		product.setStock(stock);
 		assertNotNull("Stock should not be null", product.getStock());
-		assertEquals("Stock's quantity should be " + quantity, quantity, product.getStock().getQuantity());
+		assertEquals("Stock's quantity should be " + quantity, quantity, product.getStock().getAvailability());
 		stock = null; // Available for Garbage Collector
 		
 		// Site
@@ -111,7 +115,8 @@ public class TestProduct {
 	public static Product generateProductWithIdNull() {
 		Product product = new Product();
 		product.setTitle("Title");
-		product.setPrice(new BigDecimal("1.2345"));
+		product.setQuantity(new BigDecimal("45"));
+		product.setPricePerUnit(new BigDecimal("1.23"));
 		product.setUnit(PIECE);
 		product.setTaxPercentage(new BigDecimal("5.5"));
 		product.setActive(true);
