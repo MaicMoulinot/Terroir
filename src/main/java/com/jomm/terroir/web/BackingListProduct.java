@@ -47,9 +47,10 @@ public class BackingListProduct extends BackingBean {
 	
 	// Methods //-------------------------------------------------
 	/**
-	 * Initialize the list of all users.
-	 * It is annotated {@link javax.annotation.PostConstruct},
-	 * for proper call from the bean management framework which uses proxies, such as CDI.
+	 * This method instantiate all necessary attributes (i.e. prepare the list of all products).
+	 * It replaces the constructor and it is annotated {@link PostConstruct} 
+	 * in concrete implementations, for proper call from the bean management framework 
+	 * which uses proxies, such as CDI.
 	 */
 	@PostConstruct 
 	public void init() {

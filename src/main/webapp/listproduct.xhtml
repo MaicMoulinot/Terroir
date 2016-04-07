@@ -13,8 +13,7 @@
 		<p:spacer height="50" />
 		<h:form id="form">
 			<p:growl id="growl" showDetail="true" />
-
-			<h:outputLabel value="#{error.userempty}"
+			<h:outputLabel value="#{error.emptydata}"
 				rendered="#{empty backingListProduct.listProducts}"
 				styleClass="messages" />
 
@@ -57,18 +56,6 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.description}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{currentProduct.description}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{currentProduct.description}"
-								label="#{label.description}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
 				<p:column headerText="#{label.site}">
 					<p:cellEditor>
 						<f:facet name="output">
@@ -84,35 +71,12 @@
 				<p:column headerText="#{label.designation}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.designation.registeredName}" />
+							<h:outputText
+								value="#{currentProduct.designation.registeredName}" />
 						</f:facet>
 						<f:facet name="input">
 							<p:inputText value="#{currentProduct.designation.registeredName}"
 								label="#{label.designation}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="#{label.quantity}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{currentProduct.quantity}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{currentProduct.quantity}"
-								label="#{label.quantity}" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-
-				<p:column headerText="#{label.price}">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{currentProduct.price}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{currentProduct.price}"
-								label="#{label.price}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -129,15 +93,51 @@
 					</p:cellEditor>
 				</p:column>
 
+				<p:column headerText="#{label.price}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.price}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.price}"
+								label="#{label.price}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.unit}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.unit}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.unit}"
+								label="#{label.unit}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="#{label.quantity}">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{currentProduct.stock.quantity}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{currentProduct.stock.quantity}"
+								label="#{label.quantity}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
 				<p:column headerText="#{label.lastupdate}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<p:outputLabel value="#{currentProduct.lastUpdate}">
+							<p:outputLabel value="#{currentProduct.stock.lastUpdate}">
 								<f:converter converterId="zonedDateTimeConverter" />
 							</p:outputLabel>
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.lastUpdate}">
+							<p:inputText value="#{currentProduct.stock.lastUpdate}">
 								<f:converter converterId="zonedDateTimeConverter" />
 							</p:inputText>
 						</f:facet>

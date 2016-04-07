@@ -1,9 +1,16 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.MONEY_SYMBOL;
 import static com.jomm.terroir.util.Constants.Entity.PRODUCT;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.MEDIAN_PRICE;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
+import java.text.MessageFormat;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,7 +19,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.jomm.terroir.business.ServiceDesignation;
 import com.jomm.terroir.business.ServiceProduct;
 import com.jomm.terroir.business.ServiceSite;
 import com.jomm.terroir.business.ServiceUser;
@@ -36,21 +42,19 @@ import com.jomm.terroir.util.exception.ExceptionService;
 @Named
 @ViewScoped
 public class BackingRegistrationProduct extends BackingBean {
-	
+
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
-	
+
 	// Injected Fields //-----------------------------------------
 	@Inject
 	private ServiceProduct serviceProduct;
 	@Inject
-	private ServiceDesignation serviceDesignation;
-	@Inject
-	private ServiceSite serviceSite; //TODO : à supprimer !!
+	private ServiceSite serviceSite;
 	@Inject
 	private Logger logger;
-	
+
 	// Variables //-----------------------------------------------
 	private String title;
 	private BigDecimal price;
@@ -60,36 +64,17 @@ public class BackingRegistrationProduct extends BackingBean {
 	private Stock stock;	
 	private Site site;
 	private Designation designation;
-	private List<Designation> designations;
-	
+
 	// Methods //-------------------------------------------------
 	/**
-	 * This method instantiate all necessary attributes, such as the {@link Site} and {@link Designation}.
+	 * This method instantiate all necessary attributes, such as {@link Site} and {@link Stock}.
 	 * It replaces the constructor and it is annotated {@link PostConstruct},
 	 * for proper call from the bean management framework which uses proxies, such as CDI.
 	 */
 	@PostConstruct 
 	public void init() {
-		setSite(serviceSite.getAllSites().get(0)); //TODO à supprimer !! //setSite(new Site());
-		setDesignation(new Designation());
-		designations = serviceDesignation.getAllDesignations();
-	}
-	
-	/**
-	 * Generate an {@link Product} using values from the {@link BackingRegistrationProduct}.
-	 * @return {@link Product}.
-	 */
-	public Product convertIntoEntity() {
-		Product entity = new Product();
-		entity.setTitle(getTitle());
-		entity.setPrice(getPrice());
-		entity.setUnit(unit);
-		entity.setTaxPercentage(taxPercentage);
-		entity.setActive(isActive());
-		entity.setStock(stock);
-		entity.setSite(getSite());
-		entity.setDesignation(getDesignation());
-		return entity;
+		setSite(serviceSite.getSite(1L)); //TODO à supprimer !! //setSite(new Site());
+		setStock(new Stock());
 	}
 
 	/**
@@ -108,7 +93,110 @@ public class BackingRegistrationProduct extends BackingBean {
 		}
 		return "listproduct" + "?faces-redirect=true";	// Navigation case.
 	}
-	
+
+	/**
+	 * Return a map containing all values from the enumeration {@link Unit}.
+	 * Each value has the localized Unit's name as key.
+	 * @return the map of Units.
+	 */
+	public Map<String, Unit> getUnits() {
+		Map<String, Unit> units = new LinkedHashMap<>();
+		for (Unit currentUnit : Unit.values()) {
+			units.put(getValueFromKey(currentUnit), currentUnit);
+		}
+		return units;
+	}
+
+	/**
+	 * Construct a list of possible values for the {@code title} combining the initial {@code query} 
+	 * provided by the user and the product's diverse properties.
+	 * @param query String the initial value provided by the user.
+	 * @return a list of possible completed titles.
+	 */
+	public List<String> completeTitle(String query) {
+		List<String> results = new LinkedList<>();
+		// Add designation's information
+		String designationPart = "";
+		if (designation != null) {
+			designationPart = designation.getRegisteredName();
+			results.add(query + " " + designationPart);
+			designationPart += ", ";
+			results.add(designationPart + query);
+		}
+		// Add site's information
+		String sitePart = "";
+		if (site != null) {
+			sitePart = site.getName();
+			results.add(query + " made with care at " + sitePart);
+			sitePart += ", ";
+			results.add(sitePart + query);
+		}
+		String pricePart = "";
+		String quantityPart = "";
+		if (unit != null) {
+			// Add price and unit information
+			if (price != null) {
+				pricePart = price + " " + MONEY_SYMBOL + " / " + unit;
+				results.add(query + " @ " + pricePart);
+				pricePart += ", ";
+				results.add(pricePart + query);
+			}
+			// Add quantity information
+			if (stock != null && stock.getQuantity() != null) {
+				quantityPart = stock.getQuantity() + " " + unit;
+				results.add(query + ", " + quantityPart);
+				quantityPart += ", ";
+				results.add(quantityPart + query);
+			}
+		}
+		// Add combined information
+		results.add(designationPart + quantityPart + sitePart + query);
+		results.add(designationPart + sitePart + quantityPart + query);
+		results.add(quantityPart + sitePart + designationPart + query);
+		results.add(quantityPart + designationPart + sitePart + query);
+		results.add(sitePart + designationPart + quantityPart + query);
+		results.add(sitePart + quantityPart + designationPart + query);
+		results.add(designationPart + pricePart + sitePart + query);
+		results.add(designationPart + sitePart + pricePart + query);
+		results.add(pricePart + sitePart + designationPart + query);
+		results.add(pricePart + designationPart + sitePart + query);
+		results.add(sitePart + designationPart + pricePart + query);
+		results.add(sitePart + pricePart + designationPart + query);
+		return results;
+	}
+
+	/**
+	 * Format a message describing the {@link Designation}'s median price and its unit.
+	 * @return String the formatted designation's median price.
+	 */
+	public String formatMedianPrice() {
+		String medianPrice = null;
+		if (designation != null) {
+			Object[] arguments = {designation.getRegisteredName(), designation.getMedianPrice(), 
+					MONEY_SYMBOL, designation.getUnit().getSymbol()};
+			medianPrice = MessageFormat.format(getValueFromKey(MEDIAN_PRICE).replace("'", "''"), arguments);
+		}
+		return medianPrice;
+	}
+
+	// Helpers //-------------------------------------------------
+	/**
+	 * Generate an {@link Product} using values from the {@link BackingRegistrationProduct}.
+	 * @return {@link Product}.
+	 */
+	private Product convertIntoEntity() {
+		Product entity = new Product();
+		entity.setTitle(getTitle());
+		entity.setPrice(getPrice());
+		entity.setUnit(unit);
+		entity.setTaxPercentage(taxPercentage);
+		entity.setActive(isActive());
+		entity.setStock(stock);
+		entity.setSite(getSite());
+		entity.setDesignation(getDesignation());
+		return entity;
+	}
+
 	// Getters and Setters //-------------------------------------
 	/**
 	 * @return the title
@@ -116,7 +204,7 @@ public class BackingRegistrationProduct extends BackingBean {
 	public String getTitle() {
 		return title;
 	}
-	
+
 	/**
 	 * @param title the title to set
 	 */
@@ -220,19 +308,5 @@ public class BackingRegistrationProduct extends BackingBean {
 	 */
 	public void setDesignation(Designation designation) {
 		this.designation = designation;
-	}
-
-	/**
-	 * @return the designations
-	 */
-	public List<Designation> getDesignations() {
-		return designations;
-	}
-
-	/**
-	 * @param designations the designations to set
-	 */
-	public void setDesignations(List<Designation> designations) {
-		this.designations = designations;
 	}
 }

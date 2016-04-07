@@ -2,6 +2,7 @@ package com.jomm.terroir.util;
 
 import static com.jomm.terroir.util.Constants.PERSISTENCE_UNIT;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.ERROR;
+import static com.jomm.terroir.util.Constants.ResourceBundleFileName.LABEL;
 import static com.jomm.terroir.util.Constants.ResourceBundleFileName.MESSAGE;
 
 import java.time.ZoneId;
@@ -19,6 +20,7 @@ import javax.persistence.PersistenceContext;
 import com.jomm.terroir.util.Constants.Entity;
 import com.jomm.terroir.util.Constants.ResourceBundleError;
 import com.jomm.terroir.util.Constants.ResourceBundleMessage;
+import com.jomm.terroir.util.Constants.Unit;
 
 /**
  * This Class is a Utility tool exposing resources using the resource producer pattern.
@@ -92,6 +94,15 @@ public final class Resources {
 	 */
 	public static String getValueFromKey(ResourceBundleMessage key) {
 		return ResourceBundle.getBundle(MESSAGE.getFileName(), Locale.getDefault()).getString(key.getKey());
+	}
+	
+	/**
+	 * Retrieve the value from the {@link ResourceBundle} {@code label}.
+	 * @param key {@link Unit} the key.
+	 * @return String the value.
+	 */
+	public static String getValueFromKey(Unit key) {
+		return ResourceBundle.getBundle(LABEL.getFileName(), Locale.getDefault()).getString("unit" + key.getSymbol());
 	}
 	
 	/**

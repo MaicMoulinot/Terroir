@@ -13,70 +13,75 @@
 		<p:spacer height="50" />
 		<p:messages id="messages" closable="true" />
 		<h:form id="form">
-			<p:growl id="growl" for="growl" showDetail="true" escape="false"
-				life="6000" />
 			<h:panelGrid columns="4">
 
-				<p:outputLabel for="designation" id="designationLabel"
+				<p:outputLabel id="designationLabel" for="designation"
 					value="#{label.designation}" />
-				<p:spacer />
-				<p:selectOneMenu id="designation" binding="#{parameter}"
-					value="#{backingRegistrationProduct.designation}" 
-					converter="omnifaces.SelectItemsConverter" 
-					required="true"	requiredMessage="#{error.mandatory}">
-					<f:selectItem itemLabel="#{label.selectone}" noSelectionOption="true" />
-					<f:selectItems value="#{backingRegistrationProduct.designations}" var="currentDesignation"
-						itemLabel="#{currentDesignation.registeredName}" itemValue="#{currentDesignation}" />
+				<p:selectOneMenu id="designation"
+					value="#{backingRegistrationProduct.designation}"
+					binding="#{designationParameter}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="#{error.mandatory}">
+					<f:selectItem itemLabel="#{label.designation}"
+						noSelectionOption="true" />
+					<f:selectItems
+						value="#{backingRegistrationProduct.site.designations}"
+						var="currentDesignation"
+						itemLabel="#{currentDesignation.registeredName}"
+						itemValue="#{currentDesignation}" />
 					<f:ajax render="medianPrice" />
 				</p:selectOneMenu>
+				<p:spacer />
 				<p:message id="designationMessage" for="designation" display="text" />
-
-				<p:outputLabel for="title" id="titleLabel" value="#{label.title}" />
 				<p:spacer />
-				<p:inputText id="title" value="#{backingRegistrationProduct.title}"
-					required="true" requiredMessage="#{error.mandatory}"
-					validatorMessage="#{error.length2}">
-					<f:validateLength minimum="2" />
-					<p:ajax event="blur" update="titleMessage" />
-				</p:inputText>
-				<p:message id="titleMessage" for="title" display="text" />
-
-				<p:outputLabel for="description" id="descriptionLabel"
-					value="#{label.description}" />
+				<h:outputText id="medianPrice"
+					value="#{backingRegistrationProduct.formatMedianPrice()}" />
 				<p:spacer />
-				<p:inputTextarea id="description" rows="5" cols="50"
-					value="#{backingRegistrationProduct.description}" required="true"
-					requiredMessage="#{error.mandatory}"
-					validatorMessage="#{error.length2}">
-					<f:validateLength minimum="2" />
-					<p:ajax event="blur" update="descriptionMessage" />
-				</p:inputTextarea>
-				<p:message id="descriptionMessage" for="description" display="text" />
-
-				<p:outputLabel for="quantity" id="quantityLabel"
-					value="#{label.quantity}" />
 				<p:spacer />
-				<p:inputText id="quantity"
-					value="#{backingRegistrationProduct.quantity}" required="true"
-					requiredMessage="#{error.mandatory}"
-					converterMessage="#{error.integer}">
-					<f:convertNumber integerOnly="true" />
-					<p:ajax event="blur" update="quantityMessage" />
-				</p:inputText>
-				<p:message id="quantityMessage" for="quantity" display="text" />
 
 				<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
-				<h:outputText id="medianPrice" value="#{backingRegistrationProduct.designation.medianPrice}" />
 				<p:inputText id="price" value="#{backingRegistrationProduct.price}"
 					required="true" requiredMessage="#{error.mandatory}"
 					converterMessage="#{error.integer}">
 					<f:convertNumber currencySymbol="€" maxFractionDigits="2"
 						minFractionDigits="2" />
-					<f:attribute name="parameter" value="#{parameter}" />
+					<f:attribute name="parameter" value="#{unitParameter}" />
 					<f:validator binding="#{validatorPrice}" />
 					<p:ajax event="blur" execute="price" update="priceMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="priceMessage" for="price" display="text" />
+
+				<p:outputLabel for="quantity" id="quantityLabel"
+					value="#{label.quantity}" />
+				<p:inputText id="quantity"
+					value="#{backingRegistrationProduct.stock.quantity}"
+					required="true" requiredMessage="#{error.mandatory}"
+					converterMessage="#{error.integer}">
+					<f:convertNumber integerOnly="true" />
+					<p:ajax event="blur" update="quantityMessage" />
+				</p:inputText>
+				<p:selectOneMenu id="unit" binding="#{unitParameter}"
+					value="#{backingRegistrationProduct.unit}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="#{error.mandatory}">
+					<f:selectItem itemLabel="#{label.unit}"
+						noSelectionOption="true" />
+					<f:selectItems value="#{backingRegistrationProduct.units}" />
+				</p:selectOneMenu>
+				<p:message id="quantityMessage" for="quantity" display="text" />
+
+				<p:outputLabel for="title" id="titleLabel" value="#{label.title}" />
+				<p:autoComplete id="title"
+					value="#{backingRegistrationProduct.title}"
+					completeMethod="#{backingRegistrationProduct.completeTitle}"
+					required="true" requiredMessage="#{error.mandatory}"
+					validatorMessage="#{error.length2}">
+					<f:validateLength minimum="2" />
+					<p:ajax event="blur" update="titleMessage" />
+				</p:autoComplete>
+				<p:spacer />
+				<p:message id="titleMessage" for="title" display="text" />
 
 			</h:panelGrid>
 
