@@ -66,7 +66,7 @@
 
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>
-			<artifactId>eggplant</artifactId>
+			<artifactId>all-themes</artifactId>
 		</dependency>
 
 		<dependency>
@@ -219,7 +219,7 @@
 
 			<dependency>
 				<groupId>org.primefaces.themes</groupId>
-				<artifactId>eggplant</artifactId>
+				<artifactId>all-themes</artifactId>
 				<version>1.0.10</version>
 			</dependency>
 
