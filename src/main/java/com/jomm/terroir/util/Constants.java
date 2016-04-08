@@ -307,8 +307,10 @@ public final class Constants {
 	 * @author Maic
 	 */
 	public enum View {
-		/** "parameter" */
-		PARAMETER,
+		/** "parameter1" */
+		PARAMETER1,
+		/** "parameter2" */
+		PARAMETER2,
 		/** "growl" */
 		GROWL;
 

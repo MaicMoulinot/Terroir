@@ -70,7 +70,7 @@
 				</p:commandLink>
 				<p:password id="password1"
 					value="#{backingRegistrationCustomer.password}" feedback="true"
-					binding="#{parameter}" required="true"
+					binding="#{password1Parameter}" required="true"
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
@@ -91,7 +91,7 @@
 					required="true" requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
-					<f:attribute name="parameter" value="#{parameter}" />
+					<f:attribute name="parameter1" value="#{password1Parameter}" />
 					<f:validator binding="#{validatorPassword}" />
 					<p:ajax event="blur" execute="password1 password2"
 						update="password1Message password2Message" />

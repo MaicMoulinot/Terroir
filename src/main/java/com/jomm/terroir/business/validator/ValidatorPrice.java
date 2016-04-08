@@ -2,7 +2,7 @@ package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.DESIGNATION_INVALID;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PRICE_OUT_OF_RANGE;
-import static com.jomm.terroir.util.Constants.View.PARAMETER;
+import static com.jomm.terroir.util.Constants.View.PARAMETER1;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
@@ -62,8 +62,8 @@ public class ValidatorPrice implements Validator {
 	 */
 	private Designation retrieveValueFromComponent(UIComponent component) {
 		Designation value = null;
-		if (component != null && component.getAttributes().get(PARAMETER.toString()) != null) {
-			value = (Designation) ((UIInput) component.getAttributes().get(PARAMETER.toString())).getValue();
+		if (component != null && component.getAttributes().get(PARAMETER1.toString()) != null) {
+			value = (Designation) ((UIInput) component.getAttributes().get(PARAMETER1.toString())).getValue();
 		}
 		return value;
 	}

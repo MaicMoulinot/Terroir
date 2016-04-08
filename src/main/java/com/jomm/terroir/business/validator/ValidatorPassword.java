@@ -4,7 +4,7 @@ import static com.jomm.terroir.util.Constants.Pattern.PASSWORD;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
-import static com.jomm.terroir.util.Constants.View.PARAMETER;
+import static com.jomm.terroir.util.Constants.View.PARAMETER1;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.util.Objects;
@@ -71,8 +71,8 @@ public class ValidatorPassword implements Validator {
 	 */
 	private String retrieveValueFromComponent(UIComponent component) {
 		String value = null;
-		if (component != null && component.getAttributes().get(PARAMETER.toString()) != null) {
-			value = (String) ((UIInput) component.getAttributes().get(PARAMETER.toString())).getValue();
+		if (component != null && component.getAttributes().get(PARAMETER1.toString()) != null) {
+			value = (String) ((UIInput) component.getAttributes().get(PARAMETER1.toString())).getValue();
 		}
 		return value;
 	}
