@@ -117,8 +117,6 @@ public final class Constants {
 	 * @author Maic
 	 */
 	public enum ResourceBundleError {
-		/** "designationinvalid" */
-		DESIGNATION_INVALID("designationinvalid"),
 		/** "emailduplicate" */
 		EMAIL_EXISTING("emailduplicate"),
 		/** "emailinvalid" */
@@ -141,6 +139,12 @@ public final class Constants {
 		PASSWORD_NOT_MATCHING_PATTERN("passwordinvalid"),
 		/** "priceoutofrange" */
 		PRICE_OUT_OF_RANGE("priceoutofrange"),
+		/** "unitinvalid" */
+		UNIT_INVALID("unitinvalid"),
+		/** "unitquantitydesignation" */
+		UNIT_QUANTITY_DESIGNATION_MANDATORY("unitquantitydesignation"),
+		/** "unitunconvertible" */
+		UNIT_NOT_CONVERTIBLE("unitunconvertible"),
 		/** "usernameduplicate" */
 		USER_NAME_EXISTING("usernameduplicate"),
 		/** "usernameinvalid" */
@@ -311,6 +315,8 @@ public final class Constants {
 		PARAMETER1,
 		/** "parameter2" */
 		PARAMETER2,
+		/** "parameter3" */
+		PARAMETER3,
 		/** "growl" */
 		GROWL;
 

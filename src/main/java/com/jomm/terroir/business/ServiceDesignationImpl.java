@@ -3,6 +3,7 @@ package com.jomm.terroir.business;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.UNIT_INVALID;	
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.dao.DaoDesignation;
+import com.jomm.terroir.util.Constants.Unit;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -35,6 +37,8 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (designation.getId() != null) {
 			throw new ExceptionService(ID_SHOULD_BE_NULL);
+		} else if (!isValidUnit(designation.getUnit())) {
+			throw new ExceptionService(UNIT_INVALID);
 		}
 		return daoDesignation.create(designation);
 	}
@@ -45,6 +49,8 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (designation.getId() == null) {
 			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		} else if (!isValidUnit(designation.getUnit())) {
+			throw new ExceptionService(UNIT_INVALID);
 		}
 		return daoDesignation.update(designation);
 	}
@@ -63,6 +69,17 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
 		daoDesignation.delete(designation);
+	}
+	
+	// Helpers //-------------------------------------------------
+	/**
+	 * Determine is the designation's unit is valid, i.e. is either {@link Unit#KILOGRAM}, 
+	 * {@link Unit#LITER} or {@link Unit#PIECE}.
+	 * @param unit {@link Unit}.
+	 * @return {@code true} if the unit is valid, {@code false} otherwise.
+	 */
+	private boolean isValidUnit(Unit unit) {
+		return unit != null && (unit == Unit.KILOGRAM || unit == Unit.LITER || unit == Unit.PIECE);
 	}
 	
 	// Tests only //----------------------------------------------
