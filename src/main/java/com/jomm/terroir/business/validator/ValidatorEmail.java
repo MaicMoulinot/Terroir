@@ -1,8 +1,8 @@
 package com.jomm.terroir.business.validator;
 
+import static com.jomm.terroir.util.Constants.Pattern.EMAIL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_EXISTING;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.EMAIL_NOT_MATCHING_PATTERN;
-import static com.jomm.terroir.util.Constants.Pattern.EMAIL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.text.MessageFormat;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
+import org.omnifaces.validator.ValueChangeValidator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,8 +20,11 @@ import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is the Validator relating to an email.
- * It implements {@link Validator} and defines its method {@code validate()},
- * that throws an {@link ValidatorException} if validation fails.
+ * It extends {@link ValueChangeValidator}, instead of implementing {@link javax.faces.validator.Validator}.
+ * {@link ValueChangeValidator} performs the validation only when the submitted value has changed
+ * compared to the model value, which avoid unnecessarily expensive service/DAO calls. 
+ * It overrides the method {@code validateChangedObject()}, that throws an {@link ValidatorException} 
+ * if the validation fails.
  * It relates to {@link Pattern} to define a correct email pattern,
  * and to {@link ServiceUser} to check if the email is already in use.
  * It is annotated {@link Named} for proper access from/to the view pages, with
@@ -30,7 +33,7 @@ import com.jomm.terroir.business.ServiceUser;
  * @author Maic
  */
 @Named
-public class ValidatorEmail implements Validator {
+public class ValidatorEmail extends ValueChangeValidator {
 
 	// Constants //-----------------------------------------------
 	private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL.getRegex(), Pattern.CASE_INSENSITIVE);
@@ -41,7 +44,8 @@ public class ValidatorEmail implements Validator {
 	
 	// Methods //-------------------------------------------------
 	@Override
-	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+	public void validateChangedObject(FacesContext context, UIComponent component, Object value) 
+			throws ValidatorException {
 		if (value != null) {
 			String email = (String) value;
 			if (!email.isEmpty()) {

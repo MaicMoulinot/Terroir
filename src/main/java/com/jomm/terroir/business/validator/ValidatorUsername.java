@@ -12,17 +12,21 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.omnifaces.validator.ValueChangeValidator;
 
 import com.jomm.terroir.business.ServiceUser;
 
 /**
  * This Class is the Validator relating to an user name.
- * It implements {@link Validator} and defines its method {@code validate()},
- * that throws an {@link ValidatorException} if validation fails.
+ * It extends {@link ValueChangeValidator}, instead of implementing {@link javax.faces.validator.Validator}.
+ * {@link ValueChangeValidator} performs the validation only when the submitted value has changed
+ * compared to the model value, which avoid unnecessarily expensive service/DAO calls. 
+ * It overrides the method {@code validateChangedObject()}, that throws an {@link ValidatorException} 
+ * if the validation fails.
  * It relates to {@link ServiceUser} to check if the user name is already in use.
  * It is annotated {@link Named} for proper access from/to the view pages, with
  * {@code f:validator binding="validatorUsername"}. It is not yet annotated 
@@ -30,7 +34,7 @@ import com.jomm.terroir.business.ServiceUser;
  * @author Maic
  */
 @Named
-public class ValidatorUsername implements Validator {
+public class ValidatorUsername extends ValueChangeValidator {
 	
 	// Constants //-----------------------------------------------
 	private static final Pattern USERNAME_PATTERN = Pattern.compile(USERNAME.getRegex());
@@ -41,7 +45,8 @@ public class ValidatorUsername implements Validator {
 	
 	// Methods //-------------------------------------------------
 	@Override
-	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+	public void validateChangedObject(FacesContext context, UIComponent component, Object value) 
+			throws ValidatorException {
 		if (value != null) {
 			String userName = (String) value;
 			if (!userName.isEmpty()) {
