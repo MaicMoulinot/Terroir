@@ -3,6 +3,9 @@ package com.jomm.terroir.web;
 import static com.jomm.terroir.util.Constants.MONEY_SYMBOL;
 import static com.jomm.terroir.util.Constants.Entity.PRODUCT;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.MEDIAN_PRICE;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_TITLE;
+import static com.jomm.terroir.util.Constants.View.GROWL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
@@ -15,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -57,8 +61,9 @@ public class BackingRegistrationProduct extends BackingBean {
 
 	// Variables //-----------------------------------------------
 	private String title;
-	private BigDecimal price;
+	private BigDecimal quantity;
 	private Unit unit;
+	private BigDecimal price;
 	private BigDecimal taxPercentage;
 	private Boolean active;
 	private Stock stock;	
@@ -66,6 +71,14 @@ public class BackingRegistrationProduct extends BackingBean {
 	private Designation designation;
 
 	// Methods //-------------------------------------------------
+	//TODO
+	public void passwordTooltip() {
+		addFacesMessage(GROWL.toString(), FacesMessage.SEVERITY_INFO, "test", 
+				"qty=" + (quantity == null? "null" : quantity) 
+						+ ", price=" + (price == null? "null" : price) 
+								+ ", unit=" + (unit == null? "null" : unit.toString()));
+	}
+
 	/**
 	 * This method instantiate all necessary attributes, such as {@link Site} and {@link Stock}.
 	 * It replaces the constructor and it is annotated {@link PostConstruct},
@@ -99,7 +112,7 @@ public class BackingRegistrationProduct extends BackingBean {
 	 * Each value has the localized Unit's name as key.
 	 * @return the map of Units.
 	 */
-	public Map<String, Unit> getUnits() {
+	public Map<String, Unit> getUnits() {//TODO
 		Map<String, Unit> units = new LinkedHashMap<>();
 		for (Unit currentUnit : Unit.values()) {
 			units.put(getValueFromKey(currentUnit), currentUnit);
@@ -118,51 +131,59 @@ public class BackingRegistrationProduct extends BackingBean {
 		// Add designation's information
 		String designationPart = "";
 		if (designation != null) {
-			designationPart = designation.getRegisteredName();
-			results.add(query + " " + designationPart);
-			designationPart += ", ";
-			results.add(designationPart + query);
+			designationPart = completePossibleResults(results, query, designation.getRegisteredName());
 		}
 		// Add site's information
 		String sitePart = "";
 		if (site != null) {
-			sitePart = site.getName();
-			results.add(query + " made with care at " + sitePart);
-			sitePart += ", ";
-			results.add(sitePart + query);
+			sitePart = completePossibleResults(results, query, site.getName());
 		}
-		String pricePart = "";
+		String pricePerUnitPart = "";
 		String quantityPart = "";
-		if (unit != null) {
-			// Add price and unit information
-			if (price != null) {
-				pricePart = price + " " + MONEY_SYMBOL + " / " + unit;
-				results.add(query + " @ " + pricePart);
-				pricePart += ", ";
-				results.add(pricePart + query);
+		if (unit == null) {
+			// Add price per unit information
+			BigDecimal pricePerUnit = calculatePricePerUnit();
+			if (pricePerUnit != null) {
+				pricePerUnitPart = completePossibleResults(results, query, 
+						pricePerUnit + " " + MONEY_SYMBOL + " / " + unit);
 			}
-			// Add quantity information
-			if (stock != null && stock.getQuantity() != null) {
-				quantityPart = stock.getQuantity() + " " + unit;
-				results.add(query + ", " + quantityPart);
-				quantityPart += ", ";
-				results.add(quantityPart + query);
+			// Add quantity in unit information
+			if (quantity != null) {
+				quantityPart = completePossibleResults(results, query, quantity + " " + unit);
 			}
 		}
 		// Add combined information
-		results.add(designationPart + quantityPart + sitePart + query);
-		results.add(designationPart + sitePart + quantityPart + query);
-		results.add(quantityPart + sitePart + designationPart + query);
-		results.add(quantityPart + designationPart + sitePart + query);
-		results.add(sitePart + designationPart + quantityPart + query);
-		results.add(sitePart + quantityPart + designationPart + query);
-		results.add(designationPart + pricePart + sitePart + query);
-		results.add(designationPart + sitePart + pricePart + query);
-		results.add(pricePart + sitePart + designationPart + query);
-		results.add(pricePart + designationPart + sitePart + query);
-		results.add(sitePart + designationPart + pricePart + query);
-		results.add(sitePart + pricePart + designationPart + query);
+		results.add(query + designationPart + sitePart + quantityPart + pricePerUnitPart);
+		results.add(query + sitePart + designationPart + quantityPart);
+		results.add(query + designationPart + sitePart);
+		results.add(query + sitePart + designationPart + pricePerUnitPart);
 		return results;
+	}
+
+	/**
+	 * Fill the list with possible results.
+	 * @param results List<String> the list to complete.
+	 * @param query String the query entered by the user.
+	 * @param partialResult String a possible result to add.
+	 * @return String the partialResult if it is not already contained in the query.
+	 */
+	private String completePossibleResults(List<String> results, String query, String partialResult) {
+		boolean partialResultIsInQuery = true;
+		String queryToLowerCase = query.toLowerCase();
+		String partToLowerCase = partialResult.toLowerCase();
+		if (!queryToLowerCase.contains(partToLowerCase)) {
+			partialResultIsInQuery = false;
+			// If the query is the actual beginning of part
+			if (partToLowerCase.startsWith(queryToLowerCase)) {
+				results.add(partialResult);
+			}
+			// If the query ends by the beginning of part
+			int lastIndexQuery = queryToLowerCase.length() - 1;
+			if (partToLowerCase.startsWith(queryToLowerCase.substring(lastIndexQuery))) {
+				results.add(query.substring(0, lastIndexQuery) + partialResult);
+			}
+		}
+		return partialResultIsInQuery ? "" : " " + partialResult;
 	}
 
 	/**
@@ -179,6 +200,14 @@ public class BackingRegistrationProduct extends BackingBean {
 		return medianPrice;
 	}
 
+	/**
+	 * Compute the price per unit using the {@code quantity} and {@code price}.
+	 * @return {@link BigDecimal} the computed price per unit.
+	 */
+	public BigDecimal calculatePricePerUnit() {
+		return (quantity != null && price != null) ? price.divide(quantity) : null;
+	}
+
 	// Helpers //-------------------------------------------------
 	/**
 	 * Generate an {@link Product} using values from the {@link BackingRegistrationProduct}.
@@ -187,10 +216,11 @@ public class BackingRegistrationProduct extends BackingBean {
 	private Product convertIntoEntity() {
 		Product entity = new Product();
 		entity.setTitle(getTitle());
-		entity.setPrice(getPrice());
+		entity.setQuantity(getQuantity());
 		entity.setUnit(unit);
+		entity.setPricePerUnit(calculatePricePerUnit());
 		entity.setTaxPercentage(taxPercentage);
-		entity.setActive(isActive());
+		entity.setActive(getActive());
 		entity.setStock(stock);
 		entity.setSite(getSite());
 		entity.setDesignation(getDesignation());
@@ -213,17 +243,17 @@ public class BackingRegistrationProduct extends BackingBean {
 	}
 
 	/**
-	 * @return the price
+	 * @return the quantity
 	 */
-	public BigDecimal getPrice() {
-		return price;
+	public BigDecimal getQuantity() {
+		return quantity;
 	}
 
 	/**
-	 * @param price the price to set
+	 * @param quantity the quantity to set
 	 */
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setQuantity(BigDecimal quantity) {
+		this.quantity = quantity;
 	}
 
 	/**
@@ -238,6 +268,20 @@ public class BackingRegistrationProduct extends BackingBean {
 	 */
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(BigDecimal price) {
+		this.price = price;
 	}
 
 	/**
@@ -257,7 +301,7 @@ public class BackingRegistrationProduct extends BackingBean {
 	/**
 	 * @return the active
 	 */
-	public Boolean isActive() {
+	public Boolean getActive() {
 		return active;
 	}
 

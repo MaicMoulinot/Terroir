@@ -5,85 +5,161 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 
 <ui:composition template="template/template.xhtml">
 	<ui:define name="content">
+		<o:importConstants type="com.jomm.terroir.util.Constants.Unit" />
 		<h2>#{label.productnew}</h2>
 		<p:spacer height="50" />
 		<p:messages id="messages" closable="true" />
 		<h:form id="form">
-			<h:panelGrid columns="4">
+			<p:panelGrid>
+				<p:growl id="growl" for="growl" showDetail="true" escape="false"
+					life="6000" />
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="4">#{label.productnew}</p:column>
+					</p:row>
+				</f:facet>
+				<p:row>
+					<p:column>
+						<p:outputLabel id="designationLabel" for="designation"
+							value="#{label.designation}" />
+					</p:column>
+					<p:column colspan="2">
+						<p:selectOneMenu id="designation"
+							value="#{backingRegistrationProduct.designation}"
+							binding="#{designationParameter}"
+							converter="omnifaces.SelectItemsConverter" required="true"
+							requiredMessage="#{error.mandatory}">
+							<f:selectItem itemLabel="#{label.designation}"
+								noSelectionOption="true" />
+							<f:selectItems
+								value="#{backingRegistrationProduct.site.designations}"
+								var="currentDesignation"
+								itemLabel="#{currentDesignation.registeredName}"
+								itemValue="#{currentDesignation}" />
+							<!-- 							<f:ajax render="medianPrice" /> -->
+							<p:ajax update="medianPrice" />
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:message id="designationMessage" for="designation"
+							display="text" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:spacer />
+						<p:commandLink id="help" title="#{message.passwordtitle}"
+							process="@this"
+							action="#{backingRegistrationProduct.passwordTooltip}"
+							update="growl">
+							<i class="fa fa-info-circle"></i>
+						</p:commandLink>
+					</p:column>
+					<p:column colspan="3">
+						<h:outputText id="medianPrice"
+							value="#{backingRegistrationProduct.formatMedianPrice()}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="quantity" id="quantityLabel"
+							value="#{label.quantity}" />
+					</p:column>
+					<p:column>
+						<p:inputText id="quantity"
+							value="#{backingRegistrationProduct.quantity}"
+							binding="#{quantityParameter}" required="true"
+							requiredMessage="#{error.mandatory}"
+							converter="javax.faces.Double" validatorMessage="#{error.number}">
+							<f:validateDoubleRange minimum="0.01" />
+							<p:ajax event="blur" update="quantityMessage" />
+						</p:inputText>
+					</p:column>
+					<p:column>
+						<p:selectOneMenu id="unit" binding="#{unitParameter}"
+							value="#{backingRegistrationProduct.unit}" required="true"
+							requiredMessage="#{error.mandatory}">
+							<f:selectItem itemLabel="#{label.unit}" noSelectionOption="true" />
+							<f:selectItems value="#{Unit}" var="currentUnit"
+								itemValue="#{currentUnit}"
+								itemLabel="#{currentUnit.localizedName}" />
+<!-- 							<p:ajax update="quantityMessage" /> -->
+							<f:ajax render="@this" />
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>
+						<p:message id="quantityMessage" for="quantity" display="text" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
+					</p:column>
+					<p:column colspan="2">
+						<p:inputText id="price"
+							value="#{backingRegistrationProduct.price}"
+							converter="javax.faces.BigDecimal"
+							converterMessage="#{error.number}" required="true"
+							requiredMessage="#{error.mandatory}">
+							<f:attribute name="parameter1" value="#{unitParameter}" />
+							<f:attribute name="parameter2" value="#{quantityParameter}" />
+							<f:attribute name="parameter3" value="#{designationParameter}" />
+							<f:validator binding="#{validatorPrice}" />
+							<p:ajax event="blur" update="priceMessage" />
+						</p:inputText>
+					</p:column>
+					<p:column>
+						<p:message id="priceMessage" for="price" display="text" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="title" id="titleLabel" value="#{label.title}" />
+					</p:column>
+					<p:column colspan="2">
+						<p:autoComplete id="title"
+							value="#{backingRegistrationProduct.title}"
+							completeMethod="#{backingRegistrationProduct.completeTitle}"
+							queryDelay="500" size="50" required="true"
+							requiredMessage="#{error.mandatory}"
+							validatorMessage="#{error.length10}">
+							<f:validateLength minimum="10" maximum="150" />
+							<p:ajax event="blur" update="titleMessage" />
+						</p:autoComplete>
+					</p:column>
+					<p:column>
+						<p:message id="titleMessage" for="title" display="text" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputLabel for="availability" id="availabilityLabel"
+							value="#{label.availability}" />
+					</p:column>
+					<p:column>
+						<h:selectBooleanCheckbox
+							value="#{backingRegistrationProduct.active}" />
+					</p:column>
+					<p:column>
+						<p:inputText id="availability"
+							value="#{backingRegistrationProduct.stock.availability}"
+							required="true" requiredMessage="#{error.mandatory}"
+							validatorMessage="#{error.integer}">
+							<f:validateLongRange minimum="0" />
+							<p:ajax event="blur" update="availabilityMessage" />
+						</p:inputText>
+					</p:column>
+					<p:column>
+						<p:message id="availabilityMessage" for="availability"
+							display="text" />
+					</p:column>
+				</p:row>
 
-				<p:outputLabel id="designationLabel" for="designation"
-					value="#{label.designation}" />
-				<p:selectOneMenu id="designation"
-					value="#{backingRegistrationProduct.designation}"
-					binding="#{designationParameter}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="#{error.mandatory}">
-					<f:selectItem itemLabel="#{label.designation}"
-						noSelectionOption="true" />
-					<f:selectItems
-						value="#{backingRegistrationProduct.site.designations}"
-						var="currentDesignation"
-						itemLabel="#{currentDesignation.registeredName}"
-						itemValue="#{currentDesignation}" />
-					<f:ajax render="medianPrice" />
-				</p:selectOneMenu>
-				<p:spacer />
-				<p:message id="designationMessage" for="designation" display="text" />
-				<p:spacer />
-				<h:outputText id="medianPrice"
-					value="#{backingRegistrationProduct.formatMedianPrice()}" />
-				<p:spacer />
-				<p:spacer />
-
-				<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
-				<p:inputText id="price" value="#{backingRegistrationProduct.price}"
-					required="true" requiredMessage="#{error.mandatory}"
-					converterMessage="#{error.integer}">
-					<f:convertNumber currencySymbol="€" maxFractionDigits="2"
-						minFractionDigits="2" />
-					<f:attribute name="parameter" value="#{unitParameter}" />
-					<f:validator binding="#{validatorPrice}" />
-					<p:ajax event="blur" execute="price" update="priceMessage" />
-				</p:inputText>
-				<p:spacer />
-				<p:message id="priceMessage" for="price" display="text" />
-
-				<p:outputLabel for="quantity" id="quantityLabel"
-					value="#{label.quantity}" />
-				<p:inputText id="quantity"
-					value="#{backingRegistrationProduct.stock.quantity}"
-					required="true" requiredMessage="#{error.mandatory}"
-					converterMessage="#{error.integer}">
-					<f:convertNumber integerOnly="true" />
-					<p:ajax event="blur" update="quantityMessage" />
-				</p:inputText>
-				<p:selectOneMenu id="unit" binding="#{unitParameter}"
-					value="#{backingRegistrationProduct.unit}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="#{error.mandatory}">
-					<f:selectItem itemLabel="#{label.unit}"
-						noSelectionOption="true" />
-					<f:selectItems value="#{backingRegistrationProduct.units}" />
-				</p:selectOneMenu>
-				<p:message id="quantityMessage" for="quantity" display="text" />
-
-				<p:outputLabel for="title" id="titleLabel" value="#{label.title}" />
-				<p:autoComplete id="title"
-					value="#{backingRegistrationProduct.title}"
-					completeMethod="#{backingRegistrationProduct.completeTitle}"
-					required="true" requiredMessage="#{error.mandatory}"
-					validatorMessage="#{error.length2}">
-					<f:validateLength minimum="2" />
-					<p:ajax event="blur" update="titleMessage" />
-				</p:autoComplete>
-				<p:spacer />
-				<p:message id="titleMessage" for="title" display="text" />
-
-			</h:panelGrid>
+			</p:panelGrid>
 
 			<p:spacer height="100" />
 			<p:commandButton id="create" value="#{label.save}" update="form"

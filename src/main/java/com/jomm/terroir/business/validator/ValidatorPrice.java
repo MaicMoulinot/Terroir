@@ -1,8 +1,12 @@
 package com.jomm.terroir.business.validator;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.DESIGNATION_INVALID;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.NUMBER;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PRICE_OUT_OF_RANGE;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.UNIT_NOT_CONVERTIBLE;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.UNIT_QUANTITY_DESIGNATION_MANDATORY;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
+import static com.jomm.terroir.util.Constants.View.PARAMETER2;
+import static com.jomm.terroir.util.Constants.View.PARAMETER3;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
@@ -16,6 +20,7 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Named;
 
 import com.jomm.terroir.business.model.Designation;
+import com.jomm.terroir.util.Constants.Unit;
 
 /**
  * This Class is the Validator relating to a price.
@@ -28,25 +33,35 @@ import com.jomm.terroir.business.model.Designation;
  */
 @Named
 public class ValidatorPrice implements Validator {
-	
+
 	// Constants //-----------------------------------------------
 	private static final BigDecimal THIRTY_PER_CENT = new BigDecimal("0.3");
-	
+	private static final BigDecimal THOUSAND = new BigDecimal("1000");
+
+	// Variables //-----------------------------------------------
+	private Unit unit;
+	private BigDecimal quantity;
+	private Designation designation;
+
 	// Methods //-------------------------------------------------
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 		if (value != null) {
 			// Retrieve price
 			BigDecimal price = (BigDecimal) value;
-			// Retrieve designation
-			Designation designation = retrieveValueFromComponent(component);
+			if (price.signum() != 1) {
+				throw new ValidatorException(createMessage(getValueFromKey(NUMBER)));
+			}
+			// Retrieve parameters
+			retrieveParametersFromComponent(component);
 			// Validation
-			if (designation == null) {
-				// Designation was not correctly set in the UIComponent
-				throw new ValidatorException(createMessage(getValueFromKey(DESIGNATION_INVALID)));
-			} else if (designation.getMedianPrice() != null) {
-				// If median price is null, the validation should not fail
-				if (isOutOfRange(designation.getMedianPrice(), price)) {
+			BigDecimal pricePerUnit = price.divide(quantity);
+			if (canCompareCurrentAndMedianPrice()) {
+				// Then we can compare current price and median price
+				if (unit != designation.getUnit()) {
+					pricePerUnit = convertIntoDesignationUnit(pricePerUnit, designation.getUnit(), unit);
+				}
+				if (isOutOfRange(designation.getMedianPrice(), pricePerUnit)) {
 					// Price is too far from median price
 					throw new ValidatorException(createMessage(getValueFromKey(PRICE_OUT_OF_RANGE)));
 				}
@@ -56,18 +71,62 @@ public class ValidatorPrice implements Validator {
 
 	// Helpers //-------------------------------------------------
 	/**
-	 * Retrieve the value from a {@link UIComponent}.
+	 * Retrieve the parameters binded in a {@link UIComponent}.
 	 * @param component {@link UIComponent}.
-	 * @return a {@link Designation} the value.
 	 */
-	private Designation retrieveValueFromComponent(UIComponent component) {
-		Designation value = null;
-		if (component != null && component.getAttributes().get(PARAMETER1.toString()) != null) {
-			value = (Designation) ((UIInput) component.getAttributes().get(PARAMETER1.toString())).getValue();
+	private void retrieveParametersFromComponent(UIComponent component) {
+		if (component != null) {
+			if (component.getAttributes().get(PARAMETER1.toString()) != null) {
+				unit = (Unit) ((UIInput) component.getAttributes().get(PARAMETER1.toString())).getValue();
+			}
+			if (component.getAttributes().get(PARAMETER2.toString()) != null) {
+				quantity = (BigDecimal) ((UIInput) component.getAttributes().get(PARAMETER2.toString())).getValue();
+			}
+			if (component.getAttributes().get(PARAMETER3.toString()) != null) {
+				designation = (Designation) ((UIInput) component.getAttributes().get(PARAMETER3.toString())).getValue();
+			}
 		}
-		return value;
+		if (unit == null || quantity == null || designation == null) {
+			throw new ValidatorException(createMessage(getValueFromKey(UNIT_QUANTITY_DESIGNATION_MANDATORY)));
+		}
 	}
-	
+
+	/**
+	 * Convert the current price per unit into the designation's price per unit. 
+	 * If the conversion is not possible, it throws a {@link ValidatorException}.
+	 * @param pricePerUnit {@link BigDecimal} the non corrected current price per unit.
+	 * @param designationUnit {@link Unit} the designation's unit.
+	 * @param currentUnit {@link Unit} the current unit.
+	 * @return a {@link BigDecimal} the corrected current price per unit.
+	 */
+	private BigDecimal convertIntoDesignationUnit(BigDecimal pricePerUnit, Unit designationUnit, Unit currentUnit) {
+		BigDecimal correctedPricePerUnit = null;
+		boolean unitNotConvertible = true;
+		switch (designationUnit) {
+		case LITER:
+			if (currentUnit == Unit.MILLILITER) {
+				correctedPricePerUnit = pricePerUnit.divide(THOUSAND);
+				unitNotConvertible = false;
+			}
+			break;
+		case KILOGRAM:
+			if (currentUnit == Unit.MILLIGRAM) {
+				correctedPricePerUnit = pricePerUnit.divide(THOUSAND).divide(THOUSAND);
+				unitNotConvertible = false;
+			} else if (currentUnit == Unit.GRAM) {
+				correctedPricePerUnit = pricePerUnit.divide(THOUSAND);
+				unitNotConvertible = false;
+			}
+			break;
+		default: // units non convertible
+			break;
+		}
+		if (unitNotConvertible) {
+			throw new ValidatorException(createMessage(getValueFromKey(UNIT_NOT_CONVERTIBLE)));
+		}
+		return correctedPricePerUnit;
+	}
+
 	/**
 	 * Compare the {@link com.jomm.terroir.business.model.Product}'s current price 
 	 * with the {@link Designation}'s median price.
@@ -85,6 +144,26 @@ public class ValidatorPrice implements Validator {
 			outOfRange = true;
 		}
 		return outOfRange;
+	}
+
+	/**
+	 * Define if the current price and the median price can actually be compared.
+	 * For now, if only one use the unit {@link Unit#PIECE}, the method returns {@code false}.
+	 * @return {@code true} if both prices can be compared, {@code false} otherwise.
+	 */
+	private boolean canCompareCurrentAndMedianPrice() {
+		return designation.getMedianPrice() != null && designation.getUnit() != null 
+				&& unitsAreBothPieceOrOther(designation.getUnit(), unit);
+	}
+	
+	/**
+	 * Determine if only one unit is {@link Unit#PIECE}.
+	 * @param unit1 {@link Unit} the first unit.
+	 * @param unit2 {@link Unit} the second unit.
+	 * @return {@code false} if only one unit is {@link Unit#PIECE}, {@code true} otherwise.
+	 */
+	private boolean unitsAreBothPieceOrOther(Unit unit1, Unit unit2) {
+		return (unit1 != Unit.PIECE && unit2 != Unit.PIECE) || (unit1 == Unit.PIECE && unit2 == Unit.PIECE);
 	}
 
 	/**

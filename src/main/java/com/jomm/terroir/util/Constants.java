@@ -1,5 +1,7 @@
 package com.jomm.terroir.util;
 
+import static com.jomm.terroir.util.Resources.getValueFromKey;
+
 /**
  * This class provides all constants used in the application.
  * @author Maic
@@ -133,6 +135,8 @@ public final class Constants {
 		INTEGER("integer"),
 		/** "length5and15" */
 		LENGTH_BETWEEN_5_AND_15("length5and15"),
+		/** "number" */
+		NUMBER("number"),
 		/** "passwordsdifferent" */
 		PASSWORDS_DONT_MATCH("passwordsdifferent"),
 		/** "passwordinvalid" */
@@ -303,6 +307,14 @@ public final class Constants {
 		@Override
 		public String toString() {
 			return name().toLowerCase();
+		}
+		
+		/**
+		 * Return a localized name for the unit.
+		 * @return String the localized name.
+		 */
+		public String getLocalizedName() {
+			return getValueFromKey(this);
 		}
 	}
 
