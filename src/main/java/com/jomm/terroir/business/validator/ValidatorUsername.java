@@ -12,9 +12,9 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.omnifaces.validator.ValueChangeValidator;
 
@@ -28,12 +28,10 @@ import com.jomm.terroir.business.ServiceUser;
  * It overrides the method {@code validateChangedObject()}, that throws an {@link ValidatorException} 
  * if the validation fails.
  * It relates to {@link ServiceUser} to check if the user name is already in use.
- * It is annotated {@link Named} for proper access from/to the view pages, with
- * {@code f:validator binding="validatorUsername"}. It is not yet annotated 
- * {@link javax.faces.validator.FacesValidator} because validators are not injection targets in JSF2.2.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages.
  * @author Maic
  */
-@Named
+@FacesValidator("validatorUsername")
 public class ValidatorUsername extends ValueChangeValidator {
 	
 	// Constants //-----------------------------------------------

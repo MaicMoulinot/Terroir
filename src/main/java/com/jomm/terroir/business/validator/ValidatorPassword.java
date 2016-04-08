@@ -14,21 +14,19 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.inject.Named;
 
 /**
  * This Class is the Validator relating to a password.
  * It implements {@link Validator} and defines its method {@code validate()},
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link Pattern} to define a correct password pattern.
- * It is annotated {@link Named} for proper access from/to the view pages, with
- * {@code f:validator binding="validatorPassword"}. It is not yet annotated 
- * {@link javax.faces.validator.FacesValidator} because validators are not injection targets in JSF2.2.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages.
  * @author Maic
  */
-@Named
+@FacesValidator("validatorPassword")
 public class ValidatorPassword implements Validator {
 
 	// Constants //-----------------------------------------------
