@@ -119,6 +119,8 @@ public final class Constants {
 	 * @author Maic
 	 */
 	public enum ResourceBundleError {
+		/** "availability" */
+		AVAILABILITY("availability"),
 		/** "emailduplicate" */
 		EMAIL_EXISTING("emailduplicate"),
 		/** "emailinvalid" */
