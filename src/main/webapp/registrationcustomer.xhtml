@@ -45,9 +45,9 @@
 				<p:tooltip id="usertooltip" for="username"
 					value="#{label.usernametooltip}" />
 				<p:inputText id="username"
-					value="#{backingRegistrationCustomer.userName}" required="true"
+					value="#{backingRegistrationCustomer.userName}"
+					validator="validatorUsername" required="true"
 					requiredMessage="#{error.mandatory}">
-					<f:validator binding="#{validatorUsername}" />
 					<p:ajax event="blur" update="usernameMessage" />
 				</p:inputText>
 				<p:message id="usernameMessage" for="username" display="text" />
@@ -55,9 +55,9 @@
 				<p:outputLabel for="email" id="emailLabel" value="#{label.email}" />
 				<p:spacer />
 				<p:inputText id="email" value="#{backingRegistrationCustomer.email}"
-					required="true" requiredMessage="#{error.mandatory}">
-					<f:validator binding="#{validatorEmail}" />
-					<p:ajax event="blur" execute="email" update="emailMessage" />
+					validator="validatorEmail" required="true"
+					requiredMessage="#{error.mandatory}">
+					<p:ajax event="blur" update="emailMessage" />
 				</p:inputText>
 				<p:message id="emailMessage" for="email" display="text" />
 
@@ -65,7 +65,8 @@
 					value="#{label.password}" />
 				<p:commandLink id="help" title="#{message.passwordtitle}"
 					process="@this"
-					action="#{backingRegistrationCustomer.passwordTooltip}" update="growl">
+					action="#{backingRegistrationCustomer.passwordTooltip}"
+					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
 				<p:password id="password1"
@@ -74,7 +75,7 @@
 					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
-					<p:ajax event="blur" execute="password1 password2"
+					<p:ajax event="blur" process="password1 password2"
 						update="password1Message password2Message" />
 				</p:password>
 				<p:message id="password1Message" for="password1" display="text" />
@@ -83,17 +84,18 @@
 					value="#{label.password2}" />
 				<p:commandLink id="help2" title="#{message.passwordtitle}"
 					process="@this"
-					action="#{backingRegistrationCustomer.passwordTooltip}" update="growl">
+					action="#{backingRegistrationCustomer.passwordTooltip}"
+					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
 				<p:password id="password2"
 					value="#{backingRegistrationCustomer.password}" feedback="true"
-					required="true" requiredMessage="#{error.mandatory}"
+					validator="validatorPassword" required="true"
+					requiredMessage="#{error.mandatory}"
 					promptLabel="#{label.passwordprompt}" weakLabel="#{label.weak}"
 					goodLabel="#{label.good}" strongLabel="#{label.strong}">
 					<f:attribute name="parameter1" value="#{password1Parameter}" />
-					<f:validator binding="#{validatorPassword}" />
-					<p:ajax event="blur" execute="password1 password2"
+					<p:ajax event="blur" process="password1 password2"
 						update="password1Message password2Message" />
 				</p:password>
 				<h:panelGroup>
@@ -105,8 +107,8 @@
 				<p:outputLabel for="street" id="streetLabel" value="#{label.street}" />
 				<p:spacer />
 				<p:inputText id="street"
-					value="#{backingRegistrationCustomer.address.street}" required="true"
-					requiredMessage="#{error.mandatory}"
+					value="#{backingRegistrationCustomer.address.street}"
+					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="streetMessage" />
@@ -147,8 +149,8 @@
 					value="#{label.country}" />
 				<p:spacer />
 				<p:inputText id="country"
-					value="#{backingRegistrationCustomer.address.country}" required="true"
-					requiredMessage="#{error.mandatory}"
+					value="#{backingRegistrationCustomer.address.country}"
+					required="true" requiredMessage="#{error.mandatory}"
 					validatorMessage="#{error.length2}">
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="countryMessage" />
