@@ -28,7 +28,8 @@ import com.jomm.terroir.business.ServiceUser;
  * if the validation fails.
  * It relates to {@link Pattern} to define a correct email pattern,
  * and to {@link ServiceUser} to check if the email is already in use.
- * It is annotated {@link FacesValidator} for proper access from/to the view pages.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages,
+ * with {@code validator="validatorEmail"}.
  * @author Maic
  */
 @FacesValidator("validatorEmail")

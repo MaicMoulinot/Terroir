@@ -23,7 +23,8 @@ import javax.faces.validator.ValidatorException;
  * It implements {@link Validator} and defines its method {@code validate()},
  * that throws an {@link ValidatorException} if validation fails.
  * It relates to {@link Pattern} to define a correct password pattern.
- * It is annotated {@link FacesValidator} for proper access from/to the view pages.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages,
+ * with {@code validator="validatorPassword"}.
  * @author Maic
  */
 @FacesValidator("validatorPassword")

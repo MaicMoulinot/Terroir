@@ -28,7 +28,8 @@ import com.jomm.terroir.business.ServiceUser;
  * It overrides the method {@code validateChangedObject()}, that throws an {@link ValidatorException} 
  * if the validation fails.
  * It relates to {@link ServiceUser} to check if the user name is already in use.
- * It is annotated {@link FacesValidator} for proper access from/to the view pages.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages,
+ * with {@code validator="validatorUsername"}.
  * @author Maic
  */
 @FacesValidator("validatorUsername")
