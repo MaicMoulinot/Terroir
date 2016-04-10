@@ -15,7 +15,6 @@ import java.text.MessageFormat;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
 
 import com.jomm.terroir.business.model.AbstractEntity;
 import com.jomm.terroir.util.Constants.Entity;
@@ -33,7 +32,7 @@ public abstract class BackingBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// Injected Fields //-----------------------------------------
-	@Inject
+	//@Inject // Coming with JSF2.3; for now its just used in tests
 	private FacesContext facesContext;
 	
 	// Methods //-------------------------------------------------
@@ -120,7 +119,7 @@ public abstract class BackingBean implements Serializable {
 	 */
 	protected void addFacesMessage(String idClient, Severity severity, String summary, String detail) {
 		FacesMessage message = new FacesMessage(severity, summary, detail);
-		facesContext.addMessage(idClient, message);
+		getFacesContext().addMessage(idClient, message);
 	}
 	
 	/**
@@ -139,10 +138,12 @@ public abstract class BackingBean implements Serializable {
 	
 	// Getters and Setters //-------------------------------------
 	/**
+	 * Temporarily, if {@code facesContext} was set (by {@code setTestFacesContext()}, it returns it.
+	 * Otherwise, calls {@link FacesContext#getCurrentInstance()}.
 	 * @return facesContext the {@link FacesContext}.
 	 */
 	protected FacesContext getFacesContext() {
-		return facesContext;
+		return (facesContext != null) ? facesContext : FacesContext.getCurrentInstance();
 	}
 	
 	// Tests only //----------------------------------------------
