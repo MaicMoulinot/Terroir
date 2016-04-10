@@ -93,14 +93,14 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="#{label.price}">
+				<p:column headerText="#{label.price}/#{label.unit}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.price}" />
+							<h:outputText value="#{currentProduct.pricePerUnit}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.price}"
-								label="#{label.price}" />
+							<p:inputText value="#{currentProduct.pricePerUnit}"
+								label="#{label.price}/#{label.unit}" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -120,10 +120,10 @@
 				<p:column headerText="#{label.quantity}">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{currentProduct.stock.quantity}" />
+							<h:outputText value="#{currentProduct.stock.availability}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{currentProduct.stock.quantity}"
+							<p:inputText value="#{currentProduct.stock.availability}"
 								label="#{label.quantity}" />
 						</f:facet>
 					</p:cellEditor>
