@@ -10,14 +10,15 @@ import static com.jomm.terroir.util.Constants.View.PARAMETER3;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-import javax.inject.Named;
 
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.util.Constants.Unit;
@@ -26,12 +27,11 @@ import com.jomm.terroir.util.Constants.Unit;
  * This Class is the Validator relating to a price.
  * It implements {@link Validator} and defines its method {@code validate()},
  * that throws an {@link ValidatorException} if validation fails.
- * It is annotated {@link Named} for proper access from/to the view pages, with
- * {@code f:validator binding="validatorPrice"}. It is not yet annotated 
- * {@link javax.faces.validator.FacesValidator} because validators are not injection targets in JSF2.2.
+ * It is annotated {@link FacesValidator} for proper access from/to the view pages,
+ * with {@code validator="validatorPrice"}.
  * @author Maic
  */
-@Named
+@FacesValidator("validatorPrice")
 public class ValidatorPrice implements Validator {
 
 	// Constants //-----------------------------------------------
@@ -73,8 +73,9 @@ public class ValidatorPrice implements Validator {
 	/**
 	 * Retrieve the parameters binded in a {@link UIComponent}.
 	 * @param component {@link UIComponent}.
+	 * @throws a {@link ValidatorException} if one of the parameters is {@code null}.
 	 */
-	private void retrieveParametersFromComponent(UIComponent component) {
+	private void retrieveParametersFromComponent(UIComponent component) throws ValidatorException {
 		if (component != null) {
 			if (component.getAttributes().get(PARAMETER1.toString()) != null) {
 				unit = (Unit) ((UIInput) component.getAttributes().get(PARAMETER1.toString())).getValue();
@@ -98,23 +99,25 @@ public class ValidatorPrice implements Validator {
 	 * @param designationUnit {@link Unit} the designation's unit.
 	 * @param currentUnit {@link Unit} the current unit.
 	 * @return a {@link BigDecimal} the corrected current price per unit.
+	 * @throws a {@link ValidatorException} if the current unit is not convertible.
 	 */
-	private BigDecimal convertIntoDesignationUnit(BigDecimal pricePerUnit, Unit designationUnit, Unit currentUnit) {
+	private BigDecimal convertIntoDesignationUnit(BigDecimal pricePerUnit, Unit designationUnit, Unit currentUnit) 
+			throws ValidatorException {
 		BigDecimal correctedPricePerUnit = null;
 		boolean unitNotConvertible = true;
 		switch (designationUnit) {
 		case LITER:
 			if (currentUnit == Unit.MILLILITER) {
-				correctedPricePerUnit = pricePerUnit.divide(THOUSAND);
+				correctedPricePerUnit = pricePerUnit.multiply(THOUSAND);
 				unitNotConvertible = false;
 			}
 			break;
 		case KILOGRAM:
 			if (currentUnit == Unit.MILLIGRAM) {
-				correctedPricePerUnit = pricePerUnit.divide(THOUSAND).divide(THOUSAND);
+				correctedPricePerUnit = pricePerUnit.multiply(THOUSAND).multiply(THOUSAND);
 				unitNotConvertible = false;
 			} else if (currentUnit == Unit.GRAM) {
-				correctedPricePerUnit = pricePerUnit.divide(THOUSAND);
+				correctedPricePerUnit = pricePerUnit.multiply(THOUSAND);
 				unitNotConvertible = false;
 			}
 			break;
@@ -122,7 +125,9 @@ public class ValidatorPrice implements Validator {
 			break;
 		}
 		if (unitNotConvertible) {
-			throw new ValidatorException(createMessage(getValueFromKey(UNIT_NOT_CONVERTIBLE)));
+			Object[] argument = {designationUnit.getLocalizedName()};
+			String summary = MessageFormat.format(getValueFromKey(UNIT_NOT_CONVERTIBLE).replace("'", "''"), argument);
+			throw new ValidatorException(createMessage(summary));
 		}
 		return correctedPricePerUnit;
 	}
