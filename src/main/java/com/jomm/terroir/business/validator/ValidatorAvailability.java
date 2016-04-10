@@ -27,18 +27,18 @@ public class ValidatorAvailability implements Validator {
 	// Methods //-------------------------------------------------
 	@Override
 	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		// Retrieve isActive
-		Boolean isActive = retrieveValueFromComponent(component);
-		// Retrieve availability
+		// Retrieve product active
+		boolean isActive = retrieveValueFromComponent(component);
+		// Retrieve stock availability
 		Integer availability = (value != null) ? (Integer) value : null;
-		if (availability != null) {
+		if (isActive) {
 			// Validation
-			if (availability < 0) {
+			if (availability == null || availability == 0) {
+				// Quantity cannot be zero
+				throw new ValidatorException(createMessage(getValueFromKey(AVAILABILITY)));
+			} else if (availability < 0) {
 				// Quantity cannot be negative
 				throw new ValidatorException(createMessage(getValueFromKey(INTEGER)));
-			} else if (availability == 0 && isActive) {
-				// Quantity cannot be zero if status is active
-				throw new ValidatorException(createMessage(getValueFromKey(AVAILABILITY)));
 			}
 		}
 	}
@@ -49,12 +49,12 @@ public class ValidatorAvailability implements Validator {
 	 * @param component {@link UIComponent}.
 	 * @return a Boolean the value.
 	 */
-	private Boolean retrieveValueFromComponent(UIComponent component) {
+	private boolean retrieveValueFromComponent(UIComponent component) {
 		Boolean value = null;
 		if (component != null && component.getAttributes().get(PARAMETER1.toString()) != null) {
 			value = (Boolean) ((UIInput) component.getAttributes().get(PARAMETER1.toString())).getValue();
 		}
-		return value;
+		return value == null? false : value;
 	}
 
 	/**
