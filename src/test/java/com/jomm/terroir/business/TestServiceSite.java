@@ -161,6 +161,28 @@ public class TestServiceSite {
 		assertNotNull(service.getAllSites());
 	}
 	
+	/**
+	 * Test that {@link ServiceSite#getSite(Long)} throws an {@link ExceptionService}
+	 * when the id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testGetWithIdNull() throws ExceptionService {
+		service.getSite(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceSite#getSite(Long)} does not throw an {@link ExceptionService}
+	 * when the id is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testGetWithIdNotNull() throws ExceptionService {
+		service.getSite(ID);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+	
 	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all {@link ServiceSite}'s implementation to be used as parameter on constructor.

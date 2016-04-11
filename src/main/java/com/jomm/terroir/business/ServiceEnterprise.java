@@ -34,6 +34,14 @@ public interface ServiceEnterprise {
 	List<Enterprise> getAllEnterprises();
 	
 	/**
+	 * Fetch the {@link Enterprise} with the provided identifier.
+	 * @param id Long the unique identifier.
+	 * @return the {@link Enterprise}, or {@code null} if it was not found.
+	 * @throws ExceptionService when the {@code id} is {@code null}.
+	 */
+	Enterprise getEnterprise(Long id) throws ExceptionService;
+	
+	/**
 	 * Delete an enterprise.
 	 * @param enterprise the {@link Enterprise} to delete.
 	 * @throws ExceptionService when the entity is not in a valid state.

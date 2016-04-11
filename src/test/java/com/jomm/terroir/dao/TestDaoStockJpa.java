@@ -67,7 +67,7 @@ public class TestDaoStockJpa extends TestDaoGenericJpa<Stock> {
 			Product product = TestDaoProductJpa.findProductFromDataBaseFirstCall(entityManager);
 			assertNotNull("Product should not be null", product);
 			entity.setProduct(product);
-			product.setStock(entity);
+			product.addStock(entity);
 			
 			// Create
 			UtilEntityManager.beginTransaction();
@@ -110,7 +110,7 @@ public class TestDaoStockJpa extends TestDaoGenericJpa<Stock> {
 			// Create
 			entity = TestStock.generateStockWithIdNull();
 			product = TestDaoProductJpa.findProductFromDataBaseSecondCall(entityManager);
-			product.setStock(entity);
+			product.addStock(entity);
 			entity.setProduct(product);
 			assertNull("Before Create, id should be null", entity.getId());
 			UtilEntityManager.beginTransaction();

@@ -58,6 +58,14 @@ public class ServiceEnterpriseImpl implements ServiceEnterprise {
 	}
 	
 	@Override
+	public Enterprise getEnterprise(Long id) throws ExceptionService {
+		if (id == null) {
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
+		return daoEnterprise.find(id);
+	}
+	
+	@Override
 	public void delete(Enterprise enterprise) throws ExceptionService {
 		if (enterprise == null) {
 			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);

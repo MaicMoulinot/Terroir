@@ -2,6 +2,7 @@ package com.jomm.terroir.business;
 
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
@@ -133,5 +134,18 @@ public class TestServiceUserImpl {
 	public final void testIsExistingEmail() {
 		service.isExistingEmail("Email");
 		verify(dao).isExistingEmail(any(String.class)); // validate that dao.isExistingEmail() was called
+	}
+	
+	/**
+	 * Test method for {@link ServiceUserImpl#getUser(Long)}.
+	 */
+	@Test
+	public final void testGetUser() {
+		try {
+			service.getUser(ID);
+			verify(dao).find(anyLong()); // validate that dao.find() was called
+		} catch (ExceptionService unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
 	}
 }

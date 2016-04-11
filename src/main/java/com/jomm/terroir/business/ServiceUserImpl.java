@@ -98,6 +98,14 @@ public class ServiceUserImpl implements ServiceUser {
 	}
 	
 	@Override
+	public AbstractUser getUser(Long id) throws ExceptionService {
+		if (id == null) {
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
+		return daoUser.find(id);
+	}
+	
+	@Override
 	public boolean isExistingUserName(String userName) {
 		if (userName == null) {
 			throw new NullPointerException();

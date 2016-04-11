@@ -56,7 +56,10 @@ public class ServiceSiteImpl implements ServiceSite {
 	}
 	
 	@Override
-	public Site getSite(Long id) {
+	public Site getSite(Long id) throws ExceptionService {
+		if (id == null) {
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
 		Site site = daoSite.find(id);
 		if (site != null) {
 			site.getDesignations().size(); // Force the lazy loading

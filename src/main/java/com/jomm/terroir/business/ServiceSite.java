@@ -34,12 +34,13 @@ public interface ServiceSite {
 	List<Site> getAllSites();
 	
 	/**
-	 * Fetch the {@link Site} with the provided identifier.
-	 * It loads its {@link Designation}s' list.
+	 * Fetch the {@link Site} with the provided identifier, and 
+	 * load its {@link com.jomm.terroir.business.model.Designation}s' list.
 	 * @param id Long the unique identifier.
 	 * @return the {@link Site}, or {@code null} if it was not found.
+	 * @throws ExceptionService when the {@code id} is {@code null}.
 	 */
-	Site getSite(Long id);
+	Site getSite(Long id) throws ExceptionService;
 	
 	/**
 	 * Delete a site.

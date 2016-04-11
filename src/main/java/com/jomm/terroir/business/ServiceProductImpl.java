@@ -78,12 +78,18 @@ public class ServiceProductImpl implements ServiceProduct {
 	}
 	
 	@Override
-	public Product getProduct(Long id) {
+	public Product getProduct(Long id) throws ExceptionService {
+		if (id == null) {
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
 		return daoProduct.find(id);
 	}
 	
 	@Override
-	public Stock getStock(Long id) {
+	public Stock getStock(Long id) throws ExceptionService {
+		if (id == null) {
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
 		return daoStock.find(id);
 	}
 

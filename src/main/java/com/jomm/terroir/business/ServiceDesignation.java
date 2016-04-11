@@ -36,6 +36,15 @@ public interface ServiceDesignation {
 	List<Designation> getAllDesignations();
 	
 	/**
+	 * Fetch the {@link Designation} with the provided identifier, and 
+	 * load its {@link com.jomm.terroir.business.model.Label}s' list.
+	 * @param id Long the unique identifier.
+	 * @return the {@link Designation}, or {@code null} if it was not found.
+	 * @throws ExceptionService when the {@code id} is {@code null}.
+	 */
+	Designation getDesignation(Long id) throws ExceptionService;
+	
+	/**
 	 * Delete an designation.
 	 * @param designation the {@link Designation} to delete.
 	 * @throws ExceptionService when the entity is not in a valid state.

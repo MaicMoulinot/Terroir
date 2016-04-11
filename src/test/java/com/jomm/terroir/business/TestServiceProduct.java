@@ -221,6 +221,50 @@ public class TestServiceProduct {
 		assertNotNull(service.getAllProducts());
 	}
 	
+	/**
+	 * Test that {@link ServiceProduct#getProduct(Long)} throws an {@link ExceptionService}
+	 * when the id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testGetProductWithIdNull() throws ExceptionService {
+		service.getProduct(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#getProduct(Long)} does not throw an {@link ExceptionService}
+	 * when the id is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testGetProductWithIdNotNull() throws ExceptionService {
+		service.getProduct(ID);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#getStock(Long)} throws an {@link ExceptionService}
+	 * when the id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testGetStockWithIdNull() throws ExceptionService {
+		service.getStock(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceProduct#getStock(Long)} does not throw an {@link ExceptionService}
+	 * when the id is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testGetStockWithIdNotNull() throws ExceptionService {
+		service.getStock(ID);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+	
 	// Static methods //------------------------------------------
 	/**
 	 * Reference a list of all {@link ServiceProduct}'s implementation to be used as parameter on constructor.

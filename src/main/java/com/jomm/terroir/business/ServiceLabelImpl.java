@@ -53,6 +53,14 @@ public class ServiceLabelImpl implements ServiceLabel {
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<Label> getAllLabels() {
 		return daoLabel.findAll();
+	}	
+	
+	@Override
+	public Label getLabel(Long id) throws ExceptionService {
+		if (id == null) {
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
+		return daoLabel.find(id);
 	}
 	
 	@Override

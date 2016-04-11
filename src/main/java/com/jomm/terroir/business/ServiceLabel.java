@@ -34,6 +34,14 @@ public interface ServiceLabel {
 	List<Label> getAllLabels();
 	
 	/**
+	 * Fetch the {@link Label} with the provided identifier.
+	 * @param id Long the unique identifier.
+	 * @return the {@link Label}, or {@code null} if it was not found.
+	 * @throws ExceptionService when the {@code id} is {@code null}.
+	 */
+	Label getLabel(Long id) throws ExceptionService;
+	
+	/**
 	 * Delete an label.
 	 * @param label the {@link Label} to delete.
 	 * @throws ExceptionService when the entity is not in a valid state.

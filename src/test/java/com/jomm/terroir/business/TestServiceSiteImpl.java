@@ -2,6 +2,7 @@ package com.jomm.terroir.business;
 
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
@@ -85,5 +86,18 @@ public class TestServiceSiteImpl {
 	public final void testGetAllSites() {
 		service.getAllSites();
 		verify(dao).findAll(); // validate that dao.findAll() was called
+	}
+	
+	/**
+	 * Test method for {@link ServiceSiteImpl#getSite(Long)}.
+	 */
+	@Test
+	public final void testGetSite() {
+		try {
+			service.getSite(ID);
+			verify(dao).find(anyLong()); // validate that dao.find() was called
+		} catch (ExceptionService unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
 	}
 }

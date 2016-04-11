@@ -60,7 +60,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 					INSERT_ENTERPRISES, INSERT_SITES));
 			entity = TestProduct.generateProductWithIdNull();
 			Stock stock = TestStock.generateStockWithIdNull();
-			entity.setStock(stock);
+			entity.addStock(stock);
 			stock.setProduct(entity);
 
 			assertNull("Before persistence, id should be null", entity.getId());
@@ -120,7 +120,7 @@ public class TestDaoProductJpa extends TestDaoGenericJpa<Product> {
 			// Create
 			entity = TestProduct.generateProductWithIdNull();
 			stock = TestStock.generateStockWithIdNull();
-			entity.setStock(stock);
+			entity.addStock(stock);
 			stock.setProduct(entity);
 			entity.setSite(site);
 			entity.setDesignation(designation);

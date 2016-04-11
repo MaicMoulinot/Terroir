@@ -207,6 +207,28 @@ public class TestServiceUser {
 	}
 	
 	/**
+	 * Test that {@link ServiceUser#getUser(Long)} throws an {@link ExceptionService}
+	 * when the id is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testGetWithIdNull() throws ExceptionService {
+		service.getUser(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceUser#getUser(Long)} does not throw an {@link ExceptionService}
+	 * when the id is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testGetWithIdNotNull() throws ExceptionService {
+		service.getUser(ID);
+		assertTrue("ExceptionService should not be thrown", true);
+	}
+	
+	/**
 	 * Test that {@link ServiceUser#isExistingUserName(String)} throws an {@link ExceptionService}
 	 * when user name is null.
 	 * @throws NullPointerException is expected.

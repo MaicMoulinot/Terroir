@@ -57,13 +57,15 @@ public interface ServiceProduct {
 	 * Fetch the {@link Product} with the provided identifier.
 	 * @param id Long the unique identifier.
 	 * @return the {@link Product}, or {@code null} if it was not found.
+	 * @throws ExceptionService when the {@code id} is {@code null}.
 	 */
-	Product getProduct(Long id);
+	Product getProduct(Long id) throws ExceptionService;
 	
 	/**
 	 * Fetch the {@link Stock} with the provided identifier.
 	 * @param id Long the unique identifier.
 	 * @return the {@link Stock}, or {@code null} if it was not found.
+	 * @throws ExceptionService when the {@code id} is {@code null}.
 	 */
-	Stock getStock(Long id);
+	Stock getStock(Long id) throws ExceptionService;
 }

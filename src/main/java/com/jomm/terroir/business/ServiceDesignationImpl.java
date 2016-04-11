@@ -70,6 +70,18 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 	public List<Designation> getAllDesignations() {
 		return daoDesignation.findAll();
 	}
+	
+	@Override
+	public Designation getDesignation(Long id) throws ExceptionService {
+		if (id == null) {
+			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
+		Designation designation = daoDesignation.find(id);
+		if (designation != null) {
+			designation.getLabels().size(); // Force the lazy loading
+		}
+		return designation;
+	}
 
 	@Override
 	public void delete(Designation designation) throws ExceptionService {

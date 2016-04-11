@@ -48,6 +48,14 @@ public interface ServiceUser {
 	 * @return a list of {@link Seller}.
 	 */
 	List<Seller> getAllSellers();
+	
+	/**
+	 * Fetch the {@link AbstractUser} with the provided identifier.
+	 * @param id Long the unique identifier.
+	 * @return the {@link AbstractUser}, or {@code null} if it was not found.
+	 * @throws ExceptionService when the {@code id} is {@code null}.
+	 */
+	AbstractUser getUser(Long id) throws ExceptionService;
 
 	/**
 	 * Delete an user.
