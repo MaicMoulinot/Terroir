@@ -1,5 +1,9 @@
 package com.jomm.terroir.web;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CONFIRM_DELETE;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
+
+import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,9 +76,7 @@ public abstract class BackingListUser extends BackingBean {
 	
 	/**
 	 * Delete an user.
-	 * This may be overridden in concrete child.
-	 * If so, the child's method should first call this method using {@code super.delete()},
-	 * and then it should set a String as proper navigation return.
+	 * This may be overridden in concrete child to return a String as appropriate navigation case.
 	 * @return a String for navigation.
 	 */
 	public String delete() {
@@ -89,6 +91,20 @@ public abstract class BackingListUser extends BackingBean {
 			}
 		}
 		return null;	// Navigation case.
+	}
+	
+	/**
+	 * Format a message for the delete confirmation.
+	 * @return an empty String if the {@code currentUser} is {@code null}, the formatted message otherwise.
+	 */
+	public String confirmeDeleteMessage() {
+		String message = "";
+		if (currentUser != null) {
+			Object[] argument = {currentUser.getUserName()};
+			message = MessageFormat.format(getValueFromKey(getConstantsEntity()).replace("'", "''"), argument) 
+					+ getValueFromKey(CONFIRM_DELETE);
+		}
+		return message;
 	}
 	
 	// Helpers //-------------------------------------------------

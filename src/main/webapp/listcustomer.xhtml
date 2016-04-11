@@ -209,7 +209,7 @@
 			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
 				hideEffect="fade" header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
-				message="#{message.confirmdelete} #{backingListCustomer.currentUser.userName} ?"
+				message="#{backingListCustomer.confirmeDeleteMessage()}"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
