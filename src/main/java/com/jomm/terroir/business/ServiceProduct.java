@@ -32,7 +32,7 @@ public interface ServiceProduct {
 	
 	/**
 	 * Update a stock's availability and set its last update time with a call to  
-	 * {@link com.jomm.terroir.business.model.Stock#setLastUpdate(java.time.ZonedDateTime)}.
+	 * {@link Stock#setLastUpdate(java.time.ZonedDateTime)}.
 	 * @param stock the {@link Stock} to update.
 	 * @param newQuantity {@link Integer} the new quantity. Must not be {@code null}, and must be positive.
 	 * @return the updated stock.
@@ -52,4 +52,18 @@ public interface ServiceProduct {
 	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
 	void delete(Product product) throws ExceptionService;
+	
+	/**
+	 * Fetch the {@link Product} with the provided identifier.
+	 * @param id Long the unique identifier.
+	 * @return the {@link Product}, or {@code null} if it was not found.
+	 */
+	Product getProduct(Long id);
+	
+	/**
+	 * Fetch the {@link Stock} with the provided identifier.
+	 * @param id Long the unique identifier.
+	 * @return the {@link Stock}, or {@code null} if it was not found.
+	 */
+	Stock getStock(Long id);
 }

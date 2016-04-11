@@ -76,6 +76,16 @@ public class ServiceProductImpl implements ServiceProduct {
 	public List<Product> getAllProducts() {
 		return daoProduct.findAll();
 	}
+	
+	@Override
+	public Product getProduct(Long id) {
+		return daoProduct.find(id);
+	}
+	
+	@Override
+	public Stock getStock(Long id) {
+		return daoStock.find(id);
+	}
 
 	@Override
 	public void delete(Product product) throws ExceptionService {
@@ -84,6 +94,9 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (product.getId() == null) {
 			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		}
+		// Stock is the owning side of the relationship
+		Stock stock = getStock(product.getId());
+		product.removeStock(stock);
 		daoProduct.delete(product);
 	}
 	
