@@ -32,7 +32,7 @@ public class Product extends AbstractEntity {
 	// Constants //-----------------------------------------------
 	/** Serial version ID. Do not modify unless the type undergoes structural changes affecting serialization. */
 	private static final long serialVersionUID = 1L;
-
+    
 	// Attributes //----------------------------------------------
 	/** The product's unique identifier in the system. */
 	@Id
@@ -84,6 +84,40 @@ public class Product extends AbstractEntity {
 	@JoinColumn(name="fk_designation_id")
 	private Designation designation;
 	
+	// Constructors //--------------------------------------------
+    /**
+     * Constructor.
+     * Instantiate a {@link Product} and its {@link Stock}.
+     */
+    public Product() {
+    	super();
+        this.stock = new Stock(this);
+    }
+    
+    // Methods //-------------------------------------------------
+	/**
+	 * Add the child entity {@link Stock} to the parent entity {@link Product},
+	 * handling both sides of the relationship.
+	 * @param stock {@link Stock}.
+	 */
+    public void addStock(Stock stock) {
+    	setStock(stock);
+    	if (stock != null && stock.getProduct() != this) {
+    		stock.setProduct(this);
+    	}
+    }
+    
+	/**
+	 * Remove the child entity {@link Stock} from the parent entity {@link Product},
+	 * handling both sides of the relationship.
+	 */
+    public void removeStock(Stock stock) {
+    	if (stock != null) {
+    		stock.setProduct(null);
+    	}
+    	setStock(null);
+    }
+    
 	// Getters and Setters //-------------------------------------
 	@Override
 	public Long getId() {
@@ -191,7 +225,7 @@ public class Product extends AbstractEntity {
 	/**
 	 * @param stock the stock to set
 	 */
-	public void setStock(Stock stock) {
+	protected void setStock(Stock stock) {
 		this.stock = stock;
 	}
 

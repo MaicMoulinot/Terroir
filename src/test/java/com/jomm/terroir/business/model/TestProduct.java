@@ -85,7 +85,7 @@ public class TestProduct {
 		Stock stock = new Stock();
 		Integer quantity = 11;
 		stock.setAvailability(quantity);
-		product.setStock(stock);
+		product.addStock(stock);
 		assertNotNull("Stock should not be null", product.getStock());
 		assertEquals("Stock's quantity should be " + quantity, quantity, product.getStock().getAvailability());
 		stock = null; // Available for Garbage Collector
@@ -122,7 +122,6 @@ public class TestProduct {
 		product.setActive(true);
 		product.setSite(TestSite.generateSiteWithIdNull());
 		product.setDesignation(TestDesignation.generateDesignationWithIdNull());
-		product.setStock(new Stock(product));
 		return product;
 	}
 }

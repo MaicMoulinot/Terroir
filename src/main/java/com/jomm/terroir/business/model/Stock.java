@@ -37,7 +37,7 @@ public class Stock extends AbstractEntity {
 	 * since it contains the foreign key.
 	 */
     @MapsId
-    @OneToOne(optional = false)
+    @OneToOne
     @JoinColumn(name = "product_id")
 	private Product product;
 	
@@ -49,9 +49,12 @@ public class Stock extends AbstractEntity {
 	private ZonedDateTime lastUpdate;
 	
 	// Constructors //--------------------------------------------
-	/** Zero-argument constructor. */
+	/**
+	 * Zero-argument constructor, to be fully compatible with JPA entity's requirements.
+	 * This constructor is not to be used, prefer {@link Stock#Stock(Product)}.
+	 */
 	public Stock() {
-		// To be fully compatible with JPA entity's requirements
+		super();
     }
 	
 	/**
@@ -87,9 +90,6 @@ public class Stock extends AbstractEntity {
 	 * @param product the product to set
 	 */
 	public void setProduct(Product product) {
-		if (product.getStock() != this) {
-			product.setStock(this);
-		}
 		this.product = product;
 	}
 
