@@ -73,9 +73,7 @@ public class Label extends AbstractEntity {
 		return this.id;
 	}
 	
-	/**
-	 * @param id the id to set
-	 */
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}

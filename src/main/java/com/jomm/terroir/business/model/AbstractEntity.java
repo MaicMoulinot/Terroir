@@ -51,8 +51,14 @@ public abstract class AbstractEntity implements Serializable {
 
 	// Getters and Setters //-------------------------------------
 	/**
-	 * This method returns the identifier of the {@link javax.persistence.Entity}.
+	 * This method returns the identifier of the {@link AbstractEntity}.
 	 * @return the id a {@link Long}.
 	 */
 	public abstract Long getId();
+	
+	/**
+	 * This method sets the identifier of the {@link AbstractEntity}.
+	 * @param id a {@link Long}.
+	 */
+	public abstract void setId(Long id);
 }

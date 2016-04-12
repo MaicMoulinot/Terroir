@@ -53,9 +53,7 @@ public class Image extends AbstractEntity {
 		return id;
 	}
 
-	/**
-	 * @param id the id to set
-	 */
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
