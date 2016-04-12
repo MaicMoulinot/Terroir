@@ -23,7 +23,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.jomm.terroir.business.ServiceUser;
 
 /**
- * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorEmail}.
+ * This class is a Junit test case testing the {@code validateChangedObject()} method of {@link ValidatorEmail}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
  * Here, the parameters are different emails to be tested, and their expected results.
  * @author Maic
@@ -67,14 +67,14 @@ public class TestValidatorEmail {
 
 	// Test methods //--------------------------------------------
 	/**
-	 * Test method {@link ValidatorEmail#validate(javax.faces.context.FacesContext, 
-	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 * Test method {@link ValidatorEmail#validateChangedObject(FacesContext, 
+	 * UIComponent, Object)}.
 	 */
 	@Test
 	public final void testValidateWithDifferentValues() {
 		try {
 			// here a ValidatorException can occur
-			validator.validate(mock(FacesContext.class), mock(UIComponent.class), email);
+			validator.validateChangedObject(mock(FacesContext.class), mock(UIComponent.class), email);
 			switch (expectedResult) {
 			case NOTHING: // This is expected
 				assertTrue("ValidatorException is not thrown, which is expected with a pattern " + email, true);				

@@ -24,7 +24,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.jomm.terroir.business.ServiceUser;
 
 /**
- * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorUsername}.
+ * This class is a Junit test case testing the {@code validateChangedObject()} method of {@link ValidatorUsername}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
  * Here, the parameters are different user names to be tested, and their expected results.
  * @author Maic
@@ -70,14 +70,14 @@ public class TestValidatorUsername {
 
 	// Test methods //--------------------------------------------
 	/**
-	 * Test method {@link ValidatorUsername#validate(javax.faces.context.FacesContext, 
-	 * javax.faces.component.UIComponent, java.lang.Object)}.
+	 * Test method {@link ValidatorUsername#validateChangedObject(FacesContext, 
+	 * UIComponent, Object)}.
 	 */
 	@Test
 	public final void testValidateWithDifferentValues() {
 		try {
 			// here a ValidatorException can occur
-			validator.validate(mock(FacesContext.class), mock(UIComponent.class), username);
+			validator.validateChangedObject(mock(FacesContext.class), mock(UIComponent.class), username);
 			switch (expectedResult) {
 			case NOTHING: // This is expected
 				assertTrue("ValidatorException is not thrown, which is expected with a pattern " + username, true);				
@@ -113,8 +113,10 @@ public class TestValidatorUsername {
 
 	// Static methods //------------------------------------------
 	/**
-	 * Reference a list of user names, associated with its expected result, to be used as parameters on constructor.
-	 * Each username will be tested with the test {@link TestValidatorUsername#testValidateWithDifferentValues()}.
+	 * Reference a list of user names, associated with its expected result, 
+	 * to be used as parameters on constructor.
+	 * Each username will be tested with the test 
+	 * {@link TestValidatorUsername#testValidateWithDifferentValues()}.
 	 * @return {@code Iterable<Object[]>} with the parameters.
 	 */
 	@Parameters
