@@ -137,6 +137,10 @@ public final class Constants {
 		INTEGER("integer"),
 		/** "length5and15" */
 		LENGTH_BETWEEN_5_AND_15("length5and15"),
+		/** "mandatorydesignation" */
+		MANDATORY_DESIGNATION("mandatorydesignation"),
+		/** "medianpriceinvalid" */
+		MEDIAN_PRICE_INVALID("medianpriceinvalid"),
 		/** "number" */
 		NUMBER("number"),
 		/** "passwordsdifferent" */
@@ -214,6 +218,8 @@ public final class Constants {
 	 * @author Maic
 	 */
 	public enum ResourceBundleMessage {
+		/** "confirmdelete" */
+		CONFIRM_DELETE("confirmdelete"),
 		/** "createok" */
 		CREATE_OK("createok"),
 		/** "create" */
@@ -228,6 +234,8 @@ public final class Constants {
 		PASSWORD_TITLE("passwordtitle"),
 		/** "passwordrules" */
 		PASSWORD_RULES("passwordrules"),
+		/** "priceperunit" */
+		PRICE_PER_UNIT("priceperunit"),
 		/** "updateok" */
 		UPDATE_OK("updateok"),
 		/** "update" */
