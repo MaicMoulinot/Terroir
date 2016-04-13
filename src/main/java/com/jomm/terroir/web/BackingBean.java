@@ -17,6 +17,7 @@ import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
 import com.jomm.terroir.business.model.AbstractEntity;
+import com.jomm.terroir.util.Constants;
 import com.jomm.terroir.util.Constants.Entity;
 
 /**
@@ -36,6 +37,22 @@ public abstract class BackingBean implements Serializable {
 	private FacesContext facesContext;
 	
 	// Methods //-------------------------------------------------
+	/**
+	 * Return the system's currency symbol.
+	 */
+	public String getCurrencySymbol() {
+		return Constants.MONEY_SYMBOL;
+	}
+    
+	/**
+	 * Reset the page.
+	 * @param backingBean {@code String} the page's file name without its suffix {@code .xhtml}.
+	 * @return {@code String} the correct navigation case.
+	 */
+    public String reset(String backingBean) {
+        return backingBean + "?faces-redirect=true";
+    }
+    
 	/**
 	 * This method is used when a exception occurred in a service.
 	 * It adds a {@link FacesMessage} to the {@link FacesContext}.

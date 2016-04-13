@@ -34,14 +34,14 @@
 							converter="omnifaces.SelectItemsConverter" required="true"
 							requiredMessage="#{error.mandatory}">
 							<f:selectItem itemLabel="#{label.designation}"
-								noSelectionOption="true" />
+								itemValue="#{null}" noSelectionOption="true" />
 							<f:selectItems
 								value="#{backingRegistrationProduct.site.designations}"
 								var="currentDesignation"
 								itemLabel="#{currentDesignation.registeredName}"
 								itemValue="#{currentDesignation}" />
-							<!-- 							<f:ajax render="medianPrice" /> -->
-							<p:ajax update="medianPrice" />
+							<p:ajax
+								update="designationLabel designation designationMessage medianPrice priceMessage" />
 						</p:selectOneMenu>
 					</p:column>
 					<p:column>
@@ -60,8 +60,6 @@
 						</p:commandLink>
 					</p:column>
 					<p:column colspan="3">
-						<h:outputText id="medianPrice"
-							value="#{backingRegistrationProduct.formatMedianPrice()}" />
 					</p:column>
 				</p:row>
 				<p:row>
@@ -70,25 +68,28 @@
 							value="#{label.quantity}" />
 					</p:column>
 					<p:column>
-						<p:inputText id="quantity"
+						<p:spinner id="quantity"
 							value="#{backingRegistrationProduct.quantity}"
-							binding="#{quantityParameter}" required="true"
-							requiredMessage="#{error.mandatory}"
-							converter="javax.faces.Double" validatorMessage="#{error.number}">
-							<f:validateDoubleRange minimum="0.01" />
-							<p:ajax event="blur" update="quantityMessage" />
-						</p:inputText>
+							binding="#{quantityParameter}" min="0" stepFactor="0.25"
+							converter="javax.faces.BigDecimal" required="true"
+							requiredMessage="#{error.mandatory}">
+							<p:ajax event="blur" process="@this"
+								listener="#{backingRegistrationProduct.displayPriceMessage}"
+								update="quantityLabel quantity quantityMessage priceMessage pricePerUnit" />
+						</p:spinner>
 					</p:column>
 					<p:column>
 						<p:selectOneMenu id="unit" binding="#{unitParameter}"
 							value="#{backingRegistrationProduct.unit}" required="true"
 							requiredMessage="#{error.mandatory}">
-							<f:selectItem itemLabel="#{label.unit}" noSelectionOption="true" />
+							<f:selectItem itemLabel="#{label.unit}" itemValue="#{null}"
+								noSelectionOption="true" />
 							<f:selectItems value="#{Unit}" var="currentUnit"
 								itemValue="#{currentUnit}"
 								itemLabel="#{currentUnit.localizedName}" />
-<!-- 							<p:ajax update="quantityMessage" /> -->
-							<f:ajax render="@this" />
+							<p:ajax event="itemSelect" process="@this"
+								update="priceMessage pricePerUnit"
+								listener="#{backingRegistrationProduct.displayPriceMessage}" />
 						</p:selectOneMenu>
 					</p:column>
 					<p:column>
@@ -97,23 +98,40 @@
 				</p:row>
 				<p:row>
 					<p:column>
+						<p:spacer />
+					</p:column>
+					<p:column colspan="3">
+						<h:outputText id="medianPrice"
+							value="#{backingRegistrationProduct.formatMedianPrice()}" />
+					</p:column>
+				</p:row>
+				<p:row>
+					<p:column>
 						<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
 					</p:column>
-					<p:column colspan="2">
-						<p:inputText id="price"
-							value="#{backingRegistrationProduct.price}"
+					<p:column>
+						<p:spinner id="price" value="#{backingRegistrationProduct.price}"
+							min="0.00" stepFactor="0.25"
+							suffix="#{backingRegistrationProduct.currencySymbol}"
 							converter="javax.faces.BigDecimal"
-							converterMessage="#{error.number}" required="true"
-							requiredMessage="#{error.mandatory}">
+							converterMessage="#{error.number}" validator="validatorPrice"
+							required="true" requiredMessage="#{error.mandatory}">
 							<f:attribute name="parameter1" value="#{unitParameter}" />
 							<f:attribute name="parameter2" value="#{quantityParameter}" />
 							<f:attribute name="parameter3" value="#{designationParameter}" />
-							<f:validator binding="#{validatorPrice}" />
-							<p:ajax event="blur" update="priceMessage" />
-						</p:inputText>
+							<p:ajax event="blur" process="@this"
+								update="priceLabel price priceMessage pricePerUnit" />
+						</p:spinner>
 					</p:column>
 					<p:column>
-						<p:message id="priceMessage" for="price" display="text" />
+						<p:outputLabel id="pricePerUnit"
+							value="#{backingRegistrationProduct.displayPricePerUnit()}" />
+					</p:column>
+					<p:column>
+						<h:panelGroup id="priceMessage">
+							<p:message for="price" display="text"
+								rendered="#{backingRegistrationProduct.display}" />
+						</h:panelGroup>
 					</p:column>
 				</p:row>
 				<p:row>
@@ -124,11 +142,11 @@
 						<p:autoComplete id="title"
 							value="#{backingRegistrationProduct.title}"
 							completeMethod="#{backingRegistrationProduct.completeTitle}"
-							queryDelay="500" size="50" required="true"
-							requiredMessage="#{error.mandatory}"
+							size="50" required="true" requiredMessage="#{error.mandatory}"
 							validatorMessage="#{error.length10}">
 							<f:validateLength minimum="10" maximum="150" />
-							<p:ajax event="blur" update="titleMessage" />
+							<p:ajax event="blur" update="titleLabel title titleMessage" />
+							<p:ajax event="itemSelect" update="titleLabel title titleMessage" />
 						</p:autoComplete>
 					</p:column>
 					<p:column>
@@ -141,17 +159,21 @@
 							value="#{label.availability}" />
 					</p:column>
 					<p:column>
-						<h:selectBooleanCheckbox
-							value="#{backingRegistrationProduct.active}" />
+						<p:inputSwitch id="active"
+							value="#{backingRegistrationProduct.active}"
+							binding="#{activeParameter}">
+							<p:ajax process="@this availability"
+								update="availabilityLabel availability availabilityMessage" />
+						</p:inputSwitch>
 					</p:column>
 					<p:column>
-						<p:inputText id="availability"
+						<p:spinner id="availability" min="0"
 							value="#{backingRegistrationProduct.stock.availability}"
-							required="true" requiredMessage="#{error.mandatory}"
-							validatorMessage="#{error.integer}">
-							<f:validateLongRange minimum="0" />
-							<p:ajax event="blur" update="availabilityMessage" />
-						</p:inputText>
+							validator="validatorAvailability">
+							<f:attribute name="parameter1" value="#{activeParameter}" />
+							<p:ajax event="blur"
+								update="availabilityLabel availability availabilityMessage" />
+						</p:spinner>
 					</p:column>
 					<p:column>
 						<p:message id="availabilityMessage" for="availability"
@@ -165,11 +187,9 @@
 			<p:commandButton id="create" value="#{label.save}" update="form"
 				action="#{backingRegistrationProduct.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
-			<p:commandButton id="reset" value="#{label.reset}" update="form"
-				process="@this" icon="ui-icon-refresh">
-				<p:resetInput target="@form" />
-			</p:commandButton>
-
+			<p:commandButton id="reset" value="#{label.reset}" process="@this"
+				action="#{backingRegistrationProduct.reset('registrationproduct')}"
+				update="form" icon="ui-icon-refresh" />
 		</h:form>
 		<p:spacer height="50" />
 	</ui:define>

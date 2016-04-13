@@ -176,10 +176,9 @@
 			<p:commandButton id="create" value="#{label.save}" update="form"
 				action="#{backingRegistrationCustomer.create}" icon="ui-icon-check" />
 			<p:spacer width="20" />
-			<p:commandButton id="reset" value="#{label.reset}" update="form"
-				process="@this" icon="ui-icon-refresh">
-				<p:resetInput target="@form" />
-			</p:commandButton>
+			<p:commandButton id="reset" value="#{label.reset}" process="@this"
+				action="#{backingRegistrationCustomer.reset('registrationcustomer')}"
+				update="form" icon="ui-icon-refresh" />
 
 		</h:form>
 		<p:spacer height="50" />
