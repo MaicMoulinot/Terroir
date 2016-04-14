@@ -1,7 +1,6 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.Pattern.PASSWORD;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
@@ -39,12 +38,9 @@ public class ValidatorPassword implements Validator {
 		// Retrieve password1
 		String password1 = retrieveValueFromComponent(component);
 		// Retrieve password2
-		String password2 = (value != null) ? (String) value : null;
+		String password2 = (String) value;
 		// Validation
-		if (isLacking(password1) || isLacking(password2)) {
-			// One password at least is lacking
-			throw new ValidatorException(createMessage(getValueFromKey(FIELD_MANDATORY)));
-		} else if (!Objects.equals(password1, password2)) {
+		if (!Objects.equals(password1, password2)) {
 			// Passwords don't match
 			throw new ValidatorException(createMessage(getValueFromKey(PASSWORDS_DONT_MATCH)));
 		} else if (!PASSWORD_PATTERN.matcher(password1).matches()) {
@@ -54,15 +50,6 @@ public class ValidatorPassword implements Validator {
 	}
 	
 	// Helpers //-------------------------------------------------
-	/**
-	 * Determine if the password is null or empty.
-	 * @param password String.
-	 * @return true if the password is lacking null or empty, false otherwise.
-	 */
-	private boolean isLacking(String password) {
-		return password == null || password.isEmpty();
-	}
-
 	/**
 	 * Retrieve the value from a {@link UIComponent}.
 	 * @param component {@link UIComponent}.
