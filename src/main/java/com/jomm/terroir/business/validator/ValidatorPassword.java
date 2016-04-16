@@ -39,13 +39,15 @@ public class ValidatorPassword implements Validator {
 		String password1 = retrieveValueFromComponent(component);
 		// Retrieve password2
 		String password2 = (String) value;
-		// Validation
-		if (!Objects.equals(password1, password2)) {
-			// Passwords don't match
-			throw new ValidatorException(createMessage(getValueFromKey(PASSWORDS_DONT_MATCH)));
-		} else if (!PASSWORD_PATTERN.matcher(password1).matches()) {
-			// Password doesn't match pattern
-			throw new ValidatorException(createMessage(getValueFromKey(PASSWORD_NOT_MATCHING_PATTERN)));
+		if (password1 != null && !password1.isEmpty() && password2 != null && !password2.isEmpty()) {
+			// Validation
+			if (!Objects.equals(password1, password2)) {
+				// Passwords don't match
+				throw new ValidatorException(createMessage(getValueFromKey(PASSWORDS_DONT_MATCH)));
+			} else if (!PASSWORD_PATTERN.matcher(password1).matches()) {
+				// Password doesn't match pattern
+				throw new ValidatorException(createMessage(getValueFromKey(PASSWORD_NOT_MATCHING_PATTERN)));
+			}
 		}
 	}
 	

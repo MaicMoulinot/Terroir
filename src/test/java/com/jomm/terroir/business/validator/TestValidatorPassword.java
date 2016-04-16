@@ -1,6 +1,5 @@
 package com.jomm.terroir.business.validator;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.FIELD_MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
@@ -35,8 +34,8 @@ public class TestValidatorPassword {
 	// Constants //-----------------------------------------------
 	/** Enumeration of different possible results for {@code validate()} method of {@link ValidatorPassword}. */
 	private enum ExpectedResult {
-		/** At least one password is null or empty, thus the validation should fail. */
-		FAILURE_NULL_OR_EMPTY,
+		/** Password is null or empty, thus the validation should not fail. */
+		SUCCESS_NULL_OR_EMPTY,
 		/** The passwords differ, thus the validation should fail. */
 		FAILURE_PASSWORDS_NOT_MATCHING,
 		/** The value is not a valid pattern, thus the validation should fail. */
@@ -80,10 +79,10 @@ public class TestValidatorPassword {
 			validator.validate(mock(FacesContext.class), buildPassword1Component(password1), password2);
 			switch (expectedResult) {
 			case SUCCESS: // This is expected
+			case SUCCESS_NULL_OR_EMPTY: // This is expected
 				assertTrue("ValidatorException is not thrown, which is expected with password1=" + password1 
 						+ ", password2=" + password2, true);				
 				break;
-			case FAILURE_NULL_OR_EMPTY: // This is NOT expected
 			case FAILURE_PASSWORDS_NOT_MATCHING: // This is NOT expected
 			case FAILURE_PATTERN: // This is NOT expected
 				fail("ValidatorException was not thrown and should have with password1=" + password1 
@@ -93,13 +92,9 @@ public class TestValidatorPassword {
 		} catch (ValidatorException expectedException) {
 			switch (expectedResult) {
 			case SUCCESS: // This is NOT expected
+			case SUCCESS_NULL_OR_EMPTY: // This is NOT expected
 				fail("ValidatorException was thrown and should not have with password1=" + password1 
 						+ ", password2=" + password2 + ", " + expectedException.getFacesMessage().getSummary());		
-				break;
-			case FAILURE_NULL_OR_EMPTY: // This is expected
-				assertEquals("ValidatorException was thrown, which is expected with password1=" + password1 
-						+ ", password2=" + password2, getValueFromKey(FIELD_MANDATORY), 
-						expectedException.getFacesMessage().getSummary());		
 				break;
 			case FAILURE_PASSWORDS_NOT_MATCHING: // This is expected
 				assertEquals("ValidatorException was thrown, which is expected with password1=" + password1 
@@ -125,11 +120,9 @@ public class TestValidatorPassword {
 	@Parameters
 	public static Iterable<Object[]> valueToTest() {
 		return Arrays.asList(new Object[][] {
-			// The validation must fail with null or empty values
-			{null, "Za@9xx", ExpectedResult.FAILURE_NULL_OR_EMPTY},
-			{"", "Za@9xx", ExpectedResult.FAILURE_NULL_OR_EMPTY},
-			{"Za@9xx", null, ExpectedResult.FAILURE_NULL_OR_EMPTY},
-			{"Za@9xx", "", ExpectedResult.FAILURE_NULL_OR_EMPTY},
+			// The validation must not fail with null or empty values
+			{null, null, ExpectedResult.SUCCESS_NULL_OR_EMPTY},
+			{"", "", ExpectedResult.SUCCESS_NULL_OR_EMPTY},
 			// The validation must fail with values that don't match
 			{"Us3rN@me", "azAZ09@#$%^&+=", ExpectedResult.FAILURE_PASSWORDS_NOT_MATCHING},
 			// The validation must fail with incorrect values
