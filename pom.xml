@@ -37,16 +37,19 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-java8</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -82,6 +85,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -185,18 +189,21 @@
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
 				<version>${hibernate.version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-java8</artifactId>
 				<version>${hibernate.version}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>5.2.4.Final</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
@@ -238,7 +245,8 @@
 			<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
-				<version>9.4.1208.jre7</version>
+				<version>9.4.1208</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
