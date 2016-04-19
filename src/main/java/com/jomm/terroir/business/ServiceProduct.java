@@ -7,15 +7,15 @@ import com.jomm.terroir.business.model.Stock;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
- * This Interface describes all logic operations for {@link Product} 
- * and its associated {@link com.jomm.terroir.business.model.Stock}.
+ * This Interface describes all logic operations for {@link Product} and its {@link Stock}.
  * @author Maic
  */
 public interface ServiceProduct {
 	
 	/**
-	 * Create a product and its stock and set its stock's last update time with a call to 
-	 * {@link com.jomm.terroir.business.model.Stock#setLastUpdate(java.time.ZonedDateTime)}.
+	 * Create a product.
+	 * If the product has a stock, it creates it as well and set its stock's last update time 
+	 * with a call to {@link Stock#setLastUpdate(java.time.ZonedDateTime)}.
 	 * @param product the {@link Product} to create.
 	 * @return the persisted product.
 	 * @throws ExceptionService when the entity is not in a valid state.
@@ -24,6 +24,8 @@ public interface ServiceProduct {
 	
 	/**
 	 * Update a product.
+	 * If the product has a stock, it creates it as well and set its stock's last update time 
+	 * with a call to {@link Stock#setLastUpdate(java.time.ZonedDateTime)}.
 	 * @param product the {@link Product} to update.
 	 * @return the updated product.
 	 * @throws ExceptionService when the entity is not in a valid state.

@@ -37,21 +37,28 @@ public class ServiceProductImpl implements ServiceProduct {
 	// Methods //-------------------------------------------------
 	@Override
 	public Product create(Product product) throws ExceptionService {
-		if (product == null || product.getStock() == null) {
+		if (product == null) {
 			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
-		} else if (product.getId() != null || product.getStock().getId() != null) {
+		} else if (product.getId() != null) {
 			throw new ExceptionService(ID_SHOULD_BE_NULL);
 		}
-		product.getStock().setLastUpdate(ZonedDateTime.now());
+		// Set last update in stock if necessary
+		if (product.getStock() != null) {
+			product.getStock().setLastUpdate(ZonedDateTime.now());
+		}
 		return daoProduct.create(product);
 	}
 
 	@Override
 	public Product update(Product product) throws ExceptionService {
-		if (product == null || product.getStock() == null) {
+		if (product == null) {
 			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
-		} else if (product.getId() == null || product.getStock().getId() == null) {
+		} else if (product.getId() == null) {
 			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
+		}
+		// Set last update in stock if necessary
+		if (product.getStock() != null) {
+			product.getStock().setLastUpdate(ZonedDateTime.now());
 		}
 		return daoProduct.update(product);
 	}
