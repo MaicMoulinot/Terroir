@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.util.Constants.Unit;
+import com.jomm.terroir.util.Range;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -52,32 +53,22 @@ public interface ServiceDesignation {
 	void delete(Designation designation) throws ExceptionService;
 	
 	/**
-	 * Calculate the minimum price a product of {@link Designation} can be sold.
+	 * Calculate the range of price a product from this {@link Designation} can be sold.
 	 * @param designation the reference {@link Designation}.
-	 * @return {@link BigDecimal} the computed minimum price.
+	 * @return {@link Range} the computed range of prices.
 	 * @throws ExceptionService when the entity is not in a valid state. 
 	 */
-	public BigDecimal getMinRangePrice(Designation designation) throws ExceptionService;
+	public Range getPriceRange(Designation designation) throws ExceptionService;
 	
 	/**
-	 * Calculate the maximum price a product of {@link Designation} can be sold.
-	 * @param designation the reference {@link Designation}.
-	 * @return {@link BigDecimal} the computed maximum price.
-	 * @throws ExceptionService when the entity is not in a valid state. 
-	 */
-	public BigDecimal getMaxRangePrice(Designation designation) throws ExceptionService;
-	
-	/**
-	 * Convert the current price per unit into the designation's price per unit if feasible. 
-	 * If the {@code currentUnit} and the {@code designation}'s unit are the same, it returns {@code pricePerUnit}.
-	 * If the conversion is not possible, it returns {@code null}.
+	 * Determine if the current price per unit is a valid price for this {@link Designation}.
 	 * @param designation {@link Designation} the designation.
-	 * @param pricePerUnit {@link BigDecimal} the current price per unit.
+	 * @param currentPricePerUnit {@link BigDecimal} the current price per unit.
 	 * @param currentUnit {@link Unit} the current unit.
-	 * @return a {@link BigDecimal} the corrected current price per unit.
+	 * @return {@code true} if the price is valid, {@code false} otherwise.
 	 * @throws ExceptionService when the entity is not in a valid state.
 	 * @throws NullPointerException when either {@code currentUnit} or {@code currentUnit} is {@code null}.
 	 */
-	public BigDecimal convertPriceIntoDesignationUnit(Designation designation, BigDecimal pricePerUnit, 
+	public boolean validatePrice(Designation designation, BigDecimal currentPricePerUnit, 
 			Unit currentUnit) throws ExceptionService;
 }

@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.dao.DaoDesignation;
 import com.jomm.terroir.util.Constants.Unit;
+import com.jomm.terroir.util.Range;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -39,28 +40,18 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 	// Methods //-------------------------------------------------
 	@Override
 	public Designation create(Designation designation) throws ExceptionService {
-		if (designation == null) {
-			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
-		} else if (designation.getId() != null) {
+		checkDesignation(designation);
+		if (designation.getId() != null) {
 			throw new ExceptionService(ID_SHOULD_BE_NULL);
-		} else if (!isValidUnit(designation.getUnit())) {
-			throw new ExceptionService(UNIT_INVALID);
-		} else if (!isValidMedianPrice(designation.getMedianPrice())) {
-			throw new ExceptionService(MEDIAN_PRICE_INVALID);
 		}
 		return daoDesignation.create(designation);
 	}
 
 	@Override
 	public Designation update(Designation designation) throws ExceptionService {
-		if (designation == null) {
-			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
-		} else if (designation.getId() == null) {
+		checkDesignation(designation);
+		if (designation.getId() == null) {
 			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
-		} else if (!isValidUnit(designation.getUnit())) {
-			throw new ExceptionService(UNIT_INVALID);
-		} else if (!isValidMedianPrice(designation.getMedianPrice())) {
-			throw new ExceptionService(MEDIAN_PRICE_INVALID);
 		}
 		return daoDesignation.update(designation);
 	}
@@ -70,7 +61,7 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 	public List<Designation> getAllDesignations() {
 		return daoDesignation.findAll();
 	}
-	
+
 	@Override
 	public Designation getDesignation(Long id) throws ExceptionService {
 		if (id == null) {
@@ -95,41 +86,47 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public BigDecimal getMaxRangePrice(Designation designation) throws ExceptionService {
-		BigDecimal range = computeRange(designation);
-		return designation.getMedianPrice().add(range);
+	public Range getPriceRange(Designation designation) throws ExceptionService {
+		checkDesignation(designation);
+		BigDecimal medianPrice = designation.getMedianPrice();
+		BigDecimal range = medianPrice.multiply(THIRTY_PER_CENT);
+		return new Range(medianPrice.subtract(range), medianPrice.add(range));
 	}
-
+	
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public BigDecimal getMinRangePrice(Designation designation) throws ExceptionService {
-		BigDecimal range = computeRange(designation);
-		return designation.getMedianPrice().subtract(range);
-	}
-
-	@Override
-	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-	public BigDecimal convertPriceIntoDesignationUnit(Designation designation, BigDecimal pricePerUnit, 
+	public boolean validatePrice(Designation designation, BigDecimal currentPricePerUnit, 
 			Unit currentUnit) throws ExceptionService {
+		checkDesignation(designation);
+		if (currentUnit == null || currentPricePerUnit == null) {
+			throw new NullPointerException();
+		}
+		boolean priceIsValid = false;
+		BigDecimal convertedPrice = convertPriceIntoDesignationUnit(designation, currentPricePerUnit, 
+				currentUnit);
+		if ((convertedPrice == null && onlyOneUnitIsPIECE(currentUnit, designation.getUnit())) 
+				|| (convertedPrice != null && !isOutOfRange(designation, convertedPrice))) {
+			priceIsValid = true;
+		}
+		return priceIsValid;
+	}
+
+	// Helpers //-------------------------------------------------
+	/**
+	 * Verify the state of the {@link Designation}.
+	 * @param designation {@link Designation} the designation.
+	 * @throws ExceptionService when the entity is not in a valid state.
+	 */
+	private void checkDesignation(Designation designation) throws ExceptionService {
 		if (designation == null) {
 			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
 		} else if (!isValidUnit(designation.getUnit())) {
 			throw new ExceptionService(UNIT_INVALID);
-		} else if (currentUnit == null || pricePerUnit == null) {
-			throw new NullPointerException();
+		} else if (!isValidMedianPrice(designation.getMedianPrice())) {
+			throw new ExceptionService(MEDIAN_PRICE_INVALID);
 		}
-		BigDecimal correctedPricePerUnit = null;
-		if (currentUnit != designation.getUnit()) {
-			if (!onlyOneUnitIsPIECE(currentUnit, designation.getUnit())) {
-				correctedPricePerUnit = convertPrice(designation.getUnit(), pricePerUnit, currentUnit);
-			}
-		} else {
-			correctedPricePerUnit = pricePerUnit;
-		}
-		return correctedPricePerUnit;
 	}
-
-	// Helpers //-------------------------------------------------
+	
 	/**
 	 * Determine is the designation's unit is valid, i.e. is either {@link Unit#KILOGRAM}, 
 	 * {@link Unit#LITER} or {@link Unit#PIECE}.
@@ -148,24 +145,46 @@ public class ServiceDesignationImpl implements ServiceDesignation {
 	private boolean isValidMedianPrice(BigDecimal medianPrice) {
 		return medianPrice != null && medianPrice.signum() == 1;
 	}
-
+	
 	/**
-	 * Calculate the amount to add or subtract to the median price, 
-	 * in order to define the range of authorized prices.
-	 * Before to compute it verifies that the {@link Designation} is in a correct state.
-	 * @param designation the {@link Designation}.
-	 * @return {@link BigDecimal} the computed range.
-	 * @throws ExceptionService {@link ExceptionService}.
+	 * Compare the {@link com.jomm.terroir.business.model.Product}'s current price 
+	 * with the {@link Designation}'s median price.
+	 * @param designation {@link Designation} the designation.
+	 * @param currentPrice {@link BigDecimal} the current price.
+	 * @return {@code true} if the current price is out of range, {@code false} otherwise.
+	 * @throws ExceptionService when the entity is not in a valid state.
 	 */
-	private BigDecimal computeRange(Designation designation) throws ExceptionService {
-		if (designation == null) {
-			throw new ExceptionService(ENTITY_SHOULD_NOT_BE_NULL);
-		} else if (!isValidUnit(designation.getUnit())) {
-			throw new ExceptionService(UNIT_INVALID);
-		} else if (!isValidMedianPrice(designation.getMedianPrice())) {
-			throw new ExceptionService(MEDIAN_PRICE_INVALID);
+	private boolean isOutOfRange(Designation designation, BigDecimal currentPrice) throws ExceptionService {
+		boolean outOfRange = true;
+		Range range = getPriceRange(designation);
+		if (currentPrice.compareTo(range.getMaximum()) <= 0 
+				&& currentPrice.compareTo(range.getMinimum()) >= 0) {
+			outOfRange = false;
 		}
-		return designation.getMedianPrice().multiply(THIRTY_PER_CENT);
+		return outOfRange;
+	}
+	
+	/**
+	 * Convert the current price per unit into the designation's price per unit if feasible. 
+	 * If the {@code currentUnit} and the {@code designation}'s unit are the same, 
+	 * it returns {@code pricePerUnit}.
+	 * If the conversion is not possible, it returns {@code null}.
+	 * @param designation {@link Designation} the designation.
+	 * @param pricePerUnit {@link BigDecimal} the current price per unit.
+	 * @param currentUnit {@link Unit} the current unit.
+	 * @return a {@link BigDecimal} the corrected current price per unit.
+	 */
+	private BigDecimal convertPriceIntoDesignationUnit(Designation designation, BigDecimal pricePerUnit, 
+			Unit currentUnit) {
+		BigDecimal correctedPricePerUnit = null;
+		if (currentUnit != designation.getUnit()) {
+			if (!onlyOneUnitIsPIECE(currentUnit, designation.getUnit())) {
+				correctedPricePerUnit = convertPrice(designation.getUnit(), pricePerUnit, currentUnit);
+			}
+		} else {
+			correctedPricePerUnit = pricePerUnit;
+		}
+		return correctedPricePerUnit;
 	}
 
 	/**
