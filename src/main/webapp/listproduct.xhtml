@@ -158,7 +158,7 @@
 			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
 				hideEffect="fade" header="#{label.confirmation}" severity="alert"
 				widgetVar="deleteConfirmation"
-				message="#{message.confirmdelete} #{backingListProduct.currentProduct.title} ?"
+				message="#{backingListProduct.confirmeDeleteMessage()}"
 				closeOnEscape="true">
 				<p:commandButton id="confirm" value="#{label.valid}"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
@@ -168,7 +168,7 @@
 					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
 					oncomplete="PF('deleteConfirmation').hide();" />
 			</p:confirmDialog>
-
+			
 			<!-- Buttons -->
 			<p:spacer height="50" />
 			<h:panelGrid columns="2">
