@@ -1,7 +1,11 @@
 package com.jomm.terroir.web;
 
 import static com.jomm.terroir.util.Constants.Entity.PRODUCT;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.CONFIRM_DELETE;
+import static com.jomm.terroir.util.Resources.getValueFromKey;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,6 +19,7 @@ import org.primefaces.event.RowEditEvent;
 
 import com.jomm.terroir.business.ServiceProduct;
 import com.jomm.terroir.business.model.Product;
+import com.jomm.terroir.business.model.Stock;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /** 
@@ -54,7 +59,16 @@ public class BackingListProduct extends BackingBean {
 	 */
 	@PostConstruct 
 	public void init() {
-		listProducts = service.getAllProducts();
+		listProducts = new ArrayList<>();
+		for (Product product : service.getAllProducts()) {
+			if (product.getStock() == null) {
+				// Instantiate a new Stock in case of an update
+				Stock stock = new Stock();
+				stock.setId(product.getId());
+				product.addStock(stock);
+			}
+			listProducts.add(product);
+		}
 	}
 	
 	/**
@@ -99,6 +113,20 @@ public class BackingListProduct extends BackingBean {
 			}
 		}
 		return "listproduct" + "?faces-redirect=true";	// Navigation case.
+	}
+	
+	/**
+	 * Format a message for the delete confirmation.
+	 * @return an empty String if the {@code currentProduct} is {@code null}, the formatted message otherwise.
+	 */
+	public String confirmeDeleteMessage() {
+		String message = "";
+		if (currentProduct != null) {
+			Object[] argument = {currentProduct.getId()};
+			message = MessageFormat.format(getValueFromKey(PRODUCT).replace("'", "''"), argument) 
+					+ getValueFromKey(CONFIRM_DELETE);
+		}
+		return message;
 	}
 	
 	// Getters and Setters //-------------------------------------
