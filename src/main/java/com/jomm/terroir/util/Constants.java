@@ -10,7 +10,7 @@ public final class Constants {
 
 	// Constants //-----------------------------------------------
 	public static final String PERSISTENCE_UNIT = "terroirPU";
-	public static final String MONEY_SYMBOL = "$";
+	public static final String MONEY_SYMBOL = "€";
 
 	// Enumerations //--------------------------------------------	
 	/**
@@ -137,6 +137,8 @@ public final class Constants {
 		INTEGER("integer"),
 		/** "length5and15" */
 		LENGTH_BETWEEN_5_AND_15("length5and15"),
+		/** "mandatory" */
+		MANDATORY("mandatory"),
 		/** "mandatorydesignation" */
 		MANDATORY_DESIGNATION("mandatorydesignation"),
 		/** "medianpriceinvalid" */

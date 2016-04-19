@@ -1,8 +1,8 @@
 package com.jomm.terroir.business.validator;
 
+import static com.jomm.terroir.util.Constants.ResourceBundleError.MANDATORY;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.NUMBER;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PRICE_OUT_OF_RANGE;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.UNIT_NOT_CONVERTIBLE;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.UNIT_QUANTITY_DESIGNATION_MANDATORY;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
 import static com.jomm.terroir.util.Constants.View.PARAMETER2;
@@ -10,32 +10,38 @@ import static com.jomm.terroir.util.Constants.View.PARAMETER3;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
-import java.text.MessageFormat;
+import java.math.RoundingMode;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
-import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 
+import org.omnifaces.validator.ValueChangeValidator;
+
 import com.jomm.terroir.business.ServiceDesignation;
+import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.util.Constants.Unit;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Class is the Validator relating to a price.
- * It implements {@link Validator} and defines its method {@code validate()},
- * that throws an {@link ValidatorException} if validation fails.
+ * It extends {@link ValueChangeValidator}, instead of implementing {@link javax.faces.validator.Validator}.
+ * {@link ValueChangeValidator} performs the validation only when the submitted value has changed
+ * compared to the model value, which avoid unnecessarily expensive service/DAO calls. 
+ * It overrides the method {@code validateChangedObject()}, that throws an {@link ValidatorException} 
+ * if the validation fails.
+ * It relates to {@link ServiceUser} to check if the user name is already in use.
  * It is annotated {@link FacesValidator} for proper access from/to the view pages,
  * with {@code validator="validatorPrice"}.
  * @author Maic
  */
 @FacesValidator("validatorPrice")
-public class ValidatorPrice implements Validator {
+public class ValidatorPrice extends ValueChangeValidator {
 
 	// Injected Fields //-----------------------------------------
 	@Inject
@@ -49,46 +55,65 @@ public class ValidatorPrice implements Validator {
 
 	// Methods //-------------------------------------------------
 	@Override
-	public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
-		if (value != null && component != null) {
-			retrieveAndValidateParameters(component, value);
-			// Validation
-			BigDecimal pricePerUnit = price.divide(quantity);
+	public void validateChangedObject(FacesContext context, UIComponent component, Object value) 
+			throws ValidatorException {
+		if (isValidationEnabled(component)) {
+			// Retrieve all values
+			retrieveAndValidateValue(value);
+			retrieveAndValidateParameters(component);
+			// Validation starts
+			// Compute price per unit
+			BigDecimal pricePerUnit = calculatePricePerUnit(quantity, price);
 			try {
-				pricePerUnit = service.convertPriceIntoDesignationUnit(designation, pricePerUnit, unit);
+				// Verify price
+				if (!service.validatePrice(designation, pricePerUnit, unit)) {
+					throw new ValidatorException(createMessage(getValueFromKey(PRICE_OUT_OF_RANGE)));
+				}
 			} catch (ExceptionService exception) {
 				throw new ValidatorException(createMessage(exception.getMessage()), exception);
-			}
-			if (pricePerUnit == null) {
-				// Conversion was not feasible
-				if (!onlyOneUnitIsPIECE(unit, designation.getUnit())) {
-					Object[] argument = {designation.getUnit().getLocalizedName()};
-					String summary = MessageFormat.format(
-							getValueFromKey(UNIT_NOT_CONVERTIBLE).replace("'", "''"), argument);
-					throw new ValidatorException(createMessage(summary));
-				}
-			} else if (isOutOfRange(designation, pricePerUnit)) {
-				// Price is too far from median price
-				throw new ValidatorException(createMessage(getValueFromKey(PRICE_OUT_OF_RANGE)));
 			}
 		}
 	}
 
 	// Helpers //-------------------------------------------------
 	/**
-	 * Retrieve the parameters binded in a {@link UIComponent}.
+	 * Retrieve and validate the parameters binded in a {@link UIComponent}.
 	 * @param component {@link UIComponent}.
-	 * @param value {@link Object}.
-	 * @throws a {@link ValidatorException} if one of the parameters is {@code null}.
 	 */
-	private void retrieveAndValidateParameters(UIComponent component, Object value) 
-			throws ValidatorException {
-		// Retrieve price
-		price = (BigDecimal) value;
-		if (price.signum() != 1) {
-			throw new ValidatorException(createMessage(getValueFromKey(NUMBER)));
+	private boolean isValidationEnabled(UIComponent component) {
+		// Retrieve the component's parameters
+		boolean doValidation = false;
+		if (component.getAttributes().get("parameter4") != null) {
+			doValidation = (Boolean) component.getAttributes().get("parameter4");
 		}
-		// Retrieve component's parameters
+		return doValidation;
+	}
+
+	/**
+	 * Retrieve and validate the value, an {@link Object}.
+	 * @param value {@link Object}.
+	 * @throws ValidatorException if the value is {@code null}, or if it not positive.
+	 */
+	private void retrieveAndValidateValue(Object value) throws ValidatorException {
+		// Retrieve price
+		if (value == null) {
+			// This is because we cannot use required=true in jsf page
+			throw new ValidatorException(createMessage(getValueFromKey(MANDATORY)));
+		} else {
+			price = (BigDecimal) value;
+			if (price.signum() != 1) {
+				throw new ValidatorException(createMessage(getValueFromKey(NUMBER)));
+			}
+		}
+	}
+
+	/**
+	 * Retrieve and validate the parameters binded in a {@link UIComponent}.
+	 * @param component {@link UIComponent}.
+	 * @throws ValidatorException if one of the parameters is {@code null}.
+	 */
+	private void retrieveAndValidateParameters(UIComponent component) throws ValidatorException {
+		// Retrieve the component's parameters
 		if (component.getAttributes().get(PARAMETER1.toString()) != null) {
 			unit = (Unit) ((UIInput) component.getAttributes().get(PARAMETER1.toString())).getValue();
 		}
@@ -98,39 +123,20 @@ public class ValidatorPrice implements Validator {
 		if (component.getAttributes().get(PARAMETER3.toString()) != null) {
 			designation = (Designation) ((UIInput) component.getAttributes().get(PARAMETER3.toString())).getValue();
 		}
+		// Validate the parameters
 		if (unit == null || quantity == null || designation == null) {
 			throw new ValidatorException(createMessage(getValueFromKey(UNIT_QUANTITY_DESIGNATION_MANDATORY)));
 		}
 	}
 
 	/**
-	 * Compare the {@link com.jomm.terroir.business.model.Product}'s current price 
-	 * with the {@link Designation}'s median price.
-	 * @param designation {@link Designation} the designation.
-	 * @param currentPrice {@link BigDecimal} the current price.
-	 * @return true if the current price is out of range, false otherwise.
+	 * Compute the price per unit using the {@code quantity} and {@code price}.
+	 * @param quantity {@link BigDecimal} the quantity.
+	 * @param price {@link BigDecimal} the price.
+	 * @return a {@link BigDecimal} the computed price per unit.
 	 */
-	private boolean isOutOfRange(Designation designation, BigDecimal currentPrice) {
-		boolean outOfRange = true;
-		try {
-			if (currentPrice.compareTo(service.getMaxRangePrice(designation)) <= 0 
-					&& currentPrice.compareTo(service.getMinRangePrice(designation)) >= 0) {
-				outOfRange = false;
-			}
-		} catch (ExceptionService exception) {
-			throw new ValidatorException(createMessage(exception.getMessage()), exception);
-		}
-		return outOfRange;
-	}
-
-	/**
-	 * Determine if only one unit is {@link Unit#PIECE}.
-	 * @param unit1 {@link Unit} the first unit.
-	 * @param unit2 {@link Unit} the second unit.
-	 * @return {@code true} if only one unit is {@link Unit#PIECE}, {@code false} otherwise.
-	 */
-	private boolean onlyOneUnitIsPIECE(Unit unit1, Unit unit2) {
-		return (unit1 != Unit.PIECE && unit2 == Unit.PIECE) || (unit1 == Unit.PIECE && unit2 != Unit.PIECE);
+	private BigDecimal calculatePricePerUnit(BigDecimal quantity, BigDecimal price) {
+		return (quantity != null && price != null) ? price.divide(quantity, 4, RoundingMode.HALF_UP) : null;
 	}
 
 	/**

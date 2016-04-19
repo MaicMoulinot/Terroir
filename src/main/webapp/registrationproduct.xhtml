@@ -12,14 +12,13 @@
 		<o:importConstants type="com.jomm.terroir.util.Constants.Unit" />
 		<h2>#{label.productnew}</h2>
 		<p:spacer height="50" />
-		<p:messages id="messages" closable="true" autoUpdate="true" />
 		<h:form id="form">
 			<h:panelGrid id="panelPrice" columns="3">
 				<p:outputLabel id="designationLabel" for="designation"
 					value="#{label.designation}" />
 				<p:selectOneMenu id="designation"
 					value="#{backingRegistrationProduct.designation}"
-					binding="#{designationParameter}" 
+					binding="#{designationParameter}"
 					converter="omnifaces.SelectItemsConverter" required="true"
 					requiredMessage="#{error.mandatory}">
 					<f:selectItem itemLabel="#{label.designation}" itemValue="#{null}"
@@ -29,8 +28,7 @@
 						var="currentDesignation"
 						itemLabel="#{currentDesignation.registeredName}"
 						itemValue="#{currentDesignation}" />
-					<p:ajax process="@this multiple"
-						update="@parent" />
+					<p:ajax process="@this price" update="@parent" />
 				</p:selectOneMenu>
 				<p:message id="designationMessage" for="designation" display="text" />
 
@@ -38,17 +36,16 @@
 					value="#{label.quantity}" />
 				<p:spinner id="quantity"
 					value="#{backingRegistrationProduct.quantity}"
-					binding="#{quantityParameter}" min="0.01"
-					stepFactor="0.25" converter="javax.faces.BigDecimal"
-					required="true" requiredMessage="#{error.mandatory}">
-					<p:ajax event="blur" process="@this multiple"
-						update="@parent" />
+					binding="#{quantityParameter}" min="0.01" stepFactor="0.25"
+					converter="javax.faces.BigDecimal" required="true"
+					requiredMessage="#{error.mandatory}">
+					<p:ajax event="blur" process="@this price" update="@parent" />
 				</p:spinner>
 				<p:message id="quantityMessage" for="quantity" display="text" />
 
 				<p:outputLabel for="unit" id="unitLabel" value="#{label.unit}" />
 				<p:selectOneMenu id="unit" binding="#{unitParameter}"
-					value="#{backingRegistrationProduct.unit}" 
+					value="#{backingRegistrationProduct.unit}"
 					validator="validatorUnit" required="true"
 					requiredMessage="#{error.mandatory}">
 					<f:selectItem itemLabel="#{label.unit}" itemValue="#{null}"
@@ -57,7 +54,7 @@
 						itemValue="#{currentUnit}"
 						itemLabel="#{currentUnit.localizedName}" />
 					<f:attribute name="parameter1" value="#{designationParameter}" />
-					<p:ajax event="itemSelect" process="@this multiple"
+					<p:ajax event="itemSelect" process="@this price"
 						listener="#{backingRegistrationProduct.activateMultipleValidation()}"
 						update="@parent" />
 				</p:selectOneMenu>
@@ -74,25 +71,18 @@
 						min="0.00" stepFactor="0.25"
 						suffix="#{backingRegistrationProduct.currencySymbol}"
 						converter="javax.faces.BigDecimal"
-						converterMessage="#{error.number}" validator="validatorPrice"
-						required="true" requiredMessage="#{error.mandatory}">
+						converterMessage="#{error.number}" validator="validatorPrice">
 						<f:attribute name="parameter1" value="#{unitParameter}" />
 						<f:attribute name="parameter2" value="#{quantityParameter}" />
 						<f:attribute name="parameter3" value="#{designationParameter}" />
-						<p:ajax process="@this multiple"
-							update="@parent:@parent" />
+						<f:attribute name="parameter4" value="#{backingRegistrationProduct.activateValidation}" />
+						<p:ajax process="@this" update="@parent:@parent" />
 					</p:spinner>
 					<p:spacer width="10" />
 					<h:outputText id="pricePerUnit"
 						value="#{backingRegistrationProduct.formatPricePerUnit()}" />
 				</p:panelGrid>
 				<p:message id="priceMessage" for="price" display="text" />
-
-				<o:validateMultiple id="multiple" message="#{error.priceoutofrange}"
-					components="designation quantity unit price"
-					validator="#{backingRegistrationProduct.validateValues}" />
-				<p:message id="multipleMessage" for="multiple" display="text" />
-				<p:spacer />
 
 				<p:outputLabel for="title" id="titleLabel" value="#{label.title}" />
 				<p:autoComplete id="title" widgetVar="titleWidget"
@@ -129,16 +119,6 @@
 				</h:panelGrid>
 				<p:message id="availabilityMessage" for="availability"
 					display="text" />
-
-				<p:growl id="growl" for="growl" showDetail="true" escape="false"
-					life="6000" />
-				<p:commandLink id="help" title="#{message.passwordtitle}"
-					process="@this"
-					action="#{backingRegistrationProduct.passwordTooltip}"
-					update="growl">
-					<i class="fa fa-info-circle"></i>
-				</p:commandLink>
-				<p:spacer />
 			</h:panelGrid>
 
 			<p:spacer height="100" />
