@@ -7,6 +7,7 @@ import static com.jomm.terroir.util.Constants.ResourceBundleError.UNIT_QUANTITY_
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
 import static com.jomm.terroir.util.Constants.View.PARAMETER2;
 import static com.jomm.terroir.util.Constants.View.PARAMETER3;
+import static com.jomm.terroir.util.Constants.View.PARAMETER4;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
@@ -83,8 +84,8 @@ public class ValidatorPrice extends ValueChangeValidator {
 	private boolean isValidationEnabled(UIComponent component) {
 		// Retrieve the component's parameters
 		boolean doValidation = false;
-		if (component.getAttributes().get("parameter4") != null) {
-			doValidation = (Boolean) component.getAttributes().get("parameter4");
+		if (component.getAttributes().get(PARAMETER4.toString()) != null) {
+			doValidation = (Boolean) component.getAttributes().get(PARAMETER4.toString());
 		}
 		return doValidation;
 	}
@@ -146,5 +147,14 @@ public class ValidatorPrice extends ValueChangeValidator {
 	 */
 	private FacesMessage createMessage(String summary) {
 		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
+	}
+	
+	// Tests only //----------------------------------------------
+	/**
+	 * This method should only be used in tests, so the visibility is set to default/package.
+	 * @param service the service to set.
+	 */
+	void setTestServiceDesignation(ServiceDesignation service) {
+		this.service = service;
 	}
 }

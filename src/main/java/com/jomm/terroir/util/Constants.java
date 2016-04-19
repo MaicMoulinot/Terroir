@@ -341,6 +341,8 @@ public final class Constants {
 		PARAMETER2,
 		/** "parameter3" */
 		PARAMETER3,
+		/** "parameter4" */
+		PARAMETER4,
 		/** "growl" */
 		GROWL;
 
