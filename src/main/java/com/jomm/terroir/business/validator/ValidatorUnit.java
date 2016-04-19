@@ -42,7 +42,7 @@ public class ValidatorUnit implements Validator {
 					&& !isConvertible(designationUnit, currentUnit)
 					&& !atLeastOneIsPIECE(designationUnit, currentUnit)) {
 				// Unit is not valid
-				Object[] argument = {designationUnit.getLocalizedName()};
+				Object[] argument = {currentUnit.getLocalizedName(), designationUnit.getLocalizedName()};
 				String summary = MessageFormat.format(
 						getValueFromKey(UNIT_NOT_CONVERTIBLE).replace("'", "''"), argument);
 				throw new ValidatorException(createMessage(summary));
