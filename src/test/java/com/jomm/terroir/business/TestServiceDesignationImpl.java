@@ -3,7 +3,10 @@ package com.jomm.terroir.business;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verify;
+
+import java.math.BigDecimal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +17,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.business.model.TestDesignation;
 import com.jomm.terroir.dao.DaoDesignation;
+import com.jomm.terroir.util.Constants.Unit;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -96,6 +100,34 @@ public class TestServiceDesignationImpl {
 		try {
 			service.getDesignation(ID);
 			verify(dao).find(anyLong()); // validate that dao.find() was called
+		} catch (ExceptionService unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
+	}
+	
+	/**
+	 * Test method for {@link ServiceDesignationImpl#validatePrice(Designation, BigDecimal, Unit)}.
+	 */
+	@Test
+	public final void testValidatePrice() {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		try {
+			verifyNoMoreInteractions(dao);
+			service.validatePrice(designation, new BigDecimal("2.456"), Unit.GRAM);
+		} catch (ExceptionService unexpectedException) {
+			assertNull("An Exception was thrown and should not have", unexpectedException);
+		}
+	}
+	
+	/**
+	 * Test method for {@link ServiceDesignationImpl#getPriceRange(Designation)}.
+	 */
+	@Test
+	public final void testGetPriceRange() {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		try {
+			verifyNoMoreInteractions(dao);
+			service.getPriceRange(designation);
 		} catch (ExceptionService unexpectedException) {
 			assertNull("An Exception was thrown and should not have", unexpectedException);
 		}

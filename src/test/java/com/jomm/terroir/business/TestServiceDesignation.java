@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.junit.runners.Parameterized.Parameters;
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.business.model.TestDesignation;
 import com.jomm.terroir.dao.DaoDesignation;
+import com.jomm.terroir.util.Constants.Unit;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
@@ -181,6 +183,103 @@ public class TestServiceDesignation {
 	public final void testGetWithIdNotNull() throws ExceptionService {
 		service.getDesignation(ID);
 		assertTrue("ExceptionService should not be thrown", true);
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#getPriceRange(Designation)} throws an {@link ExceptionService}
+	 * when entity is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testGetPriceRangeWithEntityNull() throws ExceptionService {
+		service.getPriceRange(null);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#getPriceRange(Designation)} throws an {@link ExceptionService}
+	 * when entity's unit is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testGetPriceRangeWithUnitNotValid() throws ExceptionService {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		designation.setUnit(null);
+		service.getPriceRange(designation);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#getPriceRange(Designation)} throws an {@link ExceptionService}
+	 * when entity's median price is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testGetPriceRangeWithMedianPriceNull() throws ExceptionService {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		designation.setMedianPrice(null);
+		service.getPriceRange(designation);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#getPriceRange(Designation)} does not throw an {@link ExceptionService}
+	 * when entity's state is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testGetPriceRangeWithCorrectState() throws ExceptionService {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		assertNotNull("ExceptionService should not be thrown", service.getPriceRange(designation));
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#validatePrice(Designation, BigDecimal, Unit)} 
+	 * throws an {@link ExceptionService} when entity is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testValidatePriceWithEntityNull() throws ExceptionService {
+		service.validatePrice(null, new BigDecimal("10.36"), Unit.KILOGRAM);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#validatePrice(Designation, BigDecimal, Unit)} 
+	 * throws an {@link ExceptionService} when entity's unit is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testValidatePriceWithDesignationUnitNull() throws ExceptionService {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		designation.setUnit(null);
+		service.validatePrice(designation, new BigDecimal("10.36"), Unit.KILOGRAM);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#validatePrice(Designation, BigDecimal, Unit)} 
+	 * throws an {@link ExceptionService} when entity's median price is null.
+	 * @throws ExceptionService is expected.
+	 */
+	@Test(expected = ExceptionService.class)
+	public final void testValidatePriceWithMedianPriceNull() throws ExceptionService {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		designation.setMedianPrice(null);
+		service.validatePrice(designation, new BigDecimal("10.36"), Unit.KILOGRAM);
+		fail("An ExceptionService should have been thrown");
+	}
+	
+	/**
+	 * Test that {@link ServiceDesignation#validatePrice(Designation, BigDecimal, Unit)} 
+	 * does not throw an {@link ExceptionService} when entity's state is correct.
+	 * @throws ExceptionService is not expected.
+	 */
+	@Test
+	public final void testValidatePriceWithCorrectState() throws ExceptionService {
+		Designation designation = TestDesignation.generateDesignationWithIdNull();
+		assertTrue("ExceptionService should not be thrown", 
+				service.validatePrice(designation, new BigDecimal("10.36"), Unit.KILOGRAM));
 	}
 	
 	// Static methods //------------------------------------------
