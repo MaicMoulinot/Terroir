@@ -33,7 +33,10 @@ import com.jomm.terroir.business.ServiceUser;
 public class TestValidatorUsername {
 	
 	// Constants //-----------------------------------------------
-	/** Enumeration of different possible results for {@code validate()} method of {@link ValidatorUsername}. */
+	/** 
+	 * Enumeration of different possible results for {@code validateChangedObject()} 
+	 * method of {@link ValidatorUsername}.
+	 */
 	private enum ExpectedResult {
 		/** The value is not between 3 and 15 characters, thus the validation should fail. */
 		FAILURE_LENGTH,

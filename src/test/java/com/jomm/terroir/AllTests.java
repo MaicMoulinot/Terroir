@@ -32,8 +32,11 @@ import com.jomm.terroir.business.model.TestProduct;
 import com.jomm.terroir.business.model.TestSeller;
 import com.jomm.terroir.business.model.TestSite;
 import com.jomm.terroir.business.model.TestStock;
+import com.jomm.terroir.business.validator.TestValidatorAvailability;
 import com.jomm.terroir.business.validator.TestValidatorEmail;
 import com.jomm.terroir.business.validator.TestValidatorPassword;
+import com.jomm.terroir.business.validator.TestValidatorPrice;
+import com.jomm.terroir.business.validator.TestValidatorUnit;
 import com.jomm.terroir.business.validator.TestValidatorUsername;
 import com.jomm.terroir.dao.TestDaoAdministrator;
 import com.jomm.terroir.dao.TestDaoAdministratorJpa;
@@ -95,7 +98,8 @@ import com.jomm.terroir.web.TestBackingRegistrationUser;
 	TestServiceSite.class, TestServiceSiteImpl.class, 
 	TestServiceUser.class, TestServiceUserImpl.class,
 	// Validator
-	TestValidatorEmail.class, TestValidatorPassword.class, TestValidatorUsername.class, 
+	TestValidatorAvailability.class, TestValidatorEmail.class, TestValidatorPassword.class, 
+	TestValidatorPrice.class, TestValidatorUnit.class, TestValidatorUsername.class, 
 	// DAO
 	TestDaoAdministrator.class, TestDaoAdministratorJpa.class, TestDaoCategory.class, TestDaoCategoryJpa.class, 
 	TestDaoCustomer.class, TestDaoCustomerJpa.class, TestDaoDesignation.class, TestDaoDesignationJpa.class, 

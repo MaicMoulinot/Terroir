@@ -25,7 +25,7 @@ import org.junit.runners.Parameterized.Parameters;
 /**
  * This class is a Junit test case testing the {@code validate()} method of {@link ValidatorPassword}.
  * It is annotated {@link RunWith} {@link Parameterized} to allow the test case to run with different parameters.
- * Here, the parameters are different user names to be tested, and their expected results.
+ * Here, the parameters are different passwords to be tested, and their expected results.
  * @author Maic
  */
 @RunWith(Parameterized.class)
