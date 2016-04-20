@@ -63,6 +63,7 @@ import com.jomm.terroir.dao.TestDaoStockJpa;
 import com.jomm.terroir.dao.TestDaoUser;
 import com.jomm.terroir.dao.TestDaoUserJpa;
 import com.jomm.terroir.dao.UtilEntityManager;
+import com.jomm.terroir.util.TestRange;
 import com.jomm.terroir.util.TestResources;
 import com.jomm.terroir.util.converter.TestAttributeConverterLocalDate;
 import com.jomm.terroir.util.converter.TestAttributeConverterUnit;
@@ -108,7 +109,7 @@ import com.jomm.terroir.web.TestBackingRegistrationUser;
 	TestDaoSeller.class, TestDaoSellerJpa.class, TestDaoSite.class, TestDaoSiteJpa.class, 
 	TestDaoStockJpa.class, TestDaoStock.class, TestDaoUserJpa.class, TestDaoUser.class, 
 	// Util
-	TestResources.class,
+	TestRange.class, TestResources.class,
 	// Converter
 	TestAttributeConverterLocalDate.class, TestAttributeConverterUnit.class, 
 	TestAttributeConverterZonedDateTime.class, 
