@@ -35,7 +35,21 @@ public class TestStock {
 	public void tearDown() throws Exception {
 		stock = null; // Available for Garbage Collector
 	}
-
+	
+	/**
+	 * Test method for the constructor {@link Stock#Stock(Product)}.
+	 */
+	@Test
+	public final void testConstructor() {
+		Long id = 33L; 
+		Product product = TestProduct.generateProductWithIdNull();
+		product.setId(id);
+		Stock stock = new Stock(product);
+		assertNotNull(stock);
+		assertNotNull(stock.getProduct());
+		assertEquals(id, stock.getProduct().getId());
+	}
+	
 	/**
 	 * Test method for all {@link Product}'s getters and setters.
 	 */

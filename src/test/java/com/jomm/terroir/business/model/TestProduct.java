@@ -3,6 +3,7 @@ package com.jomm.terroir.business.model;
 import static com.jomm.terroir.util.Constants.Unit.PIECE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.math.BigDecimal;
 
@@ -38,7 +39,29 @@ public class TestProduct {
 	public void tearDown() throws Exception {
 		product = null; // Available for Garbage Collector
 	}
-
+	
+	/**
+	 * Test method for the {@link Product}'s constructor with no arg.
+	 */
+	@Test
+	public final void testConstructor() {
+		assertNotNull(product);
+		assertNotNull(product.getStock());
+		assertEquals(product, product.getStock().getProduct());
+	}
+	
+	/**
+	 * Test method for {@link Product#removeStock(Stock)}.
+	 */
+	@Test
+	public final void testRemoveStock() {
+		Stock stock = product.getStock();
+		assertNotNull(stock);
+		product.removeStock(stock);
+		assertNull(stock.getProduct());
+		assertNull(product.getStock());
+	}
+	
 	/**
 	 * Test method for all {@link Product}'s getters and setters.
 	 */
