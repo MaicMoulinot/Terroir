@@ -18,7 +18,6 @@
 			<h:panelGrid columns="4">
 				<p:outputLabel for="firstname" id="firstnameLabel"
 					value="#{label.firstname}" />
-				<p:spacer />
 				<p:inputText id="firstname"
 					value="#{backingRegistrationCustomer.firstName}" required="true"
 					requiredMessage="#{error.mandatory}"
@@ -26,11 +25,11 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="firstnameMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="firstnameMessage" for="firstname" display="text" />
 
 				<p:outputLabel for="lastname" id="lastnameLabel"
 					value="#{label.lastname}" />
-				<p:spacer />
 				<p:inputText id="lastname"
 					value="#{backingRegistrationCustomer.lastName}" required="true"
 					requiredMessage="#{error.mandatory}"
@@ -38,37 +37,32 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="lastnameMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="lastnameMessage" for="lastname" display="text" />
 
 				<p:outputLabel for="username" id="usernameLabel"
 					value="#{label.username}" />
-				<p:tooltip id="usertooltip" for="username"
-					value="#{label.usernametooltip}" />
 				<p:inputText id="username"
 					value="#{backingRegistrationCustomer.userName}"
 					validator="validatorUsername" required="true"
 					requiredMessage="#{error.mandatory}">
 					<p:ajax event="blur" update="usernameMessage" />
 				</p:inputText>
+				<p:tooltip id="usertooltip" for="username"
+					value="#{label.usernametooltip}" />
 				<p:message id="usernameMessage" for="username" display="text" />
 
 				<p:outputLabel for="email" id="emailLabel" value="#{label.email}" />
-				<p:spacer />
 				<p:inputText id="email" value="#{backingRegistrationCustomer.email}"
 					validator="validatorEmail" required="true"
 					requiredMessage="#{error.mandatory}">
 					<p:ajax event="blur" update="emailMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="emailMessage" for="email" display="text" />
 
 				<p:outputLabel for="password1" id="password1Label"
 					value="#{label.password}" />
-				<p:commandLink id="help" title="#{message.passwordtitle}"
-					process="@this"
-					action="#{backingRegistrationCustomer.passwordTooltip}"
-					update="growl">
-					<i class="fa fa-info-circle"></i>
-				</p:commandLink>
 				<p:password id="password1"
 					value="#{backingRegistrationCustomer.password}" feedback="true"
 					binding="#{password1Parameter}" required="true"
@@ -78,16 +72,16 @@
 					<p:ajax event="blur" process="password1 password2"
 						update="password1Message password2Message" />
 				</p:password>
-				<p:message id="password1Message" for="password1" display="text" />
-
-				<p:outputLabel for="password2" id="password2Label"
-					value="#{label.password2}" />
-				<p:commandLink id="help2" title="#{message.passwordtitle}"
+				<p:commandLink id="help" title="#{message.passwordtitle}"
 					process="@this"
 					action="#{backingRegistrationCustomer.passwordTooltip}"
 					update="growl">
 					<i class="fa fa-info-circle"></i>
 				</p:commandLink>
+				<p:message id="password1Message" for="password1" display="text" />
+
+				<p:outputLabel for="password2" id="password2Label"
+					value="#{label.password2}" />
 				<p:password id="password2"
 					value="#{backingRegistrationCustomer.password}" feedback="true"
 					validator="validatorPassword" required="true"
@@ -98,6 +92,12 @@
 					<p:ajax event="blur" process="password1 password2"
 						update="password1Message password2Message" />
 				</p:password>
+				<p:commandLink id="help2" title="#{message.passwordtitle}"
+					process="@this"
+					action="#{backingRegistrationCustomer.passwordTooltip}"
+					update="growl">
+					<i class="fa fa-info-circle"></i>
+				</p:commandLink>
 				<h:panelGroup>
 					<o:validateEqual id="equal" components="password1 password2"
 						message="#{error.passwordsdifferent}" showMessageFor="password1" />
@@ -105,7 +105,6 @@
 				</h:panelGroup>
 
 				<p:outputLabel for="street" id="streetLabel" value="#{label.street}" />
-				<p:spacer />
 				<p:inputText id="street"
 					value="#{backingRegistrationCustomer.address.street}"
 					required="true" requiredMessage="#{error.mandatory}"
@@ -113,18 +112,18 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="streetMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="streetMessage" for="street" display="text" />
 
 				<p:outputLabel for="complement" id="complementLabel"
 					value="#{label.complement}" />
-				<p:spacer />
 				<p:inputText id="complement"
 					value="#{backingRegistrationCustomer.address.complement}" />
+				<p:spacer />
 				<p:message id="complementMessage" for="complement" display="text" />
 
 				<p:outputLabel for="postcode" id="postcodeLabel"
 					value="#{label.postcode}" />
-				<p:spacer />
 				<p:inputText id="postcode"
 					value="#{backingRegistrationCustomer.address.postCode}"
 					required="true" requiredMessage="#{error.mandatory}"
@@ -132,10 +131,10 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="postcodeMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="postcodeMessage" for="postcode" display="text" />
 
 				<p:outputLabel for="city" id="cityLabel" value="#{label.city}" />
-				<p:spacer />
 				<p:inputText id="city"
 					value="#{backingRegistrationCustomer.address.city}" required="true"
 					requiredMessage="#{error.mandatory}"
@@ -143,11 +142,11 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="cityMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="cityMessage" for="city" display="text" />
 
 				<p:outputLabel for="country" id="countryLabel"
 					value="#{label.country}" />
-				<p:spacer />
 				<p:inputText id="country"
 					value="#{backingRegistrationCustomer.address.country}"
 					required="true" requiredMessage="#{error.mandatory}"
@@ -155,11 +154,11 @@
 					<f:validateLength minimum="2" />
 					<p:ajax event="blur" update="countryMessage" />
 				</p:inputText>
+				<p:spacer />
 				<p:message id="countryMessage" for="country" display="text" />
 
 				<p:outputLabel for="birthdate" id="birthdateLabel"
 					value="#{label.birthdate}" />
-				<p:spacer />
 				<p:calendar id="birthdate"
 					value="#{backingRegistrationCustomer.birthDate}" navigator="true"
 					pattern="dd/MM/yyyy" converter="localDateConverter"
@@ -168,6 +167,7 @@
 					<p:ajax event="dateSelect" update="birthdateMessage" />
 					<p:ajax event="blur" update="birthdateMessage" />
 				</p:calendar>
+				<p:spacer />
 				<p:message id="birthdateMessage" for="birthdate" display="text" />
 
 			</h:panelGrid>

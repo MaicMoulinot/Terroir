@@ -74,7 +74,7 @@ public abstract class BackingRegistrationUser extends BackingBean {
 	/** Generate tips to create a secured enough password into growl. */
 	public void passwordTooltip() {
 		addFacesMessage(GROWL.toString(), FacesMessage.SEVERITY_INFO, getValueFromKey(PASSWORD_TITLE), 
-				getValueFromKey(PASSWORD_RULES));
+				getValueFromKey(PASSWORD_RULES).replaceAll("-", "<br />-"));
 	}
 	
 	// Helpers //-------------------------------------------------
