@@ -3,7 +3,6 @@ package com.jomm.terroir.web;
 import static com.jomm.terroir.util.Constants.Entity.PRODUCT;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.MEDIAN_PRICE;
 import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PRICE_PER_UNIT;
-import static com.jomm.terroir.util.Constants.View.GROWL;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 
 import java.math.BigDecimal;
@@ -15,9 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -75,15 +71,6 @@ public class BackingRegistrationProduct extends BackingBean {
 	private boolean activateValidation; // multiple validation disabled or not
 
 	// Methods //-------------------------------------------------
-	public void passwordTooltip() {
-		addFacesMessage(GROWL.toString(), FacesMessage.SEVERITY_INFO, "activateValidation=" + activateValidation, 
-				"qty=" + (quantity == null? "null" : quantity) 
-				+ ", price=" + (price == null? "null" : price) 
-				+ ", desig=" + (designation == null? "null" : designation.getRegisteredName()) 
-				+ ", active=" + (active == null? "null" : active) 
-				+ ", unit=" + (unit == null? "null" : unit.toString()));
-	}
-
 	/**
 	 * This method instantiate all necessary attributes, such as {@link Site} and {@link Stock}.
 	 * It replaces the constructor and it is annotated {@link PostConstruct},
@@ -120,43 +107,6 @@ public class BackingRegistrationProduct extends BackingBean {
 	/** The multiple price's validation is now active. */
 	public void activateMultipleValidation() {
 		setActivateValidation(true);
-	}
-	
-	/**
-	 * Multiple validation.
-	 * Determine if the {@link Product}'s proposed price is coherent for its {@link Designation}.
-	 * @param context the {@link FacesContext}.
-	 * @param components a {@link List} of {@link UIInput}s to validate.
-	 * @param values a {@link List} of {@link Object}s, the corresponding components' value.
-	 * @return {@code true} if the multiple validation succeeds, {@code false} otherwise.
-	 */
-	public boolean validateValues(FacesContext context, List<UIInput> components, List<Object> values) {
-		boolean valuesAreOk = !getActivateValidation();//TODO
-		// Retrieve all 4 values
-		Designation designationValue = (Designation) values.get(0);
-		BigDecimal currentQuantity = (BigDecimal) values.get(1);
-		Unit currentUnit = (Unit) values.get(2);
-		BigDecimal currentPrice = (BigDecimal) values.get(3);
-		if (designationValue != null && currentQuantity != null && currentUnit != null 
-				&& currentPrice != null) {
-			// Compute price per unit
-			BigDecimal pricePerUnit = calculatePricePerUnit(currentQuantity, currentPrice);
-			// Convert into designation's unit
-			try {
-				valuesAreOk = serviceDesignation.validatePrice(designationValue, pricePerUnit, currentUnit);
-//				if (!valuesAreOk) {
-//					for (UIInput component : components) {
-//						if (component.getSubmittedValue() != null) {
-//							
-//						}
-//						component.resetValue();
-//					}
-//				}
-			} catch (ExceptionService exception) {
-				logger.log(Level.FINE, exception.getMessage(), exception);
-			}
-		}
-		return valuesAreOk;
 	}
 	
 	/**
