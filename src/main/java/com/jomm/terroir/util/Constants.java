@@ -147,8 +147,6 @@ public final class Constants {
 		NUMBER("number"),
 		/** "passwordsdifferent" */
 		PASSWORDS_DONT_MATCH("passwordsdifferent"),
-		/** "passwordinvalid" */
-		PASSWORD_NOT_MATCHING_PATTERN("passwordinvalid"),
 		/** "priceoutofrange" */
 		PRICE_OUT_OF_RANGE("priceoutofrange"),
 		/** "unitinvalid" */

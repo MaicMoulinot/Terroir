@@ -1,7 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORDS_DONT_MATCH;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.PASSWORD_NOT_MATCHING_PATTERN;
+import static com.jomm.terroir.util.Constants.ResourceBundleMessage.PASSWORD_RULES;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
@@ -103,7 +103,7 @@ public class TestValidatorPassword {
 				break;
 			case FAILURE_PATTERN: // This is expected
 				assertEquals("ValidatorException was thrown, which is expected with password=" + password1, 
-						getValueFromKey(PASSWORD_NOT_MATCHING_PATTERN), 
+						getValueFromKey(PASSWORD_RULES).replaceAll("-", ""), 
 						expectedException.getFacesMessage().getSummary());		
 				break;
 			}

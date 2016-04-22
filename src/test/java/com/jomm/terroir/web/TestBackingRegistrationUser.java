@@ -130,7 +130,7 @@ public class TestBackingRegistrationUser {
 		// check if a FacesMessage was correctly thrown
 		TestBackingBean.checkMessageWithPlainDetail(view, GROWL.toString(), FacesMessage.SEVERITY_INFO, 
 				getValueFromKey(PASSWORD_TITLE), 
-				getValueFromKey(PASSWORD_RULES));
+				getValueFromKey(PASSWORD_RULES).replaceAll("-", "<br />-"));
 	}
 
 	/**
