@@ -18,31 +18,26 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
+import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 
-import org.omnifaces.validator.ValueChangeValidator;
-
 import com.jomm.terroir.business.ServiceDesignation;
-import com.jomm.terroir.business.ServiceUser;
 import com.jomm.terroir.business.model.Designation;
 import com.jomm.terroir.util.Constants.Unit;
 import com.jomm.terroir.util.exception.ExceptionService;
 
 /**
  * This Class is the Validator relating to a price.
- * It extends {@link ValueChangeValidator}, instead of implementing {@link javax.faces.validator.Validator}.
- * {@link ValueChangeValidator} performs the validation only when the submitted value has changed
- * compared to the model value, which avoid unnecessarily expensive service/DAO calls. 
- * It overrides the method {@code validateChangedObject()}, that throws an {@link ValidatorException} 
- * if the validation fails.
- * It relates to {@link ServiceUser} to check if the user name is already in use.
+ * It implements {@link Validator} and defines its method {@code validate()},
+ * that throws an {@link ValidatorException} if validation fails.
+ * It relates to {@link ServiceDesignation} to check if the price is correct.
  * It is annotated {@link FacesValidator} for proper access from/to the view pages,
  * with {@code validator="validatorPrice"}.
  * @author Maic
  */
 @FacesValidator("validatorPrice")
-public class ValidatorPrice extends ValueChangeValidator {
+public class ValidatorPrice implements Validator {
 
 	// Injected Fields //-----------------------------------------
 	@Inject
@@ -56,13 +51,12 @@ public class ValidatorPrice extends ValueChangeValidator {
 
 	// Methods //-------------------------------------------------
 	@Override
-	public void validateChangedObject(FacesContext context, UIComponent component, Object value) 
+	public void validate(FacesContext context, UIComponent component, Object value) 
 			throws ValidatorException {
-		if (isValidationEnabled(component)) {
+		if (isValidationEnabled(component, value)) {
 			// Retrieve all values
 			retrieveAndValidateValue(value);
 			retrieveAndValidateParameters(component);
-			// Validation starts
 			// Compute price per unit
 			BigDecimal pricePerUnit = calculatePricePerUnit(quantity, price);
 			try {
@@ -78,13 +72,16 @@ public class ValidatorPrice extends ValueChangeValidator {
 
 	// Helpers //-------------------------------------------------
 	/**
-	 * Retrieve and validate the parameters binded in a {@link UIComponent}.
+	 * Determine if the validation should proceed.
+	 * If {@code value} is not {@code null}, the validation always occurs.
+	 * Otherwise, the validation occurs according to the {@code parameter4} stocked in {@code component}.
 	 * @param component {@link UIComponent}.
+	 * @param value {@link Object}.
 	 */
-	private boolean isValidationEnabled(UIComponent component) {
+	private boolean isValidationEnabled(UIComponent component, Object value) {
 		// Retrieve the component's parameters
-		boolean doValidation = false;
-		if (component.getAttributes().get(PARAMETER4.toString()) != null) {
+		boolean doValidation = true;
+		if (value == null && component.getAttributes().get(PARAMETER4.toString()) != null) {
 			doValidation = (Boolean) component.getAttributes().get(PARAMETER4.toString());
 		}
 		return doValidation;
@@ -148,7 +145,7 @@ public class ValidatorPrice extends ValueChangeValidator {
 	private FacesMessage createMessage(String summary) {
 		return new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
 	}
-	
+
 	// Tests only //----------------------------------------------
 	/**
 	 * This method should only be used in tests, so the visibility is set to default/package.

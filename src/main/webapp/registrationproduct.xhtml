@@ -36,10 +36,11 @@
 					value="#{label.quantity}" />
 				<p:spinner id="quantity"
 					value="#{backingRegistrationProduct.quantity}"
-					binding="#{quantityParameter}" min="0.01" stepFactor="0.25"
+					binding="#{quantityParameter}" stepFactor="0.25"
 					converter="javax.faces.BigDecimal" required="true"
 					requiredMessage="#{error.mandatory}">
-					<p:ajax event="blur" process="@this price" update="@parent" />
+					<f:validateDoubleRange minimum="0.01" maximum="999999.99" />
+					<p:ajax process="@this price" update="@parent" />
 				</p:spinner>
 				<p:message id="quantityMessage" for="quantity" display="text" />
 
@@ -54,9 +55,8 @@
 						itemValue="#{currentUnit}"
 						itemLabel="#{currentUnit.localizedName}" />
 					<f:attribute name="parameter1" value="#{designationParameter}" />
-					<p:ajax event="itemSelect" process="@this price"
-						listener="#{backingRegistrationProduct.activateMultipleValidation()}"
-						update="@parent" />
+					<p:ajax process="@this price" update="@parent"
+						listener="#{backingRegistrationProduct.activatePriceValidation()}" />
 				</p:selectOneMenu>
 				<p:message id="unitMessage" for="unit" display="text" />
 
@@ -68,14 +68,14 @@
 				<p:outputLabel for="price" id="priceLabel" value="#{label.price}" />
 				<p:panelGrid>
 					<p:spinner id="price" value="#{backingRegistrationProduct.price}"
-						min="0.00" stepFactor="0.25"
+						stepFactor="0.25"
 						suffix="#{backingRegistrationProduct.currencySymbol}"
-						converter="javax.faces.BigDecimal"
-						converterMessage="#{error.number}" validator="validatorPrice">
+						converter="javax.faces.BigDecimal" validator="validatorPrice">
 						<f:attribute name="parameter1" value="#{unitParameter}" />
 						<f:attribute name="parameter2" value="#{quantityParameter}" />
 						<f:attribute name="parameter3" value="#{designationParameter}" />
-						<f:attribute name="parameter4" value="#{backingRegistrationProduct.activateValidation}" />
+						<f:attribute name="parameter4"
+							value="#{backingRegistrationProduct.flag}" />
 						<p:ajax process="@this" update="@parent:@parent" />
 					</p:spinner>
 					<p:spacer width="10" />
@@ -93,9 +93,11 @@
 					<f:validateLength minimum="10" maximum="150" />
 					<p:ajax event="change" process="@this"
 						update="titleLabel title titleMessage"
-						onstart="if(PF('titleWidget').panel.is(':visible')) return false;" />
+						onstart="if(PF('titleWidget').panel.is(':visible')) return false;"
+						listener="#{backingRegistrationProduct.activatePriceValidation()}" />
 					<p:ajax event="itemSelect" process="@this"
-						update="titleLabel title titleMessage" />
+						update="titleLabel title titleMessage"
+						listener="#{backingRegistrationProduct.activatePriceValidation()}" />
 				</p:autoComplete>
 				<p:message id="titleMessage" for="title" display="text" />
 
@@ -109,11 +111,12 @@
 							update="availabilityLabel availability availabilityMessage" />
 					</p:inputSwitch>
 					<p:spacer width="20" />
-					<p:spinner id="availability" min="0" label="#{label.availability}"
+					<p:spinner id="availability"
 						value="#{backingRegistrationProduct.stock.availability}"
 						validator="validatorAvailability">
+						<f:validateLongRange minimum="0" maximum="999999" />
 						<f:attribute name="parameter1" value="#{activeParameter}" />
-						<p:ajax event="blur"
+						<p:ajax
 							update="availabilityLabel availability availabilityMessage" />
 					</p:spinner>
 				</h:panelGrid>

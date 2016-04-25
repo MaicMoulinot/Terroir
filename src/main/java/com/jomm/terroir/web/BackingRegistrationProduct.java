@@ -68,7 +68,7 @@ public class BackingRegistrationProduct extends BackingBean {
 	private Stock stock;	
 	private Site site;
 	private Designation designation;
-	private boolean activateValidation; // multiple validation disabled or not
+	private boolean flag; // price validation disabled or not
 
 	// Methods //-------------------------------------------------
 	/**
@@ -84,7 +84,7 @@ public class BackingRegistrationProduct extends BackingBean {
 			e.printStackTrace();
 		}
 		setStock(new Stock());
-		setActivateValidation(false);
+		setFlag(false);
 	}
 
 	/**
@@ -104,9 +104,9 @@ public class BackingRegistrationProduct extends BackingBean {
 		return "listproduct" + "?faces-redirect=true";	// Navigation case.
 	}
 
-	/** The multiple price's validation is now active. */
-	public void activateMultipleValidation() {
-		setActivateValidation(true);
+	/** The price's validation is now active. */
+	public void activatePriceValidation() {
+		setFlag(true);
 	}
 	
 	/**
@@ -172,7 +172,7 @@ public class BackingRegistrationProduct extends BackingBean {
 			BigDecimal pricePerUnit = calculatePricePerUnit(quantity, price);
 			if (pricePerUnit != null) {
 				pricePerUnitPart = completePossibleResults(results, trimmedQuery, 
-						pricePerUnit + getPricePerUnitSuffix(unit));
+						pricePerUnit.stripTrailingZeros() + getPricePerUnitSuffix(unit));
 			}
 			// Add quantity in unit information
 			if (quantity != null) {
@@ -222,12 +222,13 @@ public class BackingRegistrationProduct extends BackingBean {
 	}
 
 	/**
-	 * Format the price per unit suffix.
+	 * Format the price per unit suffix, if the {@link Unit} is not {@code null}.
+	 * If the {@link Unit} is {@code null}, it returns an empty {@code String}.
 	 * @param unit the {@link Unit}.
 	 * @return a {@code String} the price per unit suffix.
 	 */
 	private String getPricePerUnitSuffix(Unit unit) {
-		return getCurrencySymbol() + "/" + unit.getSymbol();
+		return unit != null ? getCurrencySymbol() + "/" + unit.getSymbol() : "";
 	}
 
 	/**
@@ -385,16 +386,16 @@ public class BackingRegistrationProduct extends BackingBean {
 	}
 
 	/**
-	 * @return the activateValidation
+	 * @return the flag
 	 */
-	public boolean getActivateValidation() {
-		return activateValidation;
+	public boolean getFlag() {
+		return flag;
 	}
 
 	/**
-	 * @param activateValidation the activateValidation to set
+	 * @param flag the flag to set
 	 */
-	public void setActivateValidation(boolean activateValidation) {
-		this.activateValidation = activateValidation;
+	public void setFlag(boolean flag) {
+		this.flag = flag;
 	}
 }
