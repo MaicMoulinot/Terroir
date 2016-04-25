@@ -114,7 +114,7 @@ public class TestValidatorPrice {
 	public final void testValidateWithDifferentValues() {
 		try {
 			// here a ValidatorException can occur
-			validator.validateChangedObject(mock(FacesContext.class), buildUnitComponent(designation, quantity, 
+			validator.validate(mock(FacesContext.class), buildUnitComponent(designation, quantity, 
 					unit, doValidation), price);
 			switch (expectedResult) {
 			case VALIDATION_DISABLED: // This is expected
