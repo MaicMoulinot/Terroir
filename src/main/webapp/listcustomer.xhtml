@@ -226,8 +226,8 @@
 				<h:outputLabel for="create">
 					<h:outputText id="createLabel" value="#{label.usernew}" />
 				</h:outputLabel>
-				<h:commandButton id="create" value="#{label.ok}"
-					action="registrationcustomer?faces-redirect=true" />
+				<p:link id="create" value="#{label.ok}"
+					outcome="/registrationcustomer" />
 			</h:panelGrid>
 			<p:spacer height="50" />
 		</h:form>
