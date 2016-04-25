@@ -1,7 +1,7 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.MANDATORY;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.NUMBER;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.NUMBER_GREATER_THAN_ZERO;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.PRICE_OUT_OF_RANGE;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.UNIT_QUANTITY_DESIGNATION_MANDATORY;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
@@ -156,7 +156,7 @@ public class TestValidatorPrice {
 				break;
 			case FAILURE_PRICE_ZERO_OR_NEGATIVE: // This is expected
 				assertEquals("ValidatorException was thrown, which is expected with " + buildMessage(), 
-						getValueFromKey(NUMBER), 
+						getValueFromKey(NUMBER_GREATER_THAN_ZERO), 
 						expectedException.getFacesMessage().getSummary());		
 				break;
 			case FAILURE_OTHER_INPUTS_ARE_MISSING: // This is expected

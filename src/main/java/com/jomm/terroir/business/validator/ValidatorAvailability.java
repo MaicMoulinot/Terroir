@@ -1,6 +1,5 @@
 package com.jomm.terroir.business.validator;
 
-import static com.jomm.terroir.util.Constants.ResourceBundleError.INTEGER;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.AVAILABILITY;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
@@ -31,15 +30,10 @@ public class ValidatorAvailability implements Validator {
 		boolean isActive = retrieveValueFromComponent(component);
 		// Retrieve stock availability
 		Integer availability = (value != null) ? (Integer) value : null;
-		if (isActive) {
-			// Validation
-			if (availability == null || availability == 0) {
-				// Quantity cannot be zero
-				throw new ValidatorException(createMessage(getValueFromKey(AVAILABILITY)));
-			} else if (availability < 0) {
-				// Quantity cannot be negative
-				throw new ValidatorException(createMessage(getValueFromKey(INTEGER)));
-			}
+		// Validation
+		if (isActive && (availability == null || availability <= 0)) {
+			// Quantity cannot be null, zero or negative when active
+			throw new ValidatorException(createMessage(getValueFromKey(AVAILABILITY)));
 		}
 	}
 

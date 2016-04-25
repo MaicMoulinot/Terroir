@@ -3,7 +3,7 @@ package com.jomm.terroir.business;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ENTITY_SHOULD_NOT_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_BE_NULL;
 import static com.jomm.terroir.util.Constants.ResourceBundleError.ID_SHOULD_NOT_BE_NULL;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.INTEGER;
+import static com.jomm.terroir.util.Constants.ResourceBundleError.NUMBER_GREATER_THAN_OR_EQUAL_TO_ZERO;
 
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -70,7 +70,7 @@ public class ServiceProductImpl implements ServiceProduct {
 		} else if (stock.getId() == null || stock.getProduct().getId() == null) {
 			throw new ExceptionService(ID_SHOULD_NOT_BE_NULL);
 		} else if (newQuantity == null || newQuantity < 0) {
-			throw new ExceptionService(INTEGER);
+			throw new ExceptionService(NUMBER_GREATER_THAN_OR_EQUAL_TO_ZERO);
 		}
 		stock.setAvailability(newQuantity);
 		stock.setLastUpdate(ZonedDateTime.now());

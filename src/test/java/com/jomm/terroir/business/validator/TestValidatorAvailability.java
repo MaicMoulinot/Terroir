@@ -1,7 +1,6 @@
 package com.jomm.terroir.business.validator;
 
 import static com.jomm.terroir.util.Constants.ResourceBundleError.AVAILABILITY;
-import static com.jomm.terroir.util.Constants.ResourceBundleError.INTEGER;
 import static com.jomm.terroir.util.Constants.View.PARAMETER1;
 import static com.jomm.terroir.util.Resources.getValueFromKey;
 import static org.junit.Assert.assertEquals;
@@ -36,10 +35,8 @@ public class TestValidatorAvailability {
 	private enum ExpectedResult {
 		/** Active is null or false, thus the validation should not fail. */
 		SUCCESS_ACTIVE_NULL_OR_FALSE,
-		/** Availability is negative, thus the validation should fail. */
-		FAILURE_AVAILABILITY_NEGATIVE,
-		/** Availability is null or zero with an active state, thus the validation should fail. */
-		FAILURE_AVAILABILITY_NULL_OR_ZERO,
+		/** Availability is not positive with an active state, thus the validation should fail. */
+		FAILURE_AVAILABILITY_NOT_POSITIVE,
 		/** The availability is valid, thus the validation should succeed. */
 		SUCCESS
 	};
@@ -82,8 +79,7 @@ public class TestValidatorAvailability {
 				assertTrue("ValidatorException is not thrown, which is expected with isActive=" + isActive 
 						+ ", availability=" + availability, true);				
 				break;
-			case FAILURE_AVAILABILITY_NEGATIVE: // This is NOT expected
-			case FAILURE_AVAILABILITY_NULL_OR_ZERO: // This is NOT expected
+			case FAILURE_AVAILABILITY_NOT_POSITIVE: // This is NOT expected
 				fail("ValidatorException was not thrown and should have with isActive=" + isActive 
 						+ ", availability=" + availability);				
 				break;
@@ -95,12 +91,7 @@ public class TestValidatorAvailability {
 				fail("ValidatorException was thrown and should not have with isActive=" + isActive 
 						+ ", availability=" + availability + ", " + expectedException.getFacesMessage().getSummary());		
 				break;
-			case FAILURE_AVAILABILITY_NEGATIVE: // This is expected
-				assertEquals("ValidatorException was thrown, which is expected with isActive=" + isActive 
-						+ ", availability=" + availability, getValueFromKey(INTEGER), 
-						expectedException.getFacesMessage().getSummary());		
-				break;
-			case FAILURE_AVAILABILITY_NULL_OR_ZERO: // This is expected
+			case FAILURE_AVAILABILITY_NOT_POSITIVE: // This is expected
 				assertEquals("ValidatorException was thrown, which is expected with isActive=" + isActive 
 						+ ", availability=" + availability, getValueFromKey(AVAILABILITY), 
 						expectedException.getFacesMessage().getSummary());		
@@ -123,11 +114,10 @@ public class TestValidatorAvailability {
 			// The validation must not fail with null or empty values
 			{14, null, ExpectedResult.SUCCESS_ACTIVE_NULL_OR_FALSE},
 			{14, false, ExpectedResult.SUCCESS_ACTIVE_NULL_OR_FALSE},
-			// The validation must fail with negative availability and active state
-			{-14, true, ExpectedResult.FAILURE_AVAILABILITY_NEGATIVE},
-			// The validation must fail with null or zero availability and active state
-			{null, true, ExpectedResult.FAILURE_AVAILABILITY_NULL_OR_ZERO},
-			{0, true, ExpectedResult.FAILURE_AVAILABILITY_NULL_OR_ZERO},
+			// The validation must fail with null, negative or zero availability and active state
+			{null, true, ExpectedResult.FAILURE_AVAILABILITY_NOT_POSITIVE},
+			{-14, true, ExpectedResult.FAILURE_AVAILABILITY_NOT_POSITIVE},
+			{0, true, ExpectedResult.FAILURE_AVAILABILITY_NOT_POSITIVE},
 			// The validation must succeed with correct values
 			{14, true, ExpectedResult.SUCCESS}
 		});

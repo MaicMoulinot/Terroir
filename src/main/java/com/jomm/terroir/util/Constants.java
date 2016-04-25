@@ -133,8 +133,6 @@ public final class Constants {
 		ID_SHOULD_BE_NULL("idnotnull"),
 		/** "idnull" */
 		ID_SHOULD_NOT_BE_NULL("idnull"),
-		/** "integer" */
-		INTEGER("integer"),
 		/** "length5and15" */
 		LENGTH_BETWEEN_5_AND_15("length5and15"),
 		/** "mandatory" */
@@ -143,8 +141,10 @@ public final class Constants {
 		MANDATORY_DESIGNATION("mandatorydesignation"),
 		/** "medianpriceinvalid" */
 		MEDIAN_PRICE_INVALID("medianpriceinvalid"),
-		/** "number" */
-		NUMBER("number"),
+		/** "numbernotnegative" */
+		NUMBER_GREATER_THAN_OR_EQUAL_TO_ZERO("numbernotnegative"),
+		/** "numbergreaterzero" */
+		NUMBER_GREATER_THAN_ZERO("numbergreaterzero"),
 		/** "passwordsdifferent" */
 		PASSWORDS_DONT_MATCH("passwordsdifferent"),
 		/** "priceoutofrange" */
