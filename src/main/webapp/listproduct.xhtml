@@ -146,27 +146,13 @@
 				<p:column headerText="#{label.actions}">
 					<p:rowEditor />
 					<p:commandLink styleClass="ui-icon ui-icon-trash"
-						update=":form:deleteConfirmDialog"
+						update=":deleteConfirmDialog"
 						oncomplete="PF('deleteConfirmation').show();"
 						action="#{backingListProduct.setCurrentProduct(currentProduct)}">
 					</p:commandLink>
 				</p:column>
 
 			</p:dataTable>
-
-			<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
-				hideEffect="fade" header="#{label.confirmation}" severity="alert"
-				widgetVar="deleteConfirmation"
-				message="#{backingListProduct.confirmeDeleteMessage()}"
-				closeOnEscape="true">
-				<p:commandButton id="confirm" value="#{label.valid}"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
-					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"
-					action="#{backingListProduct.delete()}" process="@this" />
-				<p:commandButton id="decline" value="#{label.cancel}"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
-					oncomplete="PF('deleteConfirmation').hide();" />
-			</p:confirmDialog>
 
 			<!-- Buttons -->
 			<p:spacer height="50" />
@@ -179,6 +165,22 @@
 			</h:panelGrid>
 			<p:spacer height="50" />
 		</h:form>
+
+		<p:confirmDialog id="deleteConfirmDialog" showEffect="slide"
+			hideEffect="fade" header="#{label.confirmation}" severity="alert"
+			widgetVar="deleteConfirmation"
+			message="#{backingListProduct.confirmeDeleteMessage()}"
+			closeOnEscape="true">
+			<h:form id="dialog">
+				<p:commandButton id="confirm" value="#{label.valid}"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check"
+					oncomplete="PF('deleteConfirmation').hide();" update=":form:growl"
+					action="#{backingListProduct.delete()}" process="@this" />
+				<p:commandButton id="decline" value="#{label.cancel}"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close"
+					oncomplete="PF('deleteConfirmation').hide();" />
+			</h:form>
+		</p:confirmDialog>
 
 	</ui:define>
 </ui:composition>
